@@ -9,25 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create("quizzes",function(Blueprint $table){
+        Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-
-            $table->unsignedBigInteger('id_question');
-            $table->foreign('id_question')->references('id')->on('questions')->onDelete('cascade');
-
+            $table->foreignId('question_id')->constrained();
+            $table->text('option_text');
+            $table->boolean('is_correct');
             $table->timestamps();
-    });
+        });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('quizzes');
+        //
     }
 };

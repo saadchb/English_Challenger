@@ -1,11 +1,12 @@
 :root {
-  --main-bg-color: #9a9d02;
-  --main-text-color: #907b08;
-  --second-text-color: #bbbec5;
-  --second-bg-color: #c1efde;
+  --main-bg-color: #b3b616;
+  --main-text-color: #3f3605;
+  --second-text-color: #a2a8b7;
+  --second-bg-color: #bd9e9e;
+
 }
-body {
-  background-color: #d1d19f;
+#sidebar-wrapper{
+  background-color: #b4b1b15d;
 }
 .primary-text {
   color: var(--main-text-color);
@@ -50,6 +51,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+
   -webkit-transition: width 0.25s ease-out; /* Add transition for a smooth effect */
   -moz-transition: width 0.25s ease-out;
   -o-transition: width 0.25s ease-out;

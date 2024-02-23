@@ -9,13 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create("details",function(Blueprint $table){
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->boolean('answers');
+            $table->foreignId('quiz_id')->constrained();
+            $table->text('question_text');
+            $table->enum('question_type', ['true_or_false', 'multi_choice', 'single_choice']);
             $table->timestamps();
-    });
+        });
     }
 
     /**
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('details');
+        //
     }
 };
