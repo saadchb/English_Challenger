@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\LessonController;
+
 
 Route::get('/', function () {
     return view('Backend_editor.dachboard');
@@ -24,4 +26,5 @@ Route::resource('/Quizzes',QuizController::class);
 Route::resource('/Questions',QuestionController::class);
 // Route::post('/save-question', [QuestionController::class, 'saveQuestion']);
 Route::resource('/Schools',SchoolController::class);
+Route::resource('/lessons',LessonController::class);
 
