@@ -57,7 +57,7 @@
                             <tbody>
                                 @foreach ($schools as $school)
                                 <tr>
-                                    <td><img src="{{ asset('storage/'.$school->school_logo) }}" alt="{{$school->school_name}}" style="height: 50px;width:100px;"></td>
+                                    <td><img src="{{ asset('storage/'.$school->school_logo) }}" alt="logo" style="height: 50px;width:100px;"></td>
                                     <td>{{$school->school_name}}</td>
                                     <td>{{$school->name_headmaster}}</td>
                                     <td>{{$school->school_city}}</td>

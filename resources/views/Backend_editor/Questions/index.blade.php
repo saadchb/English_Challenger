@@ -34,7 +34,6 @@
                         <thead>
                             <tr style="background-color: #dedede;">
                                 <th scope="col">Question</th>
-                                <th scope="col">quiz</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">type</th>
                                 <th scope="col">Date</th>
@@ -45,9 +44,9 @@
                         <tbody>
                             <tr>
                                 <td>{{$question->title}}</td>
+                                <td>name</td>
                                 <td>{{$question->question_type}}</td>
-                                <td>name</td>
-                                <td>name</td>
+                                <td>{{$question->created_at}}</td>
                                 <td>name</td>
                                 <td>
 

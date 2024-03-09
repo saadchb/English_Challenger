@@ -22,6 +22,6 @@ Route::get('/sh',function(){
 
 Route::resource('/Quizzes',QuizController::class);
 Route::resource('/Questions',QuestionController::class);
-// Route::post('/save-question', [QuestionController::class, 'saveQuestion']);
 Route::resource('/Schools',SchoolController::class);
 
+// Route::get('/search-questions', [QuizController::class, 'searchQuestions']);

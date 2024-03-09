@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('pagination');
             $table->boolean('review')->default(1);
             $table->boolean('show_correct_answer')->default(1);
+            $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
