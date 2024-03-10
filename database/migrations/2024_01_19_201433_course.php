@@ -56,9 +56,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_curriculm')->nullable();
             $table->foreign('id_curriculm')->references('id')->on('curriculms')->onDelete('cascade');
 
-
             $table->unsignedBigInteger('id_lesson')->nullable();
             $table->foreign('id_lesson')->references('id')->on('lessons')->onDelete('cascade');
+
 
             $table->timestamps();
         });

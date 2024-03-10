@@ -40,11 +40,6 @@ class SchoolController extends Controller
     {
       
         $imagePath = $request->file('school_logo')->store('images','public');
-
-     
-        // $famille = new Famille();
-        // $famille ->intitule_fam = $request -> input('intitule_fam');
-        // $ ->image=$imagePath;
         $school = new School([
             'school_name' => $request->get('school_name'),
             'phone_number' => $request->get('phone_number'),

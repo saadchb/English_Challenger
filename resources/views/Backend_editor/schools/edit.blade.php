@@ -1,5 +1,9 @@
 @extends('Backend_editor.Layout')
+<<<<<<< HEAD
+@section('title','edit school')
+=======
 @section('title','Add school')
+>>>>>>> origin/master
 @push('style')
 
 @endpush

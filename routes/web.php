@@ -12,8 +12,12 @@ use App\Http\Controllers\TagController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
+<<<<<<< HEAD
+use App\Http\Controllers\StudentController;
+=======
 use App\Http\Controllers\LessonController;
 
+>>>>>>> origin/master
 
 Route::get('/', function () {
     return view('Backend_editor.dachboard');
@@ -45,5 +49,10 @@ Route::resource('/Questions',QuestionController::class);
 
 // Route::post('/save-question', [QuestionController::class, 'saveQuestion']);
 Route::resource('/Schools',SchoolController::class);
+<<<<<<< HEAD
+
+Route::resource('/Students',StudentController::class);
+=======
 Route::resource('/lessons',LessonController::class);
 
+>>>>>>> origin/master
