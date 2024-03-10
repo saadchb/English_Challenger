@@ -11,22 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create("schools",function(Blueprint $table){
+        Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->string('school_name');
-            $table->string('school_logo');
+            $table->text('school_logo')->nullable();;
             $table->string('phone_number');
             $table->string('email');
-            $table->string('linkdin');
+            // $table->string('linkdin');
             $table->string('name_headmaster');
             $table->string('phone_number_headmaster');
             $table->string('school_city');
             $table->string('adresse');
+            $table->foreignId('course_id')->constrained();
             $table->text('description');
             $table->timestamps();
+        });
+    }
 
-    });
-}
     /**
      * Reverse the migrations.
      */

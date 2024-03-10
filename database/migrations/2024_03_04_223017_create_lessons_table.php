@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create("lessons",function(Blueprint $table){
+        Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->dateTime('duration');
+            $table->time('duration');
             $table->boolean('priview');
+            $table->unsignedBigInteger('course_id'); // Corrected column name
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade'); // Corrected table name
             $table->timestamps();
-
         });
     }
 
@@ -30,3 +31,5 @@ return new class extends Migration
         Schema::dropIfExists('lessons');
     }
 };
+
+       

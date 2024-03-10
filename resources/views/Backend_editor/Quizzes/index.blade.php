@@ -45,52 +45,9 @@
 
                         </td>
                     </tr>
-                    <tr>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash-can"></i> DELETE</button>
-                            <button type="button" class="btn btn-outline-info btn-sm" id="selectQuestionI"><i class="fa-solid fa-pen"></i> EDIT</button>
-
-                        </td>
-                    </tr> <tr>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash-can"></i> DELETE</button>
-                            <button type="button" class="btn btn-outline-info btn-sm" id="selectQuestionI"><i class="fa-solid fa-pen"></i> EDIT</button>
-
-                        </td>
-                    </tr><tr>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash-can"></i> DELETE</button>
-                            <button type="button" class="btn btn-outline-info btn-sm" id="selectQuestionI"><i class="fa-solid fa-pen"></i> EDIT</button>
-
-                        </td>
-                    </tr><tr>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>name</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash-can"></i> DELETE</button>
-                            <button type="button" class="btn btn-outline-info btn-sm" id="selectQuestionI"><i class="fa-solid fa-pen"></i> EDIT</button>
-
-                        </td>
-                    </tr>
+                    
                 </tbody>
+                
             </table>
         </div>
     </div>

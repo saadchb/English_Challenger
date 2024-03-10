@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('quiz_id')->constrained();
-            $table->text('question_text');
+            $table->string('title');
+            $table->text('description');
             $table->enum('question_type', ['true_or_false', 'multi_choice', 'single_choice']);
+            $table ->integer('points');
+            $table->string('hint')->nullable();
             $table->timestamps();
         });
     }

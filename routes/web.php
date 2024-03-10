@@ -11,18 +11,22 @@ use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\TagController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\LessonController;
+
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/Layout', function () {
-    return view('Backend_editor.Layout');
-});
-
-Route::get('/dachboard', function () {
     return view('Backend_editor.dachboard');
 });
+Route::get('/sh',function(){
+    return view('Backend_editor.schools.sh');
+});
+
+// Route::get('/Layout', function () {
+//     return view('Backend_editor.Layout');
+// });
+
+
 
 // Route::get('/index', function () {
 //     return view('Backend_editor.courses.index');
@@ -38,3 +42,10 @@ Route::get('/Tags.index',[TagController::class, 'index'])->name('Tags.index');
 Route::post('/Tags.store',[TagController::class, 'store'])->name('Tags.store');
 Route::resource('/Quizzes',QuizController::class);
 Route::resource('/Questions',QuestionController::class);
+<<<<<<< HEAD
+=======
+// Route::post('/save-question', [QuestionController::class, 'saveQuestion']);
+Route::resource('/Schools',SchoolController::class);
+Route::resource('/lessons',LessonController::class);
+
+>>>>>>> 8a88f56f612807a22d031881ae94f29a932e5cd0
