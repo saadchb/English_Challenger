@@ -31,7 +31,7 @@
 
 
 
-<body>
+<body >
 
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
@@ -52,7 +52,7 @@
         <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
         <!-- <a href="/Add_Quizzes" class="list-group-item list-group-item-action bg-transparent "><i
             class="fas fa-shopping-cart me-2 text-primary me-2 text-success"></i>  Add Quizze</a> -->
-        <a href="#" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-list-check me-2 fa-lg" style="color: #8f66cc;"></i> Assignments</a>
+        <!-- <a href="#" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-list-check me-2 fa-lg" style="color: #8f66cc;"></i> Assignments</a> -->
         <a href="/Questions" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-clipboard-question me-2 fa-lg" style="color: #8f66cc;"></i> Questions</a>
       </div>
 

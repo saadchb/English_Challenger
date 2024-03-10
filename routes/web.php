@@ -27,4 +27,11 @@ Route::resource('/Questions',QuestionController::class);
 Route::resource('/Schools',SchoolController::class);
 Route::resource('/lessons',LessonController::class);
 
+// Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');
+// Route::get('/lessons/create', [LessonController::class, 'create'])->name('lessons.create');
+// Route::post('/lessons/store', [LessonController::class, 'store'])->name('lessons.store');
+// Route::delete('/lessons/{id}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+// Route::get('/lessons/{id}', [LessonController::class, 'edit'])->name('lessons.edit');
+// Route::put('/lessons/update', [LessonController::class, 'update'])->name('lessons.update');
+
 // Route::get('/search-questions', [QuizController::class, 'searchQuestions']);
