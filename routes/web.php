@@ -42,10 +42,8 @@ Route::get('/Tags.index',[TagController::class, 'index'])->name('Tags.index');
 Route::post('/Tags.store',[TagController::class, 'store'])->name('Tags.store');
 Route::resource('/Quizzes',QuizController::class);
 Route::resource('/Questions',QuestionController::class);
-<<<<<<< HEAD
-=======
+
 // Route::post('/save-question', [QuestionController::class, 'saveQuestion']);
 Route::resource('/Schools',SchoolController::class);
 Route::resource('/lessons',LessonController::class);
 
->>>>>>> 8a88f56f612807a22d031881ae94f29a932e5cd0
