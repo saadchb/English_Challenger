@@ -1,7 +1,7 @@
 @extends('Backend_editor.Layout')
-@section('title','Courses')
+@section('title','Lessons')
 @section('content')
 
-          <h1>Add cousre page</h1>
+          <h1>Lessons page</h1>
 
 @endsection

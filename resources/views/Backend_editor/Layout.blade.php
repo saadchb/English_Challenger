@@ -22,6 +22,7 @@
     }
   </style>
   @yield('styles')
+  @vite('resources/css/app.css')
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href=" {{url('css/backendeditor.css')}} ">
 
@@ -42,57 +43,72 @@
       <div class="list-group list-group-flush my-3" style="max-height: 300px; overflow-y: auto;">
         <div id="link"><a href="/" class="list-group-item list-group-item-action bg-transparent ">
             <i class="fas fa-tachometer-alt me-2 fa-lg" style="color: #8f66cc;"></i> Dashboard</a></div>
-        <a href="#" class="list-group-item list-group-item-action bg-transparent " id="link">
-          <i class="fa-regular fa-book-open me-2 fa-lg" style="color: #8f66cc;"></i> Courses</a>
+            <a href="/Courses" class="list-group-item list-group-item-action bg-transparent "
+            id="link">
+            <i class="fa-regular fa-book-open me-2 fa-lg" style="color: #8f66cc;"></i> Courses</a>
+        {{-- <a href="{{ route('courses.Add_Coures') }}"
+            class="list-group-item list-group-item-action bg-transparent " id="link">
+            <i class="fa-regular fa-book-open me-2 fa-lg" style="color: #8f66cc;"></i> Courses</a> --}}
+        <a href="{{route('Courses.create')}}" class="list-group-item list-group-item-action bg-transparent "><i
+    class="fas fa-chart-line me-2 text-primary me-2 text-success"></i>  Add Course</a>
         <a href="/Schools" class="list-group-item list-group-item-action bg-transparent " id="link">
           <i class="fa-regular fa-school me-2 fa-lg" style="color: #8f66cc;"></i> Schools</a>
         <!-- <a href="/Add_Course" class="list-group-item list-group-item-action bg-transparent "><i
             class="fas fa-chart-line me-2 text-primary me-2 text-success"></i>  Add Course</a> -->
+<<<<<<< HEAD
+        <a href="#" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-brands fa-creative-commons-share me-2 fa-lg" style="color: #8f66cc;"></i> Lessons</a>
+        <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
+        <!-- <a href="/Add_Quizzes" class="list-group-item list-group-item-action bg-transparent "><i
+            class="fas fa-shopping-cart me-2 text-primary me-2 text-success"></i>  Add Quizze</a> -->
+        <a href="/Students" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-users" style="color: #8f66cc;"></i> Students</a>
+=======
         <a href="/lessons" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-brands fa-creative-commons-share me-2 fa-lg" style="color: #8f66cc;"></i> Lessons</a>
         <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
         <!-- <a href="/Add_Quizzes" class="list-group-item list-group-item-action bg-transparent "><i
             class="fas fa-shopping-cart me-2 text-primary me-2 text-success"></i>  Add Quizze</a> -->
-        <!-- <a href="#" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-list-check me-2 fa-lg" style="color: #8f66cc;"></i> Assignments</a> -->
+        <a href="" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-list-check me-2 fa-lg" style="color: #8f66cc;"></i> Assignments</a>
         <a href="/Questions" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-clipboard-question me-2 fa-lg" style="color: #8f66cc;"></i> Questions</a>
       </div>
 
-      <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
+
+            <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                    class="fas fa-power-off me-2"></i>Logout</a>
+        </div>
     </div>
-  </div>
+    <div id="page-content-wrapper">
+        @yield('content')
+    </div>
+    </div>
 
-  <div id="page-content-wrapper">
-    @yield('content')
-  </div>
-  </div>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.7.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
 
+        toggleButton.onclick = function() {
+            el.classList.toggle("toggled");
+        };
+    </script>
 
-  <script>
-    var el = document.getElementById("wrapper");
-    var toggleButton = document.getElementById("menu-toggle");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var listItems = document.querySelectorAll("#link");
 
-    toggleButton.onclick = function() {
-      el.classList.toggle("toggled");
-    };
-  </script>
+            listItems.forEach(function(item) {
+                item.addEventListener("click", function() {
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var listItems = document.querySelectorAll("#link");
+                    listItems.forEach(function(li) {
+                        li.classList.remove("active");
+                    });
 
-      listItems.forEach(function(item) {
-        item.addEventListener("click", function() {
-
-          listItems.forEach(function(li) {
-            li.classList.remove("active");
-          });
-
-          item.classList.add("active");
+                    item.classList.add("active");
+                });
+            });
         });
-      });
-    });
+
+
   </script>
   <script>
     // JavaScript to highlight active link
