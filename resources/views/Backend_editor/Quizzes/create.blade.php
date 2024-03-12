@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label for="search">Question search:</label>
                             <input type="text" id="search" class="form-control" placeholder="Nom d'article">
-                            <button class="btn btn-outline-success"><span class="fa fa-search"></span></button>
+                            <!-- <button class="btn btn-outline-success"><span class="fa fa-search"></span></button> -->
                             <div id="searchResults"></div>
                         </div><br><br>
 

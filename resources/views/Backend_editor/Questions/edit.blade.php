@@ -28,67 +28,72 @@
 </style>
 @endsection
 @section('content')
-<form action="{{route('Questions.update',$question->id)}}" method="POST" class="form-horizontal ">
 @csrf
 @method('put')
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top py-2 pr-7" style="width: 83%; margin-left: 18%;">
- <div class="collapse navbar-collapse" id="navbarNav">    <a class="navbar-brand" href="#">Add new Question</a>
- 
-   
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
+<form action="{{route('Questions.update',$question->id)}}" method="POST" class="form-horizontal ">
+    <div class="sticky-top bg-white border-bottom  px-4 py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="text-xl font-bold text-gray-900">Edit Question</h3>
+            <div class="d-flex gap-3 align-items-center">
                 <a href="/Questions" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
-            </li>
-            <li class="nav-item">
-                <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-            </li>
-        </ul>
-    </div>
-</nav>
-<br>
+                <div class="position-relative">
 
-<div class="container mt-5 m-4">
-    <div class="modal-body">
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+                </div>
 
-        <!-- Question input -->
-        <div class="form-group">
-            <label for="modalQuestion"><b>Title</b></label>
-            <input value="{{$question->title}}" name="title" type="text" class="form-control" placeholder="Enter question">
-        </div><br>
+            </div>
+        </div>
 
-        <div class="form-group">
-            <label for="modalDescription"><b>Description</b></label>
-            <textarea  name="description" class="form-control" id="modalDescription" rows="2" placeholder="Enter description">{{$question->description}}
-            </textarea>
-        </div><br>
+    </div><br>
 
-        <!-- Question type -->
-        <div class="form-group">
-            <label for="modalQuestionType"><b>Question Type</b></label>
-            <select name="question_type"  class="form-control col-md-2 form-select" style="float: inline-end;" id="modalQuestionType" onchange="updateModalOptions()">
-                <option value="true_or_false" selected>True/False</option>
-                <option value="multi_choice">Multi Choice</option>
-                <option value="single_choice">Single Choice</option>
-            </select>
-        </div><br>
-        <!-- Options container -->
-        <div id="modalOptionsContainer">
+    <div class="container-fluid mt--8">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header border-0">
 
-        </div><br>
-        <!-- Point input -->
-        <div class="form-group">
-            <label for="modalPoint"><b>Point</b></label>
-            <input value="{{$question->points}}" name="points" type="number" value="1" class="form-control col-md-1" id="modalPoint" placeholder="Enter point" />
-        </div><br>
+                        <!-- Question input -->
+                        <div class="form-group">
+                            <label for="modalQuestion"><b>Title</b></label>
+                            <input value="{{$question->title}}" name="title" type="text" class="form-control" placeholder="Enter question">
+                        </div><br>
 
-        <!-- Hint input -->
-        <div class="form-group">
-            <label for="modalHint"><b>Hint</b></label>
-            <textarea   name="hint" type="text" class="form-control" id="modalHint" placeholder="Enter hint">{{$question->hint}}</textarea>
+                        <div class="form-group">
+                            <label for="modalDescription"><b>Description</b></label>
+                            <textarea name="description" class="form-control" id="modalDescription" rows="2" placeholder="Enter description">{{$question->description}}
+                            </textarea>
+                        </div><br>
+
+                        <!-- Question type -->
+                        <div class="form-group">
+                            <label for="modalQuestionType"><b>Question Type</b></label>
+                            <select name="question_type" class="form-control col-md-2 form-select" style="float: inline-end;" id="modalQuestionType" onchange="updateModalOptions()">
+                                <option value="true_or_false" selected>True/False</option>
+                                <option value="multi_choice">Multi Choice</option>
+                                <option value="single_choice">Single Choice</option>
+                            </select>
+                        </div><br>
+                        <!-- Options container -->
+                        <div id="modalOptionsContainer">
+
+                        </div><br>
+                        <!-- Point input -->
+                        <div class="form-group">
+                            <label for="modalPoint"><b>Point</b></label>
+                            <input value="{{$question->points}}" name="points" type="number" value="1" class="form-control col-md-1" id="modalPoint" placeholder="Enter point" />
+                        </div><br>
+
+                        <!-- Hint input -->
+                        <div class="form-group">
+                            <label for="modalHint"><b>Hint</b></label>
+                            <textarea name="hint" type="text" class="form-control" id="modalHint" placeholder="Enter hint">{{$question->hint}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</form>
+</form><br>
 <script>
     // Call updateModalOptions() when the page loads to set the default options
     window.onload = function() {
@@ -177,7 +182,6 @@
         }
     }
     var saveBtn = document.getElementById("saveBtn");
-
 </script>
 
 @endsection

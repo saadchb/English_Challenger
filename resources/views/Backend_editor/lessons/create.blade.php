@@ -63,11 +63,7 @@ $courses = Course::all();
             <div class="d-flex gap-3 align-items-center">
                 <a href="/lessons" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
                 <div class="position-relative">
-                    <span class="position-absolute d-flex items-center left-0 pl-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </span>
+            
                     <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
                 </div>
 

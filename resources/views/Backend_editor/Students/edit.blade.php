@@ -4,7 +4,7 @@
 
 @endpush
 @section('content')
-<form action="{{route('Students.update',$student->id)}}" method="post" enctype="multipart/form-data">
+<form action="{{route('Students.update',$Student->id)}}" method="post" enctype="multipart/form-data">
 
 <div class="sticky-top bg-white border-bottom  px-4 py-3">
     <div class="d-flex justify-content-between align-items-center">

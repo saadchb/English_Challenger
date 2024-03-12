@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('phone_number_headmaster');
             $table->string('school_city');
             $table->string('adresse');
-            $table->foreignId('course_id')->constrained()->nullable();
             $table->text('description');
             $table->timestamps();
         });

@@ -118,7 +118,7 @@ class CourseController extends Controller
                 }
             }
             // dd($dataJson);
-            return redirect()->route('Courses.create');
+            return redirect()->route('Courses.index');
         }
     /**
      * Display the specified resource.

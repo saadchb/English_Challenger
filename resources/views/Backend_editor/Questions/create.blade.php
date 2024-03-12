@@ -36,11 +36,7 @@
             <div class="d-flex gap-3 align-items-center">
                 <a href="/Questions" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
                 <div class="position-relative">
-                    <span class="position-absolute d-flex items-center left-0 pl-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </span>
+                
                     <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
                 </div>
 
@@ -111,8 +107,8 @@
 
         // For true/false options
         if (selectedType === "true_or_false") {
-            addOption(modalOptionsContainer, "radio", false); // Pass false to includeButton parameter
-            addOption(modalOptionsContainer, "radio", false); // Pass false to includeButton parameter
+            addOption(modalOptionsContainer, "checkbox", false); // Pass false to includeButton parameter
+            addOption(modalOptionsContainer, "checkbox", false); // Pass false to includeButton parameter
         }
 
         // For multi-choice options
@@ -124,8 +120,8 @@
 
         // For single-choice options
         if (selectedType === "single_choice") {
-            addOption(modalOptionsContainer, "radio", true); // Pass true to includeButton parameter
-            addOption(modalOptionsContainer, "radio", true); // Pass true to includeButton parameter
+            addOption(modalOptionsContainer, "checkbox", true); // Pass true to includeButton parameter
+            addOption(modalOptionsContainer, "checkbox", true); // Pass true to includeButton parameter
             addOptionButton(modalOptionsContainer);
         }
     }
@@ -144,10 +140,10 @@
                 <i class="fa-solid fa-trash-can "></i>
             </button>` : '';
 
-        newOption.innerHTML = `
+            newOption.innerHTML = `
             <div class=" input-group-prepend col-md-10" >
                 <div class="input-group-text">
-                <input type="${type}" name="options[]" value="${optionCount}" >
+                <input type="${type}" name="options[${optionCount}][is_correct]" value="false">
                 </div>
                 <input type="text" name="options[${optionCount}][option_text]" class="form-control" placeholder="New option">
                 <div class="input-group-append">

@@ -21,8 +21,8 @@ class School extends Model
         'adresse',
         'description'
     ];
-    // public function course():HasMany
-    // {
-    //     return $this->hasMany(course::class);
-    // }
+    public function course():HasMany
+    {
+        return $this->hasMany(course::class);
+    }
 }
