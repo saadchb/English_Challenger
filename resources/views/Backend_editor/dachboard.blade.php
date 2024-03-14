@@ -4,7 +4,7 @@
 
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
-                    <!-- <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i> -->
+                    <!-- <i class="fas fa-align-left dark-text fs-4 me-3" id="menu-toggle"></i> -->
                     <h2 class="fs-2 m-0">Dashboard</h2>
                     
                 </div>
@@ -35,43 +35,41 @@
             <div class="container-fluid px-4">
                 <div class="row g-3 my-2">
                     <div class="col-md-3">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div class="p-3 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
                                 <h3 class="fs-2">720</h3>
-                                <p class="fs-5">Products</p>
+                                <p class="fs-5">students</p>
                             </div>
-                            <i class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-gift fs-1 dark-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
 
                     <div class="col-md-3">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div class="p-3 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
                                 <h3 class="fs-2">4920</h3>
-                                <p class="fs-5">Sales</p>
+                                <p class="fs-5">Schools</p>
                             </div>
-                            <i
-                                class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                        </div>
+                            <i class="fa-regular fa-school fs-1 dark-text border rounded-full secondary-bg p-3" ></i> 
+                          </div>
                     </div>
 
                     <div class="col-md-3">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div class="p-3 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
                                 <h3 class="fs-2">3899</h3>
-                                <p class="fs-5">Delivery</p>
+                                <p class="fs-5">courses</p>
                             </div>
-                            <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                        </div>
+                            <i class="fa-regular fa-book-open fs-1 dark-text border rounded-full secondary-bg p-3" ></i>                        </div>
                     </div>
 
                     <div class="col-md-3">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div class="p-3 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
                                 <h3 class="fs-2">%25</h3>
-                                <p class="fs-5">Increase</p>
+                                <p class="fs-5">teacher</p>
                             </div>
-                            <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-chart-line fs-1 dark-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
                 </div>

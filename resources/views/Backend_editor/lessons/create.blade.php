@@ -28,109 +28,114 @@
 
     /* Custom CSS for form */
     .form-group {
-        margin-bottom: 1.5rem; /* Add space between form groups */
+        margin-bottom: 1.5rem;
+        /* Add space between form groups */
     }
 
     .form-group label {
-        width: 8rem; /* Adjust label width */
+        width: 8rem;
+        /* Adjust label width */
     }
 
     .form-group .input-group {
-        width: calc(100% - 8rem); /* Calculate input and select width */
+        width: calc(100% - 8rem);
+        /* Calculate input and select width */
     }
 
     .form-check-label {
-        margin-right: 1.5rem; /* Add space between checkbox and label */
+        margin-right: 1.5rem;
+        /* Add space between checkbox and label */
     }
-</style> 
+</style>
 @endsection
 @section('content')
-<?php 
+<?php
+
 use App\Models\Course;
-$courses=Course::all();
+
+$courses = Course::all();
 ?>
-<form action="{{ route('lessons.store') }}" method="POST" enctype="multipart/form-data" >
-@csrf
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top py-2 pr-7" style="width: 83%; margin-left: 18%; margin-bottom: 530px;">
-    <a class="navbar-brand" href="#">Add new Lesson</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a href="/lessons" class="nav-link btn btn-outline-secondary  "><i class="fa-solid fa-angle-left"></i> Back</a>
-            </li>
-            <li class="nav-item">
-                <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-            </li>
-        </ul> 
-    </div>
-</nav>
-
-<br>
-
-<div class="countainer mt-5 m-4">
-
-    <div class="modal-body">
-        <!-- Question input -->
-        <div class="form-group">
-            <label for="title"><b>Title</b></label>
-            <input type="text" class="form-control" name="title" placeholder="Enter a lesson" value='{{old("title")}}'>
-            @error('title')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
-    </div>
-
-    <div class="form-group">
-        <label for="description"><b>Description</b></label>
-        <textarea class="form-control" id="description" name="description" rows="2" placeholder="Enter description" value='{{old("description")}}'></textarea>
-        @error('description')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-        @enderror
-    </div>
-    <div class="form-group">
-        <label for="course_id">Course</label>
-        <select class="form-control" id="course_id" name="course_id" value='{{old("course_id")}}'>
-            <option value="">Choose...</option>
-        @foreach($courses as $course)
+<form action="{{route('lessons.store')}}" method="Post" enctype="multipart/form-data">
+    @csrf
+    <div class="sticky-top bg-white border-bottom  px-4 py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="text-xl font-bold text-gray-900">Add new lesson</h3>
+            <div class="d-flex gap-3 align-items-center">
+                <a href="/lessons" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
+                <div class="position-relative">
             
-        <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
-              {{ $course->title }}
-        </option>
-        @endforeach
-        </select>
-        @error('course_id')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-        @enderror
-    </div>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+                </div>
 
-    <div class="form-group">
-        <label for="duration" class="form-label"><b>Duration</b></label>
-        <div class="input-group">
-            <input value='{{old("duration")}}' id="duration" type="time" class="form-control" name="duration" value="0">
-            @error('duration')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
-    <!--    <select class="form-select" name="duration_unit">
+            </div>
+        </div>
+
+    </div><br>
+    <div class="container-fluid mt--8">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="form-group">
+
+                            <label for="title"><b>Title</b></label>
+                            <input type="text" class="form-control" name="title" placeholder="Enter a lesson" value='{{old("title")}}'>
+                            @error('title')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description"><b>Description</b></label>
+                            <textarea class="form-control" id="description" name="description" rows="2" placeholder="Enter description" value='{{old("description")}}'></textarea>
+                            @error('description')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="course_id">Course</label>
+                            <select class="form-control" id="course_id" name="course_id" value='{{old("course_id")}}'>
+                                <option value="">Choose...</option>
+                                @foreach($courses as $course)
+
+                                <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
+                                    {{ $course->title }}
+                                </option>
+                                @endforeach
+                            </select>
+                            @error('course_id')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="duration" class="form-label"><b>Duration</b></label>
+                            <div class="input-group">
+                                <input value='{{old("duration")}}' id="duration" type="time" class="form-control" name="duration" value="0"><br>
+
+                                <!--    <select class="form-select" name="duration_unit">
             <option value="minute">Minute(s)</option>
             <option value="hour">Hour(s)</option>
             <option value="day">Day(s)</option>
             <option value="week">Week(s)</option>
         </select> -->
+                            </div><br> @error('duration')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                        </div> <br>
+
+                        <div class="form-group form-check">
+                            <input id="priview" type="checkbox" class="form-check-input" name="priview" {{ old('priview') ? 'checked' : '' }}>
+                            <label for="priview" class="form-check-label">Preview</label>
+                            <span>Students can view this lesson content without taking the course.</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
-    </div> <br>
-        
-    <div class="form-group form-check">
-        <input id="priview" type="checkbox" class="form-check-input" name="priview" {{ old('priview') ? 'checked' : '' }}>
-        <label for="priview" class="form-check-label">Preview</label>
-        <span>Students can view this lesson content without taking the course.</span>
     </div>
-
-    </div>
-
-</div>
-</form>
-
-@endsection
+    </form>
+<br><br>
+        @endsection

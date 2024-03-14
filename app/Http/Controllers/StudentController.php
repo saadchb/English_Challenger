@@ -14,11 +14,11 @@ class StudentController extends Controller
     {
         if (request('search1'))
         {
-            $students = Student::where('email',"like", '%' .request('search1').'%')->paginate(8);
+            $students = Student::where('first_name',"like", '%' .request('search1').'%')->paginate(8);
         }
         else
         {
-            $students = Student::query()->latest()->paginate(8);
+            $students = Student::query()->latest()->paginate(7);
         }
      
         return view('Backend_editor.Students.index',['students'=>$students]);
