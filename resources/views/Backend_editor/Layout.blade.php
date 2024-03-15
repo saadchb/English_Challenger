@@ -41,7 +41,7 @@
         <img src="{{ asset('logo.png') }}" class="navbar-brand-img" alt="logo" width="110px" height="100px">
       </div>
       <div class="list-group list-group-flush my-3" style="max-height: 300px; overflow-y: auto;">
-        <div id="link"><a href="/" class="list-group-item list-group-item-action bg-transparent ">
+        <div id="link"><a href="/dachboard" class="list-group-item list-group-item-action bg-transparent ">
             <i class="fas fa-tachometer-alt me-2 fa-lg" style="color: #8f66cc;"></i> Dashboard</a></div>
             <a href="/Courses" class="list-group-item list-group-item-action bg-transparent "
             id="link">
