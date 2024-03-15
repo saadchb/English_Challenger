@@ -17,9 +17,6 @@
     </div> <!-- / .container -->
 </section>
 
-
-
-
 <section class="feature">
     <div class="container">
         <div class="row no-gutters">
@@ -30,7 +27,6 @@
                     </div>
                     <div class="feature-text">
                         <h4>Learn from Industry Experts</h4>
-                        <p>Behind the word mountains, far from the countries Vokalia </p>
                     </div>
                 </div>
             </div>
@@ -41,7 +37,6 @@
                     </div>
                     <div class="feature-text">
                         <h4>Learn the Latest Top Skills</h4>
-                        <p>Behind the word mountains, far from the countries Vokalia </p>
                     </div>
                 </div>
             </div>
@@ -52,7 +47,6 @@
                     </div>
                     <div class="feature-text">
                         <h4>Lifetime Access & Support</h4>
-                        <p>Behind the word mountains, far from the countries Vokalia </p>
                     </div>
                 </div>
             </div>
@@ -114,18 +108,23 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
     </section>
     <!--course section end--> 
        <!--course section start-->
-       <section class="section-padding course-grid" >
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-7">
-                    <div class="section-heading center-heading">
-                        <span class="subheading">Top Trending Courses</span>
-                        <h3>Over 200+ New Online Courses</h3>
-                    </div>
+
+
+<section class="section-padding popular-course bg-grey">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <span class="subheading">Top Trending Courses</span>
+                    <h3>Our Popular Online Courses</h3>
                 </div>
             </div>
 
-            <div class="text-center">
+            <div class="col-lg-6">
+                <div class="course-btn text-lg-right"><a href="#" class="btn btn-main"><i class="fa fa-store mr-2"></i>All Courses</a></div>
+            </div>
+        </div>
+        <div class="text-center">
                 <ul class="course-filter">
                     <li class="active"><a href="#" data-filter="*"> All</a></li>
                     <li><a href="#" data-filter=".cat1">printing</a></li>
@@ -232,122 +231,6 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             
                                 <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--course-->
-    </section>
-
-<section class="section-padding popular-course bg-grey">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="section-heading">
-                    <span class="subheading">Top Trending Courses</span>
-                    <h3>Our Popular Online Courses</h3>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="course-btn text-lg-right"><a href="#" class="btn btn-main"><i class="fa fa-store mr-2"></i>All Courses</a></div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block">
-                    <div class="course-img">
-                        <img src="build/assets/images/course/course1.jpg" alt="" class="img-fluid">
-                        <span class="course-label">Beginner</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <div class="course-price ">$50</div>   
-                        
-                        <h4><a href="#">Information About UI/UX Design Degree</a></h4>    
-                        <div class="rating">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <span>(5.00)</span>
-                        </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-
-                        <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                            <div class="course-meta">
-                                <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                            </div> 
-                           
-                            <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block">
-                    <div class="course-img">
-                        <img src="build/assets/images/course/course2.jpg" alt="" class="img-fluid">
-                        <span class="course-label">Advanced</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <div class="course-price ">$80 <span class="del">$120</span></div>   
-                        
-                        <h4><a href="#">Photography Crash Course for Photographer</a></h4>    
-                        <div class="rating">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <span>(5.00)</span>
-                        </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-
-                        <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                            <div class="course-meta">
-                                <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                            </div> 
-                           
-                            <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block">
-                    <div class="course-img">
-                        <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-                        <span class="course-label">Expert</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <div class="course-price ">$100 <span class="del">$180</span></div>   
-                        
-                        <h4><a href="#">React – The Complete Guide (React Router)</a></h4>    
-                        <div class="rating">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <span>(5.00)</span>
-                        </div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-
-                        <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                            <div class="course-meta">
-                                <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                            </div> 
-                           
-                            <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
                         </div>
                     </div>
                 </div>
@@ -502,70 +385,6 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
         </div>
     </div>
 </section>
-<section class="section-padding bg-grey team-2">
-    <div class="container">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-heading center-heading">
-                    <span class="subheading">Best Expert Trainer</span>
-                    <h3>Our Professional trainer</h3>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-lg-4 col-sm-6">
-                <div class="team-block">
-                    <div class="team-img">
-                        <img src="build/assets/images/team/team-4.jpg" alt="" class="img-fluid">
-                    </div>
-                    <div class="team-info">
-                        <h4>Harish Ham</h4>
-                        <p>CEO, Developer</p>
-                    </div>
-                    <ul class="team-socials list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="team-block">
-                    <div class="team-img">
-                        <img src="build/assets/images/team/team-1.jpg" alt="" class="img-fluid">
-                    </div>
-                    <div class="team-info">
-                        <h4>Tanvir Hasan</h4>
-                        <p>Market Researcher</p>
-                    </div>
-                    <ul class="team-socials list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="team-block">
-                    <div class="team-img">
-                        <img src="build/assets/images/team/team-2.jpg" alt="" class="img-fluid">
-                    </div>
-                    <div class="team-info">
-                        <h4>Mikele John</h4>
-                        <p>Content Writter</p>
-                    </div>
-                    <ul class="team-socials list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <section class="testimonial section-padding">
     <div class="container">
         <div class="row justify-content-center">
@@ -652,66 +471,6 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                     </div>
                   </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="section-padding offer-course">
-    <div class="container">
-        <div class="row ">
-            <div class="col-lg-4">
-                <div class="section-heading">
-                    <span class="subheading">50% Discount offer</span>
-                    <h3>Hurry Up to get <span>50% off</span> courses</h3>
-                    <p>Eum eligendi nihil labore nemo alias eos sapiente perferendis iste molestias explicabo.tempor incididunt ut labore et dolore magna aliqua tempor incididunt.  </p>
-                    <a href="#" class="btn btn-main"><i class="fa fa-store mr-2"></i>All Courses</a>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block">
-                    <div class="course-img">
-                        <img src="build/assets/images/course/course1.jpg" alt="" class="img-fluid">
-                        <span class="course-label">Beginner</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <div class="rating">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <span>(5.00)</span>
-                        </div>
-                        <h4><a href="#">Information About UI/UX Design Degree</a></h4>    
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-                        <div class="course-price ">$50</div>   
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block">
-                    <div class="course-img">
-                        <img src="build/assets/images/course/course2.jpg" alt="" class="img-fluid">
-                        <span class="course-label">Advanced</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <div class="rating">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <span>(5.00)</span>
-                        </div>
-                        <h4><a href="#">Photography Crash Course for Photographer</a></h4>    
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-                        <div class="course-price ">$80 <span class="del">$120</span></div>   
-                    </div>
-                </div>
             </div>
         </div>
     </div>
