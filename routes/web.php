@@ -12,6 +12,7 @@ use App\Http\Controllers\TagController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
+
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\LessonController;
 
