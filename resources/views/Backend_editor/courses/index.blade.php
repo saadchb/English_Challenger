@@ -3,7 +3,7 @@
 @section('content')
     <div class="relative">
         <div class="">
-            <div class="fixed top-0 right-0  z-40 bg-white flex items-center justify-between px-6 py-4 border-b w-full" style="width: 81%;">
+            <div class="fixed top-0 right-0  z-40 bg-white flex items-center justify-between px-6 py-4 border-b w-full" style="width: 79%;">
                 <div class="flex items-center">
                     <h2 class="text-xl font-bold text-gray-900">List your courses</h2>
                 </div>

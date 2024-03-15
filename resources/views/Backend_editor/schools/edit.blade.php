@@ -1,5 +1,9 @@
 @extends('Backend_editor.Layout')
 @section('title','edit school')
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7cc00312dea58a52f8158448bb6722486b763a6c
 @push('style')
 
 @endpush

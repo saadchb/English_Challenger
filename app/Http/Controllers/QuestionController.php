@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Option;
 use App\Models\Question;
+use App\Models\Option; // Assuming you have a model named 'Option' for the options table
+
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -46,12 +47,13 @@ class QuestionController extends Controller
 
          // Create options if they are provided in the request
          if ($request->has('options')) {
-             foreach ($request->options as $optionData) {
-                 $question->options()->create([
-                     'option_text' => $optionData['option_text'],
-                     'is_correct' => $optionData['is_correct'] ?? false,
-                 ]);
-             }
+            foreach ($request->options as $optionData) {
+                $question->options()->create([
+                    'option_text' => $optionData['option_text'] ?? '',
+                    'is_correct' => isset($optionData['is_correct']) ? (bool)$optionData['is_correct'] : false,
+                ]);
+            }
+
          }
 
          return redirect()->route('Questions.index')->with('success', 'Question added successfully');
@@ -113,18 +115,44 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Question $question)
+    public function edit(string $id)
     {
-        //
-    }
+        $question =Question::findOrFail($id);
+    return view('Backend_editor.Questions.edit',['question'=>$question]);    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Question $question)
-    {
-        //
+
+        public function update(Request $request, $id)
+{
+    $question = Question::findOrFail($id);
+
+    $question->update([
+        'title' => $request->input('title'),
+        'description' => $request->input('description'),
+        'question_type' => $request->input('question_type'),
+        'points' => $request->input('points'),
+        'hint' => $request->input('hint'),
+    ]);
+
+    // Update options if they are provided in the request
+    if ($request->has('options')) {
+        // Delete existing options for the question
+        $question->options()->delete();
+
+        // Create new options based on the request
+        foreach ($request->options as $optionData) {
+            $question->options()->create([
+                'option_text' => $optionData['option_text'] ?? '',
+                'is_correct' => isset($optionData['is_correct']) ? (bool) $optionData['is_correct'] : false,
+            ]);
+        }
     }
+
+    return redirect()->route('Questions.index')->with('success', 'Question updated successfully');
+}
+
 
     /**
      * Remove the specified resource from storage.

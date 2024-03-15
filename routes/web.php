@@ -15,11 +15,16 @@ use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
+
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\LessonController;
+
+
 Route::get('/', function () {
-    return view('Backend_editor.dachboard');
+    return view('EnglishChallenger.index');
 });
-Route::get('/sh',function(){
-    return view('Backend_editor.schools.sh');
+Route::get('/dachboard',function(){
+    return view('Backend_editor.dachboard');
 });
 
 Route::resource('/Courses',CourseController::class);
@@ -30,10 +35,8 @@ Route::get('/Tags.index',[TagController::class, 'index'])->name('Tags.index');
 Route::post('/Tags.store',[TagController::class, 'store'])->name('Tags.store');
 Route::resource('/Quizzes',QuizController::class);
 Route::resource('/Questions',QuestionController::class);
-
 // Route::post('/save-question', [QuestionController::class, 'saveQuestion']);
 Route::resource('/Schools',SchoolController::class);
-
 
 Route::resource('/Students',StudentController::class);
 Route::resource('/lessons',LessonController::class);
@@ -42,3 +45,4 @@ Route::resource('/Curricula',CurriculumController::class);
 Route::put('/CurriculaLessons/{id}', [CurriculumController::class, 'CL'])->name('CL.Update');
 Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name('CQ.Update');
 ///
+

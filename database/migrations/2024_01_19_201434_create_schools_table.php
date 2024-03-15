@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->string('school_name');
-            $table->text('school_logo')->nullable();;
+            $table->text('school_logo')->nullable();
             $table->string('phone_number');
             $table->string('email');
             // $table->string('linkdin');
@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('phone_number_headmaster');
             $table->string('school_city');
             $table->string('adresse');
-            $table->foreignId('course_id')->constrained();
             $table->text('description');
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,16 @@ class QuizController extends Controller
         return view('Backend_editor.Quizzes.index');
     }
 
+        public function searchQuestions(Request $request)
+        {
+            $searchTerm = $request->input('searchTerm');
+        
+            $questions = Question::where('title', 'like', '%' . $searchTerm . '%')->get();
+        
+            return response()->json($questions);
+        }
+    
+    
     /**
      * Show the form for creating a new resource.
      */

@@ -47,12 +47,9 @@
                             <thead>
                                 <tr style="background-color: #dedede;">
                                     <th>Picture</th>
-                                    <th>First name</th>
-                                    <th>Last name</th>
+                                    <th>name</th>
                                     <th>Phone number</th>
                                     <th>Email</th>
-                                    <th>Adresse</th>
-                                    <th>Date of birth</th>
                                     <th>Class/Grade</th>
                                     <th colspan="4"></th>
 
@@ -63,17 +60,14 @@
                                 <tr>
                                     <td><img src="{{ asset('storage/'.$student->picture) }}" alt="{{$student->last_name}}" style="height: 50px;width:100px;"></td>
                                     <td>{{$student->first_name}}</td>
-                                    <td>{{$student->last_name}}</td>
                                     <td>{{$student->phone}}</td>
                                     <td>{{$student->email}}</td>
-                                    <td>{{$student->address}}</td>
-                                    <td>{{$student->date_of_birth}}</td>
                                     <td>{{$student->class}}</td>
-                                    <td>course_id</td>
+                                    <td>ID</td>
                                     <td>
                                         <form id="delete-form-{{$student->id}}" action="{{route('Students.destroy', $student->id)}}" method="POST">
                                             <a href="{{route('Students.edit', $student->id)}}" class="btn btn-success btn-sm">
-                                                <i class="fa-solid fa-pen"></i> Edit
+                                                <i class="fa-solid fa-pen"></i> 
                                             </a>
                                             <a href="{{route('Students.show', $student->id)}}" class="btn btn-info btn-sm">
                                                 <i class="fa-solid fa-eye"></i>
@@ -102,7 +96,7 @@
     </div>
 <br><br>
 
-<center style="margin-left: 50%;">{{ $students->links() }}</center>
+<center style="margin-left: 48%;">{{ $students->links() }}</center>
     
 
 @endsection

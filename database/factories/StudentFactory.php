@@ -22,7 +22,7 @@ class StudentFactory extends Factory
             'picture' => $this->faker->imageUrl($width = 640, $height = 480), // Example for generating a fake image URL
             'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->email,
-            'adresse' => $this->faker->address,
+            'address' => $this->faker->address,
             'date_of_birth' => $this->faker->date,
             'class' => $this->faker->word,
         ];

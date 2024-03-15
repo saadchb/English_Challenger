@@ -24,9 +24,8 @@ class LessonController extends Controller{
         {
             $lessons = Lesson::query()->latest()->paginate(8);
         }
-
         return view('Backend_editor/lessons.index',['lessons' => $lessons]);
-    }
+       }
 
     /**
      * Show the form for creating a new resource.
@@ -46,7 +45,7 @@ public function store(LessonRequest $request)
     $priview = $request->has('priview');
 
     // Find the course by its ID to ensure it exists
-    $course = Course::findOrFail($request->input('course_id'));
+    // $course = Course::findOrFail($request->input('course_id'));
 
     // Create a new Lesson instance with the provided data
     $lesson = new Lesson([
@@ -54,10 +53,13 @@ public function store(LessonRequest $request)
         'description' => $request->input('description'),
         'duration' => $request->input('duration'),
         'priview' => $priview, // Assign converted boolean value
+
+        // 'course_id' => $request->input('course_id'),
     ]);
 
     // Save the lesson
     $lesson->save();
+
     return redirect()->route('lessons.index')->with('success', 'Lesson ajoutée avec succès');
 }
 

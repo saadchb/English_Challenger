@@ -50,7 +50,7 @@
   <div>
     <h4>school : {{ $school->school_name }}</h4><br>
 
-    <img src="{{ asset('storage/'.$school->school_logo) }}"  class="card-img-top" alt="..." style="width: 260px; height:170px ;"><br><br>
+    <img src="{{ asset('storage/'.$school->school_logo) }}"  class="card-img-top" alt="..." style="width: 260px; height:170px ;margin-left:25%;"><br><br>
     <div class="form-row">
       <div class="col-md-5">
         <p><strong>school number :</strong> {{$school->phone_number}} </p>

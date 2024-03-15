@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Lesson;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class Course extends Model
 {
     use HasFactory;
@@ -19,4 +21,8 @@ class Course extends Model
     public function lessons():HasMany{
         return $this->hasMany(Lesson::class);
     }
+    public function school():BelongsTo{
+        return $this->belongsTo(School::class);
+    }
+
 }
