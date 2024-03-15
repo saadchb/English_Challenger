@@ -50,7 +50,7 @@ return new class extends Migration
             // $table->unsignedBigInteger('id_school')->nullable();
             // $table->foreign('id_school')->references('id')->on('schools')->onDelete('cascade');
             // // $table->unsignedBigInteger('id_school');
-            $table->foreign('id_school')->constrained()->onDelete('cascade');
+            $table->foreignId('id_schools')->constrained()->onDelete('cascade');
 
 
             $table->unsignedBigInteger('id_curriculm')->nullable();

@@ -2,7 +2,7 @@
 @section('title','Home')
 @section('content')
 
-<section class="banner">
+<section class="banner" >
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-8">
@@ -16,6 +16,8 @@
         </div> <!-- / .row -->
     </div> <!-- / .container -->
 </section>
+
+
 
 
 <section class="feature">
@@ -57,9 +59,62 @@
         </div>
     </div>
 </section>
+<section class="about-section section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+             <div class="col-lg-6 col-md-12">
+               <div class="about-img">
+                   <img src="build/assets/images/bg/2-2.png" alt="" class="img-fluid">
+               </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="section-heading">
+                    <span class="subheading">ABOUT US</span>
+                    <h3>Welcome to EnglishChallenger</h3>
+                </div>
+
+                <div class="about-content">
+                Welcome to EnglishChallenger, your ultimate English Language destination! Immerse in engaging video quizzes focused on English language and culture, covering vocabulary, grammar, and pronunciation. Our goal is to make learning a thrilling challenge. Our website is exclusively dedicated to entertaining and educating beginners and those refining their English skills.
+
+Join our immersive platform exploring vocabulary, grammar, idioms, expressions, and English culture. Dive into captivating quizzes, riddles, and scientific insights, tailored for curious minds. Elevate your English proficiency through our quizzes, exercises, and beginner-friendly content. Learning should be enjoyable; come learn and enjoy every moment with EnglishChallenger!
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+ 
+    <!--course section end-->
+
+
 
     <!--course section start-->
-    <section class="section-padding course-grid" >
+    <section class="section-padding video-section" >
+    <div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-lg-6">
+            <div class="section-heading text-center center-heading">
+                <span class="subheading">Working Process</span>
+                <h3>Watch video to know more about us</h3>
+            </div>
+            <!-- Embed YouTube Video -->
+            
+        </div>
+    </div>
+</div>
+
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-10">
+                <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/90dMLavEFOM" allowfullscreen></iframe>
+            </div>
+                </div>
+            </div>
+        </div>
+        <!--course-->
+    </section>
+    <!--course section end--> 
+       <!--course section start-->
+       <section class="section-padding course-grid" >
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-7">
@@ -184,138 +239,7 @@
         </div>
         <!--course-->
     </section>
-    <!--course section end-->
-<section class="feature-2">
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-badge2"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Expert Teacher</h4>
-                        <p>Behind the word mountains, far from the countries</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-article"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Quality Education</h4>
-                        <p>Behind the word mountains, far from the countries </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-headset"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Life Time Support</h4>
-                        <p>Behind the word mountains, far from the countries</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-rocket2"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>HD Video</h4>
-                        <p>Behind the word mountains, far from the countries</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="about-section section-padding about-2">
-    <div class="container">
-        <div class="row align-items-center">
-             <div class="col-lg-6 col-md-12">
-               <div class="about-img2">
-                   <img src="build/assets/images/bg/choose.png" alt="" class="img-fluid">
-               </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="section-heading">
-                    <span class="subheading">Top Categories</span>
-                    <h3>Learn new skills to go ahead for your career</h3>
-                </div>
 
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores excepturi explicabo esse nisi molestias molestiae magni porro magnam, 
-                    iusto sunt aliquid necessitatibus optio quod iste facilis similique eos voluptatum sint?</p>
-
-                <a href="#" class="btn btn-main"><i class="fa fa-check mr-2"></i>Learn More</a>
-                
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!--course section start-->
-    <section class="section-padding video-section" >
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section-heading text-center center-heading">
-                        <span class="subheading">Working Process</span>
-                        <h3>Watch video to know more about us</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-10">
-                    <div class="video-block">
-                         <img src="build/assets/images/bg/office01.jpg" alt="" class="img-fluid">
-                         <a href="#" class="video-icon"><i class="fa fa-play"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--course-->
-    </section>
-    <!--course section end--> 
-<section class="about-section section-padding">
-    <div class="container">
-        <div class="row align-items-center">
-             <div class="col-lg-6 col-md-12">
-               <div class="about-img">
-                   <img src="build/assets/images/bg/2-2.png" alt="" class="img-fluid">
-               </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="section-heading">
-                    <span class="subheading">Top Categories</span>
-                    <h3>Learn new skills to go ahead for your career</h3>
-                </div>
-
-                <div class="about-content">
-                    <div class="about-text-block">
-                        <i class="bi bi-film"></i>
-                        <h4>Details Video tutorial</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit</p>
-                    </div>
-
-                     <div class="about-text-block">
-                        <i class="bi bi-support"></i>
-                        <h4>World Class Support</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit</p>
-                    </div>
-
-                    <a href="#" class="btn btn-main-2"><i class="fa fa-check mr-2"></i>more About Support</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> 
 <section class="section-padding popular-course bg-grey">
     <div class="container">
         <div class="row align-items-center">
@@ -856,6 +780,56 @@
         </div>
     </div>
 </section>
+<section class="feature-2">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-item feature-style-2">
+                    <div class="feature-icon">
+                        <i class="bi bi-badge2"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Expert Teacher</h4>
+                        <p>Behind the word mountains, far from the countries</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-item feature-style-2">
+                    <div class="feature-icon">
+                        <i class="bi bi-article"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Quality Education</h4>
+                        <p>Behind the word mountains, far from the countries </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-item feature-style-2">
+                    <div class="feature-icon">
+                        <i class="bi bi-headset"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Life Time Support</h4>
+                        <p>Behind the word mountains, far from the countries</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-item feature-style-2">
+                    <div class="feature-icon">
+                        <i class="bi bi-rocket2"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h4>HD Video</h4>
+                        <p>Behind the word mountains, far from the countries</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> <br>
 <section class="cta-2">
     <div class="container">
         <div class="row align-items-center subscribe-section ">
