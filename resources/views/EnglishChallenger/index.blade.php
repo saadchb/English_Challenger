@@ -27,8 +27,8 @@
                         <i class="bi bi-badge2"></i>
                     </div>
                     <div class="feature-text">
-                        <h4>Learn from Industry Experts</h4>
-                        <p>Behind the word mountains, far from the countries Vokalia </p>
+                        <h4>Learn from Industry Professionals</h4>
+                        <p>Unlock your potential with us! Learn from Industry Experts.</p>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="feature-text">
                         <h4>Learn the Latest Top Skills</h4>
-                        <p>Behind the word mountains, far from the countries Vokalia </p>
+                        <p>Empower Yourself with Cutting-Edge Expertise.</p>
                     </div>
                 </div>
             </div>
@@ -49,8 +49,8 @@
                         <i class="bi bi-headset"></i>
                     </div>
                     <div class="feature-text">
-                        <h4>Lifetime Access & Support</h4>
-                        <p>Behind the word mountains, far from the countries Vokalia </p>
+                        <h4>Lifetime Access & Ongoing Support</h4>
+                        <p>Your Gateway to Unmatched Opportunities.</p>
                     </div>
                 </div>
             </div>
