@@ -6,13 +6,17 @@ use App\Http\Requests\courseRquest;
 use App\Models\Categorie;
 use App\Models\CategoriesCourse;
 use App\Models\Course;
+use App\Models\Curriculum;
 use App\Models\Faq;
 use App\Models\KeyFeature;
+use App\Models\Lesson;
+use App\Models\Quiz;
 use App\Models\Requirement;
 use App\Models\Tag;
 use App\Models\TagsCourse;
 use App\Models\TargetAudience;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 class CourseController extends Controller
@@ -20,9 +24,15 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $searchTerm = $request->input('search');
         $courses = Course::all();
+        if($searchTerm){
+            $courses = Course::when($searchTerm, function ($query) use ($searchTerm) {
+            $query->where('title', 'like', '%' . $searchTerm . '%');
+        })->get();
+        }
         $categories = Categorie::join('categories_courses', 'categories.id','=','categories_courses.categorie_id')->get();
         // dd($categories);
         return view('Backend_editor.courses.index',['courses' => $courses, 'categories' =>$categories]);
@@ -123,9 +133,44 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show(int $id)
+
     {
-        //
+        $curricula = DB::table('curricula')
+            ->join('lessons', 'lessons.curriculum_id', '=', 'curricula.id')
+            ->join('quizzes', 'quizzes.curriculum_id', '=', 'curricula.id')
+            ->select('curricula.*','lessons.*','quizzes.*')
+            ->where('course_id', '=', $id)
+            ->get();
+        // dd($curricula);
+        $nblessons = DB::table('lessons')
+            ->join('curricula', 'lessons.curriculum_id', '=', 'curricula.id')
+            ->join('courses', 'courses.id', '=', 'curricula.course_id')
+            ->select('courses.*', 'curricula.*', 'lessons.*')
+            ->where('courses.id',$id)
+            ->count();
+        $course = Course::findOrFail($id);
+        $requirements = Requirement::where('course_id', $id)->get();
+         $tags = Tag::join('tags_courses', 'tags.id','=','tags_courses.tag_id')
+         ->where('course_id',$id)
+         ->get('title');
+        $categories = Categorie::join('categories_courses', 'categories.id','=','categories_courses.categorie_id')->where('course_id',$id)->get('title');
+        $courses = DB::table('courses')
+                ->join('categories_courses','courses.id', '=' , 'categories_courses.course_id')
+                ->join('categories','categories.id', '=' , 'categories_courses.categorie_id')
+                ->select('courses.*')
+                ->whereIn('categories.title',$categories)
+                ->where('courses.id' , '!=', $id)
+                ->get();
+        return view('Backend_editor.courses.show', [
+        'course'=> $course,
+        'categories'=>$categories,
+        'requirements'=>$requirements,
+        'tags'=>$tags,
+        'nblessons'=>$nblessons,
+        'courses'=>$courses,
+        'curricula'=>$curricula
+    ]);
     }
 
     /**
@@ -133,14 +178,22 @@ class CourseController extends Controller
      */
     public function edit(int $id)
     {
+        $curricula = Curriculum::where('course_id',$id)->get();
+        $quizzes = Quiz::all();
+        $lessons= Lesson::all();
+        $tags = Tag::all();
+        $categories = Categorie::all();
         $course = Course::findOrFail($id);
-        $categories = Categorie::join('categories_courses', 'categories.id','=','categories_courses.categorie_id')->where('course_id',$id)->get();
-        $tags = Tag::join('tags_courses', 'tags.id','=','tags_courses.tag_id')->where('course_id',$id)->get();
+        $tags_Course = TagsCourse::all();
+        $categories_course = CategoriesCourse::all();
         $requirements = Requirement::all()->where('course_id',$id);
         $targetsAudiences =TargetAudience::all()->where('course_id',$id);
         $keysFeatures = KeyFeature::all()->where('course_id',$id);
         $faqs = Faq::all()->where('course_id',$id);
-        return view('Backend_editor.courses.edit',['tags' => $tags, 'categories' => $categories,'course'=>$course, 'requirements'=>$requirements,'targetsAudiences'=>$targetsAudiences,'keysFeatures'=>$keysFeatures,'faqs'=>$faqs]);
+        return view('Backend_editor.courses.edit',['tags' => $tags, 'categories' => $categories,
+                'course'=>$course, 'requirements'=>$requirements,'targetsAudiences'=>$targetsAudiences,
+                'keysFeatures'=>$keysFeatures,'faqs'=>$faqs,'categories_course'=>$categories_course,
+                'tags_course'=>$tags_Course,'curricula'=>$curricula,'quizzes'=>$quizzes,'lessons'=>$lessons]);
     }
 
     /**
@@ -230,15 +283,16 @@ class CourseController extends Controller
                     ));
                 }
             }
-            // dd($dataJson);
             return redirect()->route('Courses.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy(int $id)
     {
-        //
+        $course = Course::findOrFail($id);
+        $course->delete();
+        return redirect()->route('Courses.index');
     }
 }

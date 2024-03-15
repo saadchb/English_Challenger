@@ -71,7 +71,6 @@
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </form>
-
                                     </td>
                                 </tr>
                                 @endforeach

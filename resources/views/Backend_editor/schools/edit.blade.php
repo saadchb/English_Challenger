@@ -1,6 +1,9 @@
 @extends('Backend_editor.Layout')
 @section('title','edit school')
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7cc00312dea58a52f8158448bb6722486b763a6c
 @push('style')
 
 @endpush
@@ -23,7 +26,7 @@
 
         </div>
     </div>
-    
+
 </div><br><br>
 <div class="container-fluid mt--8">
     <div class="row">
@@ -58,7 +61,7 @@
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
                             </div>
-                           
+
                         </div>
                         <hr>
                         <div class="form-row">
@@ -78,7 +81,7 @@
                             </div>
                         </div>
                         <hr>
-                       
+
                         <div class="form-row">
                             <div class="col-md-6">
                             <label for="school_city"><strong>city :</strong></label>
@@ -116,7 +119,7 @@
                             @enderror
                             </div>
                         </div>
-                    
+
                     </form>
                 </div>
             </div>

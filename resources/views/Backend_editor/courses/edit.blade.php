@@ -1,7 +1,7 @@
 @extends('Backend_editor.Layout')
 @section('title', 'Courses')
 @section('content')
-    <form action="{{ route('Courses.update', $course->id) }}" enctype="multipart/form-data" method="POST">
+    <form action="{{ route('Courses.update', $course->id) }}" id="form1" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PUT')
         <main class="min-w-0 mx-auto relative">
@@ -13,12 +13,9 @@
                             href="{{ route('Courses.index') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
-                            </svg>Back</a>
-                        <button type='button'
-                            class="relative ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-4 py-2 flex items-center rounded-md font-medium">Submit
-                            for Review</button><button
-                            class="relative border text-sm px-4 py-2 flex items-center rounded-md font-medium text-gray-600"
-                            type="submit">Save
+                            </svg>Back</a><button
+                            class="relative border text-sm px-4 py-2 flex items-center rounded-md font-medium text-white  bg-[#007bff]"
+                            type="submit" id="btnform1">Save
                             Draft</button>
                         <div class="flex items-center">
                             <div class="relative flex items-center" data-headlessui-state=""><button type='button'
@@ -37,7 +34,7 @@
                                 class="px-4 py-2 text-sm min-w-[100px] leading-5 font-medium focus:outline-none  border-b-2 -mb-[2px] border-gray-900"
                                 id="headlessui-tabs-tab-:r12:">General</button><button type='button'
                                 class="px-4 py-2 text-sm min-w-[100px] leading-5 font-medium focus:outline-none text-gray-500 hover:text-gray-600"
-                                id="headlessui-tabs-tab-:r13:">Curriculum</button><button type='button' id="btn-setting"
+                                id="headlessui-tabs-tab-:r13:">Curriculum</button><button type='button'
                                 class="px-4 py-2 text-sm min-w-[100px] leading-5 font-medium focus:outline-none text-gray-500 hover:text-gray-600"
                                 id="headlessui-tabs-tab-:r14:">Settings</button></div>
                         <div style="display: block" id="general" class="w-full mt-6">
@@ -74,6 +71,8 @@
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5"><input
                                                             id="categorie{{ $categorie->title }}" type="checkbox"
+                                                            @foreach ($categories_course as $categorie_course)
+                                                                    @if ($categorie->id == $categorie_course->categorie_id && $categorie_course->course_id == $course->id) @checked(true)  @endif @endforeach
                                                             name="categories[]" value="{{ $categorie->id }}"
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
@@ -97,6 +96,8 @@
                                             @foreach ($tags as $tag)
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5"><input id="tag{{ $tag->title }}"
+                                                            @foreach ($tags_course as $tag_course)
+                                                                    @if ($tag->id == $tag_course->tag_id && $tag_course->course_id == $course->id) checked='' @endif @endforeach
                                                             type="checkbox" name="tags[]" value="{{ $tag->id }}"
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
@@ -126,9 +127,9 @@
                                                     <div
                                                         class="cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                         <label
-                                                            class="bg-indigo-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                            class=" text-white  bg-[#007bff] font-bold py-2 px-4 rounded"
                                                             for="file_input">Upload file</label>
-                                                        <input value="{{ old('img') ?? asset('storage/' . $course->img) }}"
+                                                        <input value="{{ asset('storage/' . $course->img) }}"
                                                             name="img"
                                                             class="hidden block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                             aria-describedby="file_input_help" id="file_input"
@@ -205,15 +206,19 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_duration"
                                                 class="w-36 text-sm text-gray-800 font-medium">Duration</label>
                                             <div class="flex gap-x-2"><input id="_lp_duration" type="number"
-                                                    value="{{ old('duration') ?? $course->duration }}" name="duration"
-                                                    class="w-[80px] py-1.5 border border-gray-300 shadow-sm text-gray-800 rounded-md text-sm p-2"
-                                                    value="10"><select name="duration_gauge"
-                                                    value="{{ old('duration_gauge') ?? $course->duration_gauge }}"
+                                                    value="{{ old('duration') ?? ($course->duration ?? 10) }}"
+                                                    name="duration"
+                                                    class="w-[80px] py-1.5 border border-gray-300 shadow-sm text-gray-800 rounded-md text-sm p-2"><select
+                                                    name="duration_gauge"
                                                     class="py-1.5 pr-8 border border-gray-300 text-gray-800 shadow-sm rounded-md text-sm leading-4">
-                                                    <option value="minute">Minute(s)</option>
-                                                    <option value="hour">Hour(s)</option>
-                                                    <option value="day">Day(s)</option>
-                                                    <option value="week">Week(s)</option>
+                                                    <option value="minute"
+                                                        @if (old('duration_gauge') == 'minute' || $course->duration_gauge == 'minute') selected @endif>Minute(s)</option>
+                                                    <option value="hour"
+                                                        @if (old('duration_gauge') == 'hour' || $course->duration_gauge == 'hour') selected @endif>Hour(s)</option>
+                                                    <option value="day"
+                                                        @if (old('duration_gauge') == 'day' || $course->duration_gauge == 'day') selected @endif>Day(s)</option>
+                                                    <option value="week"
+                                                        @if (old('duration_gauge') == 'week' || $course->duration_gauge == 'week') selected @endif>Week(s)</option>
                                                 </select></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm pl-36 ml-2">Set to 0 for the lifetime access.
@@ -223,7 +228,7 @@
                                         <div class="text-sm text-gray-800 font-medium">Block content</div>
                                         <div class="flex space-x-2"><input id="_lp_block_expire_duration" type="checkbox"
                                                 name="blocked_content_by_duration"
-                                                @if (old('blocked_content_by_duration') == 1 || $course->blocked_content_by_duration == 1) checked="" @endif
+                                                @if (old('blocked_content_by_duration') == 1 || $course->blocked_content_by_duration == 1) checked="" @else checked="" @endif
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"><label
                                                 for="_lp_block_expire_duration"
                                                 class="text-sm text-gray-800 select-none leading-4">When the duration
@@ -262,11 +267,16 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_course_repurchase_option"
                                                 class="w-36 text-sm text-gray-800 font-medium">Repurchase action</label>
                                             <div><select id="_lp_course_repurchase_option" name="repurchase_action"
-                                                    value="{{ old('repurchase_action') ?? $course->repurchase_action }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md">
-                                                    <option value="reset">Reset course progress</option>
-                                                    <option value="keep">Keep course progress</option>
-                                                    <option value="popup">Open popup</option>
+                                                    <option value="reset"
+                                                        @if (old('repurchase_action') == 'reset' || $course->repurchase_action == 'reset') selected @endif>Reset course
+                                                        progress</option>
+                                                    <option value="keep"
+                                                        @if (old('repurchase_action') == 'keep' || $course->repurchase_action == 'keep') selected @endif>Keep course
+                                                        progress</option>
+                                                    <option value="popup"
+                                                        @if (old('repurchase_action') == 'popup' || $course->repurchase_action == 'popup') selected @endif>Open popup
+                                                    </option>
                                                 </select></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm pl-36 ml-2">1. Reset course progress: The
@@ -281,12 +291,16 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_level"
                                                 class="w-36 text-sm text-gray-800 font-medium">Level</label>
                                             <div><select id="_lp_level" name="level"
-                                                    value="{{ old('level') ?? $course->level }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md">
-                                                    <option value="">All levels</option>
-                                                    <option value="beginner">Beginner</option>
-                                                    <option value="intermediate">Intermediate</option>
-                                                    <option value="expert">Expert</option>
+                                                    <option value="All levels">All levels</option>
+                                                    <option value="beginner"
+                                                        @if (old('level') == 'beginner' || $course->level == 'beginner') selected @endif>Beginner
+                                                    </option>
+                                                    <option value="intermediate"
+                                                        @if (old('level') == 'intermediate' || $course->level == 'intermediate') selected @endif>Intermediate
+                                                    </option>
+                                                    <option value="expert"
+                                                        @if (old('level') == 'expert' || $course->level == 'expert') selected @endif>Expert</option>
                                                 </select></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm pl-36 ml-2">Choose a difficulty level.</p>
@@ -308,9 +322,9 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_max_students"
                                                 class="w-36 text-sm text-gray-800 font-medium">Max student</label>
                                             <div><input id="_lp_max_students" type="number" name="max_student"
-                                                    value="{{ old('max_student') ?? $course->max_student }}"
+                                                    value="{{ old('max_student') ?? ($course->max_student ?? 0) }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
-                                                    step="1" min="0" max="" value="0"></div>
+                                                    step="1" min="0" max=""></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm ml-2 pl-36">The maximum number of students
                                             that
@@ -321,7 +335,7 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_retake_count"
                                                 class="w-36 text-sm text-gray-800 font-medium">Re-take Course</label>
                                             <div><input id="_lp_retake_count" type="number" name="re_take_course"
-                                                    value="{{ old('re_take_course') ?? $course->re_take_course }}"
+                                                    value="{{ old('re_take_course') ?? ($course->re_take_course ?? 0) }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
                                                     step="1" min="0" max=""></div>
                                         </div>
@@ -333,13 +347,13 @@
                                     <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center">
                                         <div class="text-sm text-gray-800 font-medium">Finish button</div>
                                         <div class="flex space-x-2"><input id="_lp_has_finish" type="checkbox"
-                                                @if (old('finish_button') == 1 || $course->finish_button == 1) checked="" @endif
+                                                @if (old('finish_button') == 1 || $course->finish_button == 1) checked="" @else checked="" @endif
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded  p-2"
                                                 name="finish_button"><label for="_lp_has_finish"
                                                 class="text-sm text-gray-800 select-none leading-4">Allow showing the
                                                 finish
                                                 button
-                                                when the student has completed all items but has not passed the course
+                                                when the student has completed all items but has not<br /> passed the course
                                                 assessment
                                                 yet.</label></div>
                                     </div>
@@ -424,26 +438,22 @@
                                                             aria-expanded="false" data-headlessui-state="">
 
                                                             <input
-                                                                class="py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md pl-2"
+                                                                class=" pl-2 py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md pl-2"
                                                                 type="date"
                                                                 value="{{ old('sale_start_dates') ? date('Y-m-d', strtotime(old('sale_start_dates'))) : ($course->sale_start_dates ? date('Y-m-d', strtotime($course->sale_start_dates)) : '') }}"
                                                                 name="sale_start_dates">
                                                         </button></div>
                                                     <div class="flex gap-1 items-center">
 
-                                                        <input type='number'
-                                                        max="23"
-                                                        min="0"
-                                                         name="sale_start_hours"
-                                                        value="{{ old('sale_start_dates') ? date('H', strtotime(old('sale_start_dates'))) : ($course->sale_start_dates ? date('H', strtotime($course->sale_start_dates)) : '') }}"
-                                                            class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                            <span>:</span><input type='number'
-                                                            max="59"
-                                                            min="0"
-                                                             name="sale_start_minutes"
-                                                        value="{{ old('sale_start_dates') ? date('i', strtotime(old('sale_start_dates'))) : ($course->sale_start_dates ? date('i', strtotime($course->sale_start_dates)) : '') }}"
-                                                            class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                            </div>
+                                                        <input type='number' max="23" min="0"
+                                                            name="sale_start_hours"
+                                                            value="{{ old('sale_start_dates') ? date('H', strtotime(old('sale_start_dates'))) : ($course->sale_start_dates ? date('H', strtotime($course->sale_start_dates)) : 00) }}"
+                                                            class="pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                        <span>:</span><input type='number' max="59" min="0"
+                                                            name="sale_start_minutes"
+                                                            value="{{ old('sale_start_dates') ? date('i', strtotime(old('sale_start_dates'))) : ($course->sale_start_dates ? date('i', strtotime($course->sale_start_dates)) : 00) }}"
+                                                            class="pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -454,24 +464,21 @@
                                                     <div class="relative" data-headlessui-state=""><button type='button'
                                                             id="headlessui-popover-button-:r3m:" type="button"
                                                             aria-expanded="false" data-headlessui-state=""><input
-                                                            value="{{ old('sale_end_dates') ? date('Y-m-d', strtotime(old('sale_end_dates'))) : ($course->sale_end_dates ? date('Y-m-d', strtotime($course->sale_end_dates)) : '') }}"
+                                                                value="{{ old('sale_end_dates') ? date('Y-m-d', strtotime(old('sale_end_dates'))) : ($course->sale_end_dates ? date('Y-m-d', strtotime($course->sale_end_dates)) : '') }}"
                                                                 class="py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md  pl-2"
                                                                 type="date" id="datepicker" value=""
                                                                 name="sale_end_dates"></button>
                                                     </div>
                                                     <div class="flex gap-1 items-center"><input type='number'
-                                                        max="23"
-                                                        min="0"
-                                                         name="sale_end_hours"
-                                                        value="{{ old('sale_end_dates') ? date('H', strtotime(old('sale_end_dates'))) : ($course->sale_end_dates ? date('H', strtotime($course->sale_end_dates)) : '') }}"
-                                                            class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                            max="23" min="0" name="sale_end_hours"
+                                                            value="{{ old('sale_end_dates') ? date('H', strtotime(old('sale_end_dates'))) : ($course->sale_end_dates ? date('H', strtotime($course->sale_end_dates)) : 00) }}"
+                                                            class="pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
 
-                                                        </select><span>:</span><input type='number'
-                                                        max="59"
-                                                        min="0" name="sale_end_minutes"
-                                                        value="{{ old('sale_end_dates') ? date('i', strtotime(old('sale_end_dates'))) : ($course->sale_end_dates ? date('i', strtotime($course->sale_end_dates)) : '') }}"
-                                                            class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                        </div>
+                                                        </select><span>:</span><input type='number' max="59"
+                                                            min="0" name="sale_end_minutes"
+                                                            value="{{ old('sale_end_dates') ? date('i', strtotime(old('sale_end_dates'))) : ($course->sale_end_dates ? date('i', strtotime($course->sale_end_dates)) : 00) }}"
+                                                            class="pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -503,9 +510,9 @@
                                                 <div class="w-36 text-sm text-gray-800 font-medium">Requirements</div>
                                                 <div class="flex-1">
                                                     <div class="" id="content-requirements">
-                                                        <x-extra_information2 :table="$requirements" btnidname='btn-text'/>
-                                                        @if(isset(json_decode(old('tableData'), true)[0]))
-                                                            <x-extra_information :table="json_decode(old('tableData'), true)[0]" btnidname='btn-text'/>
+                                                        <x-extra_information2 :table="$requirements" btnidname='btn-text' />
+                                                        @if (isset(json_decode(old('tableData'), true)[0]))
+                                                            <x-extra_information :table="json_decode(old('tableData'), true)[0]" btnidname='btn-text' />
                                                         @endif
                                                     </div>
                                                     <button type='button' id="btn-addMoreR"
@@ -519,9 +526,10 @@
                                                 <div class="w-36 text-sm text-gray-800 font-medium">Target Audience</div>
                                                 <div class="flex-1">
                                                     <div id="TargetAudience">
-                                                        <x-extra_information2 :table="$targetsAudiences" btnidname='btnAudience'/>
-                                                        @if(isset(json_decode(old('tableData'), true)[1]))
-                                                        <x-extra_information :table="json_decode(old('tableData'), true)[1]" btnidname='btnAudience'/>
+                                                        <x-extra_information2 :table="$targetsAudiences" btnidname='btnAudience' />
+                                                        @if (isset(json_decode(old('tableData'), true)[1]))
+                                                            <x-extra_information :table="json_decode(old('tableData'), true)[1]"
+                                                                btnidname='btnAudience' />
                                                         @endif
                                                     </div><button type='button' id="btnAddMoreAudience"
                                                         class="mt-2 flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
@@ -534,12 +542,13 @@
                                                 <div class="w-36 text-sm text-gray-800 font-medium">Key Features</div>
                                                 <div class="flex-1">
                                                     <div class="" id="KeyFeatures">
-                                                        <x-extra_information2 :table="$keysFeatures" btnidname='btnKeyFeatures'/>
-                                                        @if(isset(json_decode(old('tableData'), true)[2]))
-                                                        <x-extra_information :table="json_decode(old('tableData'), true)[2]" btnidname='btnKeyFeatures'/>
+                                                        <x-extra_information2 :table="$keysFeatures"
+                                                            btnidname='btnKeyFeatures' />
+                                                        @if (isset(json_decode(old('tableData'), true)[2]))
+                                                            <x-extra_information :table="json_decode(old('tableData'), true)[2]"
+                                                                btnidname='btnKeyFeatures' />
                                                         @endif
-                                                        </div><button type='button'
-                                                        id="btnAddMoreFeatures"
+                                                    </div><button type='button' id="btnAddMoreFeatures"
                                                         class="mt-2 flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
                                                         more</button>
                                                 </div>
@@ -550,12 +559,11 @@
                                                 <div class="w-36 text-sm text-gray-800 font-medium">FAQs</div>
                                                 <div class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
                                                     <div class="space-y-2" id="FAQs">
-                                                        @if(isset(json_decode(old('tableData'), true)[3]))
-                                                        <x-faqs2 :table="$faqs"/>
-                                                        <x-faqs :table="json_decode(old('tableData'), true)[3]"/>
+                                                        <x-faqs2 :table="$faqs" />
+                                                        @if (isset(json_decode(old('tableData'), true)[3]))
+                                                            <x-faqs :table="json_decode(old('tableData'), true)[3]" />
                                                         @endif
-                                                        </div><button type='button'
-                                                        id="AddMoretbnFAQs"
+                                                    </div><button type='button' id="AddMoretbnFAQs"
                                                         class="mt-2 flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
                                                         more</button>
                                                 </div>
@@ -663,7 +671,7 @@
                                             <div class="flex items-center gap-x-2"><label for="_lp_passing_condition"
                                                     class="w-36 text-sm text-gray-800 font-medium">Passing Grade(%)</label>
                                                 <div><input id="_lp_passing_condition" type="number"
-                                                        value="{{ old('passing_grade') ?? $course->repurchase_action }}"
+                                                        value="{{ old('passing_grade') ?? ($course->passing_grade ?? 80) }}"
                                                         name="passing_grade"
                                                         class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px] pl-2"
                                                         step="0.01" min="0" max="100">
@@ -774,7 +782,410 @@
             </div>
         </div>
     </form>
+    <div>
+        <div role="tabpanel" style="display: none;" id="curriculum" class="ml-6"
+            aria-labelledby="headlessui-tabs-tab-:r1j:" tabindex="0" data-headlessui-state="selected">
+            <div class="flex relative">
+                <div class="w-1/2 max-w-[800px]">
+                    <div class="relative p-2 bg-gray-100 rounded">
+                        <div class="space-y-2">
+                            {{-- <div class="rounded p-3 bg-white">
+                                <div class="flex items-center gap-x-2"><span class="hover:text-gray-600 cursor-grab"><svg
+                                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M4 6h16M4 12h16M4 18h16"></path>
+                                        </svg></span><button type="button"
+                                        class="flex-1 text-left overflow-hidden text-ellipsis whitespace-nowrap"><span
+                                            class="text-sm font-semibold text-gray-600">xxxxxxx</span></button><button
+                                        type="button" class="flex items-center outline-none focus:outline-none"><svg
+                                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                            </path>
+                                        </svg></button>
+                                    <div class="relative" data-headlessui-state=""><button type="button"
+                                            class="outline-none focus:outline-none hover:text-red-600"
+                                            id="headlessui-popover-button-:r1o:" type="button" aria-expanded="false"
+                                            data-headlessui-state=""><span><svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                    </path>
+                                                </svg></span></button></div>
+                                </div>
+                            </div> --}}
+                            @foreach ($curricula as $curriculum)
+                                <div class="rounded p-3 bg-white" style="">
+                                    <div class="flex items-center gap-x-2"><span
+                                            class="hover:text-gray-600 cursor-grab"><svg
+                                                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M4 6h16M4 12h16M4 18h16"></path>
+                                            </svg></span><button type="button"
+                                            class="flex-1 text-left overflow-hidden text-ellipsis whitespace-nowrap"><span
+                                                class="text-sm font-semibold text-gray-600">{{ $curriculum->title }}</span></button><button
+                                            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            data-bs-whatever="@mdo"
+                                            class="flex items-center outline-none focus:outline-none"><svg
+                                                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                </path>
+                                            </svg></button>
+                                        <div class="relative" data-headlessui-state="">
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">New message
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form
+                                                                action="{{ route('Curricula.update', $curriculum->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">title:</label>
+                                                                    <input type="text" name="title"
+                                                                        class="form-control" id="recipient-name"
+                                                                        value="{{ $curriculum->title }}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="message-text"
+                                                                        class="col-form-label">description:</label>
+                                                                    <textarea name="description" class="form-control" id="message-text">{{ $curriculum->description }}</textarea>
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Update</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form action="{{ route('Curricula.destroy', $curriculum->id) }}"
+                                                method="post">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit"
+                                                    class="outline-none focus:outline-none hover:text-red-600"
+                                                    id="headlessui-popover-button-:r22:" type="button"
+                                                    aria-expanded="false" data-headlessui-state=""><span><svg
+                                                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                            stroke-width="2">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                            </path>
+                                                        </svg></span></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex flex-col mt-3 border-t pt-4">
+                                            @foreach ($lessons as $lesson)
+                                            @if($lesson->curriculum_id == $curriculum->id)
+                                                <div class="relative flex items-center gap-x-2 p-2">
+                                                    <div class="flex gap-x-1"><span
+                                                            class="text-gray-400 px-[2px] flex items-center cursor-grab"><svg
+                                                                viewBox="0 0 10 10"
+                                                                class="h-4 w-4 fill-gray-400 text-gray-400">
+                                                                <path
+                                                                    d="M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z">
+                                                                </path>
+                                                            </svg></span>
+                                                        <div class="text-gray-700"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                                </path>
+                                                            </svg></div>
+                                                    </div><button
+                                                        class="flex-1 text-sm text-left truncate outline-none focus:outline-none"><span
+                                                            class="flex-1 text-sm text-gray-600">{{$lesson->title}}</span></button>
+                                                            <a href="{{route('lessons.edit',$lesson->id)}}"
+                                                        class="flex items-center outline-none focus:outline-none text-black hover:text-black"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                            stroke-width="2">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                            </path>
+                                                        </svg></a>
+                                                    <div class="relative" data-headlessui-state="">
+                                                        <form action="{{route('lessons.destroy',$lesson->id)}}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        <button
+                                                            class="outline-none focus:outline-none hover:text-red-600"
+                                                            id="headlessui-popover-button-:rj0:"
+                                                            aria-expanded="false" data-headlessui-state=""><span><svg
+                                                                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                    fill="none" viewBox="0 0 24 24"
+                                                                    stroke="currentColor" stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                                    </path>
+                                                                </svg></span>
+                                                            </button></div>
+                                                        </form>
+                                                </div>
+                                                @endif
+                                            @endforeach
+                                            @foreach ($quizzes as $quizze)
+                                            @if($quizze->curriculum_id == $curriculum->id)
+                                                <div class="relative flex items-center gap-x-2 p-2">
+                                                    <div class="flex gap-x-1"><span
+                                                            class="text-gray-400 px-[2px] flex items-center cursor-grab"><svg
+                                                                viewBox="0 0 10 10"
+                                                                class="h-4 w-4 fill-gray-400 text-gray-400">
+                                                                <path
+                                                                    d="M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z">
+                                                                </path>
+                                                            </svg></span>
+                                                        <div class="text-gray-700"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                                </path>
+                                                            </svg></div>
+                                                    </div><button
+                                                        class="flex-1 text-sm text-left truncate outline-none focus:outline-none"><span
+                                                            class="flex-1 text-sm text-gray-600">{{$quizze->title}}</span></button>
+                                                            <a href="{{route('Quizzes.edit',$quizze->id)}}"
+                                                            class="flex items-center outline-none focus:outline-none text-black hover:text-black"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                                stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                                </path>
+                                                            </svg></a>
+                                                    <div class="relative" data-headlessui-state="">
+                                                        <form action="{{route('Quizzes.destroy',$quizze->id)}}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        <button
+                                                            class="outline-none focus:outline-none hover:text-red-600"
+                                                            id="headlessui-popover-button-:rj0:"
+                                                            aria-expanded="false" data-headlessui-state=""><span><svg
+                                                                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                    fill="none" viewBox="0 0 24 24"
+                                                                    stroke="currentColor" stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                                    </path>
+                                                                </svg></span>
+                                                            </button></div>
+                                                        </form>
+                                                </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                        <div class="mt-2 ml-3 flex items-center"><button type="button"
+                                                data-bs-toggle="modal" data-bs-target="#addLessonModal"
+                                                data-bs-whatever="@mdo"
+                                                class="flex item-center mr-2 gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                </svg>Add lesson</button>
+                                            <div class="modal fade" id="addLessonModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Select
+                                                                lessons and save
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ route('CL.Update', $curriculum->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <a class="btn btn-primary mb-2"
+                                                                    href="{{ route('lessons.create') }}">
+                                                                    Create new lesson
+                                                                </a>
+                                                                <div>
+                                                                    <div
+                                                                        class="text-xs font-medium uppercase mb-2 text-gray-600 tracking-wide">
+                                                                        search Lesson in list:</div>
+                                                                    <div class="relative flex items-center w-full"><span
+                                                                            class="absolute flex items-center left-0 pl-3 pointer-events-none"><svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                class="h-4 w-4" fill="none"
+                                                                                viewBox="0 0 24 24" stroke="currentColor"
+                                                                                stroke-width="2">
+                                                                                <path stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+                                                                                </path>
+                                                                            </svg></span><input id="searchLessonBox"
+                                                                            class="py-1.5 border border-gray-300 pr-3 pl-9 rounded w-full text-sm text-gray-600 focus:ring-indigo-500 focus:border-indigo-500 focus:placeholder-gray-500"
+                                                                            type="text" placeholder="Search…"
+                                                                            value="">
+                                                                    </div>
+                                                                    <div class="py-6 space-y-5" id="searchLessonContent">
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#addQuizzeModal" data-bs-whatever="@mdo"
+                                                class="flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                </svg>Add quizze</button>
+                                            <div class="modal fade" id="addQuizzeModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Select
+                                                                quizzes and save
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ route('CQ.Update', $curriculum->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <a class="btn btn-primary mb-2"
+                                                                    href="{{ route('Quizzes.create') }}">
+                                                                    Create new quizzes
+                                                                </a>
+                                                                <div>
+                                                                    <div
+                                                                        class="text-xs font-medium uppercase mb-2 text-gray-600 tracking-wide">
+                                                                        search quizzes in list:</div>
+                                                                    <div class="relative flex items-center w-full"><span
+                                                                            class="absolute flex items-center left-0 pl-3 pointer-events-none"><svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                class="h-4 w-4" fill="none"
+                                                                                viewBox="0 0 24 24" stroke="currentColor"
+                                                                                stroke-width="2">
+                                                                                <path stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+                                                                                </path>
+                                                                            </svg></span><input id="searchQuizzeBox"
+                                                                            class="py-1.5 border border-gray-300 pr-3 pl-9 rounded w-full text-sm text-gray-600 focus:ring-indigo-500 focus:border-indigo-500 focus:placeholder-gray-500"
+                                                                            type="text" placeholder="Search…"
+                                                                            value="">
+                                                                    </div>
+                                                                    <div class="py-6 space-y-5" id="searchQuizzeContent">
+
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <form id="form2" method="POST" action="{{ route('Curricula.store') }}"
+                            class="flex items-center mt-3 mb-0 bg-white rounded-md false">
+                            @csrf
+                            <input type="hidden" name="course_id" value="{{ $course->id }}" />
+                            <input name="title"
+                                class="block flex-1 w-full rounded outline-none border-none text-sm font-medium text-gray-700 border-gray-300 p-2"
+                                type="text" placeholder="Enter Section Title" style="box-shadow: none;">
+                            <button type="submit" id="submit2"
+                                class="relative flex items-center overflow-hidden gap-x-1 px-4 py-1 h-[30px] mr-[3px] rounded hover:bg-gray-300 bg-gray-200 text-[12px] uppercase font-medium text-gray-700">Add
+                                Section</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const lessons = @json($lessons);
+        const quizzes = @json($quizzes);
+        const lessonsContent = document.getElementById('searchLessonContent')
+        const quizzesContent = document.getElementById('searchQuizzeContent')
+        if (quizzesContent && lessonsContent) {
+            Search(lessons, lessonsContent);
+            Search(quizzes, quizzesContent);
+            document.getElementById('searchLessonBox').addEventListener('input', (e) => {
+                let lessonsSearch = lessons.filter((t) => t.title.toLowerCase().search(e.target.value
+                    .toLowerCase()) != -1)
+                Search(lessonsSearch, lessonsContent)
+            })
+            document.getElementById('searchQuizzeBox').addEventListener('input', (e) => {
+                let quizzesSearch = quizzes.filter((t) => t.title.toLowerCase().search(e.target.value
+                    .toLowerCase()) != -1)
+                Search(quizzesSearch, quizzesContent)
+            })
+
+            function Search(table, content) {
+                let html = table.map(item => `
+            <div>
+                <div class="flex space-x-2">
+                    <input value="${item.id}" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"  name="lessons_quizzes[]">
+                    <label for="15848" class="text-[13px] text-gray-600 select-none leading-4">
+                        <span class="font-medium text-gray-800">${item.title}</span>
+                    </label>
+                </div>
+            </div>`).join("");
+                content.innerHTML = html;
+            }
+        }
+
+        document.getElementById('form2').addEventListener('submit', function() {
+            document.getElementById("form1").addEventListener("submit", function(event) {
+                event.preventDefault();
+            })
+        });
+        document.getElementById("form1").addEventListener("submit", function() {
+            document.getElementById('form2').addEventListener('submit', function(event) {
+                event.preventDefault();
+            })
+        })
         const checkboxes = document.getElementById('content').querySelectorAll('input[type=checkbox]');
         console.log(checkboxes)
         for (let i = 0; i < checkboxes.length; i++) {
@@ -797,23 +1208,42 @@
         }
         const setting = document.getElementById('setting');
         const general = document.getElementById('general');
+        const curriculum = document.getElementById('curriculum');
         const btngeneral = document.getElementById('headlessui-tabs-tab-:r12:')
-        const btnsetting = document.getElementById('btn-setting')
+        const btncurriculum = document.getElementById('headlessui-tabs-tab-:r13:')
+        const btnsetting = document.getElementById('headlessui-tabs-tab-:r14:')
         btnsetting.onclick = function() {
             setting.style.display = 'block';
             general.style.display = 'none';
-            btnsetting.classList.remove('text-gray-500', 'hover:text-gray-600', 'border-b-2');
+            curriculum.style.display = 'none';
             btngeneral.classList.remove('border-gray-900', 'border-b-2');
             btngeneral.classList.add('text-gray-500', 'hover:text-gray-600');
+            btncurriculum.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
+            btncurriculum.classList.add('text-gray-500', 'hover:text-gray-600');
+            btnsetting.classList.remove('text-gray-500', 'hover:text-gray-600', 'border-b-2');
             btnsetting.classList.add('border-gray-900', 'border-b-2');
         }
         btngeneral.onclick = function() {
             setting.style.display = 'none';
+            curriculum.style.display = 'none';
             general.style.display = 'block';
             btnsetting.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
             btnsetting.classList.add('text-gray-500', 'hover:text-gray-600');
+            btncurriculum.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
+            btncurriculum.classList.add('text-gray-500', 'hover:text-gray-600');
             btngeneral.classList.remove('text-gray-500', 'hover:text-gray-600');
             btngeneral.classList.add('border-gray-900', 'border-b-2');
+        }
+        btncurriculum.onclick = function() {
+            setting.style.display = 'none';
+            general.style.display = 'none';
+            curriculum.style.display = 'block';
+            btnsetting.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
+            btnsetting.classList.add('text-gray-500', 'hover:text-gray-600');
+            btngeneral.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
+            btngeneral.classList.add('text-gray-500', 'hover:text-gray-600');
+            btncurriculum.classList.remove('text-gray-500', 'hover:text-gray-600');
+            btncurriculum.classList.add('border-gray-900', 'border-b-2');
         }
         const btnGeneral = document.getElementById('btn-general');
         const btnpricing = document.getElementById('btn-pricing');
@@ -1083,7 +1513,7 @@
 
             }
         }
-        document.querySelector('button[type=submit]').addEventListener('click', function() {
+        document.querySelector('#btnform1').addEventListener('click', function() {
             // event.preventDefault();
             const eleR = document.getElementById('content-requirements').getElementsByClassName('btn-text');
             PushInTable(eleR, Requirements);

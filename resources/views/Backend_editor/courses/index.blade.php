@@ -8,14 +8,19 @@
                     <h2 class="text-xl font-bold text-gray-900">List your courses</h2>
                 </div>
                 <div class="flex items-center gap-x-3">
-                    <a class="ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-4 py-2 flex items-center rounded-md font-semibold" href="{{route('Courses.create')}}">Add new</a>
+                    <a class="ring-1 ring-black ring-opacity-5 bg-[#007bff] text-white text-sm px-4 py-2 flex items-center rounded-md font-semibold" href="{{route('Courses.create')}}">Add new</a>
                     <div class="relative flex items-center shadow-sm">
                         <span class="absolute flex items-center left-0 pl-3 pointer-events-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </span>
-                        <input class="border border-gray-300 pr-3 pl-9 py-2 rounded-md w-[260px] text-sm font-medium text-gray-600 focus:ring-indigo-500 focus:border-indigo-500 focus:placeholder-gray-500" type="text" placeholder="Search" value="">
+                        <form action="{{ route('Courses.index') }}" method="GET" class="flex items-center">
+                            <input class="border border-gray-300 pr-3 pl-9 py-2 rounded-md w-[260px] text-sm font-medium text-gray-600 focus:ring-indigo-500 focus:border-indigo-500 focus:placeholder-gray-500" type="text" placeholder="Search by title" name="search">
+                            <button class="ml-2 px-3 py-2 rounded-md bg-gray-300 text-gray-700 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50" type="submit">
+                                <span class="fas fa-search"></span>
+                            </button>
+                        </form>
                     </div>
                     <div class="flex items-center">
                         <div class="relative flex items-center" data-headlessui-state="">
@@ -76,7 +81,7 @@
                                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                         </path>
                                     </svg>Edit</a><a
-                                    href="https://accountlp.thimpress.com/?post_type=lp_course&amp;p=17175"
+                                    href="{{route('Courses.show',$course->id)}}"
                                     target="_blank" rel="noopener noreferrer"
                                     class="text-sm font-medium text-green-600 flex items-center gap-x-1"><svg
                                         xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
@@ -85,15 +90,19 @@
                                             d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
                                         </path>
                                     </svg>View</a></div>
-                            <div class="relative z-40" data-headlessui-state=""><button
-                                    class="text-sm pl-2 font-medium text-red-500 flex items-center gap-x-1 focus:border-0 focus:outline-none"
-                                    id="headlessui-popover-button-:re:" type="button" aria-expanded="false"
-                                    data-headlessui-state=""><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                    <form  id="delete-form-{{$course->id}}"  action="{{route('Courses.destroy', $course->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="relative z-40" data-headlessui-state=""><button type="submit" onclick='confirmation(event,`{{ $course->id }}`)' data-toggle="modal"
+                                            class="text-sm pl-2 font-medium text-red-500 flex items-center gap-x-1 focus:border-0 focus:outline-none"
+                                            id="headlessui-popover-button-:re:" type="button" aria-expanded="false"
+                                            data-headlessui-state=""><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
                                         </path>
                                     </svg>Delete</button></div>
+                                </form>
                         </div>
                     </div>
                     @endforeach

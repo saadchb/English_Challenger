@@ -8,8 +8,6 @@ use App\Models\Course; // Import the Course model
 use App\Http\Requests\LessonRequest;
 
 
-
-
 class LessonController extends Controller{
     /**
      * Display a listing of the resource.
@@ -24,9 +22,8 @@ class LessonController extends Controller{
         {
             $lessons = Lesson::query()->latest()->paginate(8);
         }
-     
-        return view('Backend_editor.lessons.index',['lessons' => $lessons]);
-    }
+        return view('Backend_editor/lessons.index',['lessons' => $lessons]);
+       }
 
     /**
      * Show the form for creating a new resource.
@@ -54,6 +51,7 @@ public function store(LessonRequest $request)
         'description' => $request->input('description'),
         'duration' => $request->input('duration'),
         'priview' => $priview, // Assign converted boolean value
+
         // 'course_id' => $request->input('course_id'),
     ]);
 
@@ -90,23 +88,23 @@ public function store(LessonRequest $request)
 
     $lesson->update($request->all());
 
-    return redirect()->route('lessons.index')
-                    ->with('success', 'Lesson modifié avec succès');
+    return redirect()->back();
     }
 /*        $school->adresse = $request->input('adresse');
         $school->description = $request->input('description');
-        
+
         // Save the updated model
         $school->save();
          */
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lesson $lesson)
+    public function destroy(int $id)
     {
+        // dd($lesson);
+        $lesson = Lesson::findOrFail($id);
         $lesson->delete();
-        return redirect()->route(('lessons.index'));
-
+        return redirect()->back();
     }
 }
 

@@ -39,6 +39,7 @@ return new class extends Migration
             $table->integer('max_student')->nullable();
             $table->text('featured_review')->nullable();
             $table->string('duration_gauge')->default('Minute(s)');
+            $table->softDeletes();
 
             $table->unsignedBigInteger('id_categorie')->nullable();
             $table->foreign('id_categorie')->references('id')->on('categories')->onDelete('cascade');
@@ -50,7 +51,7 @@ return new class extends Migration
             // $table->unsignedBigInteger('id_school')->nullable();
             // $table->foreign('id_school')->references('id')->on('schools')->onDelete('cascade');
             // // $table->unsignedBigInteger('id_school');
-            $table->foreign('id_school')->constrained()->onDelete('cascade');
+            $table->foreignId('id_schools')->constrained()->onDelete('cascade');
 
 
             $table->unsignedBigInteger('id_curriculm')->nullable();
@@ -69,6 +70,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists("courses", function (Blueprint $table){
+            $table->softDeletes();
+        });
+
     }
 };
