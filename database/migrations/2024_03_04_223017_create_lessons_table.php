@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->time('duration');
             $table->boolean('priview');
-            $table->unsignedBigInteger('course_id'); // Corrected column name
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade'); // Corrected table name
+            $table->unsignedBigInteger('curriculum_id')->nullable();
+            $table->foreign('curriculum_id')->references('id')->on('curricula');
             $table->timestamps();
         });
     }
@@ -32,4 +32,3 @@ return new class extends Migration
     }
 };
 
-       

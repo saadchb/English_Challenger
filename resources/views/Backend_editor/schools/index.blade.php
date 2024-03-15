@@ -70,14 +70,12 @@
                                             <a href="{{route('Schools.show', $school->id)}}" class="btn btn-info btn-sm">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
-
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick='confirmation(event,`{{ $school->id }}`)' data-toggle="modal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </form>
-
                                     </td>
                                 </tr>
                                 @endforeach

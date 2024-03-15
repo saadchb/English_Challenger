@@ -61,6 +61,7 @@ class QuizController extends Controller
      */
     public function destroy(Quiz $quiz)
     {
-        //
+        $quiz->delete();
+        return redirect()->back();
     }
 }
