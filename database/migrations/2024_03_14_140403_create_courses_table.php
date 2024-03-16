@@ -48,14 +48,10 @@ return new class extends Migration
             $table->foreign('id_tag')->references('id')->on('tags')->onDelete('cascade');
 
 
-            // $table->unsignedBigInteger('id_school')->nullable();
-            // $table->foreign('id_school')->references('id')->on('schools')->onDelete('cascade');
+            $table->unsignedBigInteger('id_school')->nullable();
+            $table->foreign('id_school')->references('id')->on('schools')->onDelete('cascade');
             // // $table->unsignedBigInteger('id_school');
-            $table->foreignId('id_schools')->constrained()->onDelete('cascade');
 
-
-            $table->unsignedBigInteger('id_curriculm')->nullable();
-            $table->foreign('id_curriculm')->references('id')->on('curriculms')->onDelete('cascade');
 
             // $table->unsignedBigInteger('lessons_id')->nullable();
             // $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');

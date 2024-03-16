@@ -9,8 +9,8 @@
                 <div class="banner-content center-heading">
                     <span class="subheading">Expert instruction</span>
                     <h1>Convenient easy way of learning new skills!</h1>
-                    <a href="#" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>  
-                    <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>  
+                    <a href="#" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>
+                    <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>
                 </div>
             </div>
         </div> <!-- / .row -->
@@ -78,8 +78,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
             </div>
         </div>
     </div>
-</section> 
- 
+</section>
+
     <!--course section end-->
 
 
@@ -94,7 +94,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                 <h3>Watch video to know more about us</h3>
             </div>
             <!-- Embed YouTube Video -->
-            
+
         </div>
     </div>
 </div>
@@ -109,7 +109,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
         </div>
         <!--course-->
     </section>
-    <!--course section end--> 
+    <!--course section end-->
        <!--course section start-->
 
 
@@ -139,17 +139,35 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
             </div>
 
             <div class="row course-gallery ">
+                @foreach($courses as $course)
                 <div class="course-item cat1 cat3 col-lg-4 col-md-6">
                     <div class="course-block">
                         <div class="course-img">
-                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-                            <span class="course-label">Expert</span>
+                            <img src="{{ asset('storage/'.$course->img) }}" alt="" class="img-fluid">
+                            <span class="course-label">{{$course->level}}</span>
                         </div>
-                        
+
                         <div class="course-content">
-                            <div class="course-price ">$100 <span class="del">$180</span></div>   
-                            
-                            <h4><a href="#">React – The Complete Guide (React Router)</a></h4>    
+                            <div class="course-price ">
+                            <span><span class=" font-medium text-gray-900">
+                                @if ($course->regular_price && !$course->sale_price)
+                                    <span class=" font-medium text-gray-900"><span
+                                            class="uppercase"> $
+                                            {{ $course->regular_price }}</span></span>
+                                @endif
+                                @if ($course->regular_price && $course->sale_price)
+                                    <span class=" font-medium text-gray-900"><span
+                                            class="line-through pr-2 text-gray-500"
+                                            style="font-size:35px;">
+                                            ${{ $course->sale_price }}</span><span>${{ $course->regular_price }}</span></span>
+                                @endif
+                                @if (!$course->regular_price && !$course->sale_price)
+                                    <span class="uppercase">Free</span>
+                                @endif
+                            </span></span></h4>
+                        </div>
+
+                            <h4><a href="#">{{$course->title}}</a></h4>
                             <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -158,85 +176,22 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <span>(5.00)</span>
                             </div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
+                            <p>{{$course->description}}</p>
 
                             <div class="course-footer d-lg-flex align-items-center justify-content-between">
                                 <div class="course-meta">
                                     <span class="course-student"><i class="bi bi-group"></i>340</span>
                                     <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
-                                <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
+                                </div>
+
+                                <div class="buy-btn"><a href="{{route('Courses.show',$course->id)}}" class="btn btn-main-2 btn-small">Details</a></div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="course-item cat2 cat4 col-lg-4 col-md-6">
-                    <div class="course-block">
-                        <div class="course-img">
-                            <img src="build/assets/images/course/course2.jpg" alt="" class="img-fluid">
-                            <span class="course-label">Advanced</span>
-                        </div>
-                        
-                        <div class="course-content">
-                            <div class="course-price ">$80 <span class="del">$120</span></div>   
-                            
-                            <h4><a href="#">Photography Crash Course for Photographer</a></h4>    
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <span>(5.00)</span>
-                            </div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-
-                            <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                                <div class="course-meta">
-                                    <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                    <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
-                                <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                
-                <div class="course-item cat5 cat2 col-lg-4 col-md-6">
-                    <div class="course-block">
-                        <div class="course-img">
-                            <img src="build/assets/images/course/course1.jpg" alt="" class="img-fluid">
-                            <span class="course-label">Beginner</span>
-                        </div>
-                        
-                        <div class="course-content">
-                            <div class="course-price ">$50</div>   
-                            
-                            <h4><a href="#">Information About UI/UX Design Degree</a></h4>    
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <span>(5.00)</span>
-                            </div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
+                @endforeach
 
-                            <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                                <div class="course-meta">
-                                    <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                    <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
-                                <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -265,7 +220,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">         
+                    <div class="col-lg-3 col-md-6">
                         <div class="counter-item">
                             <i class="ti-heart"></i>
                             <div class="count">
@@ -274,7 +229,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <p>Happy Students</p>
                         </div>
                     </div>
-                
+
                     <div class="col-lg-3 col-md-6">
                         <div class="counter-item">
                             <i class="ti-microphone-alt"></i>
@@ -289,7 +244,105 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
         </div>
     </div>
 </section>
+<section class="section-padding category-section">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-heading center-heading">
+                    <span class="subheading">Top Categories</span>
+                    <h3>Our Top Categories</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+        </div>
 
+        <div class="row no-gutters">
+            <div class="col-lg-3 col-md-6">
+                <div class="course-category style-1">
+                   <div class="category-icon">
+                        <i class="bi bi-laptop"></i>
+                   </div>
+                    <h4><a href="#">Web Development</a></h4>
+                    <p>4 Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="course-category style-2">
+                    <div class="category-icon">
+                        <i class="bi bi-layer"></i>
+                    </div>
+                    <h4><a href="#">Design</a></h4>
+                    <p>12 Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="course-category style-3">
+                    <div class="category-icon">
+                        <i class="bi bi-target-arrow"></i>
+                    </div>
+                    <h4><a href="#">Marketing</a></h4>
+                    <p>6 Courses</p>
+                </div>
+            </div>
+
+             <div class="col-lg-3 col-md-6">
+                <div class="course-category style-4">
+                    <div class="category-icon">
+                        <i class="bi bi-rocket2"></i>
+                    </div>
+                    <h4><a href="#">Art & Design</a></h4>
+                    <p>6 Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="course-category style-2">
+                    <div class="category-icon">
+                        <i class="bi bi-shield"></i>
+                    </div>
+                    <h4><a href="#">Design</a></h4>
+                    <p>12 Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="course-category style-1">
+                   <div class="category-icon">
+                        <i class="bi bi-slider-range"></i>
+                   </div>
+                    <h4><a href="#">Web Development</a></h4>
+                    <p>4 Courses</p>
+                </div>
+            </div>
+           
+            <div class="col-lg-3 col-md-6">
+                <div class="course-category style-4">
+                    <div class="category-icon">
+                        <i class="bi bi-bulb"></i>
+                    </div>
+                    <h4><a href="#">Art & Design</a></h4>
+                    <p>6 Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="course-category style-3">
+                    <div class="category-icon">
+                        <i class="bi bi-android"></i>
+                    </div>
+                    <h4><a href="#">Marketing</a></h4>
+                    <p>6 Courses</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="text-center mt-5">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                    <div class="course-btn mt-4"><a href="#" class="btn btn-main"><i class="fa fa-grip-horizontal mr-2"></i>All Categories</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="testimonial section-padding">
     <div class="container">
         <div class="row justify-content-center">
@@ -388,8 +441,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
             </div>
         </div>
 
-       
-        <div class="row">               
+
+        <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="blog-item">
                     <img src="build/assets/images/blog/news-1.jpg" alt="" class="img-fluid">
@@ -398,7 +451,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>May 19, 2020</span>
                             <span><i class="fa fa-comments"></i>1 comment</span>
                         </div>
-    
+
                         <h2><a href="#">Powerful tips to grow business manner</a></h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
@@ -414,7 +467,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>May 19, 2020</span>
                             <span><i class="fa fa-comments"></i>1 comment</span>
                         </div>
-    
+
                         <h2><a href="#">Powerful tips to grow effective manner</a></h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
@@ -430,7 +483,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>May 19, 2020</span>
                             <span><i class="fa fa-comments"></i>1 comment</span>
                         </div>
-    
+
                         <h2><a href="#">Python may be you completed online </a></h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
