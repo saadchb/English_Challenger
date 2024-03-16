@@ -15,26 +15,16 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\LessonController;
 
-
 Route::get('/', function () {
     return view('EnglishChallenger.index');
 });
-Route::get('/dachboard',function(){
+
+Route::get('/dachboard', function () {
     return view('Backend_editor.dachboard');
 });
 
-// Route::get('/Layout', function () {
-//     return view('Backend_editor.Layout');
-// });
 
 
-
-// Route::get('/index', function () {
-//     return view('Backend_editor.courses.index');
-// })->name('courses.index');;
-// Route::get('/create', function () {
-//     return view('Backend_editor.courses.Add_Course');
-// })->name('courses.Add_Coures');
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');
 Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');

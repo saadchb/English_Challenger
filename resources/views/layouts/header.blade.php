@@ -42,7 +42,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="index.html">
-                    <img src="build/assets/images/logo-dark.png" alt="Edutim" class="img-fluid">
+                <img src="build/assets/images/channels4_profile-removebg-preview.png"  height="34x" alt="Edutim" class="img-fluid">
                 </a>
 
                 <!-- Toggler -->
