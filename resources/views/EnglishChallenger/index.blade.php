@@ -9,8 +9,8 @@
                 <div class="banner-content center-heading">
                     <span class="subheading">Expert instruction</span>
                     <h1>Convenient easy way of learning new skills!</h1>
-                    <a href="#" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>  
-                    <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>  
+                    <a href="#" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>
+                    <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>
                 </div>
             </div>
         </div> <!-- / .row -->
@@ -75,8 +75,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
             </div>
         </div>
     </div>
-</section> 
- 
+</section>
+
     <!--course section end-->
 
 
@@ -91,7 +91,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                 <h3>Watch video to know more about us</h3>
             </div>
             <!-- Embed YouTube Video -->
-            
+
         </div>
     </div>
 </div>
@@ -106,7 +106,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
         </div>
         <!--course-->
     </section>
-    <!--course section end--> 
+    <!--course section end-->
        <!--course section start-->
 
 
@@ -142,11 +142,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
                             <span class="course-label">Expert</span>
                         </div>
-                        
+
                         <div class="course-content">
-                            <div class="course-price ">$100 <span class="del">$180</span></div>   
-                            
-                            <h4><a href="#">React – The Complete Guide (React Router)</a></h4>    
+                            <div class="course-price ">$100 <span class="del">$180</span></div>
+
+                            <h4><a href="#">React – The Complete Guide (React Router)</a></h4>
                             <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -161,8 +161,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                                 <div class="course-meta">
                                     <span class="course-student"><i class="bi bi-group"></i>340</span>
                                     <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
+                                </div>
+
                                 <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
                             </div>
                         </div>
@@ -175,11 +175,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <img src="build/assets/images/course/course2.jpg" alt="" class="img-fluid">
                             <span class="course-label">Advanced</span>
                         </div>
-                        
+
                         <div class="course-content">
-                            <div class="course-price ">$80 <span class="del">$120</span></div>   
-                            
-                            <h4><a href="#">Photography Crash Course for Photographer</a></h4>    
+                            <div class="course-price ">$80 <span class="del">$120</span></div>
+
+                            <h4><a href="#">Photography Crash Course for Photographer</a></h4>
                             <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -194,25 +194,25 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                                 <div class="course-meta">
                                     <span class="course-student"><i class="bi bi-group"></i>340</span>
                                     <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
+                                </div>
+
                                 <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="course-item cat5 cat2 col-lg-4 col-md-6">
                     <div class="course-block">
                         <div class="course-img">
                             <img src="build/assets/images/course/course1.jpg" alt="" class="img-fluid">
                             <span class="course-label">Beginner</span>
                         </div>
-                        
+
                         <div class="course-content">
-                            <div class="course-price ">$50</div>   
-                            
-                            <h4><a href="#">Information About UI/UX Design Degree</a></h4>    
+                            <div class="course-price ">$50</div>
+
+                            <h4><a href="#">Information About UI/UX Design Degree</a></h4>
                             <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -227,8 +227,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                                 <div class="course-meta">
                                     <span class="course-student"><i class="bi bi-group"></i>340</span>
                                     <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
+                                </div>
+
                                 <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
                             </div>
                         </div>
@@ -262,7 +262,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">         
+                    <div class="col-lg-3 col-md-6">
                         <div class="counter-item">
                             <i class="ti-heart"></i>
                             <div class="count">
@@ -271,7 +271,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <p>Happy Students</p>
                         </div>
                     </div>
-                
+
                     <div class="col-lg-3 col-md-6">
                         <div class="counter-item">
                             <i class="ti-microphone-alt"></i>
@@ -354,7 +354,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                     <p>4 Courses</p>
                 </div>
             </div>
-           
+
             <div class="col-lg-3 col-md-6">
                 <div class="course-category style-4">
                     <div class="category-icon">
@@ -487,8 +487,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
             </div>
         </div>
 
-       
-        <div class="row">               
+
+        <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="blog-item">
                     <img src="build/assets/images/blog/news-1.jpg" alt="" class="img-fluid">
@@ -497,7 +497,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>May 19, 2020</span>
                             <span><i class="fa fa-comments"></i>1 comment</span>
                         </div>
-    
+
                         <h2><a href="#">Powerful tips to grow business manner</a></h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
@@ -513,7 +513,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>May 19, 2020</span>
                             <span><i class="fa fa-comments"></i>1 comment</span>
                         </div>
-    
+
                         <h2><a href="#">Powerful tips to grow effective manner</a></h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
@@ -529,7 +529,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>May 19, 2020</span>
                             <span><i class="fa fa-comments"></i>1 comment</span>
                         </div>
-    
+
                         <h2><a href="#">Python may be you completed online </a></h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
