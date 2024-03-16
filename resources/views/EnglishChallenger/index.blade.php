@@ -312,7 +312,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                     <p>4 Courses</p>
                 </div>
             </div>
-           
+
             <div class="col-lg-3 col-md-6">
                 <div class="course-category style-4">
                     <div class="category-icon">
@@ -451,17 +451,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>May 19, 2022</span>
                             <span><i class="fa fa-comments"></i>150 comment</span>
                         </div>
-<<<<<<< HEAD
-    
                         <h2><a href="#">The British English Challenge</a></h2>
                         <p> "Ready for a taste of British English?
                             Our inaugural challenge begins July 31st. From classic expressions to regional dialects,
                             here's your chance to explore the rich tapestry of British linguistic heritage . Stay tuned for details!"</p>
-=======
 
-                        <h2><a href="#">Powerful tips to grow business manner</a></h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
->>>>>>> 5f63899a47d4c03b52ebeb52063b1c8e76febc84
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
                     </div>
                 </div>
@@ -475,15 +469,10 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>April 22, 2023</span>
                             <span><i class="fa fa-comments"></i>85 comment</span>
                         </div>
-<<<<<<< HEAD
-    
+
                         <h2><a href="#">Happy 4th Birthday to English Learning for Curious Minds</a></h2>
                         <p>English Learning for Curious Minds was first published 4 years ago today. Here is a summary of how things have gone since then, and the main things we've done in 2023.</p>
-=======
 
-                        <h2><a href="#">Powerful tips to grow effective manner</a></h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
->>>>>>> 5f63899a47d4c03b52ebeb52063b1c8e76febc84
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
                     </div>
                 </div>
@@ -497,15 +486,10 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>Mars 5, 2024</span>
                             <span><i class="fa fa-comments"></i>16 comment</span>
                         </div>
-<<<<<<< HEAD
-    
+
                         <h2><a href="#">24 Unorthodox Ways To Stick To Your English Learning Goals in 2024</a></h2>
                         <p>Learning English is hard, and one of the hardest things about it is staying motivated. Here are 24 ways that you can stay motivated and hit your goals.</p>
-=======
 
-                        <h2><a href="#">Python may be you completed online </a></h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
->>>>>>> 5f63899a47d4c03b52ebeb52063b1c8e76febc84
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
                     </div>
                 </div>
@@ -523,7 +507,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                     </div>
                     <div class="feature-text">
                         <h4>Expert Teacher</h4>
-                        <p>Offre the unparalleled caliber of educators who ignite curiosity, 
+                        <p>Offre the unparalleled caliber of educators who ignite curiosity,
                             and champion student success like no other.
                         </p>
                     </div>
