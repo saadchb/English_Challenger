@@ -289,105 +289,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
         </div>
     </div>
 </section>
-<section class="section-padding category-section">
-    <div class="container">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-heading center-heading">
-                    <span class="subheading">Top Categories</span>
-                    <h3>Our Top Categories</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-            </div>
-        </div>
 
-        <div class="row no-gutters">
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-1">
-                   <div class="category-icon">
-                        <i class="bi bi-laptop"></i>
-                   </div>
-                    <h4><a href="#">Web Development</a></h4>
-                    <p>4 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-2">
-                    <div class="category-icon">
-                        <i class="bi bi-layer"></i>
-                    </div>
-                    <h4><a href="#">Design</a></h4>
-                    <p>12 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-3">
-                    <div class="category-icon">
-                        <i class="bi bi-target-arrow"></i>
-                    </div>
-                    <h4><a href="#">Marketing</a></h4>
-                    <p>6 Courses</p>
-                </div>
-            </div>
-
-             <div class="col-lg-3 col-md-6">
-                <div class="course-category style-4">
-                    <div class="category-icon">
-                        <i class="bi bi-rocket2"></i>
-                    </div>
-                    <h4><a href="#">Art & Design</a></h4>
-                    <p>6 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-2">
-                    <div class="category-icon">
-                        <i class="bi bi-shield"></i>
-                    </div>
-                    <h4><a href="#">Design</a></h4>
-                    <p>12 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-1">
-                   <div class="category-icon">
-                        <i class="bi bi-slider-range"></i>
-                   </div>
-                    <h4><a href="#">Web Development</a></h4>
-                    <p>4 Courses</p>
-                </div>
-            </div>
-           
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-4">
-                    <div class="category-icon">
-                        <i class="bi bi-bulb"></i>
-                    </div>
-                    <h4><a href="#">Art & Design</a></h4>
-                    <p>6 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-3">
-                    <div class="category-icon">
-                        <i class="bi bi-android"></i>
-                    </div>
-                    <h4><a href="#">Marketing</a></h4>
-                    <p>6 Courses</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="text-center mt-5">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                    <div class="course-btn mt-4"><a href="#" class="btn btn-main"><i class="fa fa-grip-horizontal mr-2"></i>All Categories</a></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <section class="testimonial section-padding">
     <div class="container">
         <div class="row justify-content-center">
@@ -404,10 +306,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                     <div class="review-item">
                         <div class="client-info">
                             <i class="bi bi-quote"></i>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eius autem aliquid pariatur rerum. Deserunt, praesentium.
-                             Adipisci, voluptates nihil debitis</p>
+                            <p>I've thoroughly enjoyed my time on this website. The lessons are well-structured and easy to follow. The practical exercises have really helped me improve my English skills. The teachers are very attentive and responsive. I highly recommend this site to anyone looking to learn English effectively and enjoyably!"</p>
                              <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -416,11 +316,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                         <div class="client-desc">
                             <div class="client-img">
-                                <img src="build/assets/images/clients/test-1.jpg" alt="" class="img-fluid">
+                                <img src="build/assets/images/clients/picture4.jpg" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
-                                <h4>John Doe</h4>
-                                <span class="designation">Developer</span>
+                                <h4>Salma Nadim</h4>
+                                <span class="designation">Student</span>
                             </div>
                         </div>
                     </div>
@@ -428,8 +328,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                      <div class="review-item">
                         <div class="client-info">
                             <i class="bi bi-quote"></i>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eius autem aliquid pariatur rerum. Deserunt, praesentium.
-                             Adipisci, voluptates nihil debitis</p>
+                            <p>As a teacher on this site, I'm delighted to be able to help students improve their English. The platform offers many pedagogical tools that make teaching easier, such as interactive quizzes, videos, and practical exercises. Additionally, the support team is always there to answer my questions and provide support. I'm grateful to be part of this dynamic learning community.</p>
                              <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -440,11 +339,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                         <div class="client-desc">
                             <div class="client-img">
-                                <img src="build/assets/images/clients/test-2.jpg" alt="" class="img-fluid">
+                                <img src="build/assets/images/clients/picture1.jpg" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
-                                <h4>John Doe</h4>
-                                <span class="designation">Developer</span>
+                                <h4>ouazzani Mustapha</h4>
+                                <span class="designation">Teacher</span>
                             </div>
                         </div>
                     </div>
@@ -453,8 +352,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                     <div class="review-item">
                         <div class="client-info">
                             <i class="bi bi-quote"></i>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eius autem aliquid pariatur rerum. Deserunt, praesentium.
-                             Adipisci, voluptates nihil debitis</p>
+                            <p>I've been using this site for a few months now and I'm really impressed with the quality of teaching. The lessons are interactive and engaging. Additionally, the discussion forums are a great way to interact with other learners and practice the language. I feel much more confident in my English skills thanks to this site.</p>
                              <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -465,11 +363,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                         <div class="client-desc">
                             <div class="client-img">
-                                <img src="build/assets/images/clients/test-3.jpg" alt="" class="img-fluid">
+                                <img src="build/assets/images/clients/picture2.jpg" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
-                                <h4>John Doe</h4>
-                                <span class="designation">Developer</span>
+                                <h4>Anwar Nourri</h4>
+                                <span class="designation">Student</span>
                             </div>
                         </div>
                     </div>
