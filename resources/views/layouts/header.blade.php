@@ -6,11 +6,11 @@
                     <ul class="header-contact">
                         <li>
                             <span>Call :</span>
-                           +23 45 5467
+                           +212000000000
                         </li>
                         <li>
                             <span>Email :</span>
-                            info@example.com
+                            Testing@example.com
                         </li>
                     </ul>
                 </div>
@@ -21,7 +21,6 @@
                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
                             </ul>
                         </div>
                         <div class="header-btn">
@@ -42,7 +41,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="index.html">
-                    <img src="build/assets/images/logo-dark.png" alt="Edutim" class="img-fluid">
+                    <img src="build/assets/images/logo-dark.png" alt="English Challenger" class="img-fluid">
                 </a>
 
                 <!-- Toggler -->
@@ -54,139 +53,139 @@
                 <!-- Collapse -->
                 <div class="collapse navbar-collapse" id="navbarMenu">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
+                        
+                    <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Home<i class="fa fa-angle-down"></i>
+                            School<i class="fa fa-angle-down"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbar3">
-                                 <a class="dropdown-item " href="index.html">
-                                    Home 1
-                                </a>
-                                <a class="dropdown-item " href="index-2.html">
-                                    Home 2
-                                </a> 
-                                <a class="dropdown-item " href="index-3.html">
-                                    Home 3
-                                </a> 
-                                <a class="dropdown-item " href="index-4.html">
-                                    Home 4
-                                </a> 
-                                <a class="dropdown-item " href="index-5.html">
-                                    Home 5
-                                </a> 
-                                <a class="dropdown-item " href="index-6.html">
-                                    Home 6
-                                </a> 
-                                <a class="dropdown-item " href="index-7.html">
-                                    Home 7
-                                </a> 
-                                <a class="dropdown-item " href="index-8.html">
-                                    Home 8 <span>New</span>
-                                </a> 
-                                
+                                <a class="dropdown-item " href="#">
+                                Job Offers
+                               </a>
+                               <a class="dropdown-item " href="#">
+                               Profiles
+                               </a> 
                             </div>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="about.html" class="nav-link js-scroll-trigger">
-                                About us
-                            </a>
-                        </li>
+                    </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Courses<i class="fa fa-angle-down"></i>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbar3">
-                                <a class="dropdown-item " href="course-grid.html">
-                                   Course Style 1
-                               </a>
-                               <a class="dropdown-item " href="course-grid-2.html">
-                                   Course Style 2
-                               </a> 
-
-                               <a class="dropdown-item " href="course-grid-3.html">
-                                   Course Style 3
-                               </a> 
-                               <a class="dropdown-item " href="course-grid-4.html">
-                                   Course Style 4
-                               </a> 
-                               <a class="dropdown-item " href="course-grid-5.html">
-                                   Course Filter
-                               </a>
-                               <a class="dropdown-item " href="course-grid-6.html">
-                                   Course List
-                               </a>
-                                <a class="dropdown-item " href="course-single.html">
-                                   Course Details Style 1
-                               </a> 
-                               <a class="dropdown-item " href="course-single2.html">
-                                   Course Details Style Tab
-                               </a> 
-                               <a class="dropdown-item " href="course-single3.html">
-                                   Course Details Style Tab2
-                               </a> 
-                               <a class="dropdown-item " href="course-single4.html">
-                                   Course Details Classic
-                               </a> 
+                            <div class="dropdown-menu d-flex p-2" aria-labelledby="navbar3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Browse courses</h5>
+                                        <p class="card-text">
+                                            At English Challenger we provide a range of accredited teacher training courses.
+                                            If you’re new to teaching, we’d recommend starting with our TESOL course,
+                                            and then pursuing your certifications after.
+                                        </p>
+                                        <a href="#" class="card-link card-subtitle mb-2 text-muted disabled">More info:</a>
+                                        <a href="#" class="card-link">About Us</a>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="build/assets/images/course/course1.png" alt="course 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">TESOL course</h5>
+                                        <p class="card-text">Start a new career as an English language teacher.</p>
+                                        <a href="#" class="btn btn-danger btn-sm">course detail</a>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="build/assets/images/course/course--3.jpg" alt="course 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">TEYL course</h5>
+                                        <p class="card-text">Explore how to teach English to young learners.</p>
+                                        <a href="#" class="btn btn-danger btn-sm">course detail</a>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Shop<i class="fa fa-angle-down"></i>
+                                Quizzes<i class="fa fa-angle-down"></i>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbar3">
-                                 <a class="dropdown-item " href="shop.html">
-                                    Shop
-                                </a>
-                                <a class="dropdown-item " href="product-list-filter.html">
-                                    Shop List Filter
-                                </a>
-                                <a class="dropdown-item " href="product-single.html">
-                                   Shop Single
-                                </a> 
-                                <a class="dropdown-item " href="cart.html">
-                                    Cart
-                                </a> 
-                                <a class="dropdown-item " href="checkout.html">
-                                    Checkout
-                                </a> 
+                            <div class="dropdown-menu d-flex p-2" aria-labelledby="navbar3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Browse quizzes</h5>
+                                        <p class="card-text">
+                                            At English Challenger we provide a range of accredited teacher quizzes.
+                                            If you want to know your level , we’d recommend starting this quizzes ,
+                                            and then pursuing your certifications after.
+                                        </p>
+                                        <a href="#" class="card-link card-subtitle mb-2 text-muted disabled">More info:</a>
+                                        <a href="#" class="card-link">About Us</a>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="build/assets/images/course/quizze1.png" alt="course 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">TESOL quizze</h5>
+                                        <p class="card-text">Explore your level as an English language teacher.</p>
+                                        <a href="#" class="btn btn-danger btn-sm">qiuzze detail</a>
+                                    </div>
+                                </div>
+                                <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="build/assets/images/course/quizze3.png" alt="course 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">TEYL quizze</h5>
+                                        <p class="card-text">Explore your level in teaching English to young learners.</p>
+                                        <a href="#" class="btn btn-danger btn-sm">quizze detail</a>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Pages<i class="fa fa-angle-down"></i>
+                            Certificates<i class="fa fa-angle-down"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbar3">
-                                <a class="dropdown-item " href="instructors.html">
-                                    Instructor
+                                <a class="dropdown-item " href="#">
+                                TESOL/TEFL
                                 </a>
-                                <a class="dropdown-item " href="login-registration.html">
-                                    Login
+                                <a class="dropdown-item " href="#">
+                                Cambridge Examination
                                 </a>
-                                <a class="dropdown-item " href="404.html">
-                                    404
-                                </a> 
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Blog<i class="fa fa-angle-down"></i>
+                            Consulting<i class="fa fa-angle-down"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbar3">
-                                 <a class="dropdown-item " href="blog.html">
-                                    Blog
+                                <a class="dropdown-item " href="#">
+                                EFL Programs
                                 </a>
-                                <a class="dropdown-item " href="blog-single.html">
-                                    Blog Single
-                                </a> 
+                                <a class="dropdown-item " href="#">
+                                Extra Curricular Activities
+                                </a>
                             </div>
                         </li>
                         
-                        <li class="nav-item ">
-                            <a href="contact.html" class="nav-link">
-                                Contact
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Teachers<i class="fa fa-angle-down"></i>
                             </a>
-                        </li>
+                            <div class="dropdown-menu" aria-labelledby="navbar3">
+                                <a class="dropdown-item " href="#">
+                                Cvs
+                               </a>
+                               <a class="dropdown-item " href="#">
+                               Private Tutors
+                               </a> 
+                               <a class="dropdown-item " href="#">
+                               Resources
+                               </a> 
+                            </div>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="#" class="nav-link">
+                            e-library
+                        </a>
+                    </li>
                     </ul>
 
                     <ul class="header-contact-right d-none d-lg-block">
