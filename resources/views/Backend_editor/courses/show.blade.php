@@ -245,7 +245,7 @@
                                     <li>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span><i class="bi bi-paper"></i>Lessons :</span>
-                                            {{ $nblessons }}
+                                            {{ $course->nblessonsbycourse() }}
                                         </div>
                                     <li>
                                         <div class="d-flex justify-content-between align-items-center">

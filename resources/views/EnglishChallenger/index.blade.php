@@ -181,7 +181,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <div class="course-footer d-lg-flex align-items-center justify-content-between">
                                 <div class="course-meta">
                                     <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                    <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
+                                    <span class="course-duration"><i class="bi bi-badge3"></i>{{$course->nblessonsbycourse()}} Lessons</span>
                                 </div>
 
                                 <div class="buy-btn"><a href="{{route('Courses.show',$course->id)}}" class="btn btn-main-2 btn-small">Details</a></div>
@@ -214,7 +214,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         <div class="counter-item">
                             <i class="ti-agenda"></i>
                             <div class="count">
-                                <span class="counter h2">1450</span>
+                                <span class="counter h2">{{$course->nbcourses()}}</span>
                             </div>
                             <p>Total Courses</p>
                         </div>
