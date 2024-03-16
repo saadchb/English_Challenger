@@ -1,17 +1,19 @@
 @extends('Backend_editor.Layout')
 @section('title', 'Courses')
 @section('content')
-    <form action="{{ route('Courses.store') }}" enctype="multipart/form-data" method="POST">
+    <form action="{{ route('Courses.store') }}" enctype="multipart/form-data" id="form1" method="POST">
         @csrf
         <main class="min-w-0 mx-auto relative">
             <div>
                 <div class=" top-0 z-50 bg-white flex items-center justify-between px-6 py-4  border-b" style="width:auto;">
                     <div class="flex items-center text-xl font-bold text-gray-900">Add new Course</div>
-                    <div class="flex items-center gap-x-3"><button type='button'
+                    <div class="flex items-center gap-x-3">
+                        {{-- <button type='button'
                             class="relative ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-4 py-2 flex items-center rounded-md font-medium">Submit
-                            for Review</button><button
-                            class="relative border text-sm px-4 py-2 flex items-center rounded-md font-medium text-gray-600"
-                            type="submit">Save
+                            for Review</button> --}}
+                        <button
+                            class="relative border text-white px-4 text-sm py-2 flex items-center rounded-md font-medium bg-[#007bff]"
+                            type="submit" id="submit1">Save
                             Draft</button>
                         <div class="flex items-center">
                             <div class="relative flex items-center" data-headlessui-state=""><button type='button'
@@ -30,10 +32,11 @@
                                 class="px-4 py-2 text-sm min-w-[100px] leading-5 font-medium focus:outline-none  border-b-2 -mb-[2px] border-gray-900"
                                 id="headlessui-tabs-tab-:r12:">General</button><button type='button'
                                 class="px-4 py-2 text-sm min-w-[100px] leading-5 font-medium focus:outline-none text-gray-500 hover:text-gray-600"
-                                id="headlessui-tabs-tab-:r13:">Curriculum</button><button type='button' id="btn-setting"
+                                id="headlessui-tabs-tab-:r13:">Curriculum</button><button type='button'
                                 class="px-4 py-2 text-sm min-w-[100px] leading-5 font-medium focus:outline-none text-gray-500 hover:text-gray-600"
                                 id="headlessui-tabs-tab-:r14:">Settings</button></div>
                         <div style="display: block" id="general" class="w-full mt-6">
+
                             <div id="headlessui-tabs-panel-:r15:" role="tabpanel"
                                 aria-labelledby="headlessui-tabs-tab-:r12:" tabindex="0" data-headlessui-state="selected">
                                 <div class="grid grid-cols-6 gap-6">
@@ -65,18 +68,21 @@
                                         <div id='parentAddNewTag' class="mt-4 space-y-4">
                                             @foreach ($categories as $categorie)
                                                 <div class="flex items-start">
-                                                    <div class="flex items-center h-5"><input
-                                                            id="categorie{{ $categorie->title }}" type="checkbox"
+                                                    <div class="flex items-center h-5">
+                                                        <input id="categorie{{ $categorie->title }}" type="checkbox"
                                                             name="categories[]" value="{{ $categorie->id }}"
-                                                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                                            @if (is_array(old('categories')) && in_array($categorie->id, old('categories'))) checked @endif>
                                                     </div>
-                                                    <div class="text-sm"><label for="categorie{{ $categorie->title }}"
+                                                    <div class="text-sm">
+                                                        <label for="categorie{{ $categorie->title }}"
                                                             class="pl-3 font-medium text-gray-700">{{ $categorie->title }}</label>
                                                     </div>
                                                 </div>
                                             @endforeach
+
                                             <a href='{{ route('Categories.index') }}'
-                                                class="relative text-sm gap-x-1 flex items-center font-medium text-indigo-600 AddNewTag"><svg
+                                                class="relative text-sm gap-x-1 flex items-center font-medium text-[#007bff] AddNewTag"><svg
                                                     xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -89,17 +95,21 @@
                                         <div class="mt-4 space-y-4" id="parentAddNewCategory">
                                             @foreach ($tags as $tag)
                                                 <div class="flex items-start">
-                                                    <div class="flex items-center h-5"><input id="tag{{ $tag->title }}"
-                                                            type="checkbox" name="tags[]" value="{{ $tag->id }}"
-                                                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="tag{{ $tag->title }}" type="checkbox" name="tags[]"
+                                                            value="{{ $tag->id }}"
+                                                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                                            @if (is_array(old('tags')) && in_array($tag->id, old('tags'))) checked @endif>
                                                     </div>
-                                                    <div class="text-sm"><label for="tag{{ $tag->title }}"
+                                                    <div class="text-sm">
+                                                        <label for="tag{{ $tag->title }}"
                                                             class="pl-3 font-medium text-gray-700">{{ $tag->title }}</label>
                                                     </div>
                                                 </div>
                                             @endforeach
+
                                             <a id="AddNewCategorie" href='{{ route('Tags.index') }}'
-                                                class="relative text-sm gap-x-1 flex items-center font-medium text-indigo-600 AddNewTag"><svg
+                                                class="relative text-sm gap-x-1 flex items-center font-medium  text-[#007bff] AddNewTag"><svg
                                                     xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -123,7 +133,7 @@
                                                     <div
                                                         class="cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                         <label
-                                                            class="bg-indigo-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                            class="bg-[#007bff] text-white text-sm font-bold py-2 px-4 rounded"
                                                             for="file_input">Upload file</label>
                                                         <input value="{{ old('img') }}" name="img"
                                                             class="hidden block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -201,14 +211,18 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_duration"
                                                 class="w-36 text-sm text-gray-800 font-medium">Duration</label>
                                             <div class="flex gap-x-2"><input id="_lp_duration" type="number"
-                                                    name="duration"
-                                                    class="w-[80px] py-1.5 border border-gray-300 shadow-sm text-gray-800 rounded-md text-sm p-2"
-                                                    value="10"><select  name="duration_gauge"
+                                                    value="{{ old('duration') ?? 10 }}" name="duration"
+                                                    class="w-[80px] py-1.5 border border-gray-300 shadow-sm text-gray-800 rounded-md text-sm p-2"><select
+                                                    name="duration_gauge"
                                                     class="py-1.5 pr-8 border border-gray-300 text-gray-800 shadow-sm rounded-md text-sm leading-4">
-                                                    <option value="minute">Minute(s)</option>
-                                                    <option value="hour">Hour(s)</option>
-                                                    <option value="day">Day(s)</option>
-                                                    <option value="week">Week(s)</option>
+                                                    <option value="minute"
+                                                        @if (old('duration_gauge') == 'minute') selected @endif>Minute(s)</option>
+                                                    <option value="hour"
+                                                        @if (old('duration_gauge') == 'hour') selected @endif>Hour(s)</option>
+                                                    <option value="day"
+                                                        @if (old('duration_gauge') == 'day') selected @endif>Day(s)</option>
+                                                    <option value="week"
+                                                        @if (old('duration_gauge') == 'week') selected @endif>Week(s)</option>
                                                 </select></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm pl-36 ml-2">Set to 0 for the lifetime access.
@@ -217,6 +231,7 @@
                                     <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center">
                                         <div class="text-sm text-gray-800 font-medium">Block content</div>
                                         <div class="flex space-x-2"><input id="_lp_block_expire_duration" type="checkbox"
+                                                @if (old('blocked_content_by_duration') == 1) checked="" @endif
                                                 name="blocked_content_by_duration"
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"><label
                                                 for="_lp_block_expire_duration"
@@ -228,6 +243,7 @@
                                     <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center">
                                         <div class="text-sm text-gray-800 font-medium"></div>
                                         <div class="flex space-x-2"><input id="_lp_block_finished" type="checkbox"
+                                                @if (old('blocked_content_by_duration') == 1) checked="" @else checked="" @endif
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                                                 name="blocked_content_by_student" checked=""><label
                                                 for="_lp_block_finished"
@@ -238,7 +254,8 @@
                                     <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center">
                                         <div class="text-sm text-gray-800 font-medium">Allow Repurchase</div>
                                         <div class="flex space-x-2"><input id="_lp_allow_course_repurchase"
-                                                name="allow_repurchase" type="checkbox"
+                                                @if (old('allow_repurchase') == 1) checked="" @endif name="allow_repurchase"
+                                                type="checkbox"
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"><label
                                                 for="_lp_allow_course_repurchase"
                                                 class="text-sm text-gray-800 select-none leading-4">Allow users to
@@ -255,9 +272,15 @@
                                                 class="w-36 text-sm text-gray-800 font-medium">Repurchase action</label>
                                             <div><select id="_lp_course_repurchase_option" name="repurchase_action"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md">
-                                                    <option value="reset">Reset course progress</option>
-                                                    <option value="keep">Keep course progress</option>
-                                                    <option value="popup">Open popup</option>
+                                                    <option value="reset"
+                                                        @if (old('repurchase_action') == 'reset') selected @endif>Reset course
+                                                        progress</option>
+                                                    <option value="keep"
+                                                        @if (old('repurchase_action') == 'keep') selected @endif>Keep course
+                                                        progress</option>
+                                                    <option value="popup"
+                                                        @if (old('repurchase_action') == 'popup') selected @endif>Open popup
+                                                    </option>
                                                 </select></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm pl-36 ml-2">1. Reset course progress: The
@@ -273,10 +296,15 @@
                                                 class="w-36 text-sm text-gray-800 font-medium">Level</label>
                                             <div><select id="_lp_level" name="level"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md">
-                                                    <option value="">All levels</option>
-                                                    <option value="beginner">Beginner</option>
-                                                    <option value="intermediate">Intermediate</option>
-                                                    <option value="expert">Expert</option>
+                                                    <option value="All levels">All levels</option>
+                                                    <option value="beginner"
+                                                        @if (old('level') == 'beginner') selected @endif>Beginner
+                                                    </option>
+                                                    <option value="intermediate"
+                                                        @if (old('level') == 'intermediate') selected @endif>Intermediate
+                                                    </option>
+                                                    <option value="expert"
+                                                        @if (old('level') == 'expert') selected @endif>Expert</option>
                                                 </select></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm pl-36 ml-2">Choose a difficulty level.</p>
@@ -286,6 +314,7 @@
                                                 class="w-36 text-sm text-gray-800 font-medium">Fake Students
                                                 Enrolled</label>
                                             <div><input id="_lp_students" type="number" name="fake_students_enrolled"
+                                                    value="{{ old('fake_students_enrolled') }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px] p-2"
                                                     step="1" min="0" max="" value="0"></div>
                                         </div>
@@ -297,8 +326,9 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_max_students"
                                                 class="w-36 text-sm text-gray-800 font-medium">Max student</label>
                                             <div><input id="_lp_max_students" type="number" name="max_student"
+                                                    value="{{ old('max_student') ?? 0 }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
-                                                    step="1" min="0" max="" value="0"></div>
+                                                    step="1" min="0" max=""></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm ml-2 pl-36">The maximum number of students
                                             that
@@ -309,8 +339,9 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_retake_count"
                                                 class="w-36 text-sm text-gray-800 font-medium">Re-take Course</label>
                                             <div><input id="_lp_retake_count" type="number" name="re_take_course"
+                                                    value="{{ old('re_take_course') ?? 0 }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
-                                                    step="1" min="0" max="" value="0"></div>
+                                                    step="1" min="0" max=""></div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm ml-2 pl-36">The number of times a user can
                                             learn
@@ -320,18 +351,19 @@
                                     <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center">
                                         <div class="text-sm text-gray-800 font-medium">Finish button</div>
                                         <div class="flex space-x-2"><input id="_lp_has_finish" type="checkbox"
+                                                @if (old('finish_button') == 1) checked="" @else checked="" @endif
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded  p-2"
-                                                name="finish_button" checked=""><label for="_lp_has_finish"
+                                                name="finish_button"><label for="_lp_has_finish"
                                                 class="text-sm text-gray-800 select-none leading-4">Allow showing the
                                                 finish
                                                 button
-                                                when the student has completed all items but has not passed the course
-                                                assessment
-                                                yet.</label></div>
+                                                when the student has completed all items but has not<br /> passed
+                                                the course assessment yet.</label></div>
                                     </div>
                                     <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center p-2">
                                         <div class="text-sm text-gray-800 font-medium">Featured list</div>
                                         <div class="flex space-x-2"><input id="_lp_featured" type="checkbox"
+                                                @if (old('add_to_featured_list') == 1) checked="" @endif
                                                 name="add_to_featured_list"
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"><label
                                                 for="_lp_featured" class="text-sm text-gray-800 select-none leading-4">Add
@@ -343,7 +375,7 @@
                                                 class="w-36 text-sm text-gray-800 font-medium">Featured review</label>
                                             <div>
                                                 <textarea id="_lp_featured_review" name="featured_review"
-                                                    class="focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[400px]  p-2"></textarea>
+                                                    class="focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[400px]  p-2">{{ old('featured_review') }}</textarea>
                                             </div>
                                         </div>
                                         <p class="w-full mt-2 flex-1 text-sm pl-36 ml-2">A good review to promote the
@@ -354,7 +386,7 @@
                                         <div class="flex items-center gap-x-2"><label for="_lp_external_link_buy_course"
                                                 class="w-36 text-sm text-gray-800 font-medium">External link</label>
                                             <div><input id="_lp_external_link_buy_course" type="text"
-                                                    name="external_link"
+                                                    value="{{ old('external_link') }}" name="external_link"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[400px]  p-2"
                                                     step="1" min="" max="" value=""></div>
                                         </div>
@@ -365,6 +397,7 @@
                                     <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center">
                                         <div class="text-sm text-gray-800 font-medium">Students List</div>
                                         <div class="flex space-x-2"><input id="_lp_hide_students_list" type="checkbox"
+                                                @if (old('students_list') == 1) checked="" @endif name='students_list'
                                                 name='students_list'
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 roundedw"><label
                                                 for="_lp_hide_students_list"
@@ -382,6 +415,7 @@
                                     <div class="flex items-center gap-x-2"><label for="regular-price"
                                             class="w-36 text-sm text-gray-800 font-medium">Regular Price</label>
                                         <div><input id="regular-price" type="number" name="regular_price"
+                                                value="{{ old('regular_price') }}"
                                                 class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
                                                 step="0.01" min="0" value="false"></div>
                                     </div>
@@ -389,8 +423,9 @@
                                         <div class="flex items-center gap-x-2"><label for="sale-price"
                                                 class="w-36 text-sm text-gray-800 font-medium">Sale Price</label>
                                             <div><input id="sale-price" type="number" name="sale_price"
+                                                    value="{{ old('sale_price') }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
-                                                    step="0.01" min="0" value="false"></div>
+                                                    step="0.01" min="0"></div>
                                         </div>
                                     </div>
                                     <div><button type='button' id="btn-date"
@@ -405,97 +440,19 @@
                                                             id="headlessui-popover-button-:r3h:" type="button"
                                                             aria-expanded="false" data-headlessui-state=""><input
                                                                 class="py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md pl-2"
-                                                                type="date" value=""
+                                                                type="date"
+                                                                value="{{ old('sale_start_dates') ? date('Y-m-d', strtotime(old('sale_start_dates'))) : '' }}"
                                                                 name="sale_start_dates"></button></div>
-                                                    <div class="flex gap-1 items-center"><select name="sale_start_hours"
-                                                            class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                            <option value="0">00</option>
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
-                                                            <option value="5">05</option>
-                                                            <option value="6">06</option>
-                                                            <option value="7">07</option>
-                                                            <option value="8">08</option>
-                                                            <option value="9">09</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-                                                            <option value="13">13</option>
-                                                            <option value="14">14</option>
-                                                            <option value="15">15</option>
-                                                            <option value="16">16</option>
-                                                            <option value="17">17</option>
-                                                            <option value="18">18</option>
-                                                            <option value="19">19</option>
-                                                            <option value="20">20</option>
-                                                            <option value="21">21</option>
-                                                            <option value="22">22</option>
-                                                            <option value="23">23</option>
-                                                        </select><span>:</span><select name="sale_start_minutes"
-                                                            class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                            <option value="0">00</option>
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
-                                                            <option value="5">05</option>
-                                                            <option value="6">06</option>
-                                                            <option value="7">07</option>
-                                                            <option value="8">08</option>
-                                                            <option value="9">09</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-                                                            <option value="13">13</option>
-                                                            <option value="14">14</option>
-                                                            <option value="15">15</option>
-                                                            <option value="16">16</option>
-                                                            <option value="17">17</option>
-                                                            <option value="18">18</option>
-                                                            <option value="19">19</option>
-                                                            <option value="20">20</option>
-                                                            <option value="21">21</option>
-                                                            <option value="22">22</option>
-                                                            <option value="23">23</option>
-                                                            <option value="24">24</option>
-                                                            <option value="25">25</option>
-                                                            <option value="26">26</option>
-                                                            <option value="27">27</option>
-                                                            <option value="28">28</option>
-                                                            <option value="29">29</option>
-                                                            <option value="30">30</option>
-                                                            <option value="31">31</option>
-                                                            <option value="32">32</option>
-                                                            <option value="33">33</option>
-                                                            <option value="34">34</option>
-                                                            <option value="35">35</option>
-                                                            <option value="36">36</option>
-                                                            <option value="37">37</option>
-                                                            <option value="38">38</option>
-                                                            <option value="39">39</option>
-                                                            <option value="40">40</option>
-                                                            <option value="41">41</option>
-                                                            <option value="42">42</option>
-                                                            <option value="43">43</option>
-                                                            <option value="44">44</option>
-                                                            <option value="45">45</option>
-                                                            <option value="46">46</option>
-                                                            <option value="47">47</option>
-                                                            <option value="48">48</option>
-                                                            <option value="49">49</option>
-                                                            <option value="50">50</option>
-                                                            <option value="51">51</option>
-                                                            <option value="52">52</option>
-                                                            <option value="53">53</option>
-                                                            <option value="54">54</option>
-                                                            <option value="55">55</option>
-                                                            <option value="56">56</option>
-                                                            <option value="57">57</option>
-                                                            <option value="58">58</option>
-                                                            <option value="59">59</option>
-                                                        </select></div>
+                                                    <div class="flex gap-1 items-center">
+                                                        <input type='number' max="23" min="0"
+                                                            name="sale_start_hours"
+                                                            value="{{ old('sale_start_dates') ? date('H', strtotime(old('sale_start_dates'))) : 00 }}"
+                                                            class=" pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"><span>:</span>
+                                                        <input type='number' max="59" min="0"
+                                                            name="sale_start_minutes"
+                                                            value="{{ old('sale_start_dates') ? date('i', strtotime(old('sale_start_dates'))) : 00 }}"
+                                                            class="pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -506,99 +463,22 @@
                                                     <div class="relative" data-headlessui-state=""><button type='button'
                                                             id="headlessui-popover-button-:r3m:" type="button"
                                                             aria-expanded="false" data-headlessui-state=""><input
+                                                                value="{{ old('sale_end_dates') ? date('Y-m-d', strtotime(old('sale_end_dates'))) : '' }}"
                                                                 class="py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md  pl-2"
                                                                 type="date" id="datepicker" value=""
                                                                 name="sale_end_dates"></button>
                                                     </div>
-                                                    <div class="flex gap-1 items-center"><select name="sale_end_hours"
+                                                    <div class="flex gap-1 items-center">
+                                                        <input type='number' max="23" min="0"
+                                                            name="sale_end_hours"
+                                                            value="{{ old('sale_end_dates') ? date('H', strtotime(old('sale_end_dates'))) : 00 }}"
+                                                            class=" p-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                        <span>:</span>
+                                                        <input type='number' max="59"sale_end_minutes
+                                                            min="0" name=""
+                                                            value="{{ old('sale_end_dates') ? date('i', strtotime(old('sale_end_dates'))) : 00 }}"
                                                             class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                            <option value="0">00</option>
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
-                                                            <option value="5">05</option>
-                                                            <option value="6">06</option>
-                                                            <option value="7">07</option>
-                                                            <option value="8">08</option>
-                                                            <option value="9">09</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-                                                            <option value="13">13</option>
-                                                            <option value="14">14</option>
-                                                            <option value="15">15</option>
-                                                            <option value="16">16</option>
-                                                            <option value="17">17</option>
-                                                            <option value="18">18</option>
-                                                            <option value="19">19</option>
-                                                            <option value="20">20</option>
-                                                            <option value="21">21</option>
-                                                            <option value="22">22</option>
-                                                            <option value="23">23</option>
-                                                        </select><span>:</span><select name="sale_end_minutes"
-                                                            class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                            <option value="0">00</option>
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
-                                                            <option value="5">05</option>
-                                                            <option value="6">06</option>
-                                                            <option value="7">07</option>
-                                                            <option value="8">08</option>
-                                                            <option value="9">09</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-                                                            <option value="13">13</option>
-                                                            <option value="14">14</option>
-                                                            <option value="15">15</option>
-                                                            <option value="16">16</option>
-                                                            <option value="17">17</option>
-                                                            <option value="18">18</option>
-                                                            <option value="19">19</option>
-                                                            <option value="20">20</option>
-                                                            <option value="21">21</option>
-                                                            <option value="22">22</option>
-                                                            <option value="23">23</option>
-                                                            <option value="24">24</option>
-                                                            <option value="25">25</option>
-                                                            <option value="26">26</option>
-                                                            <option value="27">27</option>
-                                                            <option value="28">28</option>
-                                                            <option value="29">29</option>
-                                                            <option value="30">30</option>
-                                                            <option value="31">31</option>
-                                                            <option value="32">32</option>
-                                                            <option value="33">33</option>
-                                                            <option value="34">34</option>
-                                                            <option value="35">35</option>
-                                                            <option value="36">36</option>
-                                                            <option value="37">37</option>
-                                                            <option value="38">38</option>
-                                                            <option value="39">39</option>
-                                                            <option value="40">40</option>
-                                                            <option value="41">41</option>
-                                                            <option value="42">42</option>
-                                                            <option value="43">43</option>
-                                                            <option value="44">44</option>
-                                                            <option value="45">45</option>
-                                                            <option value="46">46</option>
-                                                            <option value="47">47</option>
-                                                            <option value="48">48</option>
-                                                            <option value="49">49</option>
-                                                            <option value="50">50</option>
-                                                            <option value="51">51</option>
-                                                            <option value="52">52</option>
-                                                            <option value="53">53</option>
-                                                            <option value="54">54</option>
-                                                            <option value="55">55</option>
-                                                            <option value="56">56</option>
-                                                            <option value="57">57</option>
-                                                            <option value="58">58</option>
-                                                            <option value="59">59</option>
-                                                        </select></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -607,6 +487,7 @@
                                         <div class="text-sm text-gray-800 font-medium">There is no enrollment requirement
                                         </div>
                                         <div class="flex space-x-2"><input id="_lp_no_required_enroll" type="checkbox"
+                                                @if (old('there_is_no_enrollment_requirement') == 1) checked="" @endif
                                                 name="there_is_no_enrollment_requirement"
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"><label
                                                 for="_lp_no_required_enroll"
@@ -627,7 +508,9 @@
                                                 <div class="w-36 text-sm text-gray-800 font-medium">Requirements</div>
                                                 <div class="flex-1">
                                                     <div class="" id="content-requirements">
-
+                                                        @if (isset(json_decode(old('tableData'), true)[0]))
+                                                            <x-extra_information :table="json_decode(old('tableData'), true)[0]" btnidname='btn-text' />
+                                                        @endif
                                                     </div>
                                                     <button type='button' id="btn-addMoreR"
                                                         class="mt-2 flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
@@ -640,6 +523,10 @@
                                                 <div class="w-36 text-sm text-gray-800 font-medium">Target Audience</div>
                                                 <div class="flex-1">
                                                     <div id="TargetAudience">
+                                                        @if (isset(json_decode(old('tableData'), true)[1]))
+                                                            <x-extra_information :table="json_decode(old('tableData'), true)[1]"
+                                                                btnidname='btnAudience' />
+                                                        @endif
                                                     </div><button type='button' id="btnAddMoreAudience"
                                                         class="mt-2 flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
                                                         more</button>
@@ -650,8 +537,12 @@
                                             <div class="flex gap-x-2  py-7">
                                                 <div class="w-36 text-sm text-gray-800 font-medium">Key Features</div>
                                                 <div class="flex-1">
-                                                    <div class="" id="KeyFeatures"></div><button type='button'
-                                                        id="btnAddMoreFeatures"
+                                                    <div class="" id="KeyFeatures">
+                                                        @if (isset(json_decode(old('tableData'), true)[2]))
+                                                            <x-extra_information :table="json_decode(old('tableData'), true)[2]"
+                                                                btnidname='btnKeyFeatures' />
+                                                        @endif
+                                                    </div><button type='button' id="btnAddMoreFeatures"
                                                         class="mt-2 flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
                                                         more</button>
                                                 </div>
@@ -661,8 +552,11 @@
                                             <div class="flex gap-x-2  py-7">
                                                 <div class="w-36 text-sm text-gray-800 font-medium">FAQs</div>
                                                 <div class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                                                    <div class="space-y-2" id="FAQs"></div><button type='button'
-                                                        id="AddMoretbnFAQs"
+                                                    <div class="space-y-2" id="FAQs">
+                                                        @if (isset(json_decode(old('tableData'), true)[3]))
+                                                            <x-faqs :table="json_decode(old('tableData'), true)[3]" />
+                                                        @endif
+                                                    </div><button type='button' id="AddMoretbnFAQs"
                                                         class="mt-2 flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
                                                         more</button>
                                                 </div>
@@ -681,6 +575,7 @@
                                                 <div class="w-36 text-sm text-gray-800 font-medium">Evaluation</div>
                                                 <div class="_lp_course_result flex-1 space-y-2">
                                                     <div><input id="_lp_course_result_0" type="radio"
+                                                            @if (old('evaluation') == 'evaluate_lesson') checked @endif
                                                             class="form-radio text-blue-500 h-4 w-4 border-2 border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                                             name="evaluation" value="evaluate_lesson"
                                                             checked=""><br /><label for="_lp_course_result_0"
@@ -693,6 +588,7 @@
                                                                     completes 5 lessons, then the result is 5/10 (50%).</p>
                                                             </span></label></div>
                                                     <div><input id="_lp_course_result_1" type="radio" name="evaluation"
+                                                            @if (old('evaluation') == 'evaluate_final_quiz') checked @endif
                                                             class="form-radio text-blue-500 h-4 w-4 border-2 border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                                             name="_lp_course_result" value="evaluate_final_quiz"><label
                                                             for="_lp_course_result_1"
@@ -706,6 +602,7 @@
                                                                 data-loading="Loading...">Get A Passing
                                                                 Grade</a></label></div>
                                                     <div><input id="_lp_course_result_2" type="radio" name="evaluation"
+                                                            @if (old('evaluation') == 'evaluate_quiz') checked @endif
                                                             class="block form-radio text-blue-500 h-4 w-4 border-2 border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                                             name="_lp_course_result" value="evaluate_quiz"><label
                                                             for="_lp_course_result_2"
@@ -719,6 +616,7 @@
                                                                     passes 5 quizzes, then the result is 5/10 (50%).</p>
                                                             </span></label></div>
                                                     <div><input id="_lp_course_result_3" type="radio" name="evaluation"
+                                                            @if (old('evaluation') == 'evaluate_questions') checked @endif
                                                             class="form-radio text-blue-500 h-4 w-4 border-2 border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                                             name="_lp_course_result" value="evaluate_questions"><label
                                                             for="_lp_course_result_3"
@@ -732,6 +630,7 @@
                                                                     corrects 5 questions, then the result is 5/10 (50%).</p>
                                                             </span></label></div>
                                                     <div><input id="_lp_course_result_4" type="radio" name="evaluation"
+                                                            @if (old('evaluation') == 'evaluate_mark') checked @endif
                                                             class="form-radio text-blue-500 h-4 w-4 border-2 border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                                             name="_lp_course_result" value="evaluate_mark"><label
                                                             for="_lp_course_result_4"
@@ -740,6 +639,7 @@
                                                                 achieved scores
                                                                 per the total score of the questions.</span></label></div>
                                                     <div><input id="_lp_course_result_5" type="radio" name="evaluation"
+                                                            @if (old('evaluation') == 'evaluate_final_assignment') checked @endif
                                                             class="form-radio text-blue-500 h-4 w-4 border-2 border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                                             name="_lp_course_result"
                                                             value="evaluate_final_assignment"><label
@@ -764,9 +664,9 @@
                                             <div class="flex items-center gap-x-2"><label for="_lp_passing_condition"
                                                     class="w-36 text-sm text-gray-800 font-medium">Passing Grade(%)</label>
                                                 <div><input id="_lp_passing_condition" type="number"
-                                                        name="passing_grade"
+                                                        value="{{ old('passing_grade') ?? 80 }}" name="passing_grade"
                                                         class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px] pl-2"
-                                                        step="0.01" min="0" max="100" value="80">
+                                                        step="0.01" min="0" max="100">
                                                 </div>
                                             </div>
                                             <p class="w-full mt-2 flex-1 text-sm ml-2 pl-36">The conditions that must be
@@ -805,7 +705,7 @@
                                                                 <div class="truncate text-gray-600">check</div>
                                                                 <div class="flex items-center gap-x-2"><button
                                                                         type='button'
-                                                                        class="relative ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a
+                                                                        class="relative ring-1 ring-black ring-opacity-5 bg-[#007bff] text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a
                                                                         href="https://accountlp.thimpress.com/wp-admin/post.php?post=14562&amp;action=edit"
                                                                         class="relative border text-gray-600 bg-white text-sm px-3 py-1.5 flex items-center rounded font-medium hover:bg-gray-50">Edit</a>
                                                                 </div>
@@ -824,7 +724,7 @@
                                                                 <div class="truncate text-gray-600">certificate</div>
                                                                 <div class="flex items-center gap-x-2"><button
                                                                         type='button'
-                                                                        class="relative ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a
+                                                                        class="relative ring-1 ring-black ring-opacity-5 bg-[#007bff] text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a
                                                                         href="https://accountlp.thimpress.com/wp-admin/post.php?post=21606&amp;action=edit"
                                                                         class="relative border text-gray-600 bg-white text-sm px-3 py-1.5 flex items-center rounded font-medium hover:bg-gray-50">Edit</a>
                                                                 </div>
@@ -843,7 +743,7 @@
                                                                 <div class="truncate text-gray-600">certificate-demo</div>
                                                                 <div class="flex items-center gap-x-2"><button
                                                                         type='button'
-                                                                        class="relative ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a
+                                                                        class="relative ring-1 ring-black ring-opacity-5 bg-[#007bff] text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a
                                                                         href="https://accountlp.thimpress.com/wp-admin/post.php?post=22065&amp;action=edit"
                                                                         class="relative border text-gray-600 bg-white text-sm px-3 py-1.5 flex items-center rounded font-medium hover:bg-gray-50">Edit</a>
                                                                 </div>
@@ -855,7 +755,7 @@
                                                 <div class="w-full mt-4"><a
                                                         href="https://accountlp.thimpress.com/wp-admin/post-new.php?post_type=lp_cert"
                                                         target="_blank" rel="noopener noreferrer"
-                                                        class="border gap-x-2 text-white bg-indigo-600 text-sm px-3 py-2 inline-flex items-center rounded-md font-medium"><svg
+                                                        class="border gap-x-2 text-white bg-[#007bff] text-sm px-3 py-2 inline-flex items-center rounded-md font-medium"><svg
                                                             xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                             class="w-5 h-5">
@@ -874,6 +774,15 @@
             </div>
         </div>
     </form>
+    <div role="tabpanel" style="display: none;" id="curriculum" class="ml-6"
+        aria-labelledby="headlessui-tabs-tab-:r1j:" tabindex="0" data-headlessui-state="selected">
+        <div class="flex items-center gap-x-2 text-white bg-blue-400 text-sm font-medium border rounded py-3 px-4"><svg
+                xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>Please save Course before add Section</div>
+    </div>
     <script>
         const checkboxes = document.getElementById('content').querySelectorAll('input[type=checkbox]');
         console.log(checkboxes)
@@ -897,23 +806,42 @@
         }
         const setting = document.getElementById('setting');
         const general = document.getElementById('general');
+        const curriculum = document.getElementById('curriculum');
         const btngeneral = document.getElementById('headlessui-tabs-tab-:r12:')
-        const btnsetting = document.getElementById('btn-setting')
+        const btncurriculum = document.getElementById('headlessui-tabs-tab-:r13:')
+        const btnsetting = document.getElementById('headlessui-tabs-tab-:r14:')
         btnsetting.onclick = function() {
             setting.style.display = 'block';
             general.style.display = 'none';
-            btnsetting.classList.remove('text-gray-500', 'hover:text-gray-600', 'border-b-2');
+            curriculum.style.display = 'none';
             btngeneral.classList.remove('border-gray-900', 'border-b-2');
             btngeneral.classList.add('text-gray-500', 'hover:text-gray-600');
+            btncurriculum.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
+            btncurriculum.classList.add('text-gray-500', 'hover:text-gray-600');
+            btnsetting.classList.remove('text-gray-500', 'hover:text-gray-600', 'border-b-2');
             btnsetting.classList.add('border-gray-900', 'border-b-2');
         }
         btngeneral.onclick = function() {
             setting.style.display = 'none';
+            curriculum.style.display = 'none';
             general.style.display = 'block';
             btnsetting.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
             btnsetting.classList.add('text-gray-500', 'hover:text-gray-600');
+            btncurriculum.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
+            btncurriculum.classList.add('text-gray-500', 'hover:text-gray-600');
             btngeneral.classList.remove('text-gray-500', 'hover:text-gray-600');
             btngeneral.classList.add('border-gray-900', 'border-b-2');
+        }
+        btncurriculum.onclick = function() {
+            setting.style.display = 'none';
+            general.style.display = 'none';
+            curriculum.style.display = 'block';
+            btnsetting.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
+            btnsetting.classList.add('text-gray-500', 'hover:text-gray-600');
+            btngeneral.classList.remove('border-gray-900', 'border-b-2', 'border-b-2');
+            btngeneral.classList.add('text-gray-500', 'hover:text-gray-600');
+            btncurriculum.classList.remove('text-gray-500', 'hover:text-gray-600');
+            btncurriculum.classList.add('border-gray-900', 'border-b-2');
         }
         const btnGeneral = document.getElementById('btn-general');
         const btnpricing = document.getElementById('btn-pricing');
@@ -1177,13 +1105,13 @@
         const RTKF = [];
         const PushInTable = (content, table) => {
             for (let i = 0; i < content.length; i++) {
-                if(content[i].innerText != ''){
+                if (content[i].innerText != '') {
                     table.push(content[i].innerText);
                 }
 
             }
         }
-        document.querySelector('button[type=submit]').addEventListener('click', function() {
+        document.querySelector('#submit1').addEventListener('click', function() {
             // event.preventDefault();
             const eleR = document.getElementById('content-requirements').getElementsByClassName('btn-text');
             PushInTable(eleR, Requirements);
@@ -1206,45 +1134,6 @@
             const RTKFjson = JSON.stringify(RTKF);
             document.getElementById('tableData').value = RTKFjson;
 
-            // fetch("{{ route('Requirements.store') }}", {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if needed
-            //         },
-            //         body: JSON.stringify({
-            //             data: {
-            //                 Sh: 'hello world'
-            //             }
-            //         })
-            //     })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         console.log(data);
-            //     })
-            //     .catch(error => {
-            //         console.error('Error:', error);
-            //     });
-            // alert('hello world');
-
-            // $.ajaxSetup({
-            //     headers: {
-            //         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
-            //     },
-            // });
-            // $.ajax({
-            //     method: "POST",
-            //     url: "/Courses/store",
-            //     //dataType:"jsonp",
-            //     // dataType:"String",
-            //     data: {
-            //         regionName: 'jjjjjjjjjjjjjj'
-            //     },
-            //     success: function(result) {
-            //         console.log(result);
-            //     }
-            // });
         })
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 @endsection

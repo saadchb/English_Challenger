@@ -40,6 +40,7 @@
       </div>
       <div class="list-group list-group-flush my-3" style="max-height: 300px; overflow-y: auto;">
         <div id="link"><a href="/dachboard" class="list-group-item list-group-item-action bg-transparent ">
+<<<<<<< HEAD
             <i class="fa-light fa-house-user me-2 fa-lg" style="color: #8f66cc;"></i> Dashboard</a></div>
         <a href="/Courses" class="list-group-item list-group-item-action bg-transparent " id="link">
 
@@ -51,6 +52,35 @@
 
         <a href="/Students" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-users me-2 fa-lg" style="color: #8f66cc;"></i> Students</a>
         <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
+=======
+            <i class="fas fa-tachometer-alt me-2 fa-lg" style="color: #8f66cc;"></i> Dashboard</a></div>
+            <a href="/Courses" class="list-group-item list-group-item-action bg-transparent "
+            id="link">
+            <i class="fa-regular fa-book-open me-2 fa-lg" style="color: #8f66cc;"></i> Courses</a>
+        {{-- <a href="{{ route('courses.Add_Coures') }}"
+            class="list-group-item list-group-item-action bg-transparent " id="link">
+            <i class="fa-regular fa-book-open me-2 fa-lg" style="color: #8f66cc;"></i> Courses</a> --}}
+        <!-- <a href="{{route('Courses.create')}}" class="list-group-item list-group-item-action bg-transparent "><i
+    class="fas fa-chart-line me-2 text-primary me-2 text-success"></i>  Add Course</a> -->
+        <a href="/Schools" class="list-group-item list-group-item-action bg-transparent " id="link">
+          <i class="fa-regular fa-school me-2 fa-lg" style="color: #8f66cc;"></i> Schools</a>
+        <!-- <a href="/Add_Course" class="list-group-item list-group-item-action bg-transparent "><i
+            class="fas fa-chart-line me-2 text-primary me-2 text-success"></i>  Add Course</a> -->
+            <a href="/lessons" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-brands fa-creative-commons-share me-2 fa-lg" style="color: #8f66cc;"></i> Lessons</a>
+            <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
+        <!-- <a href="/Add_Quizzes" class="list-group-item list-group-item-action bg-transparent "><i
+            class="fas fa-shopping-cart me-2 text-primary me-2 text-success"></i>  Add Quizze</a> -->
+        <a href="/Students" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-users" style="color: #8f66cc;"></i> Students</a>
+
+
+        {{-- <a href="/lessons" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-brands fa-creative-commons-share me-2 fa-lg" style="color: #8f66cc;"></i> Lessons</a> --}}
+        {{-- <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
+        <!-- <a href="/Add_Quizzes" class="list-group-item list-group-item-action bg-transparent "><i
+            class="fas fa-shopping-cart me-2 text-primary me-2 text-success"></i>  Add Quizze</a> -->
+        <a href="" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-list-check me-2 fa-lg" style="color: #8f66cc;"></i> Assignments</a> --}}
+
+
+>>>>>>> 4d428cb2a76c86d8cf53516a0b17cd5890b4f9b5
         <a href="/Questions" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-clipboard-question me-2 fa-lg" style="color: #8f66cc;"></i> Questions</a>
       </div>
 

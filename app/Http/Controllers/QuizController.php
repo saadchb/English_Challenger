@@ -139,9 +139,9 @@ class QuizController extends Controller
      */
     public function destroy(string $id)
     {
-
         $quiz=Quiz::findOrFail($id);
         $quiz ->delete();
         return  redirect()->route('Quizzes.index');
+
     }
 }

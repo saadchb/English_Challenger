@@ -25,11 +25,11 @@ return new class extends Migration
             $table->integer('pagination')->nullable();
             $table->boolean('review')->default(1);
             $table->boolean('show_correct_answer')->default(1);
-            // $table->foreignId('question_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->timestamps();
         });
     }
-    
+
 
     /**
      * Reverse the migrations.

@@ -50,11 +50,11 @@ return new class extends Migration
             // $table->unsignedBigInteger('id_school')->nullable();
             // $table->foreign('id_school')->references('id')->on('schools')->onDelete('cascade');
             // // $table->unsignedBigInteger('id_school');
-            $table->foreignId('school_id')->constrained()->onDelete('cascade');
+            $table->foreignId('school_id')->constrained()->nullable();
 
 
-            $table->unsignedBigInteger('id_curriculm')->nullable();
-            $table->foreign('id_curriculm')->references('id')->on('curriculms')->onDelete('cascade');
+            // $table->unsignedBigInteger('id_curriculm')->nullable();
+            // $table->foreign('id_curriculm')->references('id')->on('curriculms')->onDelete('cascade');
 
             // $table->unsignedBigInteger('lessons_id')->nullable();
             // $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
