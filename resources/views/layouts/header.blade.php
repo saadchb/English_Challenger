@@ -41,7 +41,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="index.html">
-                    <img src="build/assets/images/logo-dark.png" alt="English Challenger" class="img-fluid">
+                    <img src="build/assets/images/logo.jpg" alt="English Challenger" class="img-fluid">
                 </a>
 
                 <!-- Toggler -->
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                                 <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" src="build/assets/images/course/course1.png" alt="course 1">
+                                    <img class="card-img-top" src="build/assets/images/course/course11.jpg" alt="course 1">
                                     <div class="card-body">
                                         <h5 class="card-title">TESOL course</h5>
                                         <p class="card-text">Start a new career as an English language teacher.</p>
@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" src="build/assets/images/course/course--3.jpg" alt="course 1">
+                                    <img class="card-img-top" src="build/assets/images/course/course22.jpg" alt="course 1">
                                     <div class="card-body">
                                         <h5 class="card-title">TEYL course</h5>
                                         <p class="card-text">Explore how to teach English to young learners.</p>
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                                 <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" src="build/assets/images/course/quizze1.png" alt="course 1">
+                                    <img class="card-img-top" src="build/assets/images/course/quiz44.jpg" alt="course 1">
                                     <div class="card-body">
                                         <h5 class="card-title">TESOL quizze</h5>
                                         <p class="card-text">Explore your level as an English language teacher.</p>
@@ -129,7 +129,7 @@
                                     </div>
                                 </div>
                                 <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" src="build/assets/images/course/quizze3.png" alt="course 1">
+                                    <img class="card-img-top" src="build/assets/images/course/quiz55.jpg" alt="course 1">
                                     <div class="card-body">
                                         <h5 class="card-title">TEYL quizze</h5>
                                         <p class="card-text">Explore your level in teaching English to young learners.</p>
