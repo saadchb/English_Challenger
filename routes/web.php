@@ -7,7 +7,6 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
-
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\TagController;
@@ -16,8 +15,6 @@ use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\LessonController;
 
 
 Route::get('/', function () {

@@ -8,8 +8,6 @@ use App\Models\Course; // Import the Course model
 use App\Http\Requests\LessonRequest;
 
 
-
-
 class LessonController extends Controller{
     /**
      * Display a listing of the resource.
