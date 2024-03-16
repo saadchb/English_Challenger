@@ -17,9 +17,7 @@ use App\Http\Controllers\StudentController;
 
 
 
-Route::get('/', function () {
-    return view('EnglishChallenger.index');
-});
+Route::get('/',[CourseController::class, 'indexEn'])->name('EnglishChallenger.index');
 Route::get('/dachboard',function(){
     return view('Backend_editor.dachboard');
 });

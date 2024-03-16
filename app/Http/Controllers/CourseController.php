@@ -295,4 +295,8 @@ class CourseController extends Controller
         $course->delete();
         return redirect()->route('Courses.index');
     }
+    public function indexEn(){
+        $courses = Course::all();
+        return view('EnglishChallenger.index',['courses'=>$courses]);
+    }
 }

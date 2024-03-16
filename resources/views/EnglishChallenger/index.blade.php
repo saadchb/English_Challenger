@@ -9,8 +9,8 @@
                 <div class="banner-content center-heading">
                     <span class="subheading">Expert instruction</span>
                     <h1>Convenient easy way of learning new skills!</h1>
-                    <a href="#" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>  
-                    <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>  
+                    <a href="#" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>
+                    <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>
                 </div>
             </div>
         </div> <!-- / .row -->
@@ -78,8 +78,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
             </div>
         </div>
     </div>
-</section> 
- 
+</section>
+
     <!--course section end-->
 
 
@@ -94,7 +94,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                 <h3>Watch video to know more about us</h3>
             </div>
             <!-- Embed YouTube Video -->
-            
+
         </div>
     </div>
 </div>
@@ -109,7 +109,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
         </div>
         <!--course-->
     </section>
-    <!--course section end--> 
+    <!--course section end-->
        <!--course section start-->
 
 
@@ -139,17 +139,35 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
             </div>
 
             <div class="row course-gallery ">
+                @foreach($courses as $course)
                 <div class="course-item cat1 cat3 col-lg-4 col-md-6">
                     <div class="course-block">
                         <div class="course-img">
-                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-                            <span class="course-label">Expert</span>
+                            <img src="{{ asset('storage/'.$course->img) }}" alt="" class="img-fluid">
+                            <span class="course-label">{{$course->level}}</span>
                         </div>
-                        
+
                         <div class="course-content">
-                            <div class="course-price ">$100 <span class="del">$180</span></div>   
-                            
-                            <h4><a href="#">React – The Complete Guide (React Router)</a></h4>    
+                            <div class="course-price ">
+                            <span><span class=" font-medium text-gray-900">
+                                @if ($course->regular_price && !$course->sale_price)
+                                    <span class=" font-medium text-gray-900"><span
+                                            class="uppercase"> $
+                                            {{ $course->regular_price }}</span></span>
+                                @endif
+                                @if ($course->regular_price && $course->sale_price)
+                                    <span class=" font-medium text-gray-900"><span
+                                            class="line-through pr-2 text-gray-500"
+                                            style="font-size:35px;">
+                                            ${{ $course->sale_price }}</span><span>${{ $course->regular_price }}</span></span>
+                                @endif
+                                @if (!$course->regular_price && !$course->sale_price)
+                                    <span class="uppercase">Free</span>
+                                @endif
+                            </span></span></h4>
+                        </div>
+
+                            <h4><a href="#">{{$course->title}}</a></h4>
                             <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -158,85 +176,22 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <span>(5.00)</span>
                             </div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
+                            <p>{{$course->description}}</p>
 
                             <div class="course-footer d-lg-flex align-items-center justify-content-between">
                                 <div class="course-meta">
                                     <span class="course-student"><i class="bi bi-group"></i>340</span>
                                     <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
-                                <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
+                                </div>
+
+                                <div class="buy-btn"><a href="{{route('Courses.show',$course->id)}}" class="btn btn-main-2 btn-small">Details</a></div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="course-item cat2 cat4 col-lg-4 col-md-6">
-                    <div class="course-block">
-                        <div class="course-img">
-                            <img src="build/assets/images/course/course2.jpg" alt="" class="img-fluid">
-                            <span class="course-label">Advanced</span>
-                        </div>
-                        
-                        <div class="course-content">
-                            <div class="course-price ">$80 <span class="del">$120</span></div>   
-                            
-                            <h4><a href="#">Photography Crash Course for Photographer</a></h4>    
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <span>(5.00)</span>
-                            </div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-
-                            <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                                <div class="course-meta">
-                                    <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                    <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
-                                <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                
-                <div class="course-item cat5 cat2 col-lg-4 col-md-6">
-                    <div class="course-block">
-                        <div class="course-img">
-                            <img src="build/assets/images/course/course1.jpg" alt="" class="img-fluid">
-                            <span class="course-label">Beginner</span>
-                        </div>
-                        
-                        <div class="course-content">
-                            <div class="course-price ">$50</div>   
-                            
-                            <h4><a href="#">Information About UI/UX Design Degree</a></h4>    
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <span>(5.00)</span>
-                            </div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
+                @endforeach
 
-                            <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                                <div class="course-meta">
-                                    <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                    <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
-                                </div> 
-                            
-                                <div class="buy-btn"><a href="#" class="btn btn-main-2 btn-small">Details</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -265,7 +220,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">         
+                    <div class="col-lg-3 col-md-6">
                         <div class="counter-item">
                             <i class="ti-heart"></i>
                             <div class="count">
@@ -274,7 +229,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <p>Happy Students</p>
                         </div>
                     </div>
-                
+
                     <div class="col-lg-3 col-md-6">
                         <div class="counter-item">
                             <i class="ti-microphone-alt"></i>
@@ -404,10 +359,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                     <div class="review-item">
                         <div class="client-info">
                             <i class="bi bi-quote"></i>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eius autem aliquid pariatur rerum. Deserunt, praesentium.
-                             Adipisci, voluptates nihil debitis</p>
+                            <p>I've thoroughly enjoyed my time on this website. The lessons are well-structured and easy to follow. The practical exercises have really helped me improve my English skills. The teachers are very attentive and responsive. I highly recommend this site to anyone looking to learn English effectively and enjoyably!"</p>
                              <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -416,11 +369,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                         <div class="client-desc">
                             <div class="client-img">
-                                <img src="build/assets/images/clients/test-1.jpg" alt="" class="img-fluid">
+                                <img src="build/assets/images/clients/picture4.jpg" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
-                                <h4>John Doe</h4>
-                                <span class="designation">Developer</span>
+                                <h4>Salma Nadim</h4>
+                                <span class="designation">Student</span>
                             </div>
                         </div>
                     </div>
@@ -428,8 +381,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                      <div class="review-item">
                         <div class="client-info">
                             <i class="bi bi-quote"></i>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eius autem aliquid pariatur rerum. Deserunt, praesentium.
-                             Adipisci, voluptates nihil debitis</p>
+                            <p>As a teacher on this site, I'm delighted to be able to help students improve their English. The platform offers many pedagogical tools that make teaching easier, such as interactive quizzes, videos, and practical exercises. Additionally, the support team is always there to answer my questions and provide support. I'm grateful to be part of this dynamic learning community.</p>
                              <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -440,11 +392,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                         <div class="client-desc">
                             <div class="client-img">
-                                <img src="build/assets/images/clients/test-2.jpg" alt="" class="img-fluid">
+                                <img src="build/assets/images/clients/picture1.jpg" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
-                                <h4>John Doe</h4>
-                                <span class="designation">Developer</span>
+                                <h4>ouazzani Mustapha</h4>
+                                <span class="designation">Teacher</span>
                             </div>
                         </div>
                     </div>
@@ -453,8 +405,7 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                     <div class="review-item">
                         <div class="client-info">
                             <i class="bi bi-quote"></i>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eius autem aliquid pariatur rerum. Deserunt, praesentium.
-                             Adipisci, voluptates nihil debitis</p>
+                            <p>I've been using this site for a few months now and I'm really impressed with the quality of teaching. The lessons are interactive and engaging. Additionally, the discussion forums are a great way to interact with other learners and practice the language. I feel much more confident in my English skills thanks to this site.</p>
                              <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -465,11 +416,11 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                         </div>
                         <div class="client-desc">
                             <div class="client-img">
-                                <img src="build/assets/images/clients/test-3.jpg" alt="" class="img-fluid">
+                                <img src="build/assets/images/clients/picture2.jpg" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
-                                <h4>John Doe</h4>
-                                <span class="designation">Developer</span>
+                                <h4>Anwar Nourri</h4>
+                                <span class="designation">Student</span>
                             </div>
                         </div>
                     </div>
@@ -490,8 +441,8 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
             </div>
         </div>
 
-       
-        <div class="row">               
+
+        <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="blog-item">
                     <img src="build/assets/images/blog/blog1.png" alt="blog 1" class="img-fluid">
@@ -500,11 +451,17 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>May 19, 2022</span>
                             <span><i class="fa fa-comments"></i>150 comment</span>
                         </div>
+<<<<<<< HEAD
     
                         <h2><a href="#">The British English Challenge</a></h2>
                         <p> "Ready for a taste of British English?
                             Our inaugural challenge begins July 31st. From classic expressions to regional dialects,
                             here's your chance to explore the rich tapestry of British linguistic heritage . Stay tuned for details!"</p>
+=======
+
+                        <h2><a href="#">Powerful tips to grow business manner</a></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+>>>>>>> 5f63899a47d4c03b52ebeb52063b1c8e76febc84
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
                     </div>
                 </div>
@@ -518,9 +475,15 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>April 22, 2023</span>
                             <span><i class="fa fa-comments"></i>85 comment</span>
                         </div>
+<<<<<<< HEAD
     
                         <h2><a href="#">Happy 4th Birthday to English Learning for Curious Minds</a></h2>
                         <p>English Learning for Curious Minds was first published 4 years ago today. Here is a summary of how things have gone since then, and the main things we've done in 2023.</p>
+=======
+
+                        <h2><a href="#">Powerful tips to grow effective manner</a></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+>>>>>>> 5f63899a47d4c03b52ebeb52063b1c8e76febc84
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
                     </div>
                 </div>
@@ -534,9 +497,15 @@ Join our immersive platform exploring vocabulary, grammar, idioms, expressions, 
                             <span><i class="fa fa-calendar-alt"></i>Mars 5, 2024</span>
                             <span><i class="fa fa-comments"></i>16 comment</span>
                         </div>
+<<<<<<< HEAD
     
                         <h2><a href="#">24 Unorthodox Ways To Stick To Your English Learning Goals in 2024</a></h2>
                         <p>Learning English is hard, and one of the hardest things about it is staying motivated. Here are 24 ways that you can stay motivated and hit your goals.</p>
+=======
+
+                        <h2><a href="#">Python may be you completed online </a></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+>>>>>>> 5f63899a47d4c03b52ebeb52063b1c8e76febc84
                         <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
                     </div>
                 </div>
