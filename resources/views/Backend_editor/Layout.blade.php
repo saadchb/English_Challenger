@@ -21,6 +21,7 @@
   </style>
   @yield('styles')
   @vite('resources/css/app.css')
+  @vite('resources/js/app.js')
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href=" {{url('css/backendeditor.css')}} ">
 

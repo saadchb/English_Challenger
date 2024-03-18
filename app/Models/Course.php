@@ -31,7 +31,8 @@ class Course extends Model
     public function nblessonsbycourse(){
         return $this->lessons()->count();
     }
-    public function nbcourses(){
-        return $this->count();
+    public static function nbcourses()
+    {
+        return self::count();
     }
 }

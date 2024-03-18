@@ -33,7 +33,7 @@ class CategorieController extends Controller
     {
         $categorie = $request->all();
         Categorie::create($categorie);
-        return redirect()->route('Courses.create');
+        return redirect()->back();
     }
 
     /**

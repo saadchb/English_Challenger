@@ -12,8 +12,8 @@ $course = Course::count();
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-8">
-                <div class="banner-content center-heading" >
-                    <span  class="subheading">Expert instruction</span>
+                <div class="banner-content center-heading">
+                    <span class="subheading">Expert instruction</span>
                     <h1>Convenient easy way of learning new skills!</h1>
                     <a href="#" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>
                     <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>
@@ -29,7 +29,7 @@ $course = Course::count();
             <div class="col-lg-4 col-md-6">
                 <div class="feature-item feature-style-2">
                     <div class="feature-icon">
-                        <i  style=" margin-right: 20px;" class="bi bi-badge2"></i>
+                        <i style=" margin-right: 20px;" class="bi bi-badge2"></i>
                     </div>
                     <div class="feature-text">
                         <h4>Learn from Industry Professionals</h4>
@@ -119,7 +119,7 @@ $course = Course::count();
 <!--course section start-->
 
 
-<section class="section-padding popular-course bg-grey">
+<!-- <section class="section-padding popular-course bg-grey">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
@@ -194,6 +194,33 @@ $course = Course::count();
 
             </div>
             @endforeach
+
+        </div>
+    </div>
+    </div>
+</section> -->
+<section class="section-padding popular-course bg-grey">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <span class="subheading">Top Trending Courses</span>
+                    <h3>Our Popular Online Courses</h3>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="course-btn text-lg-right"><a href="#" class="btn btn-main"><i class="fa fa-store mr-2"></i>All Courses</a></div>
+            </div>
+        </div>
+        <div class="text-center">
+            <ul class="course-filter" id="showCoursesBycategories">
+
+            </ul>
+        </div>
+
+        <div class="row " id="showCourses">
+
 
         </div>
     </div>
@@ -395,7 +422,7 @@ $course = Course::count();
                         </div>
                         <div class="client-desc">
                             <div class="client-img">
-                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;"  alt="" class="img-fluid">
+                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
                                 <h4>ouazza monir</h4>
@@ -408,7 +435,7 @@ $course = Course::count();
                     <div class="review-item">
                         <div class="client-info">
                             <i class="bi bi-quote"></i>
-                            <p>I've been using this site for a few months now  a great way to interact with other learners and practice the language. I feel much more confident in my English skills thanks to this site.</p>
+                            <p>I've been using this site for a few months now a great way to interact with other learners and practice the language. I feel much more confident in my English skills thanks to this site.</p>
                             <div class="rating">
                                 <a href="#"><i class="fa fa-star"></i></a>
                                 <a href="#"><i class="fa fa-star"></i></a>
@@ -419,7 +446,7 @@ $course = Course::count();
                         </div>
                         <div class="client-desc">
                             <div class="client-img">
-                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;"  alt="" class="img-fluid">
+                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
                                 <h4>Anwar Nourri</h4>
@@ -552,5 +579,111 @@ $course = Course::count();
         </div>
     </div>
 </section> <br>
+<script>
+    const showCoursesBycategories = document.getElementById('showCoursesBycategories');
+    const categories = @json($categories);
+    const courses = @json($courses);
+    const categories_course = @json($categories_course);
 
+    const categorie = categories.filter(category => {
+        return categories_course.some(element => element.categorie_id === category.id);
+    });
+
+    let htmlC = '<li class="active mr-2"><a id="all" href="/" data-filter="*" data-category=""> All</a></li>';
+
+    for (var i = 0; i < categorie.length; i++) {
+        htmlC +=
+            `<li class="mr-2"><a class='a' href="#" data-filter=".cat${categorie[i].id}" data-category="${categorie[i].id}">${categorie[i].title}</a></li>`;
+    }
+
+    showCoursesBycategories.innerHTML = htmlC;
+
+    const categoriesLink = showCoursesBycategories.querySelectorAll('.a');
+
+    categoriesLink.forEach(element => {
+        element.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const categoryID = this.getAttribute('data-category');
+            console.log(categoryID)
+            const filteredCourses = courses.filter(course => {
+                return categories_course.some(catCourse => {
+                    return catCourse.course_id === course.id && catCourse
+                        .categorie_id == categoryID;
+                });
+            });
+            // if(filteredCourses.length ==0){
+            //     showCourses(courses);
+            // }else{
+            showCourses(filteredCourses);
+            // }
+        });
+    });
+    document.getElementById('all').addEventListener('click', function() {
+        showCourses(courses)
+    })
+
+    function showCourses(table) {
+        let htmlCu = '';
+        for (var i = 0; i < table.length; i++) {
+            htmlCu += `
+    <div class="course-item cat1 cat3 col-lg-4 col-md-6">
+        <div class="course-block">
+            <div class="course-img">
+                <img src="{{ asset('storage/') }}/${table[i].img}" alt="" style="width:300px; height: 280px;" class="img-fluid">
+                <span class="course-label">${table[i].level}</span>
+            </div>
+
+            <div class="course-content">
+                <div class="course-price ">
+                    <span>
+                        ${ table[i].regular_price && !table[i].sale_price ? `
+                                    <span class="font-medium text-gray-900 uppercase">${table[i].regular_price}</span>
+                                ` : '' }
+
+                        ${ table[i].regular_price && table[i].sale_price ? `
+                                    <span class="font-medium text-gray-900">
+                                        <span class="line-through pr-2 text-gray-500" style="font-size:35px;">
+                                            ${table[i].sale_price}
+                                        </span>
+                                        <span>${table[i].regular_price}</span>
+                                    </span>
+                                ` : '' }
+
+                        ${ !table[i].regular_price && !table[i].sale_price ? `
+                                    <span class="uppercase">Free</span>
+                                ` : '' }
+                    </span>
+                </div>
+
+                <h4><a href="#">${table[i].title}</a></h4>
+                <div class="rating">
+                    <a href="#"><i class="fa fa-star"></i></a>
+                    <a href="#"><i class="fa fa-star"></i></a>
+                    <a href="#"><i class="fa fa-star"></i></a>
+                    <a href="#"><i class="fa fa-star"></i></a>
+                    <a href="#"><i class="fa fa-star"></i></a>
+                    <span>(5.00)</span>
+                </div>
+                <p>${table[i].description}</p>
+
+                <div class="course-footer d-lg-flex align-items-center justify-content-between">
+                    <div class="course-meta">
+                        <span class="course-student"><i class="bi bi-group"></i>340</span>
+                        <span class="course-duration"><i class="bi bi-badge3"></i>${table[i].nblessonsbycourses} Lessons</span>
+                    </div>
+
+                    <div class="buy-btn"><a href="/Courses.show/${table[i].id}"" class="btn btn-main-2 btn-small">Details</a></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+        }
+
+        document.getElementById('showCourses').innerHTML = htmlCu
+    }
+    showCourses(courses)
+</script>
 @endsection

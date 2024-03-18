@@ -25,6 +25,12 @@ Route::get('/dachboard',function(){
 Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
+Route::get('/course_detail',function(){
+    return view('EnglishChallenger.course_detail');
+});
+Route::get('/course_list',function(){
+    return view('EnglishChallenger.course_list');
+});
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');
 Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');
@@ -42,5 +48,7 @@ Route::resource('/lessons',LessonController::class);
 Route::resource('/Curricula',CurriculumController::class);
 Route::put('/CurriculaLessons/{id}', [CurriculumController::class, 'CL'])->name('CL.Update');
 Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name('CQ.Update');
+
+
 ///
 

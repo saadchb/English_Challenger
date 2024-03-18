@@ -31,7 +31,7 @@ class TagController extends Controller
     {
         $tag = $request->all();
         Tag::create($tag);
-        return redirect()->route('Courses.create');
+        return redirect()->back();
     }
 
     /**

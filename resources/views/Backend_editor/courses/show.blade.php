@@ -1,7 +1,9 @@
 @extends('Backend_editor.Layout')
 @section('title', 'Detail Courses')
 @section('content')
+    <html>
 
+    <head>
         <title>Edutim- Education LMS template</title>
 
         <!-- Mobile Specific Meta-->
@@ -25,7 +27,24 @@
         <!-- Main Stylesheet -->
         <link rel="stylesheet" href="{{ asset('storage/assets/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('storage/assets/css/responsive.css') }}">
-
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+        <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    fontFamily: {
+                        sans: ["Roboto", "sans-serif"],
+                        body: ["Roboto", "sans-serif"],
+                        mono: ["ui-monospace", "monospace"],
+                    },
+                },
+                corePlugins: {
+                    preflight: false,
+                },
+            };
+        </script>
     </head>
 
     <body id="top-header">
@@ -133,28 +152,59 @@
                             <p>{{ $course->description }}</p>
 
                         </div>
-                        <div class="edutim-course-topics-header d-lg-flex justify-content-between">
-                            <div class="edutim-course-topics-header-left">
-                                <h4 class="course-title">Curriculum </h4>
-                            </div>
 
-                        </div>
-
-                        <div class="accordion">
-                            {{-- @foreach() --}}
-                            <div class="accordion-item">
-                                <!-- Accordion Item Header -->
-                                <button class="accordion-header">
-                                    Item 1
-                                </button>
-                                <!-- Accordion Item Body -->
-                                <div class="accordion-body">
-                                    Content for item 1 goes here.
+                        <div id="accordionExample" class="mb-3">
+                            <div class="edutim-course-topics-header d-lg-flex justify-content-between">
+                                <div class="edutim-course-topics-header-left">
+                                    <h4 class="course-title">Curriculum</h4>
                                 </div>
+
                             </div>
+                            @foreach ($curricula as $curriculum)
+                                <div
+                                    class="rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-body-dark">
+                                    <h2 class="mb-0" id="{{ $curriculum->title }}">
+                                        <button
+                                            class="group relative flex w-full items-center rounded-t-lg border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 "
+                                            type="button" data-twe-collapse-init data-twe-target="#collapse{{ $curriculum->title }}"
+                                            aria-expanded="true" aria-controls="collapse{{ $curriculum->title }}">
+                                            <h4>{{ $curriculum->title }}</h4>
+                                            <span
+                                                class="-me-1 ms-auto h-5 w-5 shrink-0 rotate-[-180deg] transition-transform duration-200 ease-in-out group-data-[twe-collapse-collapsed]:me-0 group-data-[twe-collapse-collapsed]:rotate-0 motion-reduce:transition-none [&>svg]:h-6 [&>svg]:w-6">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ $curriculum->title }}" class="!visible hidden" data-twe-collapse-item data-twe-collapse-show
+                                        aria-labelledby="{{ $curriculum->title }}" data-twe-parent="#accordionExample">
+                                        <div class="px-5 py-4">
+                                                <strong>Lessons : </strong><br />
+                                                <ul>
+                                                    @foreach ($lessons as $lesson)
+                                                        @if ($lesson->curriculum_id == $curriculum->id)
+                                                            <li class="ml-6"> {{ $lesson->title }}</li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                                <strong>Quizzes : </strong><br />
+                                                <ul>
+                                                    @foreach ($quizzes as $quizze)
+                                                        @if ($quizze->curriculum_id == $curriculum->id)
+                                                            <li class="ml-6"> {{ $quizze->title }}</li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
 
-                        <!--  COurse Topics End -->
 
                         <div class="course-widget course-info">
                             <h4 class="course-title">About the instructors</h4>
@@ -326,7 +376,7 @@
                                 <div class="course-img">
                                     <img src="assets/images/course/course1.jpg" alt="" class="img-fluid">
                                     <span class="course-label">{{ $course->level }}</span>
-                                </div><br/>
+                                </div><br />
 
                                 <div class="course-content">
                                     <div class="course-price ">
@@ -381,8 +431,8 @@
 
 
         <!--
-                Essential Scripts
-                =====================================-->
+                                    Essential Scripts
+                                    =====================================-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Main jQuery -->
         <script src="{{ asset('storage/assets/vendors/jquery/jquery.js') }}"></script>
@@ -396,8 +446,7 @@
         <!--  Owlk Carousel-->
         <script src="{{ asset('storage/assets/vendors/owl/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('storage/assets/js/script.js') }}"></script>
-
-
+        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
     </body>
 
     </html>
