@@ -20,7 +20,7 @@ $Student = Student::count();
             <ul class="navbar-nav" style="margin-left: 580px;">
                 <li class="nav-item dropdown ml-4">
                     <div style="display: flex;">
-                        <img src="build/assets/images/pic-4.png" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
+                            <img src="build/assets/images/pic-4.png" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
                         <a href="#" class="nav-link" data-toggle="dropdown" class="d-block"><strong style="color: black;">SAAD CHAIB <i class="fa-solid fa-caret-down"></i></strong></a>
                         </a>
                         <div>

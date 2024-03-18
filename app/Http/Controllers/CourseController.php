@@ -143,12 +143,12 @@ class CourseController extends Controller
             ->where('course_id', '=', $id)
             ->get();
         // dd($curricula);
-        $nblessons = DB::table('lessons')
-            ->join('curricula', 'lessons.curriculum_id', '=', 'curricula.id')
-            ->join('courses', 'courses.id', '=', 'curricula.course_id')
-            ->select('courses.*', 'curricula.*', 'lessons.*')
-            ->where('courses.id',$id)
-            ->count();
+        // $nblessons = DB::table('lessons')
+        //     ->join('curricula', 'lessons.curriculum_id', '=', 'curricula.id')
+        //     ->join('courses', 'courses.id', '=', 'curricula.course_id')
+        //     ->select('courses.*', 'curricula.*', 'lessons.*')
+        //     ->where('courses.id',$id)
+        //     ->count();
         $course = Course::findOrFail($id);
         $requirements = Requirement::where('course_id', $id)->get();
          $tags = Tag::join('tags_courses', 'tags.id','=','tags_courses.tag_id')
@@ -167,7 +167,6 @@ class CourseController extends Controller
         'categories'=>$categories,
         'requirements'=>$requirements,
         'tags'=>$tags,
-        'nblessons'=>$nblessons,
         'courses'=>$courses,
         'curricula'=>$curricula
     ]);
@@ -299,4 +298,5 @@ class CourseController extends Controller
         $courses = Course::all();
         return view('EnglishChallenger.index',['courses'=>$courses]);
     }
+
 }

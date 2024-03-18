@@ -22,7 +22,9 @@ Route::get('/',[CourseController::class, 'indexEn'])->name('EnglishChallenger.in
 Route::get('/dachboard',function(){
     return view('Backend_editor.dachboard');
 });
-
+Route::get('/Quize',function(){
+    return view('EnglishChallenger.Quize');
+});
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');
 Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');

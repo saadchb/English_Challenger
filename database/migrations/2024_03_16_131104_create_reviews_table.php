@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->time('duration');
-            $table->boolean('priview');
-            $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->timestamps();
         });
     }
@@ -27,7 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('reviews');
     }
 };
-

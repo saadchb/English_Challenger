@@ -39,6 +39,7 @@ return new class extends Migration
             $table->integer('max_student')->nullable();
             $table->text('featured_review')->nullable();
             $table->string('duration_gauge')->default('Minute(s)');
+            $table->softDeletes();
 
             $table->unsignedBigInteger('id_categorie')->nullable();
             $table->foreign('id_categorie')->references('id')->on('categories')->onDelete('cascade');

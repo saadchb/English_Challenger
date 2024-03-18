@@ -58,7 +58,7 @@ public function store(LessonRequest $request)
     // Save the lesson
     $lesson->save();
 
-    return redirect()->route('lessons.index')->with('success', 'Lesson ajoutée avec succès');
+    return redirect()->back();
 }
 
 

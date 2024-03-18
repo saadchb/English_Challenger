@@ -67,7 +67,7 @@
 			<div class="row justify-content-center align-items-center">
 				<div class="col-lg-6">
 					<div class="footer-logo">
-						<img src="build/assets/images/logo-dark.png" alt="English Challenger" class="img-fluid">
+					<img src="{{ asset('build/assets/images/Logo_english.png') }}" alt="logo3" width="120px">
 					</div>
 				</div>
 				<div class="col-lg-6">
