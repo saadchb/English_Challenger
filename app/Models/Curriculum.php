@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Curriculum extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     protected $fillable = ['title', 'description','course_id'];
     public function lessons(){
         return $this->hasMany(Lesson::class);

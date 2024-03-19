@@ -11,3 +11,5 @@
     <!--  Owlk Carousel-->
     <script src="build/assets/vendors/owl/owl.carousel.min.js"></script>
     <script src="build/assets/js/script.js"></script>
+    <!-- <script src="build/assets/js/index_English.js"></script> -->
+

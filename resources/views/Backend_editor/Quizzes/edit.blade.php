@@ -35,7 +35,7 @@
         margin-left: 15px;
     }
 </style>
-@endsection 
+@endsection
 @section('content')
 <?php
 
@@ -43,11 +43,12 @@ use App\Models\Question;
 
 $questions = Question::all();
 ?>
-<form action="{{route('Quizzes.store')}}" method="Post" enctype="multipart/form-data">
-
+<form action="{{route('Quizzes.update',$quiz->id)}}" method="Post" enctype="multipart/form-data">
+@csrf
+@method('put')
     <div class="sticky-top bg-white border-bottom  px-4 py-3">
         <div class="d-flex justify-content-between align-items-center">
-            <h3 class="text-xl font-bold text-gray-900">Add new Quiz</h3>
+            <h3 class="text-xl font-bold text-gray-900">Edit Quiz</h3>
             <div class="d-flex gap-3 align-items-center">
                 <a href="/Quizzes" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
                 <div class="position-relative">
@@ -67,11 +68,11 @@ $questions = Question::all();
                         @csrf
                         <div class="form-group mt-4">
                             <label for="title"><strong>Title</strong></label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Enter title">
+                            <input type="text" class="form-control" id="title" name="title" value="{{$quiz->title}}" placeholder="Enter title">
                         </div><bR>
                         <div class="form-group">
                             <label for="description"><strong>Description</strong></label>
-                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter description"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{$quiz->title}}</textarea>
                         </div><br>
                         <hr color="black">
 
@@ -111,7 +112,7 @@ $questions = Question::all();
                                 <div class="mt-4">
                                     <label for="_lp_duration" class="form-label">Duration</label>
                                     <div class="input-group">
-                                        <input id="_lp_duration" name="duration" type="number" class="form-control" value="0">
+                                        <input id="_lp_duration" name="duration"value="{{$quiz->duration}}" type="number" class="form-control" value="0">
                                         <select class="form-select col-md-5" name="duration_unit">
                                             <option value="Minutes">Minute(s)</option>
                                             <option value="hour">Hour(s)</option>
@@ -125,30 +126,30 @@ $questions = Question::all();
                                 <div class="mt-4">
                                     <label for="_lp_passing_grade" class="form-label">Passing Grade(%)</label>
                                     <div>
-                                        <input id="_lp_passing_grade" name="passing_grade" type="number" class="form-control" step="1" min="0" max="100" value="80">
+                                        <input id="_lp_passing_grade" value="{{$quiz->passing_grade}}" name="passing_grade" type="number" class="form-control" step="1" min="0" max="100" value="80">
                                     </div>
                                     <p class="mt-2 text-sm">The conditions that must be achieved in order to pass the quiz.</p>
                                 </div>
 
                                 <div class="mt-4 form-check">
-                                    <input id="_lp_instant_check" name="instant_check" type="checkbox" class="form-check-input">
+                                    <input id="_lp_instant_check" name="instant_check" value="{{$quiz->instant_check}}" type="checkbox" class="form-check-input">
                                     <label for="_lp_instant_check" class="form-check-label">Allow students to immediately check their answers while doing the quiz.</label>
                                 </div>
 
                                 <div class="mt-4 form-check">
-                                    <input id="_lp_negative_marking" name="negative_marking" type="checkbox" class="form-check-input">
+                                    <input id="_lp_negative_marking" value="{{$quiz->negative_marking}}" name="negative_marking" type="checkbox" class="form-check-input">
                                     <label for="_lp_negative_marking" class="form-check-label">For each question that students answer wrongly, the total point is deducted exactly from the question's point.</label>
                                 </div>
 
                                 <div class="mt-4 form-check">
-                                    <input id="_lp_minus_skip_questions" name="minus_for_skip" type="checkbox" class="form-check-input">
+                                    <input id="_lp_minus_skip_questions"value="{{$quiz->minus_for_skip}}" name="minus_for_skip" type="checkbox" class="form-check-input">
                                     <label for="_lp_minus_skip_questions" class="form-check-label">For each question that students answer skip, the total point is deducted exactly from the question's point.</label>
                                 </div>
 
                                 <div class="mt-4">
                                     <label for="_lp_retake_count" class="form-label">Retake</label>
                                     <div>
-                                        <input id="_lp_retake_count" name="retake" type="number" class="form-control" step="1" min="-1" max="" value="">
+                                        <input id="_lp_retake_count" value="{{$quiz->retake}}" name="retake" type="number" class="form-control" step="1" min="-1" max="" value="">
                                     </div>
                                     <p class="mt-2 text-sm">How many times can the user re-take this quiz? Set 0 to disable. Set -1 to infinite.</p>
                                 </div>
@@ -156,18 +157,18 @@ $questions = Question::all();
                                 <div class="mt-4">
                                     <label for="_lp_pagination" class="form-label">Pagination</label>
                                     <div>
-                                        <input id="_lp_pagination" name="pagination" type="number" class="form-control" step="1" min="0" max="100" value="1">
+                                        <input id="_lp_pagination" value="{{$quiz->pagination}}"  name="pagination" type="number" class="form-control" step="1" min="0" max="100" value="1">
                                     </div>
                                     <p class="mt-2 text-sm">The number of displayed questions on each page.</p>
                                 </div>
 
                                 <div class="mt-4 form-check">
-                                    <input id="_lp_review" name="review" type="checkbox" class="form-check-input" checked>
+                                    <input id="_lp_review" name="review" value="{{$quiz->review}}" type="checkbox" class="form-check-input" checked>
                                     <label for="_lp_review" class="form-check-label">Allow students to review this quiz after they finish the quiz.</label>
                                 </div>
 
                                 <div class="mt-4 form-check">
-                                    <input id="_lp_show_correct_review" name="show_correct_answer" type="checkbox" class="form-check-input" checked>
+                                    <input id="_lp_show_correct_review" value="{{$quiz->show_correct_answer}}" name="show_correct_answer" type="checkbox" class="form-check-input" checked>
                                     <label for="_lp_show_correct_review" class="form-check-label">Allow students to view the correct answer to the question in reviewing this quiz.</label>
                                 </div>
                             </div>

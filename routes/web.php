@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RequirementController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
@@ -17,11 +18,21 @@ use App\Http\Controllers\StudentController;
 
 
 
+
 Route::get('/',[CourseController::class, 'indexEn'])->name('EnglishChallenger.index');
 Route::get('/dachboard',function(){
     return view('Backend_editor.dachboard');
 });
+Route::get('/Quize',function(){
+    return view('EnglishChallenger.Quize');
+});
 
+Route::get('/course_detail',function(){
+    return view('EnglishChallenger.course_detail');
+});
+Route::get('/course_list',function(){
+    return view('EnglishChallenger.course_list');
+});
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');
 Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');

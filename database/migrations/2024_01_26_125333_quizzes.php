@@ -16,17 +16,16 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('duration');
-            $table->enum('duration_unit', ['Seconds', 'Minutes', 'Hours']);
+            $table->enum('duration_unit', ['day','hour', 'Minutes', 'week']);
             $table->integer('passing_grade');
-            $table->boolean('instant_check');
-            $table->boolean('negative_marking');
-            $table->boolean('minus_for_skip');
-            $table->integer('retake');
-            $table->integer('pagination');
+            $table->boolean('instant_check')->nullable();
+            $table->boolean('negative_marking')->nullable();
+            $table->boolean('minus_for_skip')->nullable();
+            $table->integer('retake')->nullable();
+            $table->integer('pagination')->nullable();
             $table->boolean('review')->default(1);
             $table->boolean('show_correct_answer')->default(1);
             $table->unsignedBigInteger('curriculum_id')->nullable();
-
             $table->timestamps();
         });
     }

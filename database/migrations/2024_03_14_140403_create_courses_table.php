@@ -41,9 +41,25 @@ return new class extends Migration
             $table->string('duration_gauge')->default('Minute(s)');
             $table->softDeletes();
 
-            $table->unsignedBigInteger('id_school')->nullable();
-            $table->foreign('id_school')->references('id')->on('schools')->onDelete('cascade');
+            $table->unsignedBigInteger('id_categorie')->nullable();
+            $table->foreign('id_categorie')->references('id')->on('categories')->onDelete('cascade');
 
+            $table->unsignedBigInteger('id_tag')->nullable();
+            $table->foreign('id_tag')->references('id')->on('tags')->onDelete('cascade');
+
+
+            // $table->unsignedBigInteger('id_school')->nullable();
+            // $table->foreign('id_school')->references('id')->on('schools')->onDelete('cascade');
+            // // $table->unsignedBigInteger('id_school');
+            $table->foreignId('school_id')->constrained()->nullable();
+
+
+            // $table->unsignedBigInteger('id_curriculm')->nullable();
+            // $table->foreign('id_curriculm')->references('id')->on('curriculms')->onDelete('cascade');
+
+            // $table->unsignedBigInteger('lessons_id')->nullable();
+            // $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+         
             $table->timestamps();
         });
     }
@@ -53,9 +69,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists("courses", function (Blueprint $table){
-            $table->softDeletes();
-        });
-
+        Schema::dropIfExists('courses');
     }
 };
