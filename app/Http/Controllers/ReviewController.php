@@ -12,7 +12,8 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $reviews= review::all();
+        return view('EnglishChallenger.index',['reviews'=>$reviews]);
     }
 
     /**

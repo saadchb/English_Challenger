@@ -35,4 +35,7 @@ class Course extends Model
     {
         return self::count();
     }
+    public function review():HasMany{
+        return $this->hasMany(review::class);
+    }
 }

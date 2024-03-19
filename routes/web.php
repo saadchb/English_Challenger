@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RequirementController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
@@ -25,6 +26,7 @@ Route::get('/dachboard',function(){
 Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
+
 Route::get('/course_detail',function(){
     return view('EnglishChallenger.course_detail');
 });

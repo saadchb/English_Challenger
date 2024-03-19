@@ -4,8 +4,10 @@
 <?php
 
 use App\Models\Course;
+use App\Models\review;
 
 $course = Course::count();
+$reviews = review::all();
 
 ?>
 <section class="banner">
@@ -385,39 +387,16 @@ $course = Course::count();
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-12">
-                <div class="testimonials-slides owl-carousel owl-theme">
+                <div class="testimonials-slides owl-carousel owl-theme">              
+                    @foreach ($reviews as $review)
                     <div class="review-item">
                         <div class="client-info">
                             <i class="bi bi-quote"></i>
-                            <p>I've thoroughly enjoyed my time on this website. The lessons are well-structured and easy to follow. The practical exercises have really helped me improve my English skills. The teachers are very attentive and responsive. I highly recommend this site to anyone looking to learn English effectively and enjoyably!"</p>
+                            <p>{{ $review->comments }}</p>
                             <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                            </div>
-                        </div>
-                        <div class="client-desc">
-                            <div class="client-img">
-                                <img src="build/assets/images/clients/picture4.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
-                            </div>
-                            <div class="client-text">
-                                <h4>Salma Nadim</h4>
-                                <span class="designation">Student</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="review-item">
-                        <div class="client-info">
-                            <i class="bi bi-quote"></i>
-                            <p>As a teacher on this site, I'm delighted to be able to help students improve their English. The platform offers many pedagogical tools that make teaching easier, such as interactive quizzes, videos, and practical exercises. Additionally, the support team is always there to answer my questions and provide support. I'm grateful to be part of this dynamic learning community.</p>
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
+                                @for ($i = 0; $i < $review->rating; $i++)
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    @endfor
                             </div>
                         </div>
                         <div class="client-desc">
@@ -425,35 +404,12 @@ $course = Course::count();
                                 <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
                             </div>
                             <div class="client-text">
-                                <h4>ouazza monir</h4>
+                                <h4>{{ $review->user->name }}</h4>
                                 <span class="designation">Teacher</span>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="review-item">
-                        <div class="client-info">
-                            <i class="bi bi-quote"></i>
-                            <p>I've been using this site for a few months now a great way to interact with other learners and practice the language. I feel much more confident in my English skills thanks to this site.</p>
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                            </div>
-                        </div>
-                        <div class="client-desc">
-                            <div class="client-img">
-                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
-                            </div>
-                            <div class="client-text">
-                                <h4>Anwar Nourri</h4>
-                                <span class="designation">Student</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
