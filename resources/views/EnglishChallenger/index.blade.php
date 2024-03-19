@@ -386,33 +386,34 @@ $reviews = review::all();
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <div class="testimonials-slides owl-carousel owl-theme">              
-                    @foreach ($reviews as $review)
-                    <div class="review-item">
-                        <div class="client-info">
-                            <i class="bi bi-quote"></i>
-                            <p>{{ $review->comments }}</p>
-                            <div class="rating">
-                                @for ($i = 0; $i < $review->rating; $i++)
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    @endfor
-                            </div>
-                        </div>
-                        <div class="client-desc">
-                            <div class="client-img">
-                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
-                            </div>
-                            <div class="client-text">
-                                <h4>{{ $review->user->name }}</h4>
-                                <span class="designation">Teacher</span>
-                            </div>
-                        </div>
+    <div class="col-lg-12">
+        <div class="testimonials-slides owl-carousel owl-theme">              
+            @foreach ($reviews as $review)
+            <div class="review-item">
+                <div class="client-info" style="height: 650px;"> 
+                    <i class="bi bi-quote"></i>
+                    <p>{{ $review->comments }}</p>
+                    <div class="rating">
+                        @for ($i = 0; $i < $review->rating; $i++)
+                            <a href="#"><i class="fa fa-star"></i></a>
+                        @endfor
                     </div>
-                    @endforeach
+                </div>
+                <div class="client-desc">
+                    <div class="client-img">
+                        <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
+                    </div>
+                    <div class="client-text">
+                        <h4>{{ $review->user->name }}</h4>
+                        <span class="designation">Students</span>
+                    </div>
                 </div>
             </div>
+            @endforeach
         </div>
+    </div>
+</div>
+
     </div>
 </section>
 <section class="blog section-padding">
@@ -583,10 +584,10 @@ $reviews = review::all();
         let htmlCu = '';
         for (var i = 0; i < table.length; i++) {
             htmlCu += `
-    <div class="course-item cat1 cat3 col-lg-4 col-md-6">
-        <div class="course-block">
+    <div class="course-item cat1 cat3 col-lg-4 col-md-6" >
+        <div class="course-block" >
             <div class="course-img">
-                <img src="{{ asset('storage/') }}/${table[i].img}" alt="" style="width:300px; height: 280px;" class="img-fluid">
+                <img src="{{ asset('storage/') }}/${table[i].img}" alt="" style="width:350px; height: 280px;" class="img-fluid">
                 <span class="course-label">${table[i].level}</span>
             </div>
 
