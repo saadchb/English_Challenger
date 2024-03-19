@@ -27,7 +27,7 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $searchTerm = $request->input('search');
-        $courses = Course::all();
+        $courses = Course::paginate(8);
         if ($searchTerm) {
             $courses = Course::when($searchTerm, function ($query) use ($searchTerm) {
                 $query->where('title', 'like', '%' . $searchTerm . '%');

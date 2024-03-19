@@ -109,5 +109,7 @@
             </div>
         </div>
     </div>
-    
+    <div>
+        {{$courses->links()}}
+    </div>
 @endsection

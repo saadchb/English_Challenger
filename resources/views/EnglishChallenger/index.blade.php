@@ -642,8 +642,7 @@
         </div>
     </div>
     `;
-            }
-
+    }
             document.getElementById('showCourses').innerHTML = htmlCu
         }
         showCourses(courses)
