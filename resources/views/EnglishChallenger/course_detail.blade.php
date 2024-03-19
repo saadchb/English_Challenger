@@ -1,62 +1,51 @@
 @extends('layouts.app')
-@section('title','Home')
+@section('title','detail course')
 @section('content')
-<section class="page-header">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-          <div class="page-header-content">
-            <h1>Course Single</h1>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a href="#">Home</a>
-              </li>
-              <li class="list-inline-item">/</li>
-              <li class="list-inline-item">
-                  Courses
-              </li>
-            </ul>
-          </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="page-wrapper edutim-course-single">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-
-                <div class="course-single-header">
-                    <div class="rating">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <span>(5.00)</span>
-                    </div>
-                
+<section class="page-wrapper edutim-course-single course-single-style-3">
+    <div class="course-single-wrapper">
+       <div class="container">
+           <div class="row">
+               <div class="col-lg-8">
+                <div class="course-single-header white-text">
+                    <span class="subheading">Backend,Development</span>
                     <h3 class="single-course-title">Information About UI/UX Design Degree</h3> 
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                         Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>  
-                </div>
-                
+                        <div class="d-flex align-items-center ">
+                            <div class="single-top-meta">
+                                <i class="fa fa-user"></i><span> 3450 Students Enrolled</span>
+                            </div>
+                            <div class="single-top-meta">
+                                <div class="rating">
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                   <span>5.00 (500 ratings)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+           </div>
+       </div>
+    </div>
 
-                <div class="course-single-thumb mb-5">
-                    <img src="assets/images/course/course2.jpg" alt="" class="img-fluid w-100">
-                   
-                </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
                 <nav class="course-single-tabs">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Overview</a>
-                      <a class="nav-item nav-link" id="nav-topics-tab" data-toggle="tab" href="#nav-topics" role="tab" aria-controls="nav-profile" aria-selected="false">Topics</a>
-                      <a class="nav-item nav-link" id="nav-instructor-tab" data-toggle="tab" href="#nav-instructor" role="tab" aria-controls="nav-contact" aria-selected="false">Instructor</a>
-                      <a class="nav-item nav-link" id="nav-feedback-tab" data-toggle="tab" href="#nav-feedback" role="tab" aria-controls="nav-contact" aria-selected="false">Feedback</a>
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Overview</a>
+                        <a class="nav-item nav-link" id="nav-topics-tab" data-toggle="tab" href="#nav-topics" role="tab" aria-controls="nav-profile" aria-selected="false">Topics</a>
+                        <a class="nav-item nav-link" id="nav-instructor-tab" data-toggle="tab" href="#nav-instructor" role="tab" aria-controls="nav-contact" aria-selected="false">Instructor</a>
+                        <a class="nav-item nav-link" id="nav-feedback-tab" data-toggle="tab" href="#nav-feedback" role="tab" aria-controls="nav-contact" aria-selected="false">Feedback</a>
                     </div>
-                  </nav>
-                  <div class="tab-content" id="nav-tabContent">
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="single-course-details ">
     <h4 class="course-title">Description</h4>
@@ -212,39 +201,38 @@
                   </div>
                 </div>
               </div>
-            </div>
         </div>
     </div>
+</div>
 <!--  COurse Topics End -->
 
-</div>
-    <div class="tab-pane fade" id="nav-instructor" role="tabpanel" aria-labelledby="nav-instructor-tab">
-        <div class="course-widget course-info">
-            <h4 class="course-title">About the instructors</h4>
-            <div class="instructor-profile">
-                <div class="profile-img">
-                    <img src="assets/images/blog/author.jpg" alt="" class="img-fluid">
-                </div>
-                <div class="profile-info">
-                    <h5>Meraz Ahmed</h5>
-                    <div class="rating">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half"></i></a>
-                        <span>3.79 ratings (29 )</span>
+ </div>
+        <div class="tab-pane fade" id="nav-instructor" role="tabpanel" aria-labelledby="nav-instructor-tab">
+            <div class="course-widget course-info">
+                <h4 class="course-title">About the instructors</h4>
+                <div class="instructor-profile">
+                    <div class="profile-img">
+                        <img src="assets/images/blog/author.jpg" alt="" class="img-fluid">
                     </div>
-                    <p>I'm a developer with a passion for teaching. I'm the lead instructor at the London App Brewery, London's leading Programming Bootcamp. I've helped hundreds of thousands of students learn to code and change their lives by becoming a developer </p>
-                    <div class="instructor-courses">
-                        <span><i class="bi bi-folder"></i>4 Courses</span>
-                        <span><i class="bi bi-group"></i>400 Students</span>
+                    <div class="profile-info">
+                        <h5>Meraz Ahmed</h5>
+                        <div class="rating">
+                            <a href="#"><i class="fa fa-star"></i></a>
+                            <a href="#"><i class="fa fa-star"></i></a>
+                            <a href="#"><i class="fa fa-star"></i></a>
+                            <a href="#"><i class="fa fa-star"></i></a>
+                            <a href="#"><i class="fa fa-star-half"></i></a>
+                            <span>3.79 ratings (29 )</span>
+                        </div>
+                        <p>I'm a developer with a passion for teaching. I'm the lead instructor at the London App Brewery, London's leading Programming Bootcamp. I've helped hundreds of thousands of students learn to code and change their lives by becoming a developer </p>
+                        <div class="instructor-courses">
+                            <span><i class="bi bi-folder"></i>4 Courses</span>
+                            <span><i class="bi bi-group"></i>400 Students</span>
+                        </div>
                     </div>
                 </div>
             </div>
     </div>
-</div>
-
             <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
                 <div class="course-widget course-info">
                 <h4 class="course-title">Students Feedback</h4>
@@ -292,103 +280,79 @@
     </div>
 </div>
 
-        <div class="col-lg-4">
+            <div class="col-lg-4">
                 <div class="course-sidebar">
+                    <div class="course-single-thumb">
+                        <img src="assets/images/course/course2.jpg" alt="" class="img-fluid w-100">
 
-                <div class="course-widget single-info">
-                    <i class="bi bi-group"></i>
-                    Enrolled <span>101 Students</span> 
-                </div>
-
-                <div class="course-single-thumb">
-                    <div class="course-price-wrapper">
-                        <div class="course-price ml-3"><h4>Price: <span>$150</span></h4></div>
-                        <div class="buy-btn"><a href="#" class="btn btn-main btn-block">Buy This Course</a></div>
+                        <div class="course-price-wrapper">
+                            <div class="course-price"><h4>Price: <span>$150</span> <del class="text-muted">$200</del></h4></div>
+                            <p class="text-info"><i class="fa fa-clock mr-2"></i>Only 2 days left at this price</p>
+                            <div class="buy-btn"><a href="#" class="btn btn-main btn-block">Buy This Course</a></div>
+                        </div>
                     </div>
-                </div>
-            
-                <div class="course-widget course-details-info">
-                    <h4 class="course-title">This Course Includes</h4>
-                    <ul>
-                        <li>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span><i class="bi bi-graph-bar"></i>Skill level : </span>
-                                Beginner
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span><i class="bi bi-user-ID"></i>Instructor :</span>
-                                <a href="#" class="d-inline-block">Jone Smit</a>
-                            </div>
-                        </li>
 
-                        <li>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span><i class="bi bi-flag"></i>Duration :</span>
-                                2 weeks
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span><i class="bi bi-paper"></i>Lessons :</span>
-                                42
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span><i class="bi bi-forward"></i>Language :</span>
-                                English
-                            </div>
-                        </li>
+                    <div class="course-widget course-details-info">
+                        <h4 class="course-title">This Course Includes</h4>
+                        <ul>
+                            <li>
+                                <div class="">
+                                    <span><i class="bi bi-graph-bar"></i>Skill level : </span>
+                                    Beginner
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <span><i class="bi bi-user-ID"></i>Instructor :</span>
+                                    <a href="#" class="d-inline-block">Jone Smit</a>
+                                </div>
+                            </li>
 
-                        <li>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span><i class="bi bi-madel"></i>Certificate :</span>
-                                yes
-                            </div>
-                        </li>
+                            <li>
+                                <div class="">
+                                    <span><i class="bi bi-flag"></i>Duration :</span>
+                                    2 weeks
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <span><i class="bi bi-paper"></i>Lessons :</span>
+                                    42
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <span><i class="bi bi-forward"></i>Language :</span>
+                                    English
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="">
+                                    <span><i class="bi bi-madel"></i>Certificate :</span>
+                                    yes
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                        <div class="course-widget course-share d-flex justify-content-between align-items-center">
+                            <span>Share</span>
+                            <ul class="social-share list-inline">
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                <li  class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li  class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                <li  class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                            </ul>
+                        </div>
                     
-                    </ul>
-                </div>
-
-
-                <div class="course-widget course-share d-flex justify-content-between align-items-center">
-                    <span>Share</span>
-                    <ul class="social-share list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li  class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li  class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                        <li  class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                    </ul>
-                </div>
-
-                <div class="course-widget course-metarials">
-                    <h4 class="course-title">Requirements</h4>
-                    <ul>
-                        <li>
-                            <i class="fa fa-check"></i>
-                            No previous knowledge of Photoshop required.
-                        </li>
-                        <li>
-                            <i class="fa fa-check"></i>
-                            If you have Photoshop installed, that's great.
-                        </li>
-                        <li>
-                            <i class="fa fa-check"></i>
-                            If not, I'll teach you how to get it on your computer.
-                        </li>
-                        
-                    </ul>
-                </div>
-
-                    <div class="course-widget">
-                        <h4 class="course-title">Tags</h4>
-                        <div class="single-course-tags">
-                            <a href="#">Web Deisgn</a>
-                            <a href="#">Development</a>
-                            <a href="#">Html</a>
-                            <a href="#">css</a>
+                        <div class="course-widget">
+                            <h4 class="course-title">Tags</h4>
+                            <div class="single-course-tags">
+                                <a href="#">Web Deisgn</a>
+                                <a href="#">Development</a>
+                                <a href="#">Html</a>
+                                <a href="#">css</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -507,4 +471,6 @@
         </div>
     </div>
 </section>
+
+
 @endsection

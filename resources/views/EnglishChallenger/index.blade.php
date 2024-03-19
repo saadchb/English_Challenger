@@ -210,7 +210,7 @@ $course = Course::count();
             </div>
 
             <div class="col-lg-6">
-                <div class="course-btn text-lg-right"><a href="#" class="btn btn-main"><i class="fa fa-store mr-2"></i>All Courses</a></div>
+                <div class="course-btn text-lg-right"><a href="/course_list" class="btn btn-main"><i class="fa fa-store mr-2"></i>All Courses</a></div>
             </div>
         </div>
         <div class="text-center">

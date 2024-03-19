@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Home')
+@section('title','Course list')
 @section('content')
 
 <section class="page-header">
@@ -7,10 +7,10 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
           <div class="page-header-content">
-            <h1>Course Style 2</h1>
+            <h1><b style=" color: #FF1949;">|</b> Course List</h1>
             <ul class="list-inline mb-0">
               <li class="list-inline-item">
-                <a href="#">Home 2</a>
+                <a href="/">Home </a>
               </li>
               <li class="list-inline-item">/</li>
               <li class="list-inline-item">
