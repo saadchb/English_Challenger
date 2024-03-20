@@ -26,9 +26,6 @@ Route::get('/dachboard',function(){
 Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
-Route::get('/404',function(){
-    return view('EnglishChallenger.404');
-});
 
 Route::get('/course_detail',function(){
     return view('EnglishChallenger.course_detail');
