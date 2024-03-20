@@ -73,7 +73,7 @@
       </li>
       <li class="nav-item dropdown ml-4">
         <div style="display: flex;">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
+          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
           <a href="#" class="nav-link" data-toggle="dropdown" class="d-block"><strong style="color: black;">SAAD CHAIB <i class="fa-solid fa-caret-down"></i></strong></a>
           </a>
           <div>
