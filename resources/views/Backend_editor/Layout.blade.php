@@ -36,66 +36,10 @@
 </head>
 
 
+<body >
+<div class="wrapper">
 
-<body>
-
-
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <!-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li> -->
-    </ul>
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-         <!-- button add new  -->
-         <li class="nav-item">    
-         @yield('button_add') 
-      </li>
-      <!-- Navbar Search -->
-      <li class="nav-item">
-      
-          @yield('search')
-        
-      </li>
-   
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item dropdown ml-4">
-        <div style="display: flex;">
-          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
-          <a href="#" class="nav-link" data-toggle="dropdown" class="d-block"><strong style="color: black;">SAAD CHAIB <i class="fa-solid fa-caret-down"></i></strong></a>
-          </a>
-          <div>
-            <div class="dropdown-menu dropdown-menu dropdown-menu-right">
-              <span class="dropdown-item dropdown-header"><strong>Profile</strong></span>
-              <div class="dropdown-divider"></div>
-
-              <a href="#" class="dropdown-item">
-                <i class=" fa-regular fa-gear text-info"></i> SETTING
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fa-solid fa-power-off text-danger"></i> LOG OUT
-              </a>
-
-            </div>
-      </li>
-
-
-    </ul>
-  </nav>
-  <!-- /.navbar -->
+ 
   <aside style="  position: fixed;" class="main-sidebar sidebar-dark-primary elevation-4 ">
     <!-- Brand Logo -->
     <a href="#" class="brand-link ml-4">
@@ -180,9 +124,70 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+   <!-- Navbar -->
+   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <!-- <li class="nav-item d-none d-sm-inline-block">
+        <a href="index3.html" class="nav-link">Home</a>
+      </li> -->
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+         <!-- button add new  -->
+         <li class="nav-item">    
+         @yield('button_add') 
+      </li>
+      <!-- Navbar Search -->
+      <li class="nav-item">
+      
+          @yield('search')
+        
+      </li>
+   
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item dropdown ml-4">
+        <div style="display: flex;">
+          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
+          <a href="#" class="nav-link" data-toggle="dropdown" class="d-block"><strong style="color: black;">SAAD CHAIB <i class="fa-solid fa-caret-down"></i></strong></a>
+          </a>
+          <div>
+            <div class="dropdown-menu dropdown-menu dropdown-menu-right">
+              <span class="dropdown-item dropdown-header"><strong>Profile</strong></span>
+              <div class="dropdown-divider"></div>
+
+              <a href="#" class="dropdown-item">
+                <i class=" fa-regular fa-gear text-info"></i> SETTING
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fa-solid fa-power-off text-danger"></i> LOG OUT
+              </a>
+
+            </div>
+      </li>
+
+
+    </ul>
+  </nav>
+  <!-- /.navbar -->
   <div class="content-wrapper">
+    
     <section class="content">
+      
       <div class="container-fluid">
+        
+        
         @yield('content')
       </div>
     </section>
