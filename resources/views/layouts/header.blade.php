@@ -178,19 +178,6 @@ Quiz        </a>
         </a>
     </div>
 </li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Consulting<i class="fa fa-angle-down"></i>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbar3">
-        <a class="dropdown-item " href="#">
-            EFL Programs
-        </a>
-        <a class="dropdown-item " href="#">
-            Extra Curricular Activities
-        </a>
-    </div>
-</li>
 
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,53 +1,6 @@
 @extends('Backend_editor.Layout')
 @section('title','Add_lesson')
-@section('styles')
-<!-- Include additional stylesheets for this view -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-    /* Custom CSS for navbar */
-    .navbar-custom {
-        padding: 10px 0;
-    }
 
-    .navbar-brand {
-        font-weight: bold;
-        font-size: 1.5rem;
-    }
-
-    .navbar-nav {
-        align-items: center;
-    }
-
-    .nav-item {
-        margin-right: 15px;
-    }
-
-    #saveBtn {
-        margin-left: 15px;
-    }
-
-    /* Custom CSS for form */
-    .form-group {
-        margin-bottom: 1.5rem;
-        /* Add space between form groups */
-    }
-
-    .form-group label {
-        width: 8rem;
-        /* Adjust label width */
-    }
-
-    .form-group .input-group {
-        width: calc(100% - 8rem);
-        /* Calculate input and select width */
-    }
-
-    .form-check-label {
-        margin-right: 1.5rem;
-        /* Add space between checkbox and label */
-    }
-</style>
-@endsection
 @section('content')
 <?php
 
@@ -55,29 +8,26 @@ use App\Models\Course;
 
 $courses = Course::all();
 ?>
-<form action="{{route('lessons.store')}}" method="Post" enctype="multipart/form-data">
-    @csrf
-    <div class="sticky-top bg-white border-bottom  px-4 py-3">
-        <div class="d-flex justify-content-between align-items-center">
-            <h3 class="text-xl font-bold text-gray-900">Add new lesson</h3>
-            <div class="d-flex gap-3 align-items-center">
-                <a href="/lessons" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
-                <div class="position-relative">
-            
-                    <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+<div class="container-fluid mt--8">
+    <form action="{{route('lessons.store')}}" method="Post" enctype="multipart/form-data">
+        @csrf
+        <div class="sticky-top bg-white border-bottom  px-4 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="text-xl font-bold text-gray-900">Add new lesson</h3>
+                <div class="d-flex gap-3 align-items-center">
+                    <a href="/lessons" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
+                    <div class="position-relative">
+                        <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+                    </div>
                 </div>
-
             </div>
-        </div>
 
-    </div><br>
-    <div class="container-fluid mt--8">
+        </div><br>
         <div class="row">
             <div class="col">
                 <div class="card shadow">
                     <div class="card-header border-0">
                         <div class="form-group">
-
                             <label for="title"><b>Title</b></label>
                             <input type="text" class="form-control" name="title" placeholder="Enter a lesson" value='{{old("title")}}'>
                             @error('title')
@@ -89,6 +39,13 @@ $courses = Course::all();
                             <label for="description"><b>Description</b></label>
                             <textarea class="form-control" id="description" name="description" rows="2" placeholder="Enter description" value='{{old("description")}}'></textarea>
                             @error('description')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="description"><b>Link of video </b><i class="fab fa-youtube"></i></label>
+                            <textarea class="form-control" id="video_link" name="video_link" rows="2" placeholder="link of video from youtube" value='{{old("video_link")}}'></textarea>
+                            @error('video_link')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
                         </div>
@@ -112,13 +69,6 @@ $courses = Course::all();
                             <label for="duration" class="form-label"><b>Duration</b></label>
                             <div class="input-group">
                                 <input value='{{old("duration")}}' id="duration" type="time" class="form-control" name="duration" value="0"><br>
-
-                                <!--    <select class="form-select" name="duration_unit">
-            <option value="minute">Minute(s)</option>
-            <option value="hour">Hour(s)</option>
-            <option value="day">Day(s)</option>
-            <option value="week">Week(s)</option>
-        </select> -->
                             </div><br> @error('duration')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
@@ -135,7 +85,7 @@ $courses = Course::all();
                 </div>
             </div>
         </div>
-    </div>
-    </form>
+</div>
+</form>
 <br><br>
-        @endsection
+@endsection

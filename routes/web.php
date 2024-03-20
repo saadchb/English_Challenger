@@ -33,6 +33,9 @@ Route::get('/course_detail',function(){
 Route::get('/course_list',function(){
     return view('EnglishChallenger.course_list');
 });
+Route::get('/curriculum_list',function(){
+    return view('EnglishChallenger.curriculum_list');
+});
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');
 Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');

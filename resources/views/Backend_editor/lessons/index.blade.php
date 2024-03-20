@@ -1,24 +1,29 @@
 @extends('Backend_editor.Layout')
-@section('title','Lessons')
-@section('content')
-
-
-<div class="sticky-top bg-white border-bottom  px-4 py-3">
-    <div class="d-flex justify-content-between align-items-center">
-        <h2 class="text-xl font-bold text-gray-900">List your Lessons</h2>
-        <div class="d-flex gap-3 align-items-center">
-            <a href="{{route('lessons.create')}}" class="btn btn-primary">Add new</a>
-          
-                <form class="d-flex" name="form1">
-                    <input class="form-control border border-gray-300 pr-3 pl-9 py-2 rounded-md w-260px text-sm font-medium text-gray-600 focus:ring-indigo-500 focus:border-indigo-500 focus:placeholder-gray-500" type="search" aria-label="Search" onchange="fom1.submit()" placeholder="search" name="search1" id="search1">
-                    <button class="btn btn-outline-success" type="submit"><span class="fa fa-search"></span></button>
-                </form>
-            
-
+@section('title','lessons')
+@section('button_add')
+<a class="nav-link ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-4 py-2 flex items-center rounded-md font-semibold" href="{{route('lessons.create')}}">Add new</a>
+@endsection
+@section('search')
+<a class="nav-link" data-widget="navbar-search" href="#" role="button">
+    <i class="fas fa-search"></i>
+</a>
+<div class="navbar-search-block">
+    <form class="form-inline" name="form1">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" type="search" onchange="fom1.submit()" placeholder="search" name="search1" id="search1" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="submit" data-widget="navbar-search">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         </div>
-    </div>
-
+    </form>
 </div>
+@endsection
+@section('content')
 <br><br>
 <div class="container-fluid mt--8">
     <div class="row">

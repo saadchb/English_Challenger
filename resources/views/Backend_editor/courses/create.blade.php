@@ -1,6 +1,7 @@
 @extends('Backend_editor.Layout')
 @section('title', 'Courses')
 @section('content')
+
     <form action="{{ route('Courses.store') }}" enctype="multipart/form-data" id="form1" method="POST">
         @csrf
         <main class="min-w-0 mx-auto relative">

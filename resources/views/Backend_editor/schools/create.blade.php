@@ -1,9 +1,8 @@
 @extends('Backend_editor.Layout')
 @section('title','Add school')
-@push('style')
-
-@endpush
 @section('content')
+<div class="container-fluid mt--8">
+
 <form action="{{route('Schools.store')}}" method="Post" enctype="multipart/form-data">
 
 <div class="sticky-top bg-white border-bottom  px-4 py-3">
@@ -20,7 +19,6 @@
     </div>
     
 </div><br><br>
-<div class="container-fluid mt--8">
     <div class="row">
         <div class="col">
             <div class="card shadow">

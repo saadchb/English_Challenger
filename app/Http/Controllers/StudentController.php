@@ -63,8 +63,10 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit(string $id)
+
     {
+        $student=Student::findOrFail($id);
         return view('Backend_editor.Students.edit',['student'=>$student]);
     }
 
@@ -87,7 +89,7 @@ class StudentController extends Controller
         $student->last_name = $request->input('last_name');
         $student->phone = $request->input('phone');
         $student->email = $request->input('email');
-        $student->adresse = $request->input('adresse');
+        $student->address = $request->input('address');
         $student->date_of_birth = $request->input('date_of_birth');
         $student->class = $request->input('class');
 

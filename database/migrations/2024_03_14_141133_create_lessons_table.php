@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->time('duration');
             $table->boolean('priview');
+            $table->text('video_link');
             $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->timestamps();
         });
