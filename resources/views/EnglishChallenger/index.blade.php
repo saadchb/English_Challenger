@@ -6,7 +6,6 @@
 use App\Models\Course;
 use App\Models\review;
 
-$course = Course::count();
 $reviews = review::all();
 
 ?>
@@ -163,8 +162,14 @@ $reviews = review::all();
                                             {{ $course->regular_price }}</span></span>
                                     @endif
                                     @if ($course->regular_price && $course->sale_price)
-                                    <span class=" font-medium text-gray-900"><span class="line-through pr-2 text-gray-500" style="font-size:35px;">
-                                            ${{ $course->sale_price }}</span><span>${{ $course->regular_price }}</span></span>
+                                    <span class=" font-medium text-gray-900">
+                                        <span class="line-through pr-2 text-gray-500" style="font-size:35px;">
+                                            ${{ $course->sale_price }}
+                                        </span>
+                                        <span>
+                                            ${{ $course->regular_price }}
+                                        </span>
+                                    </span>
                                     @endif
                                     @if (!$course->regular_price && !$course->sale_price)
                                     <span class="uppercase">Free</span>
@@ -246,7 +251,7 @@ $reviews = review::all();
                         <div class="counter-item">
                             <i class="ti-agenda"></i>
                             <div class="count">
-                                <span class="counter h2">{{$course->nbcourses()}} <span>
+                                <span class="counter h2">{{$nbCourses}} <span>
                             </div>
                             <p>Total Courses</p>
                         </div>
@@ -289,80 +294,16 @@ $reviews = review::all();
         </div>
 
         <div class="row no-gutters">
+
+            @foreach($categorieByCourses as $categorieByCourse)
             <div class="col-lg-3 col-md-6">
                 <div class="course-category style-1">
-                    <div class="category-icon">
-                        <i class="bi bi-laptop"></i>
-                    </div>
-                    <h4><a href="#">Web Development</a></h4>
-                    <p>4 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-2">
-                    <div class="category-icon">
-                        <i class="bi bi-layer"></i>
-                    </div>
-                    <h4><a href="#">Design</a></h4>
-                    <p>12 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-3">
-                    <div class="category-icon">
-                        <i class="bi bi-target-arrow"></i>
-                    </div>
-                    <h4><a href="#">Marketing</a></h4>
-                    <p>6 Courses</p>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-4">
-                    <div class="category-icon">
-                        <i class="bi bi-rocket2"></i>
-                    </div>
-                    <h4><a href="#">Art & Design</a></h4>
-                    <p>6 Courses</p>
+                    <h4><a href="#">{{$categorieByCourse->title}}</a></h4>
+                    <p>{{$categorieByCourse->nbCoursesByCategorie}} Courses</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-2">
-                    <div class="category-icon">
-                        <i class="bi bi-shield"></i>
-                    </div>
-                    <h4><a href="#">Design</a></h4>
-                    <p>12 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-1">
-                    <div class="category-icon">
-                        <i class="bi bi-slider-range"></i>
-                    </div>
-                    <h4><a href="#">Web Development</a></h4>
-                    <p>4 Courses</p>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-4">
-                    <div class="category-icon">
-                        <i class="bi bi-bulb"></i>
-                    </div>
-                    <h4><a href="#">Art & Design</a></h4>
-                    <p>6 Courses</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="course-category style-3">
-                    <div class="category-icon">
-                        <i class="bi bi-android"></i>
-                    </div>
-                    <h4><a href="#">Marketing</a></h4>
-                    <p>6 Courses</p>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <div class="row justify-content-center">
@@ -569,11 +510,7 @@ $reviews = review::all();
                         .categorie_id == categoryID;
                 });
             });
-            // if(filteredCourses.length ==0){
-            //     showCourses(courses);
-            // }else{
             showCourses(filteredCourses);
-            // }
         });
     });
     document.getElementById('all').addEventListener('click', function() {
@@ -597,16 +534,15 @@ $reviews = review::all();
                         ${ table[i].regular_price && !table[i].sale_price ? `
                                     <span class="font-medium text-gray-900 uppercase">${table[i].regular_price}</span>
                                 ` : '' }
-
                         ${ table[i].regular_price && table[i].sale_price ? `
-                                    <span class="font-medium text-gray-900">
-                                        <span class="line-through pr-2 text-gray-500" style="font-size:35px;">
-                                            ${table[i].sale_price}
+                                <span class=" font-medium text-gray-900">
+                                        <span class="course-price" style="font-size:35px;">
+                                           $ ${table[i].sale_price}
                                         </span>
-                                        <span>${table[i].regular_price}</span>
-                                    </span>
-                                ` : '' }
-
+                                        <span class="del">
+                                            $ ${table[i].regular_price}
+                                        </span>
+                                    </span>` : '' }
                         ${ !table[i].regular_price && !table[i].sale_price ? `
                                     <span class="uppercase">Free</span>
                                 ` : '' }
@@ -615,22 +551,71 @@ $reviews = review::all();
 
                 <h4><a href="#">${table[i].title}</a></h4>
                 <div class="rating">
-                    <a href="#"><i class="fa fa-star"></i></a>
-                    <a href="#"><i class="fa fa-star"></i></a>
-                    <a href="#"><i class="fa fa-star"></i></a>
-                    <a href="#"><i class="fa fa-star"></i></a>
-                    <a href="#"><i class="fa fa-star"></i></a>
-                    <span>(5.00)</span>
-                </div>
+    ${table[i].rating == 1 ? `
+            <!-- Render HTML for a review with a rating of 1 -->
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+
+            ` : ''}
+    ${table[i].rating == 2 ? `
+            <!-- Render HTML for a review with a rating of 2 -->
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+
+            ` : ''}
+    ${table[i].rating == 3 ? `
+            <!-- Render HTML for a review with a rating of 3 -->
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+
+            ` : ''}
+    ${table[i].rating == 4 ? `
+            <!-- Render HTML for a review with a rating of 4 -->
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+
+            ` : ''}
+    ${table[i].rating == 5 ? `
+            <!-- Render HTML for a review with a rating of 5 -->
+
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>` : ''}
+
+            ${table[i].rating !== undefined && table[i].rating !== null && table[i].rating !== '' ?
+            `
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            `:''
+        }
+        <span>${table[i].rating}.00</span>
+</div>
                 <p>${table[i].description}</p>
 
                 <div class="course-footer d-lg-flex align-items-center justify-content-between">
                     <div class="course-meta">
-                        <span class="course-student"><i class="bi bi-group"></i>340</span>
+                        <span class="course-student"><i class="bi bi-group"></i>${table[i].fake_students_enrolled == null ? 0:''}</span>
                         <span class="course-duration"><i class="bi bi-badge3"></i>${table[i].nblessonsbycourses} Lessons</span>
                     </div>
 
-                    <div class="buy-btn"><a href="/Courses.show/${table[i].id}"" class="btn btn-main-2 btn-small">Details</a></div>
+                    <div class="buy-btn"><a href="/course_detail/${table[i].id}" class="btn btn-main-2 btn-small">Details</a></div>
 
                 </div>
             </div>

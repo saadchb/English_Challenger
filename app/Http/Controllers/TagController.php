@@ -29,8 +29,10 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $tag = $request->all();
-        Tag::create($tag);
+        $validatedData = $request->validate([
+            'title' => 'required|unique:categories|max:255',
+        ]);
+        Tag::create($validatedData);
         return redirect()->back();
     }
 

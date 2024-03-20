@@ -12,6 +12,7 @@ use App\Models\KeyFeature;
 use App\Models\Lesson;
 use App\Models\Quiz;
 use App\Models\Requirement;
+use App\Models\review;
 use App\Models\Tag;
 use App\Models\TagsCourse;
 use App\Models\TargetAudience;
@@ -19,15 +20,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
+use App\Traits\ShowOfCoures;
 class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    use ShowOfCoures;
     public function index(Request $request)
     {
         $searchTerm = $request->input('search');
         $courses = Course::paginate(8);
+        foreach($courses as $course){
+            $course->nblessonsbycourses = $course->nblessonsbycourse();
+        }
         if ($searchTerm) {
             $courses = Course::when($searchTerm, function ($query) use ($searchTerm) {
                 $query->where('title', 'like', '%' . $searchTerm . '%');
@@ -134,36 +140,11 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $id)
-
-    {
-        $quizzes = Quiz::all();
-        $lessons = Lesson::all();
-        $curricula = Curriculum::all();
-        $course = Course::findOrFail($id);
-        $requirements = Requirement::where('course_id', $id)->get();
-        $tags = Tag::join('tags_courses', 'tags.id', '=', 'tags_courses.tag_id')
-            ->where('course_id', $id)
-            ->get('title');
-        $categories = Categorie::join('categories_courses', 'categories.id', '=', 'categories_courses.categorie_id')->where('course_id', $id)->get('title');
-        $courses = DB::table('courses')
-            ->join('categories_courses', 'courses.id', '=', 'categories_courses.course_id')
-            ->join('categories', 'categories.id', '=', 'categories_courses.categorie_id')
-            ->select('courses.*')
-            ->whereIn('categories.title', $categories)
-            ->where('courses.id', '!=', $id)
-            ->get();
-        return view('Backend_editor.courses.show', [
-            'course' => $course,
-            'categories' => $categories,
-            'requirements' => $requirements,
-            'tags' => $tags,
-            'courses' => $courses,
-            'curricula' => $curricula,
-            'lessons' => $lessons,
-            'quizzes'=> $quizzes
-        ]);
-    }
+        public function show(int $id)
+        {
+            $courseData = $this->ShowOfCoures($id);  // this utilises the trait of laravel (mohamed)
+        return view('Backend_editor.courses.show', $courseData);
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -292,18 +273,45 @@ class CourseController extends Controller
     }
     public function indexEn()
     {
+        $categorieByCourses = Categorie::select('categories.title',DB::raw('count(*) as nbCoursesByCategorie'))
+        ->join('categories_courses','categories_courses.categorie_id','=','categories.id')
+        ->groupBy('categories.title')
+        ->orderByDesc('nbCoursesByCategorie')
+        ->limit(12)
+        ->get();
         $nbCourses = Course::nbcourses();
-        $courses = Course::all();
+        $courses = Course::limit(6)->get();
         $categories_course = CategoriesCourse::all();
         foreach($courses as $course){
+
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
         $tags = Tag::all();
         $categories = Categorie::all();
         return view('EnglishChallenger.index', ['courses' => $courses, 'tags'=>$tags,
         'categories'=>$categories,'nbCourses'=>$nbCourses,
-        'categories_course'=>$categories_course
+        'categories_course'=>$categories_course,
+        'categorieByCourses'=>$categorieByCourses
     ]);
     }
-
+    public function show2(int $id)
+    {
+        $courseData = $this->ShowOfCoures($id);
+        return view('EnglishChallenger.course_detail', $courseData);
+    }
+    public function indexCr()
+    {
+        $courses = Course::paginate(6);
+        // dd($courses);
+        foreach($courses as $course){
+            $review = review::where('course_id',$course->id)->get()->first();
+            if(!$review){
+                $course->rating = 0;
+            }else{
+                $course->rating = $review->rating;
+            }
+            $course->nblessonsbycourses = $course->nblessonsbycourse();
+        }
+        return view('EnglishChallenger.course_list', ['courses' => $courses]);
+    }
 }
