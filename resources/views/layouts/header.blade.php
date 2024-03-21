@@ -100,7 +100,7 @@ $count = 0;
                                         <img src="{{ asset('storage/'.$course->img) }}" style=" width: 300px; ;height: 200px;" alt="" class="img-fluid">
                                         <h5 class="card-title">{{$course->title}}</h5>
                                         <p class="card-text">{{$course->description}}</p>
-                                        <a href="#" style="text-decoration: underline;"><strong>course detail</strong> <i class="fa fa-angle-right"></i></a>
+                                        <a href="{{route('course_detail', $course->id)}}" style="text-decoration: underline;"><strong>course detail</strong> <i class="fa fa-angle-right"></i></a>
                                     </div>
                     </li>
                     @php $count++; @endphp
