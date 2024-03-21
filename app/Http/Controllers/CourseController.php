@@ -178,7 +178,14 @@ class CourseController extends Controller
     {
         $couresOld = Course::findOrFail($id);
         $course = $request->all();
-        $course['img'] = $request->file('img')->store('imagesCourses', 'public');
+        if ($request->hasFile('img')) {
+            // Store the new image file
+            $imagePath = $request->file('img')->store('imagesCourses', 'public');
+            
+            // Update the image path attribute of the famille model
+            $course->img = $imagePath;
+        }
+        // $course['img'] = $request->file('img')->store('imagesCourses', 'public');
         !$request->input('blocked_content_by_duration') ? $course['blocked_content_by_duration'] = '0' : '';
         !$request->input('blocked_content_by_student') ? $course['blocked_content_by_student'] = '0' : '';
         !$request->input('students_list') ? $course['students_list'] = '0' : '';

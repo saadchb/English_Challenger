@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Course list')
 @section('content')
-
     <section class="page-header">
         <div class="container">
             <div class="row justify-content-center">
