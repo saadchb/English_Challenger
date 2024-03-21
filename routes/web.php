@@ -29,6 +29,10 @@ Route::get('/Quize',function(){
 
 Route::get('/course_detail/{id}',[CourseController::class,'show2']);
 Route::get('/course_list',[CourseController::class,'indexCr']);
+
+Route::get('/curriculum_list',function(){
+    return view('EnglishChallenger.curriculum_list');
+});
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');
 Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');

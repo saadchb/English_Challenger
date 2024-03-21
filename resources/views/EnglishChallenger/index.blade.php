@@ -110,7 +110,7 @@ $reviews = review::all();
         <div class="col-lg-10">
             <div class="embed-responsive embed-responsive-16by9">
                 <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/90dMLavEFOM" allowfullscreen></iframe>
-            </div>
+                </div>
         </div>
     </div>
     </div>

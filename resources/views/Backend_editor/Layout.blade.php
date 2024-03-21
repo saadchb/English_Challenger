@@ -9,12 +9,18 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+<!-- Include additional stylesheets for this view -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- Include Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
   <title> @yield('title') </title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 
+  <link rel="stylesheet" href=" {{url('css/adminlte.css')}} ">
   <style>
 
     #link.active {
@@ -35,7 +41,69 @@
 
 <body >
 
-  <div class="d-flex" id="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <!-- <li class="nav-item d-none d-sm-inline-block">
+        <a href="index3.html" class="nav-link">Home</a>
+      </li> -->
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+         <!-- button add new  -->
+         <li class="nav-item">
+         @yield('button_add')
+      </li>
+      <!-- Navbar Search -->
+      <li class="nav-item">
+
+          @yield('search')
+
+      </li>
+
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item dropdown ml-4">
+        <div style="display: flex;">
+          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
+          <a href="#" class="nav-link" data-toggle="dropdown" class="d-block"><strong style="color: black;">SAAD CHAIB <i class="fa-solid fa-caret-down"></i></strong></a>
+          </a>
+          <div>
+            <div class="dropdown-menu dropdown-menu dropdown-menu-right">
+              <span class="dropdown-item dropdown-header"><strong>Profile</strong></span>
+              <div class="dropdown-divider"></div>
+
+              <a href="#" class="dropdown-item">
+                <i class=" fa-regular fa-gear text-info"></i> SETTING
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fa-solid fa-power-off text-danger"></i> LOG OUT
+              </a>
+
+            </div>
+      </li>
+
+
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+  <aside style="  position: fixed;" class="main-sidebar sidebar-dark-primary elevation-4 ">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link ml-4">
+      <img src="{{ asset('build/assets/images/Logo_english.png') }}" alt="logo3" width="130px" style="margin-left: 25px;">
+
+    </a>
     <!-- Sidebar -->
     <div class="bg-gray" id="sidebar-wrapper">
       <div class="sidebar-heading text-center py-4  fs-4 fw-bold text-uppercase border-bottom text-primary" style="color: #8f66cc;">
@@ -63,12 +131,23 @@
         <a href="/Students" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-users" style="color: #8f66cc;"></i> Students</a>
 
 
+            <li class="nav-item mt-2">
+              <a href="/dachboard" class="nav-link">
+                <i class="nav-icon fa-solid fa-house-user"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
+
         {{-- <a href="/lessons" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-brands fa-creative-commons-share me-2 fa-lg" style="color: #8f66cc;"></i> Lessons</a> --}}
         {{-- <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
         <!-- <a href="/Add_Quizzes" class="list-group-item list-group-item-action bg-transparent "><i
             class="fas fa-shopping-cart me-2 text-primary me-2 text-success"></i>  Add Quizze</a> -->
         <a href="" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-list-check me-2 fa-lg" style="color: #8f66cc;"></i> Assignments</a> --}}
 
+
+        </div>
 
         <a href="/Questions" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-clipboard-question me-2 fa-lg" style="color: #8f66cc;"></i> Questions</a>
       </div>
@@ -82,6 +161,7 @@
         @yield('content')
     </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.7.0/dist/umd/popper.min.js"></script>
@@ -152,6 +232,7 @@
     }
   </script>
 
+@include('layouts.js')
 
 </body>
 

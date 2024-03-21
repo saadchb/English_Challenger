@@ -1,6 +1,7 @@
 @extends('Backend_editor.Layout')
 @section('title', 'Courses')
 @section('content')
+
     <form action="{{ route('Courses.store') }}" enctype="multipart/form-data" id="form1" method="POST">
         @csrf
         <main class="min-w-0 mx-auto relative">
@@ -36,7 +37,6 @@
                                 class="px-4 py-2 text-sm min-w-[100px] leading-5 font-medium focus:outline-none text-gray-500 hover:text-gray-600"
                                 id="headlessui-tabs-tab-:r14:">Settings</button></div>
                         <div style="display: block" id="general" class="w-full mt-6">
-
                             <div id="headlessui-tabs-panel-:r15:" role="tabpanel"
                                 aria-labelledby="headlessui-tabs-tab-:r12:" tabindex="0" data-headlessui-state="selected">
                                 <div class="grid grid-cols-6 gap-6">

@@ -3,50 +3,7 @@
 @section('styles')
 <!-- Include additional stylesheets for this view -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-    /* Custom CSS for navbar */
-    .navbar-custom {
-        padding: 10px 0;
-    }
 
-    .navbar-brand {
-        font-weight: bold;
-        font-size: 1.5rem;
-    }
-
-    .navbar-nav {
-        align-items: center;
-    }
-
-    .nav-item {
-        margin-right: 15px;
-    }
-
-    #saveBtn {
-        margin-left: 15px;
-    }
-
-    /* Custom CSS for form */
-    .form-group {
-        margin-bottom: 1.5rem;
-        /* Add space between form groups */
-    }
-
-    .form-group label {
-        width: 8rem;
-        /* Adjust label width */
-    }
-
-    .form-group .input-group {
-        width: calc(100% - 8rem);
-        /* Calculate input and select width */
-    }
-
-    .form-check-label {
-        margin-right: 1.5rem;
-        /* Add space between checkbox and label */
-    }
-</style>
 @endsection
 @section('content')
 <?php
@@ -63,12 +20,7 @@ $courses = Course::all();
             <h3 class="text-xl font-bold text-gray-900">edit  lesson</h3>
             <div class="d-flex gap-3 align-items-center">
                 <a href="/lessons" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
-                <div class="position-relative">
-                    <span class="position-absolute d-flex items-center left-0 pl-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </span>
+                <div class="position-relative">                  
                     <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
                 </div>
 

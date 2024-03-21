@@ -51,6 +51,7 @@ public function store(LessonRequest $request)
         'description' => $request->input('description'),
         'duration' => $request->input('duration'),
         'priview' => $priview, // Assign converted boolean value
+        'video_link' => $request->input('video_link')
 
         // 'course_id' => $request->input('course_id'),
     ]);

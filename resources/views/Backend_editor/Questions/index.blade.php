@@ -1,7 +1,27 @@
 @extends('Backend_editor.Layout')
 @section('title','Question ')
+@section('search')
+<a class="nav-link" data-widget="navbar-search" href="#" role="button">
+    <i class="fas fa-search"></i>
+</a>
+<div class="navbar-search-block">
+    <form class="form-inline" name="form1">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" type="search" onchange="fom1.submit()" placeholder="search" name="search1" id="search1" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="submit" data-widget="navbar-search">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
 @section('content')
-
+<!-- 
 <div class="sticky-top bg-white border-bottom  px-4 py-3">
     <div class="d-flex justify-content-between align-items-center">
         <h2 class="text-xl font-bold text-gray-900">List your Questions</h2>
@@ -18,7 +38,7 @@
         </div>
     </div>
 
-</div>
+</div> -->
 <br>
 
 <div class="container-fluid mt--8">

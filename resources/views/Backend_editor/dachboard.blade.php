@@ -13,38 +13,7 @@ $course = Course::count();
 $Student = Student::count();
 // $Teacher = Teacher::count();
 ?>
-<div class="sticky-top bg-white border-bottom navbar navbar-expand   px-4 py-3">
-    <div class="d-flex justify-content-between align-items-center">
-        <h2 class="text-xl font-bold text-gray-900">Dachboard</h2>
-        <div class="d-flex gap-3  ml-12 ">
-            <ul class="navbar-nav" style="margin-left: 580px;">
-                <li class="nav-item dropdown ml-4">
-                    <div style="display: flex;">
-                            <img src="build/assets/images/pic-4.png" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
-                        <a href="#" class="nav-link" data-toggle="dropdown" class="d-block"><strong style="color: black;">SAAD CHAIB <i class="fa-solid fa-caret-down"></i></strong></a>
-                        </a>
-                        <div>
-                            <div class="dropdown-menu dropdown-menu dropdown-menu-right">
-                                <span class="dropdown-item dropdown-header"><strong>Profile</strong></span>
-                                <div class="dropdown-divider"></div>
 
-                                <a href="#" class="dropdown-item">
-                                    <i class=" fa-regular fa-gear text-info"></i> SETTING
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <i class="fa-solid fa-power-off text-danger"></i> LOG OUT
-                                </a>
-
-                            </div>
-                </li>
-
-
-            </ul>
-
-        </div>
-    </div>
-</div><br>
 <br>
 <div class="container-fluid px-4">
     <div class="row g-3 my-2">

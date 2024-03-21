@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'detail course')
 @section('content')
-
     <section class="page-wrapper edutim-course-single course-single-style-3">
         <div class="course-single-wrapper">
             <div class="container">
@@ -72,6 +71,7 @@
 
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -440,6 +440,7 @@
                                     <div class="buy-btn"><a href="{{ route('Courses.show', $course->id) }}"
                                             class="btn btn-primary-2 btn-small">Details</a>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -448,6 +449,7 @@
             </div>
         </div>
     </section>
+
 
 
 @endsection
