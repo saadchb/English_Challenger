@@ -501,7 +501,6 @@ $reviews = review::all();
     categoriesLink.forEach(element => {
         element.addEventListener('click', function(event) {
             event.preventDefault();
-
             const categoryID = this.getAttribute('data-category');
             console.log(categoryID)
             const filteredCourses = courses.filter(course => {
@@ -558,6 +557,7 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 2 ? `
@@ -567,6 +567,7 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 3 ? `
@@ -576,6 +577,7 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 4 ? `
@@ -585,6 +587,7 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 5 ? `
@@ -594,18 +597,19 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-star"></i></a>` : ''}
-
-            ${table[i].rating !== undefined && table[i].rating !== null && table[i].rating !== '' ?
+            <a href="#"><i class="fa fa-star"></i></a>
+            <span>${table[i].rating}.00</span>
+            ` : ''}
+            ${table[i].rating !== undefined || table[i].rating !== null || table[i].rating !== '' ?
             `
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>0.00</span>
             `:''
         }
-        <span>${table[i].rating}.00</span>
 </div>
                 <p>${table[i].description}</p>
 
