@@ -7,21 +7,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+  <link rel="icon" href="{{ asset('build/assets/images/icon_challenger.png') }}" type="image/x-icon">
+
 <!-- Include additional stylesheets for this view -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- Include Select2 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css"> --}}
-  <title> @yield('title') </title>
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+  <title>EnglishChallenger | @yield('title') </title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 
   <link rel="stylesheet" href=" {{url('css/adminlte.css')}} ">
   <style>
-
     #link.active {
       color: #4d09b3;
     }
@@ -40,65 +41,7 @@
 <body >
 <div class="wrapper">
 
-<body >
 
-
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <!-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li> -->
-    </ul>
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-         <!-- button add new  -->
-         <li class="nav-item">
-         @yield('button_add')
-      </li>
-      <!-- Navbar Search -->
-      <li class="nav-item">
-
-          @yield('search')
-
-      </li>
-
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item dropdown ml-4">
-        <div style="display: flex;">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" height="40px" width="40px" alt="Formateur Image">
-          <a href="#" class="nav-link" data-toggle="dropdown" class="d-block"><strong style="color: black;">SAAD CHAIB <i class="fa-solid fa-caret-down"></i></strong></a>
-          </a>
-          <div>
-            <div class="dropdown-menu dropdown-menu dropdown-menu-right">
-              <span class="dropdown-item dropdown-header"><strong>Profile</strong></span>
-              <div class="dropdown-divider"></div>
-
-              <a href="#" class="dropdown-item">
-                <i class=" fa-regular fa-gear text-info"></i> SETTING
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fa-solid fa-power-off text-danger"></i> LOG OUT
-              </a>
-
-            </div>
-      </li>
-
-
-    </ul>
-  </nav>
-  <!-- /.navbar -->
   <aside style="  position: fixed;" class="main-sidebar sidebar-dark-primary elevation-4 ">
     <!-- Brand Logo -->
     <a href="#" class="brand-link ml-4">
@@ -106,30 +49,15 @@
 
     </a>
     <!-- Sidebar -->
-    <div class="bg-gray" id="sidebar-wrapper">
-      <div class="sidebar-heading text-center py-4  fs-4 fw-bold text-uppercase border-bottom text-primary" style="color: #8f66cc;">
-        <img src="{{ asset('logo.png') }}" class="navbar-brand-img" alt="logo" width="110px" height="100px">
-      </div>
-      <div class="list-group list-group-flush my-3" style="max-height: 300px; overflow-y: auto;">
-        <div id="link"><a href="/dachboard" class="list-group-item list-group-item-action bg-transparent ">
-            <i class="fas fa-tachometer-alt me-2 fa-lg" style="color: #8f66cc;"></i> Dashboard</a></div>
-            <a href="/Courses" class="list-group-item list-group-item-action bg-transparent "
-            id="link">
-            <i class="fa-regular fa-book-open me-2 fa-lg" style="color: #8f66cc;"></i> Courses</a>
-        {{-- <a href="{{ route('courses.Add_Coures') }}"
-            class="list-group-item list-group-item-action bg-transparent " id="link">
-            <i class="fa-regular fa-book-open me-2 fa-lg" style="color: #8f66cc;"></i> Courses</a> --}}
-        <!-- <a href="{{route('Courses.create')}}" class="list-group-item list-group-item-action bg-transparent "><i
-    class="fas fa-chart-line me-2 text-primary me-2 text-success"></i>  Add Course</a> -->
-        <a href="/Schools" class="list-group-item list-group-item-action bg-transparent " id="link">
-          <i class="fa-regular fa-school me-2 fa-lg" style="color: #8f66cc;"></i> Schools</a>
-        <!-- <a href="/Add_Course" class="list-group-item list-group-item-action bg-transparent "><i
-            class="fas fa-chart-line me-2 text-primary me-2 text-success"></i>  Add Course</a> -->
-            <a href="/lessons" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-brands fa-creative-commons-share me-2 fa-lg" style="color: #8f66cc;"></i> Lessons</a>
-            <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
-        <!-- <a href="/Add_Quizzes" class="list-group-item list-group-item-action bg-transparent "><i
-            class="fas fa-shopping-cart me-2 text-primary me-2 text-success"></i>  Add Quizze</a> -->
-        <a href="/Students" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-users" style="color: #8f66cc;"></i> Students</a>
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-4">
+        <div class="list-group list-group-flush " style="max-height: 300px; overflow-y: auto;">
+
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
             <li class="nav-item mt-2">
               <a href="/dachboard" class="nav-link">
                 <i class="nav-icon fa-solid fa-house-user"></i>
@@ -139,16 +67,58 @@
               </a>
             </li>
 
-        {{-- <a href="/lessons" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-brands fa-creative-commons-share me-2 fa-lg" style="color: #8f66cc;"></i> Lessons</a> --}}
-        {{-- <a href="/Quizzes" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-regular fa-stopwatch me-2 fa-lg" style="color: #8f66cc;"></i> Quizzes</a>
-        <!-- <a href="/Add_Quizzes" class="list-group-item list-group-item-action bg-transparent "><i
-            class="fas fa-shopping-cart me-2 text-primary me-2 text-success"></i>  Add Quizze</a> -->
-        <a href="" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-list-check me-2 fa-lg" style="color: #8f66cc;"></i> Assignments</a> --}}
-
+            <li class="nav-item mt-2">
+              <a href="/Courses" class="nav-link">
+                <i class="nav-icon fa-regular fa-book-open"></i>
+                <p>
+                  Courses
+                </p>
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/Schools" class="nav-link">
+                <i class="nav-icon fa-solid fa-school fa-sm"></i>
+                <p>
+                  Schools
+                </p>
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/lessons" class="nav-link">
+                <i class="nav-icon fa-solid fa-scroll"></i>
+                <p>
+                  lessons
+                </p>
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/Students" class="nav-link">
+                <i class="nav-icon fa-solid fa-users"></i>
+                <p>
+                  Students
+                </p>
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/Quizzes" class="nav-link">
+                <i class="nav-icon fa-solid fa-stopwatch"></i>
+                <p>
+                  Quizzes
+                </p>
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/Questions" class="nav-link">
+                <i class="nav-icon fa-solid fa-clipboard-question "></i>
+                <p>
+                  Questions
+                </p>
+              </a>
+            </li>
+          </ul>
 
         </div>
 
-        <a href="/Questions" class="list-group-item list-group-item-action bg-transparent " id="link"><i class="fa-solid fa-clipboard-question me-2 fa-lg" style="color: #8f66cc;"></i> Questions</a>
       </nav><br>
       <a href="/" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
 
@@ -222,38 +192,37 @@
 
         @yield('content')
       </div>
+    </section>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.7.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    var el = document.getElementById("wrapper");
+    var toggleButton = document.getElementById("menu-toggle");
+
+    toggleButton.onclick = function() {
+      el.classList.toggle("toggled");
+    };
+  </script>
 
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var listItems = document.querySelectorAll("#link");
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.7.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
+      listItems.forEach(function(item) {
+        item.addEventListener("click", function() {
 
-        toggleButton.onclick = function() {
-            el.classList.toggle("toggled");
-        };
-    </script>
+          listItems.forEach(function(li) {
+            li.classList.remove("active");
+          });
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var listItems = document.querySelectorAll("#link");
-
-            listItems.forEach(function(item) {
-                item.addEventListener("click", function() {
-
-                    listItems.forEach(function(li) {
-                        li.classList.remove("active");
-                    });
-
-                    item.classList.add("active");
-                });
-            });
+          item.classList.add("active");
         });
-
-
+      });
+    });
   </script>
   <script>
     // JavaScript to highlight active link
@@ -295,6 +264,7 @@
   </script>
 
 @include('layouts.js')
+
 
 </body>
 
