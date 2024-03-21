@@ -41,7 +41,7 @@
 <body >
 <div class="wrapper">
 
- 
+
   <aside style="  position: fixed;" class="main-sidebar sidebar-dark-primary elevation-4 ">
     <!-- Brand Logo -->
     <a href="#" class="brand-link ml-4">
@@ -142,16 +142,16 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
          <!-- button add new  -->
-         <li class="nav-item">    
-         @yield('button_add') 
+         <li class="nav-item">
+         @yield('button_add')
       </li>
       <!-- Navbar Search -->
       <li class="nav-item">
-      
+
           @yield('search')
-        
+
       </li>
-   
+
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -184,12 +184,12 @@
   </nav>
   <!-- /.navbar -->
   <div class="content-wrapper">
-    
+
     <section class="content">
-      
+
       <div class="container-fluid">
-        
-        
+
+
         @yield('content')
       </div>
     </section>

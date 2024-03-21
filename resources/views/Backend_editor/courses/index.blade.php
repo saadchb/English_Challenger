@@ -53,9 +53,12 @@
                                     <span class="flex-1 text-sm text-gray-400">
                                         @foreach($categories as $categorie)
                                             @if($categorie->course_id == $course->id)
-                                                {{$categorie->title}} ,
+                                            {{ $categorie->title }}@if (!$loop->last)
+                                            ,
+                                        @endif
                                             @endif
                                         @endforeach
+                                        
                                     </span>
                                     <span class="text-sm font-medium text-gray-900">
                                     @if($course->regular_price &&!$course->sale_price)
@@ -109,5 +112,7 @@
             </div>
         </div>
     </div>
-    
+    <div>
+        {{$courses->links()}}
+    </div>
 @endsection
