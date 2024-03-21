@@ -46,18 +46,19 @@
 
     <div class="container">
         <div class="row">
+          @foreach($courses as $course)
             <div class="col-lg-4 col-md-6">
                 <div class="course-block course-style-2">
                     <div class="course-img">
-                        <img src="assets/images/course/course1.jpg" alt="" class="img-fluid">
-                        <span class="course-cat">WordPress</span>
+                        <img src="{{ asset('storage/'.$course->img) }}" alt="" class="img-fluid">
+                        <span class="course-cat">{{$course->level}}</span>
                     </div>
                     
                     <div class="course-content">
                        
-                        <h4><a href="#">Information About UI/UX Design Degree</a></h4>  
+                        <h4><a href="#">{{$course->title}}</a></h4>  
                          
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
+                        <p>{{$course->description}}</p>
                       
                         <div class="course-footer d-lg-flex align-items-center justify-content-between">
                             <div class="course-meta">
@@ -65,12 +66,34 @@
                                 <span class="course-duration"><i class="bi bi-badge3"></i>82</span>
                             </div> 
                            
-                            <div class="course-price">$50</div> 
+                         <h4>  
+                            <span>
+                                <span class=" font-medium text-gray-900">
+                                    @if ($course->regular_price && !$course->sale_price)
+                                        <span class=" font-medium text-gray-900">
+                                            <span class="uppercase"> 
+                                                ${{ $course->regular_price }}
+                                            </span>
+                                        </span>
+                                    @endif
+                                    @if ($course->regular_price && $course->sale_price)
+                                        <span class=" font-medium text-gray-900">
+                                            <span class="line-through pr-2 text-gray-500" style="font-size:35px;">
+                                                ${{ $course->sale_price }}</span><span>${{ $course->regular_price }}    
+                                            </span>
+                                        </span>
+                                    @endif
+                                    @if (!$course->regular_price && !$course->sale_price)
+                                        <span class="uppercase">Free</span>
+                                    @endif
+                                </span>
+                            </span>
+                         </h4>
                         </div>
                     </div>
                 </div>
             </div>
-
+          @endforeach
             <div class="col-lg-4 col-md-6">
                 <div class="course-block course-style-2">
                     <div class="course-img">

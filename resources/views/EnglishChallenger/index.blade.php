@@ -17,7 +17,7 @@ $reviews = review::all();
                 <div class="banner-content center-heading">
                     <span class="subheading">Expert instruction</span>
                     <h1>Convenient easy way of learning new skills!</h1>
-                    <a href="#" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>
+                    <a href="course_list" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>
                     <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>
                 </div>
             </div>
@@ -157,19 +157,29 @@ $reviews = review::all();
 
                     <div class="course-content">
                         <div class="course-price ">
-                            <span><span class=" font-medium text-gray-900">
+                          <h4>  
+                            <span>
+                                <span class=" font-medium text-gray-900">
                                     @if ($course->regular_price && !$course->sale_price)
-                                    <span class=" font-medium text-gray-900"><span class="uppercase"> $
-                                            {{ $course->regular_price }}</span></span>
+                                        <span class=" font-medium text-gray-900">
+                                            <span class="uppercase"> 
+                                                ${{ $course->regular_price }}
+                                            </span>
+                                        </span>
                                     @endif
                                     @if ($course->regular_price && $course->sale_price)
-                                    <span class=" font-medium text-gray-900"><span class="line-through pr-2 text-gray-500" style="font-size:35px;">
-                                            ${{ $course->sale_price }}</span><span>${{ $course->regular_price }}</span></span>
+                                        <span class=" font-medium text-gray-900">
+                                            <span class="line-through pr-2 text-gray-500" style="font-size:35px;">
+                                                ${{ $course->sale_price }}</span><span>${{ $course->regular_price }}    
+                                            </span>
+                                        </span>
                                     @endif
                                     @if (!$course->regular_price && !$course->sale_price)
-                                    <span class="uppercase">Free</span>
+                                        <span class="uppercase">Free</span>
                                     @endif
-                                </span></span></h4>
+                                </span>
+                            </span>
+                         </h4>
                         </div>
 
                         <h4><a href="#">{{$course->title}}</a></h4>
@@ -246,7 +256,7 @@ $reviews = review::all();
                         <div class="counter-item">
                             <i class="ti-agenda"></i>
                             <div class="count">
-                                <span class="counter h2">{{$course->nbcourses()}} <span>
+                                <span class="counter h2">{{$nbCourses}} <span>
                             </div>
                             <p>Total Courses</p>
                         </div>
@@ -283,7 +293,7 @@ $reviews = review::all();
                 <div class="section-heading center-heading">
                     <span class="subheading">Top Categories</span>
                     <h3>Our Top Categories</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Explore Our Top Categories: Dive Into Engaging Subjects and Enhance Your English Skills!</p>
                 </div>
             </div>
         </div>
@@ -368,7 +378,7 @@ $reviews = review::all();
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="text-center mt-5">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                    <p>Discover Our Premier Categories: Unlock Exciting Subjects to Elevate Your English Proficiency Click here!</p>
                     <div class="course-btn mt-4"><a href="#" class="btn btn-main"><i class="fa fa-grip-horizontal mr-2"></i>All Categories</a></div>
                 </div>
             </div>

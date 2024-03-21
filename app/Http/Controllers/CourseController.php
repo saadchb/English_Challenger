@@ -305,5 +305,20 @@ class CourseController extends Controller
         'categories_course'=>$categories_course
     ]);
     }
+    public function indexCr()
+    {
+        $nbCourses = Course::nbcourses();
+        $courses = Course::all();
+        $categories_course = CategoriesCourse::all();
+        foreach($courses as $course){
+            $course->nblessonsbycourses = $course->nblessonsbycourse();
+        }
+        $tags = Tag::all();
+        $categories = Categorie::all();
+        return view('EnglishChallenger.course_list', ['courses' => $courses, 'tags'=>$tags,
+        'categories'=>$categories,'nbCourses'=>$nbCourses,
+        'categories_course'=>$categories_course
+    ]);
+    }
 
 }
