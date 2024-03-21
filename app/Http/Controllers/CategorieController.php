@@ -31,8 +31,10 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        $categorie = $request->all();
-        Categorie::create($categorie);
+        $validatedData = $request->validate([
+            'title' => 'required|unique:categories|max:255',
+        ]);
+        Categorie::create($validatedData);
         return redirect()->back();
     }
 

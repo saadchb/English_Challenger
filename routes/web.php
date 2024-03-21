@@ -27,11 +27,11 @@ Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
 
-Route::get('/course_detail',function(){
-    return view('EnglishChallenger.course_detail');
-});
-Route::get('/course_list',function(){
-    return view('EnglishChallenger.course_list');
+Route::get('/course_detail/{id}',[CourseController::class,'show2']);
+Route::get('/course_list',[CourseController::class,'indexCr']);
+
+Route::get('/curriculum_list',function(){
+    return view('EnglishChallenger.curriculum_list');
 });
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');

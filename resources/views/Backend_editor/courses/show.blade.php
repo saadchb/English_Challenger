@@ -138,8 +138,10 @@
                                     <li>
                                         <span><i class="fa fa-bookmark"></i>Category :</span>
                                         <p class="d-inline-block">
-                                            @foreach ($categories as $categorie)
-                                                {{ $categorie->title }} ,
+                                            @foreach ($categories as $index => $categorie)
+                                                {{ $categorie->title }}@if (!$loop->last)
+                                                    ,
+                                                @endif
                                             @endforeach
                                         </p>
                                     </li>
@@ -162,12 +164,13 @@
                             </div>
                             @foreach ($curricula as $curriculum)
                                 <div
-                                    class="rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-body-dark">
-                                    <h2 class="mb-0" id="{{ $curriculum->title }}">
+                                    class="rounded-b-lg border border-t-0 border-neutral-200 bg-white dark:border-neutral-600 dark:bg-body-dark">
+                                    <h2 class="accordion-header mb-0" id="{{ $curriculum->title }}">
                                         <button
-                                            class="group relative flex w-full items-center rounded-t-lg border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 "
-                                            type="button" data-twe-collapse-init data-twe-target="#collapse{{ $curriculum->title }}"
-                                            aria-expanded="true" aria-controls="collapse{{ $curriculum->title }}">
+                                            class="data-[twe-collapse-collapsed] group relative flex w-full items-center border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none data-[twe-collapse-collapsed]:rounded-b-lg dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary  dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10"
+                                            type="button" data-twe-collapse-init data-twe-collapse-collapsed
+                                            data-twe-target="#collapse{{ $curriculum->title }}" aria-expanded="false"
+                                            aria-controls="collapse{{ $curriculum->title }}">
                                             <h4>{{ $curriculum->title }}</h4>
                                             <span
                                                 class="-me-1 ms-auto h-5 w-5 shrink-0 rotate-[-180deg] transition-transform duration-200 ease-in-out group-data-[twe-collapse-collapsed]:me-0 group-data-[twe-collapse-collapsed]:rotate-0 motion-reduce:transition-none [&>svg]:h-6 [&>svg]:w-6">
@@ -179,25 +182,26 @@
                                             </span>
                                         </button>
                                     </h2>
-                                    <div id="collapse{{ $curriculum->title }}" class="!visible hidden" data-twe-collapse-item data-twe-collapse-show
-                                        aria-labelledby="{{ $curriculum->title }}" data-twe-parent="#accordionExample">
+                                    <div id="collapse{{ $curriculum->title }}" class="!visible hidden"
+                                        data-twe-collapse-item aria-labelledby="{{ $curriculum->title }}"
+                                        data-twe-parent="#accordionExample">
                                         <div class="px-5 py-4">
-                                                <strong>Lessons : </strong><br />
-                                                <ul>
-                                                    @foreach ($lessons as $lesson)
-                                                        @if ($lesson->curriculum_id == $curriculum->id)
-                                                            <li class="ml-6"> {{ $lesson->title }}</li>
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
-                                                <strong>Quizzes : </strong><br />
-                                                <ul>
-                                                    @foreach ($quizzes as $quizze)
-                                                        @if ($quizze->curriculum_id == $curriculum->id)
-                                                            <li class="ml-6"> {{ $quizze->title }}</li>
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
+                                            <strong>Lessons : </strong><br />
+                                            <ul>
+                                                @foreach ($lessons as $lesson)
+                                                    @if ($lesson->curriculum_id == $curriculum->id)
+                                                        <li class="ml-6"> {{ $lesson->title }}</li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                            <strong>Quizzes : </strong><br />
+                                            <ul>
+                                                @foreach ($quizzes as $quizze)
+                                                    @if ($quizze->curriculum_id == $curriculum->id)
+                                                        <li class="ml-6"> {{ $quizze->title }}</li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
 
                                         </div>
                                     </div>
@@ -419,20 +423,10 @@
                             </div>
                         </div>
                     @endforeach
-
-
                 </div>
             </div>
         </section>
 
-
-
-
-
-
-        <!--
-                                    Essential Scripts
-                                    =====================================-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Main jQuery -->
         <script src="{{ asset('storage/assets/vendors/jquery/jquery.js') }}"></script>

@@ -22,11 +22,16 @@
                     </svg>Cancel</a>
                 <form method="post" action="{{ route('Categories.store') }}" class="flex items-start gap-x-2">
                     @csrf
-                    <input id="add_tag" type="text"
+                    <input id="add_tag" type="text" value="{{old('title')}}"
                         class="text-gray-900 h-[36px] border-gray-300 shadow-sm sm:text-sm rounded focus:ring-indigo-500 focus:border-indigo-500 pl-2"
                         name="title"><button type="submit"
                         class="relative ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-4 py-2 flex items-center rounded font-medium">Add</button>
                 </form>
+                @error('title')
+                    <div class="alert alert-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
 
             </div>
         </div>

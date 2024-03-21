@@ -1,41 +1,6 @@
 @extends('Backend_editor.Layout')
-@section('title','Add_quiz')
-@section('styles')
-<!-- Include additional stylesheets for this view -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<!-- Include Select2 -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+@section('title','Edit quiz')
 
-<style>
-    /* Custom CSS for navbar */
-    .navbar-custom {
-        padding: 10px 0;
-    }
-
-    .navbar-brand {
-        font-weight: bold;
-        font-size: 1.5rem;
-    }
-
-    .navbar-nav {
-        align-items: center;
-    }
-
-    .nav-item {
-        margin-right: 15px;
-    }
-
-    /* Custom CSS */
-    .select2-container--default .select2-selection--single {
-        height: 30px;
-        /* Adjust height as needed */
-    }
-
-    #saveBtn {
-        margin-left: 15px;
-    }
-</style>
-@endsection
 @section('content')
 <?php
 
@@ -43,10 +8,12 @@ use App\Models\Question;
 
 $questions = Question::all();
 ?>
+<div class="container-fluid mt--8">
+
 <form action="{{route('Quizzes.update',$quiz->id)}}" method="Post" enctype="multipart/form-data">
 @csrf
 @method('put')
-    <div class="sticky-top bg-white border-bottom  px-4 py-3">
+<div class="sticky-top bg-white border-bottom  px-4 py-3">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="text-xl font-bold text-gray-900">Edit Quiz</h3>
             <div class="d-flex gap-3 align-items-center">
@@ -60,7 +27,6 @@ $questions = Question::all();
         </div>
 
     </div><br>
-    <div class="container-fluid mt--8">
         <div class="row">
             <div class="col">
                 <div class="card shadow">
