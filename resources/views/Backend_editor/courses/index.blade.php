@@ -61,13 +61,16 @@
                     </div><a class="mb-4 text-sm text-gray-700 font-medium text-left line-clamp-2" href="#">{{$course->title}}</a>
                 </div>
                 <div class="flex justify-between">
-                    <div class="flex items-center space-x-3"><a class="text-sm font-medium text-indigo-600 flex items-center gap-x-1" href="{{route('Courses.edit',$course->id)}}"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <div class="flex items-center space-x-3">
+                        <!-- <a class="text-sm font-medium text-indigo-600 flex items-center gap-x-1" href="{{route('Courses.edit',$course->id)}}"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                 </path>
-                            </svg>Edit</a><a href="{{route('Courses.show',$course->id)}}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-green-600 flex items-center gap-x-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            </svg>View</a> -->
+                            <a  href="{{route('Courses.edit',$course->id)}}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-green-600 flex items-center gap-x-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
                                 </path>
-                            </svg>View</a></div>
+                            </svg>Edit</a>
+                        </div>
                     <form id="delete-form-{{$course->id}}" action="{{route('Courses.destroy', $course->id)}}" method="post">
                         @csrf
                         @method('DELETE')
@@ -81,8 +84,8 @@
             @endforeach
         </div>
     </div>
-
     {{$courses->links()}}
+    
 </div>
 
 @endsection

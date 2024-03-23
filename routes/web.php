@@ -26,8 +26,13 @@ Route::get('/dachboard',function(){
 Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
-
-Route::get('/course_detail/{id}',[CourseController::class,'show2']);
+Route::get('/E-Library',function(){
+    return view('EnglishChallenger.e-Library');
+});
+Route::get('/page-certifcate',function(){
+    return view('EnglishChallenger.page-certifcate');
+});
+Route::get('/course_detail/{id}', [CourseController::class, 'show2']);
 Route::get('/course_list',[CourseController::class,'indexCr']);
 
 Route::get('/curriculum_list',function(){

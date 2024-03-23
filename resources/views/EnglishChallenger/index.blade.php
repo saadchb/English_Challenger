@@ -196,7 +196,7 @@ $reviews = review::all();
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6">
                 <div class="section-heading center-heading">
-                    <span class="subheading">Top Categories</span>
+                    <span class="subheading">Top Categories</span>                  
                     <h3>Our Top Categories</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
@@ -208,7 +208,9 @@ $reviews = review::all();
             @foreach($categorieByCourses as $categorieByCourse)
             <div class="col-lg-3 col-md-6">
                 <div class="course-category style-1">
-
+                <div class="category-icon">
+                        <i class="bi bi-layer"></i>
+                    </div>
                     <h4><a href="#">{{$categorieByCourse->title}}</a></h4>
                     <p>{{$categorieByCourse->nbCoursesByCategorie}} Courses</p>
                 </div>
@@ -433,7 +435,7 @@ $reviews = review::all();
     <div class="course-item cat1 cat3 col-lg-4 col-md-6" >
         <div class="course-block" >
             <div class="course-img">
-                <img src="{{ asset('storage/') }}/${table[i].img}" alt="" style="width:350px; height: 280px;" class="img-fluid">
+                <img src="{{ asset('storage/') }}/${table[i].img}" alt="" style="width:350px; height: 280px;" class=" mx-auto d-block">
                 <span class="course-label">${table[i].level}</span>
             </div>
 

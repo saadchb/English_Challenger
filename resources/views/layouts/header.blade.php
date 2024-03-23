@@ -97,10 +97,12 @@ $count = 0;
                                 @foreach($courses as $course)
                                 @if($count < 3) <li style="width: 16rem; color:#646a76; margin: 5px;">
                                     <div id="cart" class="card-body">
-                                        <img src="{{ asset('storage/'.$course->img) }}" style=" width: 300px; ;height: 200px;" alt="" class="img-fluid">
-                                        <h5 class="card-title">{{$course->title}}</h5>
-                                        <p class="card-text">{{$course->description}}</p>
-                                        <a href="#" style="text-decoration: underline;"><strong>course detail</strong> <i class="fa fa-angle-right"></i></a>
+                                        <img src="{{ asset('storage/'.$course->img) }}" style="width: 300px; height: 200px;" alt="" class="img-fluid">
+                                        <h5 class="card-title">{{ $course->title }}</h5>
+                                        <p class="card-text">{{ $course->description }}</p>
+                                        <a href="/course_detail/{{(int)$course->id}}" style="text-decoration: underline;">
+                                            <strong>course detail</strong> <i class="fa fa-angle-right"></i>
+                                        </a>
                                     </div>
                     </li>
                     @php $count++; @endphp
@@ -108,6 +110,7 @@ $count = 0;
                     @break
                     @endif
                     @endforeach
+
                 </ul>
             </div>
             </li>
@@ -153,61 +156,61 @@ $count = 0;
 </div>
 
 </li> -->
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Quizzes<i class="fa fa-angle-down"></i>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbar3">
-        <a class="dropdown-item " href="#">
-Quiz        </a>
-        <a class="dropdown-item " href="#">
-            Quiz
-        </a>
-    </div>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Certificates<i class="fa fa-angle-down"></i>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbar3">
-        <a class="dropdown-item " href="#">
-            TESOL/TEFL
-        </a>
-        <a class="dropdown-item " href="#">
-            Cambridge Examination
-        </a>
-    </div>
-</li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Quizzes<i class="fa fa-angle-down"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbar3">
+                    <a class="dropdown-item " href="#">
+                        Quiz </a>
+                    <a class="dropdown-item " href="#">
+                        Quiz
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Certificates<i class="fa fa-angle-down"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbar3">
+                    <a class="dropdown-item " href="#">
+                        TESOL/TEFL
+                    </a>
+                    <a class="dropdown-item " href="#">
+                        Cambridge Examination
+                    </a>
+                </div>
+            </li>
 
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Teachers<i class="fa fa-angle-down"></i>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbar3">
-        <a class="dropdown-item " href="#">
-            Cvs
-        </a>
-        <a class="dropdown-item " href="#">
-            Private Tutors
-        </a>
-        <a class="dropdown-item " href="#">
-            Resources
-        </a>
-    </div>
-</li>
-<li class="nav-item ">
-    <a href="#" class="nav-link">
-        e-library
-    </a>
-</li>
-</ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Teachers<i class="fa fa-angle-down"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbar3">
+                    <a class="dropdown-item " href="#">
+                        Cvs
+                    </a>
+                    <a class="dropdown-item " href="#">
+                        Private Tutors
+                    </a>
+                    <a class="dropdown-item " href="#">
+                        Resources
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item ">
+                <a href="/E-Library" class="nav-link">
+                    e-library
+                </a>
+            </li>
+            </ul>
 
-<ul class="header-contact-right d-none d-lg-block">
-    <li> <a href="#" class="header-cart"><i class="fa fa-shopping-cart"></i></a></li>
-    <li><a href="#" class="header-search search_toggle"> <i class="fa fa fa-search"></i></a></li>
-</ul>
+            <ul class="header-contact-right d-none d-lg-block">
+                <li> <a href="#" class="header-cart"><i class="fa fa-shopping-cart"></i></a></li>
+                <li><a href="#" class="header-search search_toggle"> <i class="fa fa fa-search"></i></a></li>
+            </ul>
 
-</div> <!-- / .navbar-collapse -->
+        </div> <!-- / .navbar-collapse -->
 </div> <!-- / .container -->
 </nav>
 </div>
