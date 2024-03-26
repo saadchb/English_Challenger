@@ -51,7 +51,10 @@
     height: 20px;
     /* Adjust height as needed */
 }
-
+::selection {
+  background-color: #FF1949; /* Background color */
+  color: #FFFFFF; /* Text color */
+}
 #saveBtn {
     margin-left: 15px;
 }

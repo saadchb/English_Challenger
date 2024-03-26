@@ -41,15 +41,11 @@ return new class extends Migration
             $table->string('duration_gauge')->default('Minute(s)');
             $table->softDeletes();
 
-            $table->unsignedBigInteger('id_categorie')->nullable();
-            $table->foreign('id_categorie')->references('id')->on('categories')->onDelete('cascade');
+         
+            $table->foreignId('categorie_id')->constrained()->nullable()->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained()->nullable()->onDelete('cascade');
 
-            $table->unsignedBigInteger('id_tag')->nullable();
-            $table->foreign('id_tag')->references('id')->on('tags')->onDelete('cascade');
-
-
-            $table->unsignedBigInteger('id_school')->nullable();
-            $table->foreign('id_school')->references('id')->on('schools')->onDelete('cascade');
+            $table->foreignId('school_id')->constrained()->nullable()->onDelete('cascade');          
             $table->timestamps();
         });
     }

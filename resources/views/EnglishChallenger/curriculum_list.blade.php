@@ -68,9 +68,13 @@
                     
     
   </aside>
+  <div class="content-wrapper">
+
+<section class="content">
+  <div class="container-fluid">
+  </div>
+</section>
+</div>
   @include('layouts.js')
-
-
-
   </body>
 </html>

@@ -17,7 +17,7 @@
    <!-- Owl Carousel  CSS -->
   <link rel="stylesheet" href="{{ asset('build/assets/vendors/owl/assets/owl.carousel.min.css')}}">
   <link rel="stylesheet" href="{{ asset('build/assets/vendors/owl/assets/owl.theme.default.min.css')}}">
- 
+
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="{{ asset('build/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{ asset('build/assets/css/responsive.css')}}">

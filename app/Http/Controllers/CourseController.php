@@ -57,7 +57,7 @@ class CourseController extends Controller
      */
     public function store(courseRquest $request)
     {
-        $course = $request->all();
+ $course = $request->all();
         $course['img'] = $request->file('img')->store('imagesCourses', 'public');
         !$request->input('blocked_content_by_duration') ? $course['blocked_content_by_duration'] = '0' : '';
         !$request->input('blocked_content_by_student') ? $course['blocked_content_by_student'] = '0' : '';
@@ -145,7 +145,6 @@ class CourseController extends Controller
             $courseData = $this->ShowOfCoures($id);  // this utilises the trait of laravel (mohamed)
         return view('Backend_editor.courses.show', $courseData);
         }
- 
     /**
      * Show the form for editing the specified resource.
      */
