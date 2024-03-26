@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Course list')
 @section('content')
-
     <section class="page-header">
         <div class="container">
             <div class="row justify-content-center">
@@ -42,133 +41,108 @@
         </div>
 
 
-    <div class="container">
-        <div class="row">
-          @foreach($courses as $course)
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block course-style-2">
-                    <div class="course-img">
-                        <img src="{{ asset('storage/'.$course->img) }}" alt="" class="img-fluid">
-                        <span class="course-cat">{{$course->level}}</span>
-                    </div>
-                    
-                    <div class="course-content">
-                       
-                        <h4><a href="#">{{$course->title}}</a></h4>  
-                         
-                        <p>{{$course->description}}</p>
-                      
-                        <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                            <div class="course-meta">
-                                <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                <span class="course-duration"><i class="bi bi-badge3"></i>82</span>
-                            </div> 
-                           
-                         <h4>  
-                            <span>
-                                <span class=" font-medium text-gray-900">
-                                    @if ($course->regular_price && !$course->sale_price)
-                                        <span class=" font-medium text-gray-900">
-                                            <span class="uppercase"> 
-                                                ${{ $course->regular_price }}
-                                            </span>
-                                        </span>
-                                    @endif
-                                    @if ($course->regular_price && $course->sale_price)
-                                        <span class=" font-medium text-gray-900">
-                                            <span class="line-through pr-2 text-gray-500" style="font-size:35px;">
-                                                ${{ $course->sale_price }}</span><span>${{ $course->regular_price }}    
-                                            </span>
-                                        </span>
-                                    @endif
-                                    @if (!$course->regular_price && !$course->sale_price)
-                                        <span class="uppercase">Free</span>
-                                    @endif
-                                </span>
-                            </span>
-                         </h4>
-                        </div>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="row" id="showCourses">
+
             </div>
-          @endforeach
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block course-style-2">
-                    <div class="course-img">
-                        <img src="assets/images/course/course2.jpg" alt="" class="img-fluid">
-                        <span class="course-cat">Advanced</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <h4><a href="#">Photography Crash Course for Photographer</a></h4>    
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-                        <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                            <div class="course-meta">
-                                <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                <span class="course-duration"><i class="bi bi-badge3"></i>82</span>
-                            </div>
-                           
-                            <div class="course-price ">$80 <span class="del">$120</span></div>   
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="blog-pagination text-center">
+
+                        <div>
+                            {{ $courses->links() }}
                         </div>
                     </nav>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block course-style-2">
-                    <div class="course-img">
-                        <img src="assets/images/course/course3.jpg" alt="" class="img-fluid">
-                        <span class="course-cat">Expert</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <h4><a href="#">React – The Complete Guide (React Router)</a></h4>  
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
+        </div>
+    </section>
 
-                        <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                            <div class="course-meta">
-                                <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                <span class="course-duration"><i class="bi bi-badge3"></i>83</span>
-                            </div> 
-                           
-                            <div class="course-price ">$100 <span class="del">$180</span></div>   
-                        </div>
-                    </div>
-                </div>
+    <script>
+
+
+
+        const courses = @json($courses);
+        document.getElementById('inputSearch').addEventListener('input', function(e){
+            const coursesSearch = courses.data.filter((course)=>course.title.toLowerCase().search(e.target.value.toLowerCase()) !== -1)
+            console.log(e.target.value)
+            showCourses(coursesSearch);
+        })
+        function showCourses(table) {
+            let htmlCu = '';
+            for (var i = 0; i < table.length; i++) {
+                htmlCu += `
+    <div class="course-item cat1 cat3 col-lg-4 col-md-6" >
+        <div class="course-block" >
+            <div class="course-img">
+                <img src="{{ asset('storage/') }}/${table[i].img}" alt="" style="width:350px; height: 280px;" class="img-fluid">
+                <span class="course-label">${table[i].level}</span>
             </div>
 
+            <div class="course-content">
 
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block course-style-2">
-                    <div class="course-img">
-                        <img src="assets/images/course/course2.jpg" alt="" class="img-fluid">
-                        <span class="course-cat">Advanced</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <h4><a href="#">Photography Crash Course for Photographer</a></h4>    
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
-                        
-                        <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                            <div class="course-meta">
-                                <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                <span class="course-duration"><i class="bi bi-badge3"></i>82</span>
-                            </div> 
-                           
-                            <div class="course-price ">$80 <span class="del">$120</span></div>   
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="course-block course-style-2">
-                    <div class="course-img">
-                        <img src="assets/images/course/course1.jpg" alt="" class="img-fluid">
-                        <span class="course-cat">Beginner</span>
-                    </div>
-                    
-                    <div class="course-content">
-                        <h4><a href="#">Information About UI/UX Design Degree</a></h4>  
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, alias.</p>
+
+                <h4><a href="/course_detail/${table[i].id}">${table[i].title}</a></h4>
+                <div class="rating">
+    ${table[i].rating == 1 ? `
+            <!-- Render HTML for a review with a rating of 1 -->
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+
+            ` : ''}
+    ${table[i].rating == 2 ? `
+            <!-- Render HTML for a review with a rating of 2 -->
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+
+            ` : ''}
+    ${table[i].rating == 3 ? `
+            <!-- Render HTML for a review with a rating of 3 -->
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+
+            ` : ''}
+    ${table[i].rating == 4 ? `
+            <!-- Render HTML for a review with a rating of 4 -->
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+
+            ` : ''}
+    ${table[i].rating == 5 ? `
+            <!-- Render HTML for a review with a rating of 5 -->
+
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>
+            <a href="#"><i class="fa fa-star"></i></a>` : ''}
+
+            ${table[i].rating == undefined || table[i].rating == null || table[i].rating == '' ?
+            `
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            `:''
+        }
+        <span>${table[i].rating}.00</span>
+</div>
+                <p>${table[i].description}</p>
 
                 <div class="course-footer d-lg-flex align-items-center justify-content-between">
                     <div class="course-meta">

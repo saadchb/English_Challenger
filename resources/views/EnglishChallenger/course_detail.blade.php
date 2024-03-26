@@ -160,7 +160,7 @@
                                                             @foreach ($curriculum->lessons as $lesson)
                                                                 <div class="single-course-lesson">
                                                                     <div class="course-topic-lesson">
-                                                                        <span>{{ $lesson->title }}</span>
+                                                                        <a href="/curriculum_list"><span>{{ $lesson->title }}</span></a>
                                                                     </div>
 
                                                                 </div>

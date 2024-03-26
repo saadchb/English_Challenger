@@ -16,7 +16,7 @@ $reviews = review::all();
                 <div class="banner-content center-heading">
                     <span class="subheading">Expert instruction</span>
                     <h1>Convenient easy way of learning new skills!</h1>
-                    <a href="course_list" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>
+                    <a href="/course_list" class="btn btn-main"><i class="fa fa-list-ul mr-2"></i>our Courses </a>
                     <a href="#" class="btn btn-tp ">get Started <i class="fa fa-angle-right ml-2"></i></a>
                 </div>
             </div>
@@ -116,100 +116,6 @@ $reviews = review::all();
     </div>
     <!--course-->
 </section>
-<!--course section end-->
-<!--course section start-->
-
-
-<!-- <section class="section-padding popular-course bg-grey">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="section-heading">
-                    <span class="subheading">Top Trending Courses</span>
-                    <h3>Our Popular Online Courses</h3>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="course-btn text-lg-right"><a href="#" class="btn btn-main"><i class="fa fa-store mr-2"></i>All Courses</a></div>
-            </div>
-        </div>
-        <div class="text-center">
-            <ul class="course-filter">
-                <li class="active"><a href="#" data-filter="*"> All</a></li>
-                <li><a href="#" data-filter=".cat1">printing</a></li>
-                <li><a href="#" data-filter=".cat2">Web</a></li>
-                <li><a href="#" data-filter=".cat3">illustration</a></li>
-                <li><a href="#" data-filter=".cat4">media</a></li>
-                <li><a href="#" data-filter=".cat5">crafts</a></li>
-            </ul>
-        </div>
-
-        <div class="row course-gallery ">
-            @foreach($courses as $course)
-            <div class="course-item cat1 cat3 col-lg-4 col-md-6">
-                <div class="course-block">
-                    <div class="course-img">
-                        <img src="{{ asset('storage/'.$course->img) }}" style="width: 400px; ;height: 285px;" alt="" class="img-fluid">
-                        <span class="course-label">{{$course->level}}</span>
-                    </div>
-
-                    <div class="course-content">
-                        <div class="course-price ">
-                          <h4>  
-                            <span>
-                                <span class=" font-medium text-gray-900">
-                                    @if ($course->regular_price && !$course->sale_price)
-                                        <span class=" font-medium text-gray-900">
-                                            <span class="uppercase"> 
-                                                ${{ $course->regular_price }}
-                                            </span>
-                                        </span>
-                                    @endif
-                                    @if ($course->regular_price && $course->sale_price)
-                                        <span class=" font-medium text-gray-900">
-                                            <span class="line-through pr-2 text-gray-500" style="font-size:35px;">
-                                                ${{ $course->sale_price }}</span><span>${{ $course->regular_price }}    
-                                            </span>
-                                        </span>
-                                    @endif
-                                    @if (!$course->regular_price && !$course->sale_price)
-                                        <span class="uppercase">Free</span>
-                                    @endif
-                                </span>
-                            </span>
-                         </h4>
-                        </div>
-
-                        <h4><a href="#">{{$course->title}}</a></h4>
-                        <div class="rating">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <span>(5.00)</span>
-                        </div>
-                        <p>{{$course->description}}</p>
-
-                        <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                            <div class="course-meta">
-                                <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                <span class="course-duration"><i class="bi bi-badge3"></i>{{$course->nblessonsbycourse()}} Lessons</span>
-                            </div>
-
-                            <div class="buy-btn"><a href="{{route('Courses.show',$course->id)}}" class="btn btn-main-2 btn-small">Details</a></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            @endforeach
-
-        </div>
-    </div>
-    </div>
-</section> -->
 <section class="section-padding popular-course bg-grey">
     <div class="container">
         <div class="row align-items-center">
@@ -256,7 +162,6 @@ $reviews = review::all();
                             <i class="ti-agenda"></i>
                             <div class="count">
                                 <span class="counter h2">{{$nbCourses}} <span>
-                                <span class="counter h2">{{$nbCourses}} <span>
                             </div>
                             <p>Total Courses</p>
                         </div>
@@ -293,7 +198,7 @@ $reviews = review::all();
                 <div class="section-heading center-heading">
                     <span class="subheading">Top Categories</span>
                     <h3>Our Top Categories</h3>
-                    <p>Explore Our Top Categories: Dive Into Engaging Subjects and Enhance Your English Skills!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
             </div>
         </div>
@@ -314,7 +219,7 @@ $reviews = review::all();
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="text-center mt-5">
-                    <p>Discover Our Premier Categories: Unlock Exciting Subjects to Elevate Your English Proficiency Click here!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                     <div class="course-btn mt-4"><a href="#" class="btn btn-main"><i class="fa fa-grip-horizontal mr-2"></i>All Categories</a></div>
                 </div>
             </div>
