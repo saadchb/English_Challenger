@@ -69,7 +69,7 @@ class QuizController extends Controller
                 ]);
             }
         }
-        return redirect()->route('Quizzes.index')->with('success', 'Lesson ajoutée avec succès');
+        return redirect()->route('Quizzes.index')->with('success', 'Lesson succesfuly added');
 
     }
 

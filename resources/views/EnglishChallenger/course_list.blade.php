@@ -48,6 +48,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                @if ($courses->isEmpty())
+                <nav class="blog-pagination text-center">
+                        <ul class="pagination">
+                        </ul>
+                    </nav>
+                    @else
                     <nav class="blog-pagination text-center">
                         <ul class="pagination">
                             @if ($courses->previousPageUrl())
@@ -69,6 +75,7 @@
                                 @endif
                         </ul>
                     </nav>
+                    @endif
                 </div>
             </div>
         </div>

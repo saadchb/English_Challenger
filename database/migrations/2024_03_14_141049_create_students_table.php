@@ -22,6 +22,8 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('class');
             $table->foreignId('course_id')->constrained();
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

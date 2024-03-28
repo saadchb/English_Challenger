@@ -23,6 +23,20 @@ class SchoolController extends Controller
      
         return view('Backend_editor.Schools.index',['schools'=>$schools]);
     }
+    
+    public function schools_list(){
+        if (request('search1'))
+        {
+            $schools = School::where('school_name',"like", '%' .request('search1').'%')->paginate(8);
+        }
+        else
+        {
+            $schools = School::query()->latest()->paginate(8);
+        }
+
+
+                return view('EnglishChallenger.Schools_list',['schools'=>$schools]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +77,11 @@ class SchoolController extends Controller
         $school=School::findOrFail($id);
         return view('Backend_editor.Schools.show',['school'=>$school]);
     }
-
+    public function show_School(string $id)
+    {
+        $school=School::findOrFail($id);
+        return view('EnglishChallenger.school',['school'=>$school]);
+    }
     /**
      * Show the form for editing the specified resource.
      */

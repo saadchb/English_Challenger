@@ -14,10 +14,17 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->longText('comments')->nullable();
-            $table->integer('rating')->default(0);
+            $table->float('rating')->default(0);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('course_id')->constrained();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('siteweb')->nullable();
+            $table->string('school_photos')->nullable();
+            $table->foreignId('course_id')->constrained()->on('courses')->onDelete('cascade');
+            $table->foreignId('school_id')->constrained()->onDelete('cascade');
+            $table->foreignId('book_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

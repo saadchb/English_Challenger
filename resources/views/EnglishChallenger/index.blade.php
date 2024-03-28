@@ -52,11 +52,11 @@ $reviews = review::all();
             <div class="col-lg-4 col-md-6">
                 <div class="feature-item feature-style-2">
                     <div class="feature-icon">
-                        <i style=" margin-right: 20px;" class="bi bi-headset"></i>
+                        <i style=" margin-right: 20px;" class="bi bi-book"></i>
                     </div>
                     <div class="feature-text">
-                        <h4>Lifetime Access & Ongoing Support</h4>
-                        <a href="#" style="color: #FF1949;"><b>View More <i class="fa fa-angle-right ml-2"></i></b></a>
+                        <h4>BOOK LIBRARY & STORE</h4>
+                        <a href="/E-Library" style="color: #FF1949;"><b>View More <i class="fa fa-angle-right ml-2"></i></b></a>
                     </div>
                 </div>
             </div>
@@ -88,8 +88,6 @@ $reviews = review::all();
 </section>
 
 <!--course section end-->
-
-
 
 <!--course section start-->
 <section class="section-padding video-section">
@@ -257,7 +255,11 @@ $reviews = review::all();
                         <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
                     </div>
                     <div class="client-text">
-                        <h4>{{ $review->user->name }}</h4>
+                         @if (!empty($review))
+                         <h4></h4>
+                         @else
+                         <h4>{{ $review->user->name }}</h4>
+                          @endif
                         <span class="designation">Students</span>
                     </div>
                 </div>
@@ -337,58 +339,8 @@ $reviews = review::all();
         </div>
     </div>
 </section>
-<section class="feature-2">
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-badge2"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Expert Teacher</h4>
-                        <p>Offre the unparalleled caliber of educators who ignite curiosity,
-                            and champion student success like no other.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-article"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Quality Education</h4>
-                        <p>We provide essential quality education for personal development and societal advancement.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-headset"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Life Time Support</h4>
-                        <p>Ensuring ongoing assistance and care for our valued customers.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-rocket2"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>HD Video</h4>
-                        <p>HD Video provides unparalleled clarity and detail.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> <br>
+<br>
+
 <script>
     const showCoursesBycategories = document.getElementById('showCoursesBycategories');
     const categories = @json($categories);
@@ -443,7 +395,7 @@ $reviews = review::all();
                 <div class="course-price ">
                     <span>
                         ${ table[i].regular_price && !table[i].sale_price ? `
-                                    <span class="font-medium text-gray-900 uppercase">${table[i].regular_price}</span>
+                                    <span class="font-medium text-gray-900 uppercase">${table[i].regular_price} MAD</span>
                                 ` : '' }
                         ${ table[i].regular_price && table[i].sale_price ? `
                                 <span class=" font-medium text-gray-900">
@@ -469,7 +421,6 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
-            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 2 ? `
@@ -479,7 +430,6 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
-            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 3 ? `
@@ -489,7 +439,6 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
-            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 4 ? `
@@ -499,7 +448,6 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
-            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 5 ? `
@@ -509,19 +457,18 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-star"></i></a>
-            <span>${table[i].rating}.00</span>
-            ` : ''}
-            ${table[i].rating !== undefined || table[i].rating !== null || table[i].rating !== '' ?
+            <a href="#"><i class="fa fa-star"></i></a>` : ''}
+
+            ${table[i].rating == undefined || table[i].rating == null || table[i].rating == '' ?
             `
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
-            <span>0.00</span>
             `:''
         }
+        <span>${table[i].rating}.00</span>
 </div>
                 <p>${table[i].description}</p>
 

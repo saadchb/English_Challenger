@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Tag extends Model
+class CategoriesBooks extends Model
 {
-
-    
-
     use HasFactory;
-    protected $fillable = ['title'];
+    protected $fillable = ['book_id', 'categorie_id'];
+    
 }

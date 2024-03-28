@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class courseRquest extends FormRequest
+class bookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,13 @@ class courseRquest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|min:3|string',
-            'description' => 'required|min:10|string',
-            'img' => 'required|image|mimes:jpeg,webp,png,jpg,gif|max:2048'
+     
+            'title' => 'required|string',
+            'description' => 'required|string',
+
+        'img' => 'required|image|mimes:jpeg,webp,png,jpg,gif|max:2048',
+            'file_path' => 'file|mimes:pdf|max:10240', 
+     
         ];
     }
 }

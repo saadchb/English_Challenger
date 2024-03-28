@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 use App\Traits\ShowOfCoures;
+
 class CourseController extends Controller
 {
     /**
@@ -31,7 +32,7 @@ class CourseController extends Controller
     {
         $searchTerm = $request->input('search');
         $courses = Course::paginate(8);
-        foreach($courses as $course){
+        foreach ($courses as $course) {
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
         if ($searchTerm) {
@@ -57,7 +58,7 @@ class CourseController extends Controller
      */
     public function store(courseRquest $request)
     {
- $course = $request->all();
+        $course = $request->all();
         $course['img'] = $request->file('img')->store('imagesCourses', 'public');
         !$request->input('blocked_content_by_duration') ? $course['blocked_content_by_duration'] = '0' : '';
         !$request->input('blocked_content_by_student') ? $course['blocked_content_by_student'] = '0' : '';
@@ -94,57 +95,88 @@ class CourseController extends Controller
                 ));
             }
         }
-        $data = $request->input('tableData');
-        $datasJson = json_decode($data, true);
-        $requ = $datasJson[0];
-        $key = $datasJson[1];
-        $traget = $datasJson[2];
-        $faq = $datasJson[3];
-        if ($requ) {
-            foreach ($requ as $re) {
-                Requirement::create(array(
-                    'title' => $re,
-                    'course_id' => $id
-                ));
-            }
-        }
-        if ($key) {
-            foreach ($key as $ke) {
-                KeyFeature::create(array(
-                    'title' => $ke,
-                    'course_id' => $id
-                ));
-            }
-        }
-        if ($traget) {
-            foreach ($traget as $tar) {
-                TargetAudience::create(array(
-                    'title' => $tar,
-                    'course_id' => $id
-                ));
-            }
-        }
-        // dd($faq);
-        if ($faq) {
-            foreach ($faq as $fa) {
-                Faq::create(array(
-                    'label' => $fa['label'],
-                    'content' => $fa['content'],
-                    'course_id' => $id
-                ));
-            }
-        }
+
+
+        $requ = null;
+$key = null;
+$faq = null;
+$target = null; // Corrected variable name
+
+$data = $request->input('tableData');
+$datasJson = json_decode($data, true);
+
+if (isset($datasJson[0])) {
+    $requ = $datasJson[0];
+    // Your code for Requirement
+}
+
+if (isset($datasJson[1])) {
+    $key = $datasJson[1];
+    // Your code for KeyFeature
+}
+
+if (isset($datasJson[2])) {
+    $target = $datasJson[2];
+    // Your code for TargetAudience
+}
+
+if (isset($datasJson[3])) {
+    $faq = $datasJson[3];
+    // Your code for Faq
+}
+
+if ($requ) {
+    Requirement::where('course_id', $id)->delete();
+    foreach ($requ as $re) {
+        Requirement::create(array(
+            'title' => $re,
+            'course_id' => $id
+        ));
+    }
+}
+
+if ($key) {
+    KeyFeature::where('course_id', $id)->delete();
+    foreach ($key as $ke) {
+        KeyFeature::create(array(
+            'title' => $ke,
+            'course_id' => $id
+        ));
+    }
+}
+
+if ($target) { // Corrected variable name
+    TargetAudience::where('course_id', $id)->delete();
+    foreach ($target as $tar) { // Corrected variable name
+        TargetAudience::create(array(
+            'title' => $tar,
+            'course_id' => $id
+        ));
+    }
+}
+
+if ($faq) {
+    Faq::where('course_id', $id)->delete();
+    foreach ($faq as $fa) {
+        Faq::create(array(
+            'label' => $fa['label'],
+            'content' => $fa['content'],
+            'course_id' => $id
+        ));
+    }
+}
+
         // dd($dataJson);
         return redirect()->route('Courses.index');
     }
     /**
      * Display the specified resource.
      */
-        public function show(int $id)
-        {
-            $courseData = $this->ShowOfCoures($id);  // this utilises the trait of laravel (mohamed)
+    public function show(int $id)
+    {
+        $courseData = $this->ShowOfCoures($id);  // this utilises the trait of laravel (mohamed)
         return view('Backend_editor.courses.show', $courseData);
-        }
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -214,12 +246,34 @@ class CourseController extends Controller
                 ));
             }
         }
+        $requ = null;
+        $key = null;
+        $faq = null;
+        $target = null; // Corrected variable name
+        
         $data = $request->input('tableData');
         $datasJson = json_decode($data, true);
-        $requ = $datasJson[0];
-        $key = $datasJson[1];
-        $traget = $datasJson[2];
-        $faq = $datasJson[3];
+        
+        if (isset($datasJson[0])) {
+            $requ = $datasJson[0];
+            // Your code for Requirement
+        }
+        
+        if (isset($datasJson[1])) {
+            $key = $datasJson[1];
+            // Your code for KeyFeature
+        }
+        
+        if (isset($datasJson[2])) {
+            $target = $datasJson[2];
+            // Your code for TargetAudience
+        }
+        
+        if (isset($datasJson[3])) {
+            $faq = $datasJson[3];
+            // Your code for Faq
+        }
+        
         if ($requ) {
             Requirement::where('course_id', $id)->delete();
             foreach ($requ as $re) {
@@ -229,6 +283,7 @@ class CourseController extends Controller
                 ));
             }
         }
+        
         if ($key) {
             KeyFeature::where('course_id', $id)->delete();
             foreach ($key as $ke) {
@@ -238,16 +293,17 @@ class CourseController extends Controller
                 ));
             }
         }
-        if ($traget) {
+        
+        if ($target) { // Corrected variable name
             TargetAudience::where('course_id', $id)->delete();
-            foreach ($traget as $tar) {
+            foreach ($target as $tar) { // Corrected variable name
                 TargetAudience::create(array(
                     'title' => $tar,
                     'course_id' => $id
                 ));
             }
         }
-        // dd($faq);
+        
         if ($faq) {
             Faq::where('course_id', $id)->delete();
             foreach ($faq as $fa) {
@@ -258,6 +314,7 @@ class CourseController extends Controller
                 ));
             }
         }
+        
         return redirect()->route('Courses.index');
     }
 
@@ -272,26 +329,27 @@ class CourseController extends Controller
     }
     public function indexEn()
     {
-        $categorieByCourses = Categorie::select('categories.title',DB::raw('count(*) as nbCoursesByCategorie'))
-        ->join('categories_courses','categories_courses.categorie_id','=','categories.id')
-        ->groupBy('categories.title')
-        ->orderByDesc('nbCoursesByCategorie')
-        ->limit(12)
-        ->get();
+        $categorieByCourses = Categorie::select('categories.title', DB::raw('count(*) as nbCoursesByCategorie'))
+            ->join('categories_courses', 'categories_courses.categorie_id', '=', 'categories.id')
+            ->groupBy('categories.title')
+            ->orderByDesc('nbCoursesByCategorie')
+            ->limit(12)
+            ->get();
         $nbCourses = Course::nbcourses();
         $courses = Course::limit(6)->get();
         $categories_course = CategoriesCourse::all();
-        foreach($courses as $course){
+        foreach ($courses as $course) {
 
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
         $tags = Tag::all();
         $categories = Categorie::all();
-        return view('EnglishChallenger.index', ['courses' => $courses, 'tags'=>$tags,
-        'categories'=>$categories,'nbCourses'=>$nbCourses,
-        'categories_course'=>$categories_course,
-        'categorieByCourses'=>$categorieByCourses
-    ]);
+        return view('EnglishChallenger.index', [
+            'courses' => $courses, 'tags' => $tags,
+            'categories' => $categories, 'nbCourses' => $nbCourses,
+            'categories_course' => $categories_course,
+            'categorieByCourses' => $categorieByCourses
+        ]);
     }
     public function show2(int $id)
     {
@@ -302,11 +360,11 @@ class CourseController extends Controller
     {
         $courses = Course::paginate(6);
         // dd($courses);
-        foreach($courses as $course){
-            $review = review::where('course_id',$course->id)->get()->first();
-            if(!$review){
+        foreach ($courses as $course) {
+            $review = review::where('course_id', $course->id)->get()->first();
+            if (!$review) {
                 $course->rating = 0;
-            }else{
+            } else {
                 $course->rating = $review->rating;
             }
             $course->nblessonsbycourses = $course->nblessonsbycourse();
