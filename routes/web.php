@@ -15,9 +15,7 @@ use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
-
-
-
+use App\Models\Curriculum;
 
 Route::get('/',[CourseController::class, 'indexEn'])->name('EnglishChallenger.index');
 Route::get('/dachboard',function(){
@@ -30,9 +28,7 @@ Route::get('/Quize',function(){
 Route::get('/course_detail/{id}',[CourseController::class,'show2'])->name('course_detail');
 Route::get('/course_list',[CourseController::class,'indexCr']);
 
-Route::get('/curriculum_list',function(){
-    return view('EnglishChallenger.curriculum_list');
-});
+Route::post('/curriculum_list/{id}',[CurriculumController::class,'show'])->name('curricula.show');
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');
 Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');
@@ -51,6 +47,7 @@ Route::resource('/Curricula',CurriculumController::class);
 Route::put('/CurriculaLessons/{id}', [CurriculumController::class, 'CL'])->name('CL.Update');
 Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name('CQ.Update');
 
-
+Route::post('/curriculum_list/next/{id}', [CurriculumController::class, 'next'])->name('curriculum_list.next');
+Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])->name('curriculum_list.prev');
 ///
 

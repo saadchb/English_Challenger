@@ -426,6 +426,12 @@
                                                     value="{{ old('sale_price') }}"
                                                     class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
                                                     step="0.01" min="0"></div>
+                                                    @error('sale_price')
+                                                        <div class="alert alert-danger">
+                                                            {{$message}}
+                                                        </div>
+                                                    @enderror
+
                                         </div>
                                     </div>
                                     <div><button type='button' id="btn-date"

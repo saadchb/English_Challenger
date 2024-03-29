@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 use App\Traits\ShowOfCoures;
+
 class CourseController extends Controller
 {
     /**
@@ -31,7 +32,7 @@ class CourseController extends Controller
     {
         $searchTerm = $request->input('search');
         $courses = Course::paginate(8);
-        foreach($courses as $course){
+        foreach ($courses as $course) {
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
         if ($searchTerm) {
@@ -140,11 +141,11 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-        public function show(int $id)
-        {
-            $courseData = $this->ShowOfCoures($id);  // this utilises the trait of laravel (mohamed)
+    public function show(int $id)
+    {
+        $courseData = $this->ShowOfCoures($id);  // this utilises the trait of laravel (mohamed)
         return view('Backend_editor.courses.show', $courseData);
-        }
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -152,8 +153,14 @@ class CourseController extends Controller
     public function edit(int $id)
     {
         $curricula = Curriculum::where('course_id', $id)->get();
-        $quizzes = Quiz::all();
-        $lessons = Lesson::all();
+        $quizzes = Quiz::orderBy('order', 'asc')->get()->toArray();
+        $lessons = Lesson::orderBy('order', 'asc')->get()->toArray();
+        foreach ($quizzes as $quiz) {
+            $lessons[] = $quiz;
+        }
+        usort($lessons, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
         $tags = Tag::all();
         $categories = Categorie::all();
         $course = Course::findOrFail($id);
@@ -179,11 +186,8 @@ class CourseController extends Controller
         $couresOld = Course::findOrFail($id);
         $course = $request->all();
         if ($request->hasFile('img')) {
-            // Store the new image file
             $imagePath = $request->file('img')->store('imagesCourses', 'public');
-            
-            // Update the image path attribute of the famille model
-            $course->img = $imagePath;
+            $course['img'] = $imagePath;
         }
         // $course['img'] = $request->file('img')->store('imagesCourses', 'public');
         !$request->input('blocked_content_by_duration') ? $course['blocked_content_by_duration'] = '0' : '';
@@ -266,6 +270,23 @@ class CourseController extends Controller
                 ));
             }
         }
+
+        $dataLQ = session('dataLQ');
+        $dataLQ2 = [];
+        foreach($dataLQ as $key => $data){
+            $data['order'] = $key+1;
+            array_push($dataLQ2,$data);
+        }
+        foreach($dataLQ2 as $data){
+            if($data['type'] == 'quiz'){
+                $quizOrdered = Quiz::findOrFail($data['id']);
+                $quizOrdered->update(['order'=>$data['order']]);
+            }else{
+                $lessonOrdered = Lesson::findOrFail($data['id']);
+                $lessonOrdered->update(['order'=>$data['order']]);
+            }
+        }
+        session()->flush();
         return redirect()->route('Courses.index');
     }
 
@@ -280,26 +301,27 @@ class CourseController extends Controller
     }
     public function indexEn()
     {
-        $categorieByCourses = Categorie::select('categories.title',DB::raw('count(*) as nbCoursesByCategorie'))
-        ->join('categories_courses','categories_courses.categorie_id','=','categories.id')
-        ->groupBy('categories.title')
-        ->orderByDesc('nbCoursesByCategorie')
-        ->limit(12)
-        ->get();
+        $categorieByCourses = Categorie::select('categories.title', DB::raw('count(*) as nbCoursesByCategorie'))
+            ->join('categories_courses', 'categories_courses.categorie_id', '=', 'categories.id')
+            ->groupBy('categories.title')
+            ->orderByDesc('nbCoursesByCategorie')
+            ->limit(12)
+            ->get();
         $nbCourses = Course::nbcourses();
         $courses = Course::limit(6)->get();
         $categories_course = CategoriesCourse::all();
-        foreach($courses as $course){
+        foreach ($courses as $course) {
 
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
         $tags = Tag::all();
         $categories = Categorie::all();
-        return view('EnglishChallenger.index', ['courses' => $courses, 'tags'=>$tags,
-        'categories'=>$categories,'nbCourses'=>$nbCourses,
-        'categories_course'=>$categories_course,
-        'categorieByCourses'=>$categorieByCourses
-    ]);
+        return view('EnglishChallenger.index', [
+            'courses' => $courses, 'tags' => $tags,
+            'categories' => $categories, 'nbCourses' => $nbCourses,
+            'categories_course' => $categories_course,
+            'categorieByCourses' => $categorieByCourses
+        ]);
     }
     public function show2(int $id)
     {
@@ -309,12 +331,11 @@ class CourseController extends Controller
     public function indexCr()
     {
         $courses = Course::paginate(6);
-        // dd($courses);
-        foreach($courses as $course){
-            $review = review::where('course_id',$course->id)->get()->first();
-            if(!$review){
+        foreach ($courses as $course) {
+            $review = review::where('course_id', $course->id)->get()->first();
+            if (!$review) {
                 $course->rating = 0;
-            }else{
+            } else {
                 $course->rating = $review->rating;
             }
             $course->nblessonsbycourses = $course->nblessonsbycourse();

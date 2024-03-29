@@ -1,6 +1,9 @@
 @extends('Backend_editor.Layout')
 @section('title', 'Courses')
 @section('content')
+    @php
+        session(['dataLQ' => []]);
+    @endphp
     <form action="{{ route('Courses.update', $course->id) }}" id="form1" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PUT')
@@ -129,8 +132,7 @@
                                                         <label
                                                             class=" text-white  bg-[#007bff] font-bold py-2 px-4 rounded"
                                                             for="file_input">Upload file</label>
-                                                        <input
-                                                            name="img"
+                                                        <input name="img"
                                                             class="hidden block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                             aria-describedby="file_input_help" id="file_input"
                                                             type="file">
@@ -789,34 +791,7 @@
                 <div class="w-1/2 max-w-[800px]">
                     <div class="relative p-2 bg-gray-100 rounded">
                         <div class="space-y-2">
-                            {{-- <div class="rounded p-3 bg-white">
-                                <div class="flex items-center gap-x-2"><span class="hover:text-gray-600 cursor-grab"><svg
-                                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4 6h16M4 12h16M4 18h16"></path>
-                                        </svg></span><button type="button"
-                                        class="flex-1 text-left overflow-hidden text-ellipsis whitespace-nowrap"><span
-                                            class="text-sm font-semibold text-gray-600">xxxxxxx</span></button><button
-                                        type="button" class="flex items-center outline-none focus:outline-none"><svg
-                                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                            </path>
-                                        </svg></button>
-                                    <div class="relative" data-headlessui-state=""><button type="button"
-                                            class="outline-none focus:outline-none hover:text-red-600"
-                                            id="headlessui-popover-button-:r1o:" type="button" aria-expanded="false"
-                                            data-headlessui-state=""><span><svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                                    stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                    </path>
-                                                </svg></span></button></div>
-                                </div>
-                            </div> --}}
+
                             @foreach ($curricula as $curriculum)
                                 <div class="rounded p-3 bg-white" style="">
                                     <div class="flex items-center gap-x-2"><span
@@ -827,11 +802,10 @@
                                                     d="M4 6h16M4 12h16M4 18h16"></path>
                                             </svg></span><button type="button"
                                             class="flex-1 text-left overflow-hidden text-ellipsis whitespace-nowrap"><span
-                                                class="text-sm font-semibold text-gray-600">{{ $curriculum->title  }}
+                                                class="text-sm font-semibold text-gray-600">{{ $curriculum->title }}
 
-                                            </span></button><button
-                                            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                            data-bs-whatever="@mdo"
+                                            </span></button><button type="button" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal" data-bs-whatever="@mdo"
                                             class="flex items-center outline-none focus:outline-none"><svg
                                                 xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -900,124 +874,148 @@
                                     <div>
                                         <div class="flex flex-col mt-3 border-t pt-4">
                                             @foreach ($lessons as $lesson)
-                                                @if ($lesson->curriculum_id == $curriculum->id)
-                                                    <div class="relative flex items-center gap-x-2 p-2">
-                                                        <div class="flex gap-x-1"><span
-                                                                class="text-gray-400 px-[2px] flex items-center cursor-grab"><svg
-                                                                    viewBox="0 0 10 10"
-                                                                    class="h-4 w-4 fill-gray-400 text-gray-400">
-                                                                    <path
-                                                                        d="M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z">
-                                                                    </path>
-                                                                </svg></span>
-                                                            <div class="text-gray-700"><svg
+                                                @if ($lesson['curriculum_id'] == $curriculum->id)
+                                                    @if ($lesson['type'] == 'quiz')
+                                                        <div class="relative flex items-center gap-x-2 p-2">
+                                                            <div class="flex gap-x-1"><span
+                                                                    class="text-gray-400 px-[2px] flex items-center cursor-grab"><svg
+                                                                        viewBox="0 0 10 10"
+                                                                        class="h-4 w-4 fill-gray-400 text-gray-400">
+                                                                        <path
+                                                                            d="M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                                <div class="text-gray-700"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                        fill="none" viewBox="0 0 24 24"
+                                                                        stroke="currentColor" stroke-width="2">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                                        </path>
+                                                                    </svg></div>
+                                                            </div>
+                                                            @php
+                                                                $data = [
+                                                                    'id' => $lesson['id'],
+                                                                    'curriculum_id' => $lesson['curriculum_id'],
+                                                                    'type' => 'quiz',
+                                                                    'order' => 0,
+                                                                ];
+                                                                session()->push('dataLQ', $data);
+                                                            @endphp
+                                                            <button
+                                                                class="flex-1 text-sm text-left truncate outline-none focus:outline-none"><span
+                                                                    class="flex-1 text-sm text-gray-600">{{ $lesson['title'] }}</span></button>
+                                                            <a href="{{ route('Quizzes.edit', $lesson['id']) }}"
+                                                                class="flex items-center outline-none focus:outline-none text-black hover:text-black"><svg
                                                                     xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                                     fill="none" viewBox="0 0 24 24"
                                                                     stroke="currentColor" stroke-width="2">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                                                     </path>
-                                                                </svg></div>
-                                                        </div><button
-                                                            class="flex-1 text-sm text-left truncate outline-none focus:outline-none"><span
-                                                                class="flex-1 text-sm text-gray-600">{{ $lesson->title }}</span></button>
-                                                        <a href="{{ route('lessons.edit', $lesson->id) }}"
-                                                            class="flex items-center outline-none focus:outline-none text-black hover:text-black"><svg
-                                                                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                                                stroke-width="2">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                                                </path>
-                                                            </svg></a>
-
-
-                                                        <div class="relative" data-headlessui-state="">
-                                                            <form action="{{ route('lessons.destroy', $lesson->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button
-                                                                    class="outline-none focus:outline-none hover:text-red-600"
-                                                                    id="headlessui-popover-button-:rj0:"
-                                                                    aria-expanded="false"
-                                                                    data-headlessui-state=""><span><svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            class="h-5 w-5" fill="none"
-                                                                            viewBox="0 0 24 24" stroke="currentColor"
-                                                                            stroke-width="2">
-                                                                            <path stroke-linecap="round"
-                                                                                stroke-linejoin="round"
-                                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                                            </path>
-                                                                        </svg></span>
-                                                                </button>
+                                                                </svg></a>
+                                                            <div class="relative" data-headlessui-state="">
+                                                                <form
+                                                                    action="{{ route('Quizzes.destroy', $lesson['id']) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button
+                                                                        class="outline-none focus:outline-none hover:text-red-600"
+                                                                        id="headlessui-popover-button-:rj0:"
+                                                                        aria-expanded="false"
+                                                                        data-headlessui-state=""><span><svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                class="h-5 w-5" fill="none"
+                                                                                viewBox="0 0 24 24" stroke="currentColor"
+                                                                                stroke-width="2">
+                                                                                <path stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                                                </path>
+                                                                            </svg></span>
+                                                                    </button>
+                                                            </div>
+                                                            </form>
                                                         </div>
-                                                        </form>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-
-                                            @foreach ($quizzes as $quizze)
-                                                @if ($quizze->curriculum_id == $curriculum->id)
-                                                    <div class="relative flex items-center gap-x-2 p-2">
-                                                        <div class="flex gap-x-1"><span
-                                                                class="text-gray-400 px-[2px] flex items-center cursor-grab"><svg
-                                                                    viewBox="0 0 10 10"
-                                                                    class="h-4 w-4 fill-gray-400 text-gray-400">
-                                                                    <path
-                                                                        d="M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z">
-                                                                    </path>
-                                                                </svg></span>
-                                                            <div class="text-gray-700"><svg
+                                                    @endif
+                                                    @if ($lesson['type'] == 'lesson')
+                                                        <div class="relative flex items-center gap-x-2 p-2">
+                                                            <div class="flex gap-x-1"><span
+                                                                    class="text-gray-400 px-[2px] flex items-center cursor-grab"><svg
+                                                                        viewBox="0 0 10 10"
+                                                                        class="h-4 w-4 fill-gray-400 text-gray-400">
+                                                                        <path
+                                                                            d="M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                                <div class="text-gray-700"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                        fill="none" viewBox="0 0 24 24"
+                                                                        stroke="currentColor" stroke-width="2">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                                        </path>
+                                                                    </svg></div>
+                                                            </div>
+                                                            @php
+                                                                $data = [
+                                                                    'id' => $lesson['id'],
+                                                                    'curriculum_id' => $lesson['curriculum_id'],
+                                                                    'type' => 'lesson',
+                                                                    'order' => 0,
+                                                                ];
+                                                                session()->push('dataLQ', $data);
+                                                            @endphp
+                                                            <button
+                                                                class="flex-1 text-sm text-left truncate outline-none focus:outline-none"><span
+                                                                    class="flex-1 text-sm text-gray-600">{{ $lesson['title'] }}</span></button>
+                                                            <a href="{{ route('lessons.edit', $lesson['id']) }}"
+                                                                class="flex items-center outline-none focus:outline-none text-black hover:text-black"><svg
                                                                     xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                                     fill="none" viewBox="0 0 24 24"
                                                                     stroke="currentColor" stroke-width="2">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                                                     </path>
-                                                                </svg></div>
-                                                        </div><button
-                                                            class="flex-1 text-sm text-left truncate outline-none focus:outline-none"><span
-                                                                class="flex-1 text-sm text-gray-600">{{ $quizze->title }}</span></button>
-                                                        <a href="{{ route('Quizzes.edit', $quizze->id) }}"
-                                                            class="flex items-center outline-none focus:outline-none text-black hover:text-black"><svg
-                                                                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                                                stroke-width="2">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                                                </path>
-                                                            </svg></a>
-                                                        <div class="relative" data-headlessui-state="">
-                                                            <form action="{{ route('Quizzes.destroy', $quizze->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button
-                                                                    class="outline-none focus:outline-none hover:text-red-600"
-                                                                    id="headlessui-popover-button-:rj0:"
-                                                                    aria-expanded="false"
-                                                                    data-headlessui-state=""><span><svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            class="h-5 w-5" fill="none"
-                                                                            viewBox="0 0 24 24" stroke="currentColor"
-                                                                            stroke-width="2">
-                                                                            <path stroke-linecap="round"
-                                                                                stroke-linejoin="round"
-                                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                                            </path>
-                                                                        </svg></span>
-                                                                </button>
+                                                                </svg></a>
+                                                            <div class="relative" data-headlessui-state="">
+                                                                <form
+                                                                    action="{{ route('lessons.destroy', $lesson['id']) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button
+                                                                        class="outline-none focus:outline-none hover:text-red-600"
+                                                                        id="headlessui-popover-button-:rj0:"
+                                                                        aria-expanded="false"
+                                                                        data-headlessui-state=""><span><svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                class="h-5 w-5" fill="none"
+                                                                                viewBox="0 0 24 24" stroke="currentColor"
+                                                                                stroke-width="2">
+                                                                                <path stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                                                </path>
+                                                                            </svg></span>
+                                                                    </button>
+                                                            </div>
+                                                            </form>
                                                         </div>
-                                                        </form>
-                                                    </div>
+                                                    @endif
                                                 @endif
                                             @endforeach
+
+
                                         </div>
 
                                         <div class="mt-2 ml-3 flex items-center"><button type="button"
-                                                data-bs-toggle="modal" data-bs-target="#addLessonModal{{$curriculum->id}}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#addLessonModal{{ $curriculum->id }}"
                                                 data-bs-whatever="@mdo"
                                                 class="flex item-center mr-2 gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><svg
                                                     xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
@@ -1025,13 +1023,14 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                                 </svg>Add lesson</button>
-                                            <div class="modal fade" id="addLessonModal{{$curriculum->id}}" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel{{$curriculum->id}}" aria-hidden="true">
+                                            <div class="modal fade" id="addLessonModal{{ $curriculum->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel{{ $curriculum->id }}"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel">Select
-                                                lessons and save
+                                                                lessons and save
                                                             </h5>
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1064,7 +1063,8 @@
                                                                             type="text" placeholder="Search…"
                                                                             value="">
                                                                     </div>
-                                                                    <div class="py-6 space-y-5 searchLessonContent" id="searchLessonContent">
+                                                                    <div class="py-6 space-y-5 searchLessonContent"
+                                                                        id="searchLessonContent">
                                                                     </div>
                                                                 </div>
                                                         </div>
@@ -1078,20 +1078,22 @@
                                                 </div>
                                             </div>
                                             <button type="button" data-bs-toggle="modal"
-                                                data-bs-target="#addQuizzeModal{{$curriculum->id}}" data-bs-whatever="@mdo"
+                                                data-bs-target="#addQuizzeModal{{ $curriculum->id }}"
+                                                data-bs-whatever="@mdo"
                                                 class="flex item-center gap-x-1 px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 uppercase font-medium rounded text-xs focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><svg
                                                     xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                                 </svg>Add quizze</button>
-                                            <div class="modal fade" id="addQuizzeModal{{$curriculum->id}}" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel{{$curriculum->id}}" aria-hidden="true">
+                                            <div class="modal fade" id="addQuizzeModal{{ $curriculum->id }}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel{{ $curriculum->id }}"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel">Select
-                                                                quizzes and save 
+                                                                quizzes and save
                                                             </h5>
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1124,7 +1126,8 @@
                                                                             type="text" placeholder="Search…"
                                                                             value="">
                                                                     </div>
-                                                                    <div class="py-6 space-y-5 searchQuizzeContent" id="searchQuizzeContent">
+                                                                    <div class="py-6 space-y-5 searchQuizzeContent"
+                                                                        id="searchQuizzeContent">
 
                                                                     </div>
                                                                 </div>
@@ -1163,7 +1166,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const lessons = @json($lessons);
+        const dataLessons = @json($lessons);
+        const lessons = []
+        for(let i=0;i<dataLessons.length;i++) {
+            if(dataLessons[i].type == 'lesson')
+            {
+                lessons.push(dataLessons[i])
+            }
+        }
         const quizzes = @json($quizzes);
         const lessonsContents = document.getElementsByClassName('searchLessonContent')
         const quizzesContents = document.getElementsByClassName('searchQuizzeContent')
@@ -1171,22 +1181,23 @@
         const searchsQuizzesBoxs = document.getElementsByClassName('searchQuizzeBox')
 
         if (quizzesContents && lessonsContents) {
-            for(let i = 0; i < lessonsContents.length; i++){
+            for (let i = 0; i < lessonsContents.length; i++) {
                 Search(lessons, lessonsContents[i]);
                 searchsLessonsBoxs[i].addEventListener('input', (e) => {
-                let lessonsSearch = lessons.filter((t) => t.title.toLowerCase().search(e.target.value
-                    .toLowerCase()) != -1)
-                Search(lessonsSearch, lessonsContents[i])
-            })
+                    let lessonsSearch = lessons.filter((t) => t.title.toLowerCase().search(e.target.value
+                        .toLowerCase()) != -1)
+                    Search(lessonsSearch, lessonsContents[i])
+                })
             }
-            for(let i = 0 ; i < quizzesContents.length;i++){
+            for (let i = 0; i < quizzesContents.length; i++) {
                 Search(quizzes, quizzesContents[i]);
                 searchsQuizzesBoxs[i].addEventListener('input', (e) => {
-                let quizzesSearch = quizzes.filter((t) => t.title.toLowerCase().search(e.target.value
-                    .toLowerCase()) != -1)
-                Search(quizzesSearch, quizzesContents[i])
-            })
+                    let quizzesSearch = quizzes.filter((t) => t.title.toLowerCase().search(e.target.value
+                        .toLowerCase()) != -1)
+                    Search(quizzesSearch, quizzesContents[i])
+                })
             }
+
             function Search(table, content) {
                 let html = table.map(item => `
             <div>
@@ -1600,6 +1611,22 @@
             //     }
             // });
         })
+        document.getElementById('form1').addEventListener('submit', function() {
+            const dataLQ = document.querySelectorAll('.dataLQC');
+            const dataLQs = [];
+            for (let i = 0; i < dataLQ.length; i++) {
+                dataLQs.push(dataLQ[i].value)
+            }
+            document.getElementById('dataForOrderLQ').value = JSON.stringify(dataLQs);;
+        })
+
+        const dataLQ = document.querySelectorAll('.dataLQC');
+
+        const dataLQs = [];
+        for (let i = 0; i < dataLQ.length; i++) {
+            dataLQs.push(dataLQ[i].value)
+        }
+        console.log(JSON.stringify(dataLQs))
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 @endsection

@@ -19,7 +19,17 @@ trait ShowOfCoures
     {
         $quizzes = Quiz::all();
         $lessons = Lesson::all();
-        $curricula = Curriculum::all();
+
+        $quizzesC = Quiz::orderBy('order', 'asc')->get()->toArray();
+        $lessonsMix = Lesson::orderBy('order', 'asc')->get()->toArray();
+        foreach ($quizzesC as $quiz) {
+            $lessonsMix[] = $quiz;
+        }
+        usort($lessonsMix, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
+
+        $curricula = Curriculum::where('course_id', $id)->get();
         $review = review::where('course_id', $id)->first();
 
         $course = Course::findOrFail($id);
@@ -45,7 +55,8 @@ trait ShowOfCoures
             'curricula' => $curricula,
             'lessons' => $lessons,
             'quizzes' => $quizzes,
-            'review' => $review
+            'review' => $review,
+            'lessonsMix' => $lessonsMix
         ];
     }
 }

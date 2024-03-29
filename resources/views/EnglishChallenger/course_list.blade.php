@@ -84,7 +84,7 @@
             <div class="course-content">
 
 
-                <h4><a href="/course_detail/${table[i].id}">${table[i].title}</a></h4>
+                <h4><a href="/course_detail/${table[i].id}" title='click to show details for this course'>${table[i].title}</a></h4>
                 <div class="rating">
     ${table[i].rating == 1 ? `
             <!-- Render HTML for a review with a rating of 1 -->

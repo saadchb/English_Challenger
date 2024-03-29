@@ -40,7 +40,12 @@
                 },
             };
         </script>
-
+        <style>
+            #submit_btn:hover{
+                background-color:#FAFAFA;
+                border-color:#FAFAFA;
+            }
+        </style>
     <title>EnglishChallenger | @yield('title')</title>
 </head>
 @include('layouts.css')

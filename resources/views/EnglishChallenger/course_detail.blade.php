@@ -18,7 +18,8 @@
                             <p style="height:100px ;"></p>
                             <div class="d-flex align-items-center ">
                                 <div class="single-top-meta">
-                                    <i class="fa fa-user"></i><span>{{$course->fake_students_enrolled == null ? 0:$course->fake_students_enrolled}} Students Enrolled</span>
+                                    <i class="fa fa-user"></i><span>{{ $course->fake_students_enrolled == null ? 0 : $course->fake_students_enrolled }}
+                                        Students Enrolled</span>
                                 </div>
                                 <div class="single-top-meta">
                                     <div class="rating">
@@ -61,11 +62,11 @@
                                             @endif
                                             <span>{{ $review->rating }}.00</span>
                                         @else
-                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
-                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
-                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
-                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
-                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                            <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                            <a href="#"><i class="fa fa-star text-secondary"></i></a>
                                             <span>0.00</span>
                                         @endif
 
@@ -157,19 +158,66 @@
                                                         aria-labelledby="heading{{ $index }}"
                                                         data-parent="#accordionExample">
                                                         <div class="course-lessons">
-                                                            @foreach ($curriculum->lessons as $lesson)
+                                                            @if (count($curriculum->lessons) !== 0)
                                                                 <div class="single-course-lesson">
                                                                     <div class="course-topic-lesson">
-                                                                        <a href="/curriculum_list"><span>{{ $lesson->title }}</span></a>
+                                                                        <ol>
+                                                                            @foreach ($lessonsMix as $lesson)
+                                                                                @if ($lesson['curriculum_id'] == $curriculum->id && $lesson['type'] == 'lesson')
+                                                                                    <li>
+                                                                                        <form
+                                                                                            action="{{ route('curricula.show', $course->id) }}"
+                                                                                            method="post">
+                                                                                            @csrf
+                                                                                            <input type="hidden"
+                                                                                                value="{{ $lesson['id'] }}"
+                                                                                                name="lesson_id" />
+                                                                                            <svg class="ml-1"
+                                                                                                width="17px"
+                                                                                                height="17px"
+                                                                                                viewBox="0 0 24 24"
+                                                                                                fill="none"
+                                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                                <path
+                                                                                                    d="M12 10.4V20M12 10.4C12 8.15979 12 7.03969 11.564 6.18404C11.1805 5.43139 10.5686 4.81947 9.81596 4.43597C8.96031 4 7.84021 4 5.6 4H4.6C4.03995 4 3.75992 4 3.54601 4.10899C3.35785 4.20487 3.20487 4.35785 3.10899 4.54601C3 4.75992 3 5.03995 3 5.6V16.4C3 16.9601 3 17.2401 3.10899 17.454C3.20487 17.6422 3.35785 17.7951 3.54601 17.891C3.75992 18 4.03995 18 4.6 18H7.54668C8.08687 18 8.35696 18 8.61814 18.0466C8.84995 18.0879 9.0761 18.1563 9.29191 18.2506C9.53504 18.3567 9.75977 18.5065 10.2092 18.8062L12 20M12 10.4C12 8.15979 12 7.03969 12.436 6.18404C12.8195 5.43139 13.4314 4.81947 14.184 4.43597C15.0397 4 16.1598 4 18.4 4H19.4C19.9601 4 20.2401 4 20.454 4.10899C20.6422 4.20487 20.7951 4.35785 20.891 4.54601C21 4.75992 21 5.03995 21 5.6V16.4C21 16.9601 21 17.2401 20.891 17.454C20.7951 17.6422 20.6422 17.7951 20.454 17.891C20.2401 18 19.9601 18 19.4 18H16.4533C15.9131 18 15.643 18 15.3819 18.0466C15.15 18.0879 14.9239 18.1563 14.7081 18.2506C14.465 18.3567 14.2402 18.5065 13.7908 18.8062L12 20"
+                                                                                                    stroke="#07294D"
+                                                                                                    stroke-width="2"
+                                                                                                    stroke-linecap="round"
+                                                                                                    stroke-linejoin="round" />
+                                                                                            </svg>
+                                                                                            <button id="submit_btn"
+                                                                                                class="btn">{{ $lesson['title'] }}</button>
+                                                                                        </form>
+                                                                                    </li>
+                                                                                @endif
+                                                                                @if ($lesson['curriculum_id'] == $curriculum->id && $lesson['type'] == 'quiz')
+                                                                                    <li>
+                                                                                        <svg fill="#07294D" width="15px"
+                                                                                            height="15px"
+                                                                                            viewBox="0 0 1920 1920"
+                                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path
+                                                                                                d="M960 112.941c-467.125 0-847.059 379.934-847.059 847.059 0 467.125 379.934 847.059 847.059 847.059 467.125 0 847.059-379.934 847.059-847.059 0-467.125-379.934-847.059-847.059-847.059M960 1920C430.645 1920 0 1489.355 0 960S430.645 0 960 0s960 430.645 960 960-430.645 960-960 960m417.905-575.955L903.552 988.28V395.34h112.941v536.47l429.177 321.77-67.765 90.465Z"
+                                                                                                fill-rule="evenodd" />
+                                                                                        </svg>
+                                                                                        <button  id="submit_btn"
+                                                                                        class="btn"><span>{{ $lesson['title'] }}</span>
+                                                                                        </button>
+                                                                                    </li>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </ol>
                                                                     </div>
-
                                                                 </div>
-                                                            @endforeach
+                                                            @endif
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             @endforeach
-
+                                            @if (count($curricula) == 0)
+                                                No curriculum for this course
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -272,14 +320,14 @@
                                                             {{ $course->regular_price }}</span></span>
                                                 @endif
                                                 @if ($course->regular_price && $course->sale_price)
-                                            <span class=" font-medium text-gray-900">
-                                                <span class="course-price">
-                                                   $ {{$course->sale_price}}
-                                                </span>
-                                                <span class="del"  style="font-size:35px;">
-                                                    $ {{$course->regular_price}}
-                                                </span>
-                                            </span>
+                                                    <span class=" font-medium text-gray-900">
+                                                        <span class="course-price">
+                                                            $ {{ $course->sale_price }}
+                                                        </span>
+                                                        <span class="del" style="font-size:35px;">
+                                                            $ {{ $course->regular_price }}
+                                                        </span>
+                                                    </span>
                                                 @endif
                                                 @if (!$course->regular_price && !$course->sale_price)
                                                     <span class="uppercase">Free</span>
@@ -294,7 +342,9 @@
 
                         <div class="course-widget single-info">
                             <i class="bi bi-group"></i>
-                            Enrolled <span>{{$course->fake_students_enrolled == null ? 0:$course->fake_students_enrolled}} Students</span>
+                            Enrolled
+                            <span>{{ $course->fake_students_enrolled == null ? 0 : $course->fake_students_enrolled }}
+                                Students</span>
                         </div>
 
                         <div class="course-widget course-details-info">
@@ -358,13 +408,18 @@
                         <div class="course-widget course-metarials">
                             <h4 class="course-title">Requirements</h4>
                             <ul>
-
                                 @foreach ($requirements as $requirement)
                                     <li>
                                         <i class="fa fa-check"></i>
                                         {{ $requirement->title }}
                                     </li>
                                 @endforeach
+                                @if (count($requirements) == 0)
+                                    Great news! There <span style="color:#FF1949;">are no specific</span> requirements
+                                    <span style="color:#FF1949;">for</span> this course. Dive <span
+                                        style="color:#FF1949;">right in </span> embark<span style="color:#FF1949;">
+                                        on</span> your learning journey worry-<span style="color:#FF1949;">free!</span>
+                                @endif
 
                             </ul>
                         </div>
@@ -375,6 +430,9 @@
                                 @foreach ($tags as $tag)
                                     <a href="#">{{ $tag->title }}</a>
                                 @endforeach
+                                @if (count($tags) == 0)
+                                    No tags available for this course.
+                                @endif
                             </div>
                         </div>
 
@@ -446,10 +504,13 @@
                         </div>
                     </div>
                 @endforeach
+                @if (count($courses) == 0)
+                    Explore beyond! While there are currently no related courses available, this presents an opportunity to
+                    discover new topics and broaden your horizons. Stay curious, and let your learning journey lead you to
+                    exciting new opportunities!
+                @endif
             </div>
         </div>
     </section>
-
-
 
 @endsection

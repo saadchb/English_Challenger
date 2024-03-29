@@ -11091,7 +11091,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
 .layout-navbar-fixed .wrapper.sidebar-collapse .brand-link {
   height: calc(3.5rem + 1px);
   transition: width 0.3s ease-in-out;
-  width: 4.6rem;
+  width: 5.6rem;
 }
 
 .text-sm .layout-navbar-fixed .wrapper.sidebar-collapse .brand-link, .layout-navbar-fixed .wrapper.sidebar-collapse .brand-link.text-sm {

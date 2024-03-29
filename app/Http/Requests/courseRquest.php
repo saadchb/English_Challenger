@@ -24,6 +24,7 @@ class courseRquest extends FormRequest
         return [
             'title' => 'required|min:3|string',
             'description' => 'required|min:10|string',
+            'sale_price' => 'nullable|numeric|lt:regular_price'
             // 'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }

@@ -23,7 +23,9 @@ return new class extends Migration
             $table->boolean('minus_for_skip')->nullable();
             $table->integer('retake')->nullable();
             $table->integer('pagination')->nullable();
+            $table->integer('order')->nullable();
             $table->boolean('review')->default(1);
+            $table->string('type')->default('quiz');
             $table->boolean('show_correct_answer')->default(1);
             $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->foreign('curriculum_id')->references('id')->on('curricula')->onDelete('cascade');

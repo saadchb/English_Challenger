@@ -11,7 +11,7 @@ use App\Models\Course;
 class Lesson extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','video_link','description','duration','priview','curriculum_id'];
+    protected $fillable = ['title','video_link','description','duration','priview','order','curriculum_id'];
     public function curricula(){
         return $this->belongsTo(
             Curriculum::class
