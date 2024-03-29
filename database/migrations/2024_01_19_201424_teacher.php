@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('description_education_background');
             $table->integer('year_experience');
             $table->string('cv');
+            $table->softDeletes();
+
             $table->timestamps();
 
     });

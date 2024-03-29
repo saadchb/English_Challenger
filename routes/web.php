@@ -11,6 +11,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\BookController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
@@ -24,14 +25,28 @@ Route::get('/dachboard',function(){
 Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
+// Route::get('/E-Library',function(){
+//     return view('EnglishChallenger.e-Library');
+// });
+Route::get('/E_Library',[BookController::class,'E_Library'])->name('EnglishCallenger.E_Library');
 
-Route::get('/course_detail/{id}',[CourseController::class,'show2'])->name('course_detail');
+
+Route::get('/Schools_list',[SchoolController::class,'Schools_list'])->name('EnglishCallenger.Schools_list');
+Route::get('/school/{id}', [SchoolController::class, 'show_school']);
+Route::post('/school/store',[ReviewController::class,'store'])->name('school.store');
+
+Route::get('/page-certifcate',function(){
+    return view('EnglishChallenger.page-certifcate');
+});
+Route::get('/course_detail/{id}', [CourseController::class, 'show2']);
 Route::get('/course_list',[CourseController::class,'indexCr']);
 
 Route::post('/curriculum_list/{id}',[CurriculumController::class,'show'])->name('curricula.show');
 Route::resource('/Courses',CourseController::class);
 Route::post('/Requirements/store',[RequirementController::class, 'store'])->name('Requirements.store');
-Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');
+// Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');
+Route::resource('/Categories',CategorieController::class);
+
 Route::post('/Categories.store',[CategorieController::class, 'store'])->name('Categories.store');
 Route::get('/Tags.index',[TagController::class, 'index'])->name('Tags.index');
 Route::post('/Tags.store',[TagController::class, 'store'])->name('Tags.store');
@@ -50,4 +65,5 @@ Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name(
 Route::post('/curriculum_list/next/{id}', [CurriculumController::class, 'next'])->name('curriculum_list.next');
 Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])->name('curriculum_list.prev');
 ///
+Route::resource('/books',BookController::class);
 

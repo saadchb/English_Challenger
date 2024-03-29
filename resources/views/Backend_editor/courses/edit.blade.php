@@ -4,32 +4,27 @@
     @php
         session(['dataLQ' => []]);
     @endphp
+<div class="container-fluid mt--8">
     <form action="{{ route('Courses.update', $course->id) }}" id="form1" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PUT')
         <main class="min-w-0 mx-auto relative">
             <div>
-                <div class=" top-0 z-50 bg-white flex items-center justify-between px-6 py-4  border-b" style="width:auto;">
-                    <div class="flex items-center text-xl font-bold text-gray-900">Update Course</div>
-                    <div class="flex items-center gap-x-3">
-                        <a class="relative ring-1 ring-black ring-opacity-5 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm px-4 py-2 flex items-center gap-x-1 rounded-md font-medium"
-                            href="{{ route('Courses.index') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
-                            </svg>Back</a><button
-                            class="relative border text-sm px-4 py-2 flex items-center rounded-md font-medium text-white  bg-[#007bff]"
-                            type="submit" id="btnform1">Save
-                            Update</button>
-                        <div class="flex items-center">
-                            <div class="relative flex items-center" data-headlessui-state=""><button type='button'
-                                    class="flex items-center overflow-hidden rounded-full flex-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    id="headlessui-popover-button-:rt:" type="button" aria-expanded="false"
-                                    data-headlessui-state=""><img class="w-8 h-8 object-cover object-center"
-                                        src="https://secure.gravatar.com/avatar/c1eff7d415e82d3b5f33a694b91a4a74?s=96&amp;d=mm&amp;r=g"
-                                        alt="instructor"></button></div>
-                        </div>
-                    </div>
+
+    <div class="sticky-top bg-white border-bottom  px-4 py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="text-xl font-bold text-gray-900">edit the Coourse</h3>
+            <div class="d-flex gap-3 align-items-center">
+                <a href="/Courses" class=" btn btn-outline-secondary"><i class="fa-regular fa-circle-left"></i> Back</a>
+                         <div class="position-relative">
+
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
                 </div>
+
+            </div>
+        </div>
+
+    </div>
                 <div class="mt-4 px-8 py-4 pb-8">
                     <div class="">
                         <div class="flex w-full space-x-1 border-b" role="tablist" aria-orientation="horizontal"><button
@@ -124,7 +119,7 @@
                                             class="relative flex justify-center mt-3 px-6 pt-5 pb-6 border-2 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
                                                 <img class="mx-auto h-12 w-12 text-gray-400 mb-3"
-                                                    src='{{ asset('storage/' . $course->img) }}'
+                                                    src="{{ asset('storage/' . $course->img) }}"
                                                     style="width:100px;height:100px;" />
                                                 <div class="flex text-sm text-gray-600">
                                                     <div
@@ -133,6 +128,7 @@
                                                             class=" text-white  bg-[#007bff] font-bold py-2 px-4 rounded"
                                                             for="file_input">Upload file</label>
                                                         <input name="img"
+
                                                             class="hidden block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                             aria-describedby="file_input_help" id="file_input"
                                                             type="file">

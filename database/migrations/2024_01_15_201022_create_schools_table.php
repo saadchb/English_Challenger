@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('school_city');
             $table->string('adresse');
             $table->text('description');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

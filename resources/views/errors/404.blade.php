@@ -25,10 +25,10 @@
                     <h3>Oops... Page Not Found!</h3>
                  </div>
                  
-                 <div class="error-content">
-                    Try using the button below to go to main page of the site<br>
-                    <a href="/" class="btn btn-main">Back to Home Page</a>
-                 </div>
+                  <div class="error-content">
+                     Try using the button below to go to main page of the site<br>
+                     <a href="/" class="btn btn-main">Back to Home Page</a>
+                  </div>
               </div>
            </div>
         </div>

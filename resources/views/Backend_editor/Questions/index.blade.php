@@ -1,5 +1,8 @@
 @extends('Backend_editor.Layout')
-@section('title','Question ')
+@section('title','Questions')
+@section('button_add')
+<a class="nav-link ring-1 ring-black ring-opacity-5 bg-indigo-600 text-white text-sm px-4 py-2 flex items-center rounded-md font-semibold" href="{{route('Questions.create')}}">Add new</a>
+@endsection
 @section('search')
 <a class="nav-link" data-widget="navbar-search" href="#" role="button">
     <i class="fas fa-search"></i>

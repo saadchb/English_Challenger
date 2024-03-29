@@ -95,46 +95,77 @@ class CourseController extends Controller
                 ));
             }
         }
-        $data = $request->input('tableData');
-        $datasJson = json_decode($data, true);
-        $requ = $datasJson[0];
-        $key = $datasJson[1];
-        $traget = $datasJson[2];
-        $faq = $datasJson[3];
-        if ($requ) {
-            foreach ($requ as $re) {
-                Requirement::create(array(
-                    'title' => $re,
-                    'course_id' => $id
-                ));
-            }
-        }
-        if ($key) {
-            foreach ($key as $ke) {
-                KeyFeature::create(array(
-                    'title' => $ke,
-                    'course_id' => $id
-                ));
-            }
-        }
-        if ($traget) {
-            foreach ($traget as $tar) {
-                TargetAudience::create(array(
-                    'title' => $tar,
-                    'course_id' => $id
-                ));
-            }
-        }
-        // dd($faq);
-        if ($faq) {
-            foreach ($faq as $fa) {
-                Faq::create(array(
-                    'label' => $fa['label'],
-                    'content' => $fa['content'],
-                    'course_id' => $id
-                ));
-            }
-        }
+
+
+        $requ = null;
+$key = null;
+$faq = null;
+$target = null; // Corrected variable name
+
+$data = $request->input('tableData');
+$datasJson = json_decode($data, true);
+
+if (isset($datasJson[0])) {
+    $requ = $datasJson[0];
+    // Your code for Requirement
+}
+
+if (isset($datasJson[1])) {
+    $key = $datasJson[1];
+    // Your code for KeyFeature
+}
+
+if (isset($datasJson[2])) {
+    $target = $datasJson[2];
+    // Your code for TargetAudience
+}
+
+if (isset($datasJson[3])) {
+    $faq = $datasJson[3];
+    // Your code for Faq
+}
+
+if ($requ) {
+    Requirement::where('course_id', $id)->delete();
+    foreach ($requ as $re) {
+        Requirement::create(array(
+            'title' => $re,
+            'course_id' => $id
+        ));
+    }
+}
+
+if ($key) {
+    KeyFeature::where('course_id', $id)->delete();
+    foreach ($key as $ke) {
+        KeyFeature::create(array(
+            'title' => $ke,
+            'course_id' => $id
+        ));
+    }
+}
+
+if ($target) { // Corrected variable name
+    TargetAudience::where('course_id', $id)->delete();
+    foreach ($target as $tar) { // Corrected variable name
+        TargetAudience::create(array(
+            'title' => $tar,
+            'course_id' => $id
+        ));
+    }
+}
+
+if ($faq) {
+    Faq::where('course_id', $id)->delete();
+    foreach ($faq as $fa) {
+        Faq::create(array(
+            'label' => $fa['label'],
+            'content' => $fa['content'],
+            'course_id' => $id
+        ));
+    }
+}
+
         // dd($dataJson);
         return redirect()->route('Courses.index');
     }
@@ -146,7 +177,6 @@ class CourseController extends Controller
         $courseData = $this->ShowOfCoures($id);  // this utilises the trait of laravel (mohamed)
         return view('Backend_editor.courses.show', $courseData);
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -189,7 +219,6 @@ class CourseController extends Controller
             $imagePath = $request->file('img')->store('imagesCourses', 'public');
             $course['img'] = $imagePath;
         }
-        // $course['img'] = $request->file('img')->store('imagesCourses', 'public');
         !$request->input('blocked_content_by_duration') ? $course['blocked_content_by_duration'] = '0' : '';
         !$request->input('blocked_content_by_student') ? $course['blocked_content_by_student'] = '0' : '';
         !$request->input('students_list') ? $course['students_list'] = '0' : '';
@@ -226,12 +255,34 @@ class CourseController extends Controller
                 ));
             }
         }
+        $requ = null;
+        $key = null;
+        $faq = null;
+        $target = null; // Corrected variable name
+
         $data = $request->input('tableData');
         $datasJson = json_decode($data, true);
-        $requ = $datasJson[0];
-        $key = $datasJson[1];
-        $traget = $datasJson[2];
-        $faq = $datasJson[3];
+
+        if (isset($datasJson[0])) {
+            $requ = $datasJson[0];
+            // Your code for Requirement
+        }
+
+        if (isset($datasJson[1])) {
+            $key = $datasJson[1];
+            // Your code for KeyFeature
+        }
+
+        if (isset($datasJson[2])) {
+            $target = $datasJson[2];
+            // Your code for TargetAudience
+        }
+
+        if (isset($datasJson[3])) {
+            $faq = $datasJson[3];
+            // Your code for Faq
+        }
+
         if ($requ) {
             Requirement::where('course_id', $id)->delete();
             foreach ($requ as $re) {
@@ -241,6 +292,7 @@ class CourseController extends Controller
                 ));
             }
         }
+
         if ($key) {
             KeyFeature::where('course_id', $id)->delete();
             foreach ($key as $ke) {
@@ -250,16 +302,17 @@ class CourseController extends Controller
                 ));
             }
         }
-        if ($traget) {
+
+        if ($target) { // Corrected variable name
             TargetAudience::where('course_id', $id)->delete();
-            foreach ($traget as $tar) {
+            foreach ($target as $tar) { // Corrected variable name
                 TargetAudience::create(array(
                     'title' => $tar,
                     'course_id' => $id
                 ));
             }
         }
-        // dd($faq);
+
         if ($faq) {
             Faq::where('course_id', $id)->delete();
             foreach ($faq as $fa) {

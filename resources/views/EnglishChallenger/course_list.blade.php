@@ -1,79 +1,101 @@
 @extends('layouts.app')
 @section('title', 'Course list')
 @section('content')
-    <section class="page-header">
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="page-header-content">
+                    <h1><b style=" color: #FF1949;">|</b> Course List</h1>
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a href="/">Home </a>
+                        </li>
+                        <li class="list-inline-item">/</li>
+                        <li class="list-inline-item">
+                            Courses
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding course">
+    <div class="course-top-wrap">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row align-items-center">
                 <div class="col-lg-8">
-                    <div class="page-header-content">
-                        <h1><b style=" color: #FF1949;">|</b> Course List</h1>
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item">
-                                <a href="/">Home </a>
-                            </li>
-                            <li class="list-inline-item">/</li>
-                            <li class="list-inline-item">
-                                Courses
-                            </li>
-                        </ul>
+                    <p>Showing 1-6 of 8 results</p>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="topbar-search">
+                        <input type="text" placeholder="Search our courses" class="form-control" id="inputSearch">
+                        <label><i class="fa fa-search"></i></label>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="section-padding course">
-        <div class="course-top-wrap">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <p>Showing 1-6 of 8 results</p>
-                    </div>
 
-                    <div class="col-lg-4">
-                        <div class="topbar-search">
-                                <input type="text" placeholder="Search our courses" class="form-control" id="inputSearch">
-                                <label><i class="fa fa-search"></i></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row" id="showCourses">
+
         </div>
-
-
         <div class="container">
-            <div class="row" id="showCourses">
-
-            </div>
-
-
             <div class="row">
                 <div class="col-lg-12">
-                    <nav class="blog-pagination text-center">
-
-                        <div>
-                            {{ $courses->links() }}
-                        </div>
+                @if ($courses->isEmpty())
+                <nav class="blog-pagination text-center">
+                        <ul class="pagination">
+                        </ul>
                     </nav>
+                    @else
+                    <nav class="blog-pagination text-center">
+                        <ul class="pagination">
+                            @if ($courses->previousPageUrl())
+                            <li class="page-num ">
+                                <a style="width: 115px;" href="{{ $courses->previousPageUrl() }}">Previous</a>
+                            </li>
+                            @endif
+
+                            @for ($i = 1; $i <= $courses->lastPage(); $i++)
+                                <li class="page-num {{ $i == $courses->currentPage() ? 'active' : '' }}">
+                                    <a href="{{ $courses->url($i) }}">{{ $i }}</a>
+                                </li>
+                                @endfor
+
+                                @if ($courses->nextPageUrl())
+                                <li class="page-num ">
+                                    <a style="width: 90px;" href="{{ $courses->nextPageUrl() }}">Next</a>
+                                </li>
+                                @endif
+                        </ul>
+                    </nav>
+                    @endif
                 </div>
             </div>
         </div>
-    </section>
-
-    <script>
 
 
 
-        const courses = @json($courses);
-        document.getElementById('inputSearch').addEventListener('input', function(e){
-            const coursesSearch = courses.data.filter((course)=>course.title.toLowerCase().search(e.target.value.toLowerCase()) !== -1)
-            console.log(e.target.value)
-            showCourses(coursesSearch);
-        })
-        function showCourses(table) {
-            let htmlCu = '';
-            for (var i = 0; i < table.length; i++) {
-                htmlCu += `
+</section>
+
+<script>
+    const courses = @json($courses);
+    document.getElementById('inputSearch').addEventListener('input', function(e) {
+        const coursesSearch = courses.data.filter((course) => course.title.toLowerCase().search(e.target.value.toLowerCase()) !== -1)
+        console.log(e.target.value)
+        showCourses(coursesSearch);
+    })
+
+    function showCourses(table) {
+        let htmlCu = '';
+        for (var i = 0; i < table.length; i++) {
+            htmlCu += `
     <div class="course-item cat1 cat3 col-lg-4 col-md-6" >
         <div class="course-block" >
             <div class="course-img">
@@ -174,9 +196,9 @@
         </div>
     </div>
     `;
-            }
-            document.getElementById('showCourses').innerHTML = htmlCu
         }
-        showCourses(courses.data)
-    </script>
+        document.getElementById('showCourses').innerHTML = htmlCu
+    }
+    showCourses(courses.data)
+</script>
 @endsection

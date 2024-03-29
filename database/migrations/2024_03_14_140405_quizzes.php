@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('show_correct_answer')->default(1);
             $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->foreign('curriculum_id')->references('id')->on('curricula')->onDelete('cascade');
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

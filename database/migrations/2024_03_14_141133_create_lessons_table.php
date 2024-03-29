@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('video_link');
             $table->string('type')->default('lesson');
             $table->integer('order')->nullable();
+            $table->softDeletes();
             $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->timestamps();
         });

@@ -3,31 +3,11 @@
 @section('styles')
 <!-- Include additional stylesheets for this view -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-    /* Custom CSS for navbar */
-    .navbar-custom {
-        padding: 10px 0;
-    }
 
-    .navbar-brand {
-        font-weight: bold;
-        font-size: 1.5rem;
-    }
-
-    .navbar-nav {
-        align-items: center;
-    }
-
-    .nav-item {
-        margin-right: 15px;
-    }
-
-    #saveBtn {
-        margin-left: 15px;
-    }
-</style>
 @endsection
 @section('content')
+<div class="container-fluid mt--8">
+
 <form action="{{route('Questions.store')}}" method="Post" enctype="multipart/form-data">
 
     <div class="sticky-top bg-white border-bottom  px-4 py-3">
@@ -44,7 +24,6 @@
         </div>
 
     </div><br>
-    <div class="container-fluid mt--8">
         <div class="row">
             <div class="col">
                 <div class="card shadow">
