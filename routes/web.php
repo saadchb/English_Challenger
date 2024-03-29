@@ -38,7 +38,7 @@ Route::post('/school/store',[ReviewController::class,'store'])->name('school.sto
 Route::get('/page-certifcate',function(){
     return view('EnglishChallenger.page-certifcate');
 });
-Route::get('/course_detail/{id}', [CourseController::class, 'show2']);
+Route::get('/course_detail/{id}', [CourseController::class, 'show2'])->name('course_detail');
 Route::get('/course_list',[CourseController::class,'indexCr']);
 
 Route::post('/curriculum_list/{id}',[CurriculumController::class,'show'])->name('curricula.show');

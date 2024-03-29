@@ -48,7 +48,7 @@
         #header {
             height: 70px;
             width: 100%;
-            background-color: #4d09b3;
+            background-color: #953288;
             position: fixed;
             top: 0;
             z-index: 1;
@@ -74,6 +74,7 @@
         #item-curriculum {
             color: #FFFFFF;
         }
+
         body {
             font-family: "Muli", sans-serif;
             font-size: 16px;
@@ -85,6 +86,7 @@
             color: #535967;
             overflow-x: hidden;
         }
+
         .title {
             font-family: "Quicksand", sans-serif;
             font-weight: 700;
@@ -92,17 +94,51 @@
             margin-bottom: 0px;
             color: #07294D;
         }
-        .btnPag{
-            background-color:#4d09b3;
-            box-shadow:none;
-            border-color:#4d09b3;
+
+        .btnPag {
+            background-color: #953288;
+            box-shadow: none;
+            border-color: #953288;
+            border-radius: 20px !important;
+
         }
-        .btnPag:hover{
-            background-color:#07294D;
-            border-color:#07294D;
+
+        .btnPag:hover {
+            background-color: #07294D;
+            border-color: #07294D;
         }
-        .btnPag:active{
-            background-color:#07294D !important;
+
+        .btnPag:active {
+            background-color: #07294D !important;
+        }
+
+        .custom-ordered-list {
+            list-style: none;
+            counter-reset: orderedlist;
+        }
+
+        .custom-ordered-list li {
+            counter-increment: orderedlist;
+            margin-bottom: 10px;
+        }
+
+        .custom-ordered-list li::before {
+            content: counter(orderedlist);
+            background-color: #07294D;
+            color: #fff;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .list {
+            margin-left: 5px !important;
+            position: relative;
+            right: 30px;
         }
     </style>
     @yield('styles')
@@ -126,8 +162,9 @@
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
                 <div class="input-group rounded my-3">
-                    <input type="search" id="search" class="form-control " placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon" />
+                    <input type="search"id='search' class="form-control rounded" placeholder="Search"
+                        aria-label="Search" aria-describedby="search-addon" />
+
                 </div>
                 <div class="accordion" id="accordionExample">
                     @foreach ($curricula as $curriculum)
@@ -144,7 +181,7 @@
                                 aria-labelledby="heading{{ $curriculum->title }}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body" id="accordion-body">
                                     @if (count($lessons) !== 0)
-                                        <ol class="curriculum">
+                                        <ol class="curriculum custom-ordered-list">
                                             @foreach ($lessonsMix as $lesson)
                                                 @if ($lesson['curriculum_id'] == $curriculum->id && $lesson['type'] == 'lesson')
                                                     <form id="lessonForm"
@@ -153,32 +190,41 @@
                                                         @csrf
                                                         <input type="hidden" value="{{ $lesson['id'] }}"
                                                             name="lesson_id" />
-                                                        <li id="lessonItem" style="cursor: pointer;"
-                                                            class="lesson-item text-light lessonItem"
-                                                            style="background-color: #07294D;">
+                                                        <div class="list">
                                                             <svg fill="#FFFFFF" width="20px" height="20px"
                                                                 viewBox="-3.5 0 19 19"
-                                                                xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg ">
+                                                                xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg mr-1">
                                                                 <path
                                                                     d="M11.16 16.153a.477.477 0 0 1-.476.475H1.316a.477.477 0 0 1-.475-.475V3.046a.477.477 0 0 1 .475-.475h6.95l2.893 2.893zm-1.11-9.924H8.059a.575.575 0 0 1-.574-.574V3.679H1.95v11.84h8.102zM3.907 4.92a1.03 1.03 0 1 0 1.029 1.03 1.03 1.03 0 0 0-1.03-1.03zm4.958 3.253h-5.87v1.108h5.87zm0 2.354h-5.87v1.109h5.87zm0 2.354h-5.87v1.109h5.87z"
                                                                     fill-rule="evenodd" />
                                                             </svg>
-                                                            {{ $lesson['title'] }} <br><span class="text-white-50" style="font-size:12px;margin-left:7rem;">{{$lesson['duration'] }}</span>
-                                                        </li>
+                                                            <li id="lessonItem" style="cursor: pointer;"
+                                                                class="lesson-item text-light d-inline lessonItem"
+                                                                style="background-color: #07294D;">
+
+                                                                {{ $lesson['title'] }} <br><span class="text-white-50"
+                                                                    style="font-size:12px;margin-left:7rem;">{{ $lesson['duration'] }}</span>
+                                                            </li>
+                                                        </div>
                                                     </form>
                                                 @endif
                                                 @if (count($quizzes) !== 0)
                                                     @if ($lesson['curriculum_id'] == $curriculum->id && $lesson['type'] == 'quiz')
-                                                        <li id="item-curriculum" class="lessonItem">
-                                                            <svg fill="#FFFFFF" width="15px" height="15px"
+                                                        <div class="list">
+                                                            <svg fill="#FFFFFF" width="15px" height="15px"  class="cf-icon-svg"
                                                                 viewBox="0 0 1920 1920"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path
                                                                     d="M960 112.941c-467.125 0-847.059 379.934-847.059 847.059 0 467.125 379.934 847.059 847.059 847.059 467.125 0 847.059-379.934 847.059-847.059 0-467.125-379.934-847.059-847.059-847.059M960 1920C430.645 1920 0 1489.355 0 960S430.645 0 960 0s960 430.645 960 960-430.645 960-960 960m417.905-575.955L903.552 988.28V395.34h112.941v536.47l429.177 321.77-67.765 90.465Z"
                                                                     fill-rule="evenodd" />
                                                             </svg>
-                                                            {{ $lesson['title'] }}
-                                                        </li>
+                                                            <li id="item-curriculum"
+                                                                class="lesson-item text-light d-inline lessonItem">
+                                                                {{ $lesson['title'] }}<br><span class="text-white-50"
+                                                                    style="font-size:12px;margin-left:7rem;">{{ $lesson['duration'] }}
+                                                                    {{ $lesson['duration_unit'] }}</span>
+                                                            </li>
+                                                        </div>
                                                     @endif
                                                 @endif
                                             @endforeach
@@ -195,7 +241,7 @@
 
         <!-- Navbar -->
 
-        <nav style="position: sticky;top:70px;" class="main-header navbar navbar-expand  navbar-light">
+        <nav style="position:sticky;top:70px;" class="main-header navbar navbar-expand  navbar-light">
             <ul class="navbar-nav ">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
@@ -227,25 +273,36 @@
                                     title="YouTube video player"frameborder="0" allowfullscreen></iframe>
                                 <h3 class='my-3 title'><b>{{ $lessonActive->title }}</b></h3>
                                 <p class= 'mb-3 text-gray'>{{ $lessonActive->description }}</p>
-                                <div style="position: sticky; bottom: 0;margin-bottom:1;"
-                                    class="d-flex justify-content-center w-100 navbar p-2  navbar-white navbar-light">
-                                    <div class="jsutify-self-start">
+                                <div style="position: sticky; bottom: 0;margin-bottom:1;margin-bottom:0 !important;background-color:#F4F6F9;"
+                                    class="d-flex justify-content-center w-100 navbar p-2  ">
+                                    <div class="jsutify-self-start" style="margin-bottom:0 !important;">
                                         <form class="d-inline"
                                             action="{{ route('curriculum_list.prev', $course->id) }}" method="post">
                                             @csrf
                                             <input type="hidden" value="{{ $lessonActive->order }}"
                                                 name="lesson_id">
-                                            <button class="btn btn-primary btnPag">Prev</button>
+                                            <button class="btn btn-primary rounded btnPag"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                                    viewBox="0 0 256 512">
+                                                    <path
+                                                        d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"
+                                                        fill="white" />
+                                                </svg> Prev</button>
                                         </form>
                                     </div>
-                                    <div class="justify-self-end ms-auto" >
+                                    <div class="justify-self-end ms-auto"style="margin-bottom:0 !important;">
                                         <form class="d-inline"
                                             action="{{ route('curriculum_list.next', $course->id) }}" method="post">
                                             @csrf
                                             <input type="hidden" value="{{ $lessonActive->order }}"
                                                 name="lesson_id">
-                                            <button class="btn btn-primary btnPag">
-                                                Next
+                                            <button class="btn btn-primary rounded btnPag">
+                                                Next <svg xmlns="http://www.w3.org/2000/svg" width="20px"
+                                                    height="20px" viewBox="0 0 256 512">
+                                                    <path
+                                                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
+                                                        fill="white" />
+                                                </svg>
                                             </button>
                                         </form>
                                     </div>
@@ -309,19 +366,32 @@
                         }
                     });
             }
-            const eleT = document.querySelectorAll(".lesson-item");
-            for (let i = 0; i < eleT.length; i++) {
-                eleT[i].addEventListener("click", function() {
-                    this.parentElement.submit();
-                });
+            function SubmitForm() {
+                const eleT = document.querySelectorAll(".lesson-item");
+                for (let i = 0; i < eleT.length; i++) {
+                    eleT[i].addEventListener("click", function() {
+                        this.parentElement.parentElement.submit();
+                    });
+                }
             }
+            SubmitForm()
+
             const curricula = @json($curricula);
             const lessons = @json($lessons);
             const quizzes = @json($quizzes);
             const lessonsMix = @json($lessonsMix);
+
             document.getElementById('search').addEventListener("input", function(e) {
+                eleTH = document.querySelectorAll(".lesson-item");
+                console.log(eleTH)
+                console.log('eleTH')
+                for (let i = 0; i < eleTH.length; i++) {
+                    eleTH[i].addEventListener("click", function() {
+                        // this.parentElement.parentElement.submit();
+                        console.log('hello from li ')
+                    });
+                }
                 const value = e.target.value.toLowerCase();
-                console.log(value);
                 const cuuriSearch = curricula.filter((cr) => cr.title.toLowerCase().search(value) !== -1)
                 search(cuuriSearch, lessons, quizzes, lessonsMix);
             })
@@ -343,35 +413,38 @@
                 <div class="accordion-body">`;
 
                     if (lessons.length !== 0) {
-                        html += `<ol class="curriculum">`;
+                        html += `<ol class="curriculum custom-ordered-list">`;
 
                         lessonMix.forEach(lesson => {
                             if (lesson.curriculum_id == cr.id && lesson.type == 'lesson') {
                                 html += `
-                    <form action="'curricula/show/${cr.course_id}" method="post">
+                    <form id="lessonForm" action="/curriculum_list/${cr.course_id}" method="post">
                         @csrf
+                        <div class="list">
                         <input type="hidden" value="${lesson.id}" name="lesson_id" />
-                        <li class="lesson-item lessonItem text-light" style="background-color: #07294D;">
-                            <svg fill="#FFFFFF" width="20px" height="20px" viewBox="-3.5 0 19 19" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg">
+                        <svg fill="#FFFFFF" width="20px" height="20px" viewBox="-3.5 0 19 19" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg mr-2">
                                 <path d="M11.16 16.153a.477.477 0 0 1-.476.475H1.316a.477.477 0 0 1-.475-.475V3.046a.477.477 0 0 1 .475-.475h6.95l2.893 2.893zm-1.11-9.924H8.059a.575.575 0 0 1-.574-.574V3.679H1.95v11.84h8.102zM3.907 4.92a1.03 1.03 0 1 0 1.029 1.03 1.03 1.03 0 0 0-1.03-1.03zm4.958 3.253h-5.87v1.108h5.87zm0 2.354h-5.87v1.109h5.87zm0 2.354h-5.87v1.109h5.87z" fill-rule="evenodd"></path>
-                            </svg>
-                            ${lesson.title}
+                            </svg><li id="lessonItem" onclick="this.parentElement.parentElement.submit()" class='lesson-item text-light d-inline lessonItem' style="background-color: #07294D;cursor: pointer;">
+                            ${lesson.title}<br><span class="text-white-50"
+                                                            style="font-size:12px;margin-left:7rem;">${lesson['duration'] }</span>
                         </li>
+                        </div>
                     </form>`;
                             }
 
                             if (quizzes.length !== 0) {
                                 if (lesson.curriculum_id == cr.id && lesson.type == 'quiz') {
-                                    html += ` <li class='lessonItem' id="item-curriculum">
-                                                            <svg fill="#FFFFFF" width="15px" height="15px"
+                                    html += ` <div class="list"><svg fill="#FFFFFF" width="15px" height="15px" class=' mr-1' 
                                                                 viewBox="0 0 1920 1920"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path
                                                                     d="M960 112.941c-467.125 0-847.059 379.934-847.059 847.059 0 467.125 379.934 847.059 847.059 847.059 467.125 0 847.059-379.934 847.059-847.059 0-467.125-379.934-847.059-847.059-847.059M960 1920C430.645 1920 0 1489.355 0 960S430.645 0 960 0s960 430.645 960 960-430.645 960-960 960m417.905-575.955L903.552 988.28V395.34h112.941v536.47l429.177 321.77-67.765 90.465Z"
                                                                     fill-rule="evenodd" />
-                                                            </svg>
-                                                            ${lesson.title}
+                                                            </svg><li class='lesson-item text-light d-inline lessonItem' id="item-curriculum">
+
+                                                            ${lesson.title} <br><span class="text-white-50" style="font-size:12px;margin-left:7rem;">${lesson['duration'] } ${lesson['duration_unit'] }</span>
                                                         </li>
+                                                        </div>
                         `
                                 }
                             }
