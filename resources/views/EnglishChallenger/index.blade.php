@@ -194,7 +194,7 @@ $reviews = review::all();
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6">
                 <div class="section-heading center-heading">
-                    <span class="subheading">Top Categories</span>                  
+                    <span class="subheading">Top Categories</span>
                     <h3>Our Top Categories</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicin gelit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
@@ -421,6 +421,7 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 2 ? `
@@ -430,6 +431,7 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 3 ? `
@@ -439,6 +441,7 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 4 ? `
@@ -448,6 +451,7 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 5 ? `
@@ -457,7 +461,10 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-star"></i></a>` : ''}
+            <a href="#"><i class="fa fa-star"></i></a>
+        <span>${table[i].rating}.00</span>
+
+            ` : ''}
 
             ${table[i].rating == undefined || table[i].rating == null || table[i].rating == '' ?
             `
@@ -466,15 +473,15 @@ $reviews = review::all();
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+        <span>0.00</span>
             `:''
         }
-        <span>${table[i].rating}.00</span>
 </div>
                 <p>${table[i].description}</p>
 
                 <div class="course-footer d-lg-flex align-items-center justify-content-between">
                     <div class="course-meta">
-                        <span class="course-student"><i class="bi bi-group"></i>${table[i].fake_students_enrolled == null ? 0:''}</span>
+                        <span class="course-student"><i class="bi bi-group"></i>${table[i].fake_students_enrolled == null ||table[i].fake_students_enrolled== undefined  ? 0:''}</span>
                         <span class="course-duration"><i class="bi bi-badge3"></i>${table[i].nblessonsbycourses} Lessons</span>
                     </div>
 

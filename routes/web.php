@@ -12,11 +12,14 @@ use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\DetailsStudentController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Models\Curriculum;
+use App\Models\detailsStudent;
+use App\Models\detiailsStudent;
 
 Route::get('/',[CourseController::class, 'indexEn'])->name('EnglishChallenger.index');
 Route::get('/dachboard',function(){
@@ -25,9 +28,9 @@ Route::get('/dachboard',function(){
 Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
-// Route::get('/E-Library',function(){
-//     return view('EnglishChallenger.e-Library');
-// });
+Route::get('/studentPortofilio', function(){
+    return view('EnglishChallenger.studentPortofilio');
+});
 Route::get('/E_Library',[BookController::class,'E_Library'])->name('EnglishCallenger.E_Library');
 
 
@@ -64,6 +67,8 @@ Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name(
 
 Route::post('/curriculum_list/next/{id}', [CurriculumController::class, 'next'])->name('curriculum_list.next');
 Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])->name('curriculum_list.prev');
-///
-Route::resource('/books',BookController::class);
 
+Route::resource('/books',BookController::class);
+Route::resource('/detailsStudents', DetailsStudentController::class);
+Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('detailsStudentss.show');
+///

@@ -20,7 +20,7 @@ class StudentController extends Controller
         {
             $students = Student::query()->latest()->paginate(7);
         }
-     
+
         return view('Backend_editor.Students.index',['students'=>$students]);
     }
 
@@ -55,8 +55,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show(Student $id)
     {
+        $student = Student::findOrFail($id);
+        
         return view('Backend_editor.Students.show',['student'=>$student]);
     }
 
@@ -79,11 +81,11 @@ class StudentController extends Controller
         if ($request->hasFile('picture')) {
             // Store the new image file
             $imagePath = $request->file('picture')->store('images', 'public');
-            
+
             // Update the image path attribute of the Student model
             $student->picture = $imagePath;
         }
-    
+
         // Update other attributes
         $student->first_name = $request->input('first_name');
         $student->last_name = $request->input('last_name');
@@ -95,7 +97,7 @@ class StudentController extends Controller
 
         // Save the updated model
         $student->save();
-    
+
         return redirect()->route('Students.index')->with('success','Student updated successfully.');
     }
 

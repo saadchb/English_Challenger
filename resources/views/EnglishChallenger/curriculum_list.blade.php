@@ -53,7 +53,14 @@
             top: 0;
             z-index: 1;
         }
+        #search{
+            background-color: #953288;
+            width:200px !important;
+            border:none;
+        }
+        #search:focus{
 
+        }
         .mydivheader {
             background-color: #c2b5976b;
         }
@@ -147,7 +154,11 @@
 
 <body>
     <header class="d-flex justify-content-end" id="header">
-        <a class="px-3 pt-2 mydivheader" href="{{ route('EnglishChallenger.index') }}">
+        <div class="input-group rounded my-3">
+            <input type="search" width="200px"  id='search' class="form-control rounded" placeholder="Search"
+                aria-label="Search" aria-describedby="search-addon" />
+        </div>
+        <a class="px-3 pt-2 mydivheader" href="{{ route('detailsStudentss.show') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width='50' height='50' class=""
                 viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                 <path
@@ -161,11 +172,7 @@
 
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
-                <div class="input-group rounded my-3">
-                    <input type="search"id='search' class="form-control rounded" placeholder="Search"
-                        aria-label="Search" aria-describedby="search-addon" />
 
-                </div>
                 <div class="accordion" id="accordionExample">
                     @foreach ($curricula as $curriculum)
                         <div id="itemAccordion" class="accordion-item">
@@ -271,7 +278,7 @@
                                 <iframe class="mt-3" width="100%" height="465"
                                     src="https://www.youtube.com/embed/{{ $lessonActive->video_link }}"
                                     title="YouTube video player"frameborder="0" allowfullscreen></iframe>
-                                <h3 class='my-3 title'><b>{{ $lessonActive->title }}</b></h3>
+                                <h3 class='my-3 title text-uppercase'><b>{{ $lessonActive->title }}</b></h3>
                                 <p class= 'mb-3 text-gray'>{{ $lessonActive->description }}</p>
                                 <div style="position: sticky; bottom: 0;margin-bottom:1;margin-bottom:0 !important;background-color:#F4F6F9;"
                                     class="d-flex justify-content-center w-100 navbar p-2  ">
@@ -434,7 +441,7 @@
 
                             if (quizzes.length !== 0) {
                                 if (lesson.curriculum_id == cr.id && lesson.type == 'quiz') {
-                                    html += ` <div class="list"><svg fill="#FFFFFF" width="15px" height="15px" class=' mr-1' 
+                                    html += ` <div class="list"><svg fill="#FFFFFF" width="15px" height="15px" class=' mr-1'
                                                                 viewBox="0 0 1920 1920"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path

@@ -19,4 +19,7 @@ class Book extends Model
     public function review():HasMany{
         return $this->hasMany(review::class);
     }
+    public function student(){
+        return $this->belongsToMany('App\Models\Student');
+    }
 }

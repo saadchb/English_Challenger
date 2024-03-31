@@ -234,7 +234,7 @@ $count = 0;
             </ul>
 
             <ul class="header-contact-right d-none d-lg-block">
-                <li> <a href="/E-Library" class="header-cart"><i class="fa fa-shopping-cart"></i></a></li>
+                <li> <a href="/E_Library" class="header-cart"><i class="fa fa-shopping-cart"></i></a></li>
                 <li><a href="#" class="header-search search_toggle"> <i class="fa fa fa-search"></i></a>
                 </li>
             </ul>

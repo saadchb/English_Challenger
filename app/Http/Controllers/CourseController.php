@@ -98,73 +98,73 @@ class CourseController extends Controller
 
 
         $requ = null;
-$key = null;
-$faq = null;
-$target = null; // Corrected variable name
+        $key = null;
+        $faq = null;
+        $target = null; // Corrected variable name
 
-$data = $request->input('tableData');
-$datasJson = json_decode($data, true);
+        $data = $request->input('tableData');
+        $datasJson = json_decode($data, true);
 
-if (isset($datasJson[0])) {
-    $requ = $datasJson[0];
-    // Your code for Requirement
-}
+        if (isset($datasJson[0])) {
+            $requ = $datasJson[0];
+            // Your code for Requirement
+        }
 
-if (isset($datasJson[1])) {
-    $key = $datasJson[1];
-    // Your code for KeyFeature
-}
+        if (isset($datasJson[1])) {
+            $key = $datasJson[1];
+            // Your code for KeyFeature
+        }
 
-if (isset($datasJson[2])) {
-    $target = $datasJson[2];
-    // Your code for TargetAudience
-}
+        if (isset($datasJson[2])) {
+            $target = $datasJson[2];
+            // Your code for TargetAudience
+        }
 
-if (isset($datasJson[3])) {
-    $faq = $datasJson[3];
-    // Your code for Faq
-}
+        if (isset($datasJson[3])) {
+            $faq = $datasJson[3];
+            // Your code for Faq
+        }
 
-if ($requ) {
-    Requirement::where('course_id', $id)->delete();
-    foreach ($requ as $re) {
-        Requirement::create(array(
-            'title' => $re,
-            'course_id' => $id
-        ));
-    }
-}
+        if ($requ) {
+            Requirement::where('course_id', $id)->delete();
+            foreach ($requ as $re) {
+                Requirement::create(array(
+                    'title' => $re,
+                    'course_id' => $id
+                ));
+            }
+        }
 
-if ($key) {
-    KeyFeature::where('course_id', $id)->delete();
-    foreach ($key as $ke) {
-        KeyFeature::create(array(
-            'title' => $ke,
-            'course_id' => $id
-        ));
-    }
-}
+        if ($key) {
+            KeyFeature::where('course_id', $id)->delete();
+            foreach ($key as $ke) {
+                KeyFeature::create(array(
+                    'title' => $ke,
+                    'course_id' => $id
+                ));
+            }
+        }
 
-if ($target) { // Corrected variable name
-    TargetAudience::where('course_id', $id)->delete();
-    foreach ($target as $tar) { // Corrected variable name
-        TargetAudience::create(array(
-            'title' => $tar,
-            'course_id' => $id
-        ));
-    }
-}
+        if ($target) { // Corrected variable name
+            TargetAudience::where('course_id', $id)->delete();
+            foreach ($target as $tar) { // Corrected variable name
+                TargetAudience::create(array(
+                    'title' => $tar,
+                    'course_id' => $id
+                ));
+            }
+        }
 
-if ($faq) {
-    Faq::where('course_id', $id)->delete();
-    foreach ($faq as $fa) {
-        Faq::create(array(
-            'label' => $fa['label'],
-            'content' => $fa['content'],
-            'course_id' => $id
-        ));
-    }
-}
+        if ($faq) {
+            Faq::where('course_id', $id)->delete();
+            foreach ($faq as $fa) {
+                Faq::create(array(
+                    'label' => $fa['label'],
+                    'content' => $fa['content'],
+                    'course_id' => $id
+                ));
+            }
+        }
 
         // dd($dataJson);
         return redirect()->route('Courses.index');
@@ -326,17 +326,17 @@ if ($faq) {
 
         $dataLQ = session('dataLQ');
         $dataLQ2 = [];
-        foreach($dataLQ as $key => $data){
-            $data['order'] = $key+1;
-            array_push($dataLQ2,$data);
+        foreach ($dataLQ as $key => $data) {
+            $data['order'] = $key + 1;
+            array_push($dataLQ2, $data);
         }
-        foreach($dataLQ2 as $data){
-            if($data['type'] == 'quiz'){
+        foreach ($dataLQ2 as $data) {
+            if ($data['type'] == 'quiz') {
                 $quizOrdered = Quiz::findOrFail($data['id']);
-                $quizOrdered->update(['order'=>$data['order']]);
-            }else{
+                $quizOrdered->update(['order' => $data['order']]);
+            } else {
                 $lessonOrdered = Lesson::findOrFail($data['id']);
-                $lessonOrdered->update(['order'=>$data['order']]);
+                $lessonOrdered->update(['order' => $data['order']]);
             }
         }
         session()->flush();
@@ -364,9 +364,19 @@ if ($faq) {
         $courses = Course::limit(6)->get();
         $categories_course = CategoriesCourse::all();
         foreach ($courses as $course) {
-
+            $reviews = review::where('course_id', $course->id)->get();
+            if ($reviews->isEmpty()) {
+                $course->rating = 0;
+            } else {
+                $totalRating = 0;
+                foreach ($reviews as $review) {
+                    $totalRating += $review->rating;
+                }
+                $course->rating = $totalRating / $reviews->count();
+            }
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
+
         $tags = Tag::all();
         $categories = Categorie::all();
         return view('EnglishChallenger.index', [
@@ -385,11 +395,15 @@ if ($faq) {
     {
         $courses = Course::paginate(6);
         foreach ($courses as $course) {
-            $review = review::where('course_id', $course->id)->get()->first();
-            if (!$review) {
+            $reviews = review::where('course_id', $course->id)->get();
+            if ($reviews->isEmpty()) {
                 $course->rating = 0;
             } else {
-                $course->rating = $review->rating;
+                $totalRating = 0;
+                foreach ($reviews as $review) {
+                    $totalRating += $review->rating;
+                }
+                $course->rating = $totalRating / $reviews->count();
             }
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
