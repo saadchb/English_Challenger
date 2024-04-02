@@ -73,3 +73,4 @@ Route::get('/E_Library/Categories/{id}',[CategorieController::class, 'show'])->n
 
 Route::get('/cart',[CartController::class,'index'])->name('EnglishChallenger.cart');
 Route::post('/cart',[CartController::class,'store'])->name('cart.store');
+Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');

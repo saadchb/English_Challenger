@@ -24,34 +24,45 @@
 <section class="section-padding course">
     <div class="container">
         <div class="row">
-
-            @if(session('success'))
-            <div class="col-md-12" >
-                <div class="blog-sidebar  mt-5 mt-lg-0 mt-md-0">
-                    <div class="widget widget_search">
-                        <i class="fas fa-circle-check" style="color: #63E6BE;"></i>
-                        <h4>{{ session('success') }}</h4>
-                        <a href="{{ route('EnglishChallenger.cart') }}" style="float: left;" class="btn">Go to Cart</a>
-                    </div>
-                </div>
-            </div>
-            @endif
             <div class="col-sm-9 ">
-            <div class="col-md-24">
-                <div class="msg-alert mt-lg-0 mt-md-0" >
-                    <div class="widget " style="  display: inline-flex;">
-                        <i class="fas fa-circle" style="color: #63E6BE;"></i>
-                        <!-- <p>{{ session('success') }}</p> -->
-                        <p>A Memoir of a Life Interrupted has been added to your cart.</p>
-                        <a   href="{{ route('EnglishChallenger.cart') }}" class="btn btn-main btn-small">Go to Cart</a>
+                @if(session('success'))
+                <div class="col-md-24">
+                    <div class="msg-alert mt-lg-0 mt-md-0">
+                        <div class="widget ">
+                            <div style="  display: inline-flex; width: auto;padding:3%;justify-content: center;">
+                                <p><i class="fas fa-check mr-4" style="color: #63E6BE;"></i>A {{$book->title}} {{ session('success') }}</p>
+                                <a style="float: right !important; margin-left: 150px !important; background-color: #862b84;" href="{{ route('EnglishChallenger.cart') }}" class="btn btn-main btn-small">Go to Cart</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
+                @endif
+                @if(session('error'))
+                <div class="col-md-24">
+                    <div class="msg-warning mt-lg-0 mt-md-0">
+                        <div class="widget ">
+                            <div style=" font-size: large; display: inline-flex; width: auto;padding:3%;justify-content: center;">
+                                <p><i class="fas fa-exclamation mr-4"></i>A {{$book->title}} {{ session('error') }}</p>
+                                <a style="float: right !important; margin-left: 150px !important; background-color: #862b84;" href="{{ route('EnglishChallenger.cart') }}" class="btn btn-mai btn-small">Go to Cart</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                @endif
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="course-img">
-                            <img src="{{asset('storage/'.$book->img)}}" alt="{{$book->title}}" width="445" height="445" class="img-fluid" sizes="(max-width: 545px) 100vw, 545px">
+                            <img src="{{asset('storage/'.$book->img)}}" alt="{{$book->title}}" width="445" height="445" class="img-fluid" sizes="(max-width: 545px) 100vw, 545px" onclick="showImage(this)">
                         </div>
+
+                        <!-- Hidden modal for displaying the enlarged image -->
+                        <div id="imageModal" class="modal">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <img class="modal-content" id="enlargedImage">
+                        </div>
+
                     </div>
                     <div class="col-lg-6">
                         <div class="course-content">
@@ -79,8 +90,23 @@
                                 </div><br>
                                 <input type="text" value="{{$book->id}}" hidden name="book_id">
                                 <div><button type="submit" style="background-color: #862b84; float: left !important;">ADD TO CART</button></div><br>
+
                             </form>
+                        </div><br><br>
+                        <div class="course-widget course-share d-flex justify-content-between align-items-center">
+                            <span>Share</span><br>
+                            <ul class="social-share list-inline" style="margin-right: 220px !important;">
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a>
+                                </li>
+                            </ul>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -244,87 +270,102 @@
         <section class="related products">
 
             <h2>Related products</h2>
-            <form action="action={{route('cart.store')}}" method="Post">
-                <ul class="products columns-5">
-                    @foreach ($categories_books as $books)
-                    <li class="product">
-                        <div class="product-wrap">
-                            <a href="#" class="">
-                                <img src="{{asset('storage/'.$books->img)}}" style="height:200px; width:200px" alt="{{$books->title}}">
+            <ul class="products columns-5">
+                @foreach ($categories_books as $books)
+                @CSRF
+                <li class="product">
+                    <div class="product-wrap">
+                        <a href="#" class="">
+                            <img src="{{asset('storage/'.$books->img)}}" style="height:200px; width:200px" alt="{{$books->title}}">
+                        </a>
+                        <div class="product-btn-wrap">
+                            <a href="/E_library/book/{{$books->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="woocommerce-product-title-wrap">
+                        <h2 class="woocommerce-loop-product__title">
+                            <a href="#">{{$books->tile}}</a>
+                        </h2>
+                    </div>
+                    <span class="price">
+                        @if($books->regular_price && !$books->sale_price)
+                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$books->regular_price}}</span>
+                        @endif
+
+                        @if($books->regular_price && $books->sale_price)
+                        <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$ </span>{{$books->sale_price}}</span></del>
+                        <ins><span><span style="text-decoration: none;"> $ </span>{{$books->regular_price}}</span></ins>
+                        @endif
+
+                        @if(!$books->regular_price && !$books->sale_price)
+                        <span class="uppercase">Free</span>
+                        @endif
+                    </span>
+
+                    <p style="max-height: 5.6em; overflow: hidden;">{{$books->description}}</p>
+
+                    <div class="rating">
+                        <?php
+                        $review =  App\Models\review::all();
+
+                        $totalRating = 0;
+                        $count = 0;
+                        foreach ($review as $rev) {
+                            if ($rev->book_id == $books->id) {
+                                $totalRating += $rev->rating;
+                                $count++;
+                            }
+                        }
+                        if ($count > 0) {
+                            $averageRating = $totalRating / $count;
+                            // Round average rating to the nearest 0.5
+                            $roundedRating = round($averageRating * 2) / 2;
+                            // Output full stars
+                            $fullStars = floor($roundedRating);
+                            // Output half star if needed
+                            $hasHalfStar = $roundedRating - $fullStars >= 0.5;
+                            for ($i = 0; $i < $fullStars; $i++) {
+                                echo '<i class="fa fa-star" ></i>';
+                            }
+                            // Output half star if needed
+                            if ($hasHalfStar) {
+                                echo '<i class="fas fa-star-half-alt" ></i>';
+                                $fullStars++; // Increment full stars count for spacing
+                            }
+                            // Output empty stars to fill the remaining space
+                            for ($i = $fullStars; $i < 5; $i++) {
+                                echo '<i class="fa fa-star text-secondary" ></i>';
+                            }
+                            echo '<span>' . number_format($averageRating, 2) . ' ratings (' . $count . ')</span>';
+                        } else {
+                            for ($i = 0; $i < 5; $i++) {
+                                echo '<i class="fa fa-star text-secondary" ></i>';
+                            }
+                            echo '<span>No reviews yet</span>';
+                        }
+                        ?>
+                    </div><br>
+                    @if((in_array($book->id, $cartBooks)))
+                    <!-- Show this if the book is already in the cart -->
+                    <button type="submit" style="background-color: #862b84; " class="text-outline"> <a href="/cart">
+                        </a><i class="fa fat-arrow-down"></i>
+                    </button>
+
+                    @else
+                    <!-- Show this if the book is already in the cart -->
+                    <form action="{{ route('cart.store') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart">
+                            <a href="#">
+                                <i class="fa fa-cart-plus"></i>
                             </a>
-                            <div class="product-btn-wrap">
-                                <a href="/E_library/book/{{$books->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
-                            </div>
-                        </div>
-                        <div class="woocommerce-product-title-wrap">
-                            <h2 class="woocommerce-loop-product__title">
-                                <a href="#">{{$books->tile}}</a>
-                            </h2>
-                        </div>
-                        <span class="price">
-                            @if($books->regular_price && !$books->sale_price)
-                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$books->regular_price}}</span>
-                            @endif
+                        </button>
+                    </form>
 
-                            @if($books->regular_price && $books->sale_price)
-                            <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$ </span>{{$books->sale_price}}</span></del>
-                            <ins><span><span style="text-decoration: none;"> $ </span>{{$books->regular_price}}</span></ins>
-                            @endif
 
-                            @if(!$books->regular_price && !$books->sale_price)
-                            <span class="uppercase">Free</span>
-                            @endif
-                        </span>
-
-                        <p style="max-height: 5.6em; overflow: hidden;">{{$books->description}}</p>
-
-                        <div class="rating">
-                            <?php
-                            $review =  App\Models\review::all();
-
-                            $totalRating = 0;
-                            $count = 0;
-                            foreach ($review as $rev) {
-                                if ($rev->book_id == $books->id) {
-                                    $totalRating += $rev->rating;
-                                    $count++;
-                                }
-                            }
-                            if ($count > 0) {
-                                $averageRating = $totalRating / $count;
-                                // Round average rating to the nearest 0.5
-                                $roundedRating = round($averageRating * 2) / 2;
-                                // Output full stars
-                                $fullStars = floor($roundedRating);
-                                // Output half star if needed
-                                $hasHalfStar = $roundedRating - $fullStars >= 0.5;
-                                for ($i = 0; $i < $fullStars; $i++) {
-                                    echo '<i class="fa fa-star" ></i>';
-                                }
-                                // Output half star if needed
-                                if ($hasHalfStar) {
-                                    echo '<i class="fas fa-star-half-alt" ></i>';
-                                    $fullStars++; // Increment full stars count for spacing
-                                }
-                                // Output empty stars to fill the remaining space
-                                for ($i = $fullStars; $i < 5; $i++) {
-                                    echo '<i class="fa fa-star text-secondary" ></i>';
-                                }
-                                echo '<span>' . number_format($averageRating, 2) . ' ratings (' . $count . ')</span>';
-                            } else {
-                                for ($i = 0; $i < 5; $i++) {
-                                    echo '<i class="fa fa-star text-secondary" ></i>';
-                                }
-                                echo '<span>No reviews yet</span>';
-                            }
-                            ?>
-                        </div><br>
-                        <input type="text" value="{{$books->id}}" name="book_id">
-                        <div><button type="submit" style="background-color: #862b84; " class="text-outline"> <a href="#">
-                                </a><i class="fa fa-cart-plus"></i> ADD TO CART</button></div>
-                    </li>
-                    @endforeach
-            </form>
+                    @endif
+                </li>
+                @endforeach
             </ul>
 
 
@@ -347,8 +388,33 @@
             toggleTabText('#tab-title-description a', 'Description');
         });
     });
+
+    function showImage(img) {
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("enlargedImage");
+
+        modal.style.display = "block";
+        modalImg.src = img.src;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+    }
 </script>
 
-
+<script>
+    // Loop through each book and attach event listeners
+    function SubmitForm() {
+        const eleT = document.querySelectorAll(".submitButton");
+        for (let i = 0; i < eleT.length; i++) {
+            eleT[i].addEventListener("click", function() {
+                this.parentElement.submit();
+                // console.log('helo');
+            });
+        }
+    }
+    SubmitForm()
+</script>
 
 @endsection

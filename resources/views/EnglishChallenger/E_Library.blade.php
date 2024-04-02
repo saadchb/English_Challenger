@@ -74,12 +74,30 @@
                                     <img src="{{ asset('build/assets/images/shop/book.webp')}}" alt="">
                                     @endif
                                 </a>
+                                @if(!(in_array($book->id, $cartBooks)))
+                                <!-- Show this if the book is already in the cart -->
                                 <div class="product-btn-wrap">
-                                    <a href="#" class="button product_type_simple add_to_cart_button ajax_add_to_cart">
-                                        <i class="fa fa-shopping-basket"></i>
-                                    </a>
+                                    <form action="{{ route('cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                        <button type="submit" class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart">
+                                            <i class="fa fa-shopping-basket "></i>
+                                        </button>
+                                    </form>
                                     <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
                                 </div>
+                                @else
+                                <div class="product-btn-wrap">
+                                    <!-- Show this if the book is not in the cart -->                                                                
+
+                                    <a href="/cart" class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart ">
+                                        <i class="fa fa-cart-arrow-down "></i>
+                                    </a>
+
+                                    <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
+                                </div>                             
+                                @endif
+
                             </div>
                             <div class="woocommerce-product-title-wrap">
                                 <h2 class="woocommerce-loop-product__title">
@@ -208,12 +226,12 @@
                     <section id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
                         <h3 class="widget-title">Product categories</h3>
                         <ul class="product-categories nav flex-column">
-                        @foreach ($categories->unique('title') as $category)
+                            @foreach ($categories->unique('title') as $category)
                             <li class="cat-item cat-item-20 nav-item ">
-                                <a  href="/E_Library/Categories/{{$category->id}}">
+                                <a href="/E_Library/Categories/{{$category->id}}">
                                     {{ $category->title }}
                                 </a>
-                                      <span class="count">({{ $category->books_count }})</span>
+                                <span class="count">({{ $category->books_count }})</span>
 
                             </li>
                             @endforeach
@@ -247,5 +265,17 @@
         });
     });
 </script>
-
+<script>
+    // Loop through each book and attach event listeners
+    function SubmitForm() {
+        const eleT = document.querySelectorAll(".submitButton");
+        for (let i = 0; i < eleT.length; i++) {
+            eleT[i].addEventListener("click", function() {
+                this.parentElement.submit();
+                // console.log('helo');
+            });
+        }
+    }
+    SubmitForm()
+</script>
 @endsection

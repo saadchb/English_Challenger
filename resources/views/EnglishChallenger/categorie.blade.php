@@ -84,7 +84,7 @@ $reviews = App\Models\review::all();
                             </div>
                         </div>
                         @else
-                     
+
                         @foreach ($categories_books as $book)
                         @if($book->categorie_id == $categorie->id)
                         <li class="product ml-4">
@@ -96,12 +96,30 @@ $reviews = App\Models\review::all();
                                     <img src="{{ asset('build/assets/images/shop/book.webp')}}" alt="">
                                     @endif
                                 </a>
+                                @if(!(in_array($book->id, $cartBooks)))
+                                <!-- Show this if the book is already in the cart -->
                                 <div class="product-btn-wrap">
-                                    <a href="#" class="button product_type_simple add_to_cart_button ajax_add_to_cart">
-                                        <i class="fa fa-shopping-basket"></i>
-                                    </a>
+                                    <form action="{{ route('cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                        <button type="submit" class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart">
+                                            <i class="fa fa-shopping-basket "></i>
+                                        </button>
+                                    </form>
                                     <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
                                 </div>
+                                @else
+                                <div class="product-btn-wrap">
+                                    <!-- Show this if the book is not in the cart -->
+
+                                    <a href="/cart" class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart ">
+                                        <i class="fa fa-cart-arrow-down "></i>
+                                    </a>
+
+                                    <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
+                                </div>
+                                @endif
+
                             </div>
                             <div class="woocommerce-product-title-wrap">
                                 <h2 class="woocommerce-loop-product__title">
@@ -165,7 +183,7 @@ $reviews = App\Models\review::all();
                         @endif
                     </ul>
 
-                 
+
                 </div>
 
                 <!-- product Sidebar start-->
@@ -205,7 +223,7 @@ $reviews = App\Models\review::all();
                     <section id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
                         <h3 class="widget-title">Product categories</h3>
                         <ul class="product-categories nav flex-column">
-                        @foreach ($categories->unique('title') as $category)
+                            @foreach ($categories->unique('title') as $category)
                             <li class="cat-item cat-item-20 nav-item {{ $category->id == $currentCategoryId ? ' current-cat' : '' }}">
                                 <a href="/E_Library/Categories/{{ $category->id }}">
                                     {{ $category->title }}

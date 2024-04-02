@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\bookRequest;
 use App\Models\Book;
+use App\Models\Cart;
 use App\Models\Categorie;
 use App\Models\categories_books;
 use App\Models\CategoriesBooks;
@@ -54,12 +55,13 @@ class BookController extends Controller
         foreach ($categories as $category) {
             $category->books_count = categories_books::where('categorie_id', $category->id)->count();
         }
-        
+        $cartBooks = Cart::pluck('book_id')->toArray();
         // Pass data to the view
         return view('EnglishChallenger.E_library', [
             'books' => $books,
             'filteredBooks' => $filteredBooks,
             'reviews' => $reviews,
+            'cartBooks'=>$cartBooks,
             'categories' => $categories
         ]);
     }
@@ -128,8 +130,10 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        $book = Book::findOrFail($id);
         
+        $book = Book::findOrFail($id);
+        $cartBooks = Cart::pluck('book_id')->toArray();
+
         // Get the category ID of the specific book
         $category_ids = categories_books::where('book_id', $id)->pluck('categorie_id')->toArray();
         
@@ -152,7 +156,8 @@ class BookController extends Controller
             'categories_books' => $categories_books,
             'categories' => $categories
             ,'currentCategoryId'=>$currentCategoryId,
-            'review'=>$review
+            'review'=>$review,
+            'cartBooks'=>$cartBooks
         ]);
     }
     
