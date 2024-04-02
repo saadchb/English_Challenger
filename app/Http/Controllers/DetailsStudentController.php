@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\detailsStudent;
 use App\Models\review;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use function Laravel\Prompts\select;
 
 class DetailsStudentController extends Controller
 {
@@ -41,33 +44,74 @@ class DetailsStudentController extends Controller
     {
         $student  = Student::findOrFail(1);
         $courses = DB::table('details_students')
-        ->join('courses', 'details_students.course_id' ,'courses.id')
-        ->where('student_id',1)->get();
+            ->join('courses', 'details_students.course_id', 'courses.id')
+            ->where('student_id', 1)
+            ->select('courses.*')
+            ->get();
+        $coursesIds = DB::table('details_students')
+            ->join('courses', 'details_students.course_id', 'courses.id')
+            ->where('student_id', 1)
+            ->pluck('details_students.course_id');
         $nbcourses = $courses->count();
         $books = DB::table('details_students')
-        ->join('books', 'details_students.course_id' ,'books.id')
-        ->where('student_id',1)->get();
+            ->join('books', 'details_students.course_id', 'books.id')
+            ->where('student_id', 1)->get();
         $reviews = review::all();
-        $categories = DB::table('courses')
-        ->join('categories_courses', 'categories_courses.course_id','courses.id')
-        ->join('details_students','details_students.course_id', 'courses.id')
-        ->where('student_id',1)
-        ->select('categories_courses.categorie_id')->get();
-        // dd($categories);
+        $categoriesIds = DB::table('courses')
+            ->join('categories_courses', 'categories_courses.course_id', 'courses.id')
+            ->join('details_students', 'details_students.course_id', 'courses.id')
+            ->where('student_id', 1)
+            ->pluck('categories_courses.categorie_id'); // for extract the value
         $coursesCategories = DB::table('courses')
-        ->join('categories_courses','categories_courses.course_id','courses.id')
-        ->whereIn('categorie_id',$categories);
-        // ->get();
-        dd($coursesCategories);
-        foreach ($courses as $course) {
-            $review = review::where('course_id', $course->id)->get()->first();
-            if (!$review) {
-                $course->rating = 0;
-            } else {
-                $course->rating = $review->rating;
+            ->join('categories_courses', 'categories_courses.course_id', 'courses.id')
+            ->whereIn('categorie_id', $categoriesIds)
+            ->whereNotIn('courses.id', $coursesIds)
+            ->select('courses.*')
+            ->distinct()
+            ->get();
+            foreach ($courses as $course) {
+                $reviews = review::where('course_id', $course->id)->get();
+                if ($reviews->isEmpty()) {
+                    $course->rating = 0;
+                } else {
+                    $totalRating = 0;
+                    foreach ($reviews as $review) {
+                        $totalRating += $review->rating;
+                    }
+                    $course->rating = $totalRating / $reviews->count();
+                    // dd($course->rating);
+                }
+                $courseFake = Course::findOrFail($course->id);
+                $course->nblessonsbycourses = $courseFake->nblessonsbycourse();
+                $nbstudents = DB::table('details_students')
+                ->where('course_id', $course->id)
+                ->select('student_id')
+                ->distinct()
+                ->count();
+                $course->fake_students_enrolled += $nbstudents;
             }
-        }
-        return view('EnglishChallenger.studentPortofilio',compact('student','courses','books','reviews','nbcourses'));
+            foreach ($coursesCategories as $course) {
+                $reviews = review::where('course_id', $course->id)->get();
+                if ($reviews->isEmpty()) {
+                    $course->rating = 0;
+                } else {
+                    $totalRating = 0;
+                    foreach ($reviews as $review) {
+                        $totalRating += $review->rating;
+                    }
+                    $course->rating = $totalRating / $reviews->count();
+                    // dd($course->rating);
+                }
+                $courseFake = Course::findOrFail($course->id);
+                $course->nblessonsbycourses = $courseFake->nblessonsbycourse();
+                $nbstudents = DB::table('details_students')
+                ->where('course_id', $course->id)
+                ->select('student_id')
+                ->distinct()
+                ->count();
+                $course->fake_students_enrolled += $nbstudents;
+            }
+        return view('EnglishChallenger.studentPortofilio', compact('student', 'courses', 'books', 'reviews', 'nbcourses','coursesCategories'));
     }
 
     /**

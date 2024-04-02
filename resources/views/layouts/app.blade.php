@@ -45,6 +45,30 @@
                 background-color:#FAFAFA;
                 border-color:#FAFAFA;
             }
+                .icons1:hover{
+
+                    border-radius:50%;
+                    text-align: center;
+                    background-color:#e0ceb6;
+                    color:black;
+                    padding:10px;
+                    transform: translateY(0px);
+                    transition: all 0.3s ease-in-out;
+
+                }
+                .icons1{
+                    border-radius:50%;
+                    text-align: center;
+                    padding:10px;
+
+                }
+                .div1{
+                    border-radius:15px ;
+                }
+                .div1:hover{
+                    background-color:#00000056 !important;
+                    border:solid 1px #ffffffaa !important;
+                }
         </style>
     <title>EnglishChallenger | @yield('title')</title>
 </head>

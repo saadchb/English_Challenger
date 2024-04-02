@@ -481,7 +481,7 @@ $reviews = review::all();
 
                 <div class="course-footer d-lg-flex align-items-center justify-content-between">
                     <div class="course-meta">
-                        <span class="course-student"><i class="bi bi-group"></i>${table[i].fake_students_enrolled == null ||table[i].fake_students_enrolled== undefined  ? 0:''}</span>
+                        <span class="course-student"><i class="bi bi-group"></i>${table[i].fake_students_enrolled}</span>
                         <span class="course-duration"><i class="bi bi-badge3"></i>${table[i].nblessonsbycourses} Lessons</span>
                     </div>
 

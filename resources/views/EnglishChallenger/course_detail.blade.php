@@ -129,7 +129,7 @@
                                         <h4 class="course-title">Curriculum for this course</h4>
                                     </div>
                                     <div class="edutim-course-topics-header-right">
-                                        <span> Total learning: <strong>{{ $course->nblessonsbycourse() }}
+                                        <span> Total learning: <strong>{{ $nblessonsbycourse }}
                                                 Lesons</strong></span>
                                         <span> Time: <strong>{{ $course->duration }} {{ $course->duration_gauge }}</strong>
                                         </span>
@@ -172,6 +172,9 @@
                                                                                             <input type="hidden"
                                                                                                 value="{{ $lesson['id'] }}"
                                                                                                 name="lesson_id" />
+                                                                                                <input type="hidden"
+                                                                                                value="{{ $lesson['type'] }}"
+                                                                                                name="type" />
                                                                                             <svg class="ml-1"
                                                                                                 width="17px"
                                                                                                 height="17px"
@@ -191,7 +194,17 @@
                                                                                     </li>
                                                                                 @endif
                                                                                 @if ($lesson['curriculum_id'] == $curriculum->id && $lesson['type'] == 'quiz')
-                                                                                    <li>
+                                                                                <li>    
+                                                                                        <form
+                                                                                        action="{{ route('curricula.show', $course->id) }}"
+                                                                                        method="post">
+                                                                                        @csrf
+                                                                                        <input type="hidden"
+                                                                                            value="{{ $lesson['id'] }}"
+                                                                                            name="lesson_id" />
+                                                                                            <input type="hidden"
+                                                                                            value="{{ $lesson['type'] }}"
+                                                                                            name="type" />
                                                                                         <svg fill="#07294D" width="15px"
                                                                                             height="15px"
                                                                                             viewBox="0 0 1920 1920"
@@ -200,9 +213,10 @@
                                                                                                 d="M960 112.941c-467.125 0-847.059 379.934-847.059 847.059 0 467.125 379.934 847.059 847.059 847.059 467.125 0 847.059-379.934 847.059-847.059 0-467.125-379.934-847.059-847.059-847.059M960 1920C430.645 1920 0 1489.355 0 960S430.645 0 960 0s960 430.645 960 960-430.645 960-960 960m417.905-575.955L903.552 988.28V395.34h112.941v536.47l429.177 321.77-67.765 90.465Z"
                                                                                                 fill-rule="evenodd" />
                                                                                         </svg>
-                                                                                        <button  id="submit_btn"
-                                                                                        class="btn"><span>{{ $lesson['title'] }}</span>
+                                                                                        <button id="submit_btn"
+                                                                                            class="btn"><span>{{ $lesson['title'] }}</span>
                                                                                         </button>
+                                                                                        </form>
                                                                                     </li>
                                                                                 @endif
                                                                             @endforeach
@@ -372,7 +386,7 @@
                                 <li>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span><i class="bi bi-paper"></i>Lessons :</span>
-                                        {{ $course->nblessonsbycourse() }}
+                                        {{ $nblessonsbycourse }}
                                     </div>
                                 <li>
                                     <div class="d-flex justify-content-between align-items-center">
@@ -480,22 +494,68 @@
 
                                 <h4><a href="#">{{ $course->title }}</a></h4>
                                 <div class="rating">
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <span>(5.00)</span>
+                                    @if ($course->rating == 1)
+                                        <!-- Render HTML for a review with a rating of 1 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @elseif($course->rating == 2)
+                                        <!-- Render HTML for a review with a rating of 2 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @elseif($course->rating == 3)
+                                        <!-- Render HTML for a review with a rating of 3 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @elseif($course->rating == 4)
+                                        <!-- Render HTML for a review with a rating of 4 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @elseif($course->rating == 5)
+                                        <!-- Render HTML for a review with a rating of 5 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @else
+                                        <!-- Render HTML for undefined or null rating -->
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @endif
+
                                 </div>
                                 <p>{{ $course->description }}</p>
 
                                 <div class="course-footer d-lg-flex align-items-center justify-content-between">
                                     <div class="course-meta">
-                                        <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                        <span class="course-duration"><i class="bi bi-badge3"></i>82 Lessons</span>
+                                        <span class="course-student"><i
+                                                class="bi bi-group"></i>{{ $course->fake_students_enrolled }}</span>
+                                        <span class="course-duration"><i
+                                                class="bi bi-badge3"></i>{{ $course->nblessonsbycourses }} Lessons</span>
                                     </div>
 
-                                    <div class="buy-btn"><a href="{{ route('Courses.show', $course->id) }}"
+                                    <div class="buy-btn"><a href="{{ route('course_detail', $course->id) }}"
                                             class="btn btn-primary-2 btn-small">Details</a>
                                     </div>
 

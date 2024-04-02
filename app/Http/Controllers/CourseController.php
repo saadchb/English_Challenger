@@ -374,6 +374,15 @@ class CourseController extends Controller
                 }
                 $course->rating = $totalRating / $reviews->count();
             }
+            $nbstudents = DB::table('details_students')
+            ->where('course_id', $course->id)
+            ->select('student_id')
+            ->distinct()
+            ->count();
+            $course->fake_students_enrolled += $nbstudents;
+            if(empty($course->fake_students_enrolled)) {
+                $course->fake_students_enrolled = 0; 
+            }
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
 
@@ -405,6 +414,12 @@ class CourseController extends Controller
                 }
                 $course->rating = $totalRating / $reviews->count();
             }
+            $nbstudents = DB::table('details_students')
+            ->where('course_id', $course->id)
+            ->select('student_id')
+            ->distinct()
+            ->count();
+            $course->fake_students_enrolled += $nbstudents;
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }
         return view('EnglishChallenger.course_list', ['courses' => $courses]);

@@ -13,25 +13,42 @@
                             <h3 class="single-course-title text-capitalize">
                                 {{ $student->first_name }} {{ $student->last_name }}
                             </h3>
+
                             <p>
                             </p>
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" id="imgProf">
                         <div>
-                            <img style="border-radius: 200px;" src="{{ asset('storage/'.$student->picture) }}" alt=""
-                                class="img-fluid w-100" />
+                            <img style="border-radius: 200px;" src="{{ asset('storage/' . $student->picture) }}"
+                                alt="" class="img-fluid w-100" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <nav class="course-single-tabs">
+                    <div class="team-block">
+                        <div style="height:2 rem !important;" >
+                            <img  style="height: 100%;" src="https://listival.com/wp-content/plugins/userswp/assets/images/banner.png" alt="" class="img-fluid">
+                        </div>
+                        <div style="background-color:transparent !important; box-shadow:0 0 0 rgb(255, 254, 254) !important;margin-top:-104px !important;" class="team-info">
+
+                            <img  style="border-radius:50%; width:30%;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important; " src="{{ asset('storage/' . $student->picture) }}"alt="">
+                        </br>
+                            <h4 style="font-size: 20px; color:#07294D !important; "
+                            class="d-inline-block text-capitalize mt-4">{{ $student->first_name }}
+                            {{ $student->last_name }}</h4>
+                        </div>
+
+                    </div>
+
+
+                    <nav class="course-single-tabs pt-5">
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
                                 role="tab" aria-controls="nav-home" aria-selected="true">All</a>
@@ -43,15 +60,14 @@
                                 role="tab" aria-controls="nav-contact" aria-selected="false">Certificates</a>
                         </div>
                     </nav>
-
                     <div class="tab-content" id="nav-tabContent">
-
-                        <div class="tab-pane fade show active" style="display:flex;flex-wrap: wrap;" id="nav-home" role="tabpanel"
-                            aria-labelledby="nav-home-tab">
+                        <div class="tab-pane fade show active" style="display:flex;flex-wrap: wrap;" id="nav-home"
+                            role="tabpanel" aria-labelledby="nav-home-tab">
                             <div style="width:100%;">
-                            <h2 class="woocommerce-loop-product__title">
-                                Courses
-                            </h2></div>
+                                <h2 class="woocommerce-loop-product__title">
+                                    Courses
+                                </h2>
+                            </div>
                             @foreach ($courses as $item)
                                 <div class="course-item cat1 cat3 col-lg-6 col-md-6">
                                     <div class="course-block">
@@ -79,101 +95,105 @@
                             @endforeach
 
 
-                        <div>
-                            <h2 class="woocommerce-loop-product__title">
-                                Books
-                            </h2>
-                        <ul class="products columns-4 " style="display: flex;flex-wrap:wrap !important;">
+                            <div>
+                                <h2 class="woocommerce-loop-product__title">
+                                    Books
+                                </h2>
+                                <ul class="products columns-4 " style="display: flex;flex-wrap:wrap !important;">
 
-                            @if ($books->isEmpty())
-                                <!-- Display error message -->
-                                <div class="error-page text-center error-404 not-found">
-                                    <div class="error-message">
-                                        <h3>Oops... Not Found!</h3>
-                                    </div>
-                                    <div class="error-content">
-                                        Try click on button to back to books<br>
-                                        <a href="/E_Library" class="btn" style="background-color: #862b84;">Back to books
-                                            Page</a>
-                                    </div>
-                                </div>
-                            @else
-                                @foreach ($books as $book)
-                                    <li class="product ml-4">
-                                        <div class="product-wrap">
-                                            <a href="#" class="">
-                                                @if (!empty($book->img))
-                                                    <img  style="width: 150px !important;height:150px !important;" src="{{ asset('storage/' . $book->img) }}" alt="">
-                                                @else
-                                                    <img  style="width: 150px !important;height:150px !important;"src="{{ asset('build/assets/images/shop/book.webp') }}"
-                                                        alt="">
-                                                @endif
-                                            </a>
-                                            <div class="product-btn-wrap">
-                                                <a href="#"
-                                                    class="button product_type_simple add_to_cart_button ajax_add_to_cart">
-                                                    <i class="fa fa-shopping-basket"></i>
-                                                </a>
-                                                <a href="#" class="button wish-list"><i class="fa fa-eye"></i></a>
+                                    @if ($books->isEmpty())
+                                        <!-- Display error message -->
+                                        <div class="error-page text-center error-404 not-found">
+                                            <div class="error-message">
+                                                <h3>Oops... Not Found!</h3>
+                                            </div>
+                                            <div class="error-content">
+                                                Try click on button to back to books<br>
+                                                <a href="/E_Library" class="btn" style="background-color: #862b84;">Back
+                                                    to books
+                                                    Page</a>
                                             </div>
                                         </div>
-                                        <div class="woocommerce-product-title-wrap">
-                                            <h4>
-                                                <a href="#">{{ $book->title }}</a>
-                                            </h4>
-                                        </div>
-                                        <!-- <span class="onsale">Sale!</span> -->
+                                    @else
+                                        @foreach ($books as $book)
+                                            <li class="product ml-4">
+                                                <div class="product-wrap">
+                                                    <a href="#" class="">
+                                                        @if (!empty($book->img))
+                                                            <img style="width: 150px !important;height:150px !important;"
+                                                                src="{{ asset('storage/' . $book->img) }}" alt="">
+                                                        @else
+                                                            <img style="width: 150px !important;height:150px !important;"src="{{ asset('build/assets/images/shop/book.webp') }}"
+                                                                alt="">
+                                                        @endif
+                                                    </a>
+                                                    <div class="product-btn-wrap">
+                                                        <a href="#"
+                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart">
+                                                            <i class="fa fa-shopping-basket"></i>
+                                                        </a>
+                                                        <a href="#" class="button wish-list"><i
+                                                                class="fa fa-eye"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="woocommerce-product-title-wrap">
+                                                    <h4>
+                                                        <a href="#">{{ $book->title }}</a>
+                                                    </h4>
+                                                </div>
+                                                <!-- <span class="onsale">Sale!</span> -->
 
 
-                                        <!-- Display stars based on rating -->
-                                        <div class="rating">
-                                            <?php
-                                            $totalRating = 0;
-                                            $count = 0;
-                                            foreach ($reviews as $rev) {
-                                                if ($rev->book_id == $book->id) {
-                                                    $totalRating += $rev->rating;
-                                                    $count++;
-                                                }
-                                            }
-                                            if ($count > 0) {
-                                                $averageRating = $totalRating / $count;
-                                                // Round average rating to the nearest 0.5
-                                                $roundedRating = round($averageRating * 2) / 2;
-                                                // Output full stars
-                                                $fullStars = floor($roundedRating);
-                                                // Output half star if needed
-                                                $hasHalfStar = $roundedRating - $fullStars >= 0.5;
-                                                for ($i = 0; $i < $fullStars; $i++) {
-                                                    echo '<i class="fa fa-star" ></i>';
-                                                }
-                                                // Output half star if needed
-                                                if ($hasHalfStar) {
-                                                    echo '<i class="fas fa-star-half-alt" ></i>';
-                                                    $fullStars++; // Increment full stars count for spacing
-                                                }
-                                                // Output empty stars to fill the remaining space
-                                                for ($i = $fullStars; $i < 5; $i++) {
-                                                    echo '<i class="fa fa-star text-secondary" ></i>';
-                                                }
-                                                echo '<span>' . number_format($averageRating, 2) . ' ratings (' . $count . ')</span>';
-                                            } else {
-                                                for ($i = 0; $i < 5; $i++) {
-                                                    echo '<i class="fa fa-star text-secondary" ></i>';
-                                                }
-                                                echo '<span>No reviews yet</span>';
-                                            }
-                                            ?>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                    </div>
-                        <div class="tab-pane fade" style="display:flex;flex-wrap: wrap;" id="nav-topics" role="tabpanel" aria-labelledby="nav-topics-tab">
+                                                <!-- Display stars based on rating -->
+                                                <div class="rating">
+                                                    <?php
+                                                    $totalRating = 0;
+                                                    $count = 0;
+                                                    foreach ($reviews as $rev) {
+                                                        if ($rev->book_id == $book->id) {
+                                                            $totalRating += $rev->rating;
+                                                            $count++;
+                                                        }
+                                                    }
+                                                    if ($count > 0) {
+                                                        $averageRating = $totalRating / $count;
+                                                        // Round average rating to the nearest 0.5
+                                                        $roundedRating = round($averageRating * 2) / 2;
+                                                        // Output full stars
+                                                        $fullStars = floor($roundedRating);
+                                                        // Output half star if needed
+                                                        $hasHalfStar = $roundedRating - $fullStars >= 0.5;
+                                                        for ($i = 0; $i < $fullStars; $i++) {
+                                                            echo '<i class="fa fa-star" ></i>';
+                                                        }
+                                                        // Output half star if needed
+                                                        if ($hasHalfStar) {
+                                                            echo '<i class="fas fa-star-half-alt" ></i>';
+                                                            $fullStars++; // Increment full stars count for spacing
+                                                        }
+                                                        // Output empty stars to fill the remaining space
+                                                        for ($i = $fullStars; $i < 5; $i++) {
+                                                            echo '<i class="fa fa-star text-secondary" ></i>';
+                                                        }
+                                                        echo '<span>' . number_format($averageRating, 2) . ' ratings (' . $count . ')</span>';
+                                                    } else {
+                                                        for ($i = 0; $i < 5; $i++) {
+                                                            echo '<i class="fa fa-star text-secondary" ></i>';
+                                                        }
+                                                        echo '<span>No reviews yet</span>';
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" style="display:flex;flex-wrap: wrap;" id="nav-topics" role="tabpanel"
+                            aria-labelledby="nav-topics-tab">
 
-                                @foreach ($courses as $item)
+                            @foreach ($courses as $item)
                                 <div class="course-item cat1 cat3 col-lg-6 col-md-6">
                                     <div class="course-block">
                                         <div class="course-img">
@@ -214,7 +234,8 @@
                                             </div>
                                             <div class="error-content">
                                                 Try click on button to back to books<br>
-                                                <a href="/E_Library" class="btn" style="background-color: #862b84;">Back to books
+                                                <a href="/E_Library" class="btn"
+                                                    style="background-color: #862b84;">Back to books
                                                     Page</a>
                                             </div>
                                         </div>
@@ -224,9 +245,11 @@
                                                 <div class="product-wrap">
                                                     <a href="#" class="">
                                                         @if (!empty($book->img))
-                                                            <img  style="width: 150px !important;height:150px !important;" src="{{ asset('storage/' . $book->img) }}" alt="">
+                                                            <img style="width: 150px !important;height:150px !important;"
+                                                                src="{{ asset('storage/' . $book->img) }}"
+                                                                alt="">
                                                         @else
-                                                            <img  style="width: 150px !important;height:150px !important;"src="{{ asset('build/assets/images/shop/book.webp') }}"
+                                                            <img style="width: 150px !important;height:150px !important;"src="{{ asset('build/assets/images/shop/book.webp') }}"
                                                                 alt="">
                                                         @endif
                                                     </a>
@@ -235,7 +258,8 @@
                                                             class="button product_type_simple add_to_cart_button ajax_add_to_cart">
                                                             <i class="fa fa-shopping-basket"></i>
                                                         </a>
-                                                        <a href="#" class="button wish-list"><i class="fa fa-eye"></i></a>
+                                                        <a href="#" class="button wish-list"><i
+                                                                class="fa fa-eye"></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="woocommerce-product-title-wrap">
@@ -391,14 +415,16 @@
                                     <div>
                                         <span><i class="far fa-user"></i>Full name :</span>
 
-                                <a href="#" class="d-inline-block text-capitalize">{{ $student->first_name }} {{ $student->last_name }}</a>
+                                        <a href="#"
+                                            class="d-inline-block text-capitalize">{{ $student->first_name }}
+                                            {{ $student->last_name }}</a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="text-capitalize">
                                         <span><i class="fa fa-sliders-h"></i>Class :
                                         </span>
-                                        {{$student->class}}
+                                        {{ $student->class }}
                                     </div>
                                 </li>
 
@@ -406,7 +432,7 @@
                                 <li>
                                     <div>
                                         <span><i class="far fa-file-alt"></i>Courses :</span>
-                                        {{$nbcourses}}
+                                        {{ $nbcourses }}
                                     </div>
                                 </li>
 
@@ -415,6 +441,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <section class="section-padding related-course">
@@ -428,145 +455,117 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="course-block">
-                        <div class="course-img">
-                            <img src="assets/images/course/course1.jpg" alt="" class="img-fluid" />
-                            <span class="course-label">Beginner</span>
-                        </div>
+                @foreach ($coursesCategories as $course)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="course-block">
+                            <div class="course-img">
+                                <img src="assets/images/course/course1.jpg" alt="" class="img-fluid">
+                                <span class="course-label">{{ $course->level }}</span>
+                            </div><br />
 
-                        <div class="course-content">
-                            <div class="course-price">$50</div>
-
-                            <h4>
-                                <a href="#">Information About UI/UX Design
-                                    Degree</a>
-                            </h4>
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <span>(5.00)</span>
-                            </div>
-                            <p>
-                                Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Quis, alias.
-                            </p>
-
-                            <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                                <div class="course-meta">
-                                    <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                    <span class="course-duration"><i class="bi bi-badge3"></i>82
-                                        Lessons</span>
+                            <div class="course-content">
+                                <div class="course-price ">
+                                    @if ($course->regular_price && !$course->sale_price)
+                                        <span class="text-sm font-medium text-gray-900"><span class="uppercase"> $
+                                                {{ $course->regular_price }}</span></span>
+                                    @endif
+                                    @if ($course->regular_price && $course->sale_price)
+                                        <span class="text-sm font-medium text-gray-900"><span
+                                                class="line-through pr-2 text-gray-500" style="font-size:35px;">
+                                                ${{ $course->sale_price }}</span><spa class="del">${{ $course->regular_price }}</spa></span>
+                                    @endif
+                                    @if (!$course->regular_price && !$course->sale_price)
+                                        <span class="uppercase">Free</span>
+                                    @endif
                                 </div>
 
-                                <div class="buy-btn">
-                                    <a href="#" class="btn btn-main-2 btn-small">Details</a>
+                                <h4><a href="">{{ $course->title }}</a></h4>
+                                <div class="rating">
+
+                                    @if ($course->rating == 1)
+                                        <!-- Render HTML for a review with a rating of 1 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @elseif($course->rating == 2)
+                                        <!-- Render HTML for a review with a rating of 2 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @elseif($course->rating == 3)
+                                        <!-- Render HTML for a review with a rating of 3 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @elseif($course->rating == 4)
+                                        <!-- Render HTML for a review with a rating of 4 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @elseif($course->rating == 5)
+                                        <!-- Render HTML for a review with a rating of 5 -->
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @else
+                                        <!-- Render HTML for undefined or null rating -->
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <a href="#"><i class="fa fa-star text-secondary"></i></a>
+                                        <span>{{ $course->rating }}.00</span>
+                                    @endif
+
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="course-block">
-                        <div class="course-img">
-                            <img src="assets/images/course/course2.jpg" alt="" class="img-fluid" />
-                            <span class="course-label">Advanced</span>
-                        </div>
+                                <p>{{ $course->description }}</p>
 
-                        <div class="course-content">
-                            <div class="course-price">
-                                $80 <span class="del">$120</span>
-                            </div>
+                                <div class="course-footer d-lg-flex align-items-center justify-content-between">
+                                    <div class="course-meta">
+                                        <span class="course-student"><i
+                                                class="bi bi-group"></i>{{ $course->fake_students_enrolled }}</span>
+                                        <span class="course-duration"><i
+                                                class="bi bi-badge3"></i>{{ $course->nblessonsbycourses }} Lessons</span>
+                                    </div>
 
-                            <h4>
-                                <a href="#">Photography Crash Course for
-                                    Photographer</a>
-                            </h4>
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <span>(5.00)</span>
-                            </div>
-                            <p>
-                                Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Quis, alias.
-                            </p>
+                                    <div class="buy-btn">
+                                        <a href="{{ route('course_detail', $course->id) }}"
+                                            class="btn btn-main-2 btn-small">Details</a>
 
-                            <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                                <div class="course-meta">
-                                    <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                    <span class="course-duration"><i class="bi bi-badge3"></i>82
-                                        Lessons</span>
-                                </div>
+                                    </div>
 
-                                <div class="buy-btn">
-                                    <a href="#" class="btn btn-main-2 btn-small">Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="course-block">
-                        <div class="course-img">
-                            <img src="assets/images/course/course3.jpg" alt="" class="img-fluid" />
-                            <span class="course-label">Expert</span>
-                        </div>
-
-                        <div class="course-content">
-                            <div class="course-price">
-                                $100 <span class="del">$180</span>
-                            </div>
-
-                            <h4>
-                                <a href="#">React – The Complete Guide (React
-                                    Router)</a>
-                            </h4>
-                            <div class="rating">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <span>(5.00)</span>
-                            </div>
-                            <p>
-                                Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Quis, alias.
-                            </p>
-
-                            <div class="course-footer d-lg-flex align-items-center justify-content-between">
-                                <div class="course-meta">
-                                    <span class="course-student"><i class="bi bi-group"></i>340</span>
-                                    <span class="course-duration"><i class="bi bi-badge3"></i>82
-                                        Lessons</span>
-                                </div>
-
-                                <div class="buy-btn">
-                                    <a href="#" class="btn btn-main-2 btn-small">Details</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
+                @if (count($coursesCategories) == 0)
+                    Explore beyond! While there are currently no related courses available, this presents an opportunity to
+                    discover new topics and broaden your horizons. Stay curious, and let your learning journey lead you to
+                    exciting new opportunities!
+                @endif
             </div>
         </div>
     </section>
-
-    
-
     <div class="fixed-btm-top">
         <a href="#top-header" class="js-scroll-trigger scroll-to-top"><i class="fa fa-angle-up"></i></a>
     </div>
     <script>
-
-
         const home = document.getElementById('nav-home-tab')
         const homeContent = document.getElementById('nav-home')
 
@@ -579,18 +578,18 @@
         const feedback = document.getElementById('nav-feedback-tab')
         const feedbackContent = document.getElementById('nav-feedback')
 
-        hiddenShow(instructor,homeContent,instructorContent,topicsContent)
-        hiddenShow(feedback,homeContent,feedbackContent,instructorContent,topicsContent)
+        hiddenShow(instructor, homeContent, instructorContent, topicsContent)
+        hiddenShow(feedback, homeContent, feedbackContent, instructorContent, topicsContent)
 
-        hiddenShow(home,topicsContent,homeContent,instructorContent)
-        hiddenShow(topics,homeContent,topicsContent,instructorContent)
+        hiddenShow(home, topicsContent, homeContent, instructorContent)
+        hiddenShow(topics, homeContent, topicsContent, instructorContent)
 
-        function hiddenShow(div,divContent,divR1,divR2){
-            div.addEventListener('click', function(){
-                    divR1.style.display = 'flex';
-                    divContent.style.display = 'none';
-                    divR2.style.display = 'none';
-                    divR3.style.display = 'none';
+        function hiddenShow(div, divContent, divR1, divR2) {
+            div.addEventListener('click', function() {
+                divR1.style.display = 'flex';
+                divContent.style.display = 'none';
+                divR2.style.display = 'none';
+                divR3.style.display = 'none';
             })
         }
     </script>

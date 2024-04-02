@@ -24,17 +24,17 @@ $count = 0;
                 <div class="header-right float-right">
                     <div class="header-socials">
                         <ul>
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                            <li class="icons" style="width: 40px;"><a href="#"><i class="fab fa-facebook-f icons1"></i></a></li>
+                            <li class="icons"  style="width: 40px;"><a href="#"><i  class="fab fa-twitter icons1"></i></a></li>
+                            <li class="icons"  style="width: 40px; "><a href="#"><i  class="fab fa-linkedin icons1"></i></a></li>
                         </ul>
                     </div>
-                    <div class="header-btn">
-                        <a href="#" class="btn btn-main btn-small"><i class="fa fa-user mr-2"></i>Login /
+                    <div class="header-btn ">
+                        <a href="#" class="btn btn-main btn-small div1"  style="border-radius:15px ;"><i class="fa fa-user mr-2 "></i>Login /
                             Register</a>
                     </div>
-                    <div class="header-btn">
-                        <a href="/dachboard" class="btn btn-main btn-small"><i class="fa fa-user mr-2"></i>Admin </a>
+                    <div class="header-btn " >
+                        <a href="/dachboard" class="btn btn-main btn-small div1 " style="border-radius:15px ;"><i class="fa fa-user mr-2 "></i>Admin </a>
                     </div>
                 </div>
             </div>

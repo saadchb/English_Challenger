@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EnglishChallenger | @yield('title') </title>
+    <link rel="icon" href="{{ asset('build/assets/images/English_Icon.png') }}" type="image/x-icon">
+
 
     <link rel="stylesheet" href=" {{ url('css/adminlte.css') }} ">
 
@@ -48,19 +50,24 @@
         #header {
             height: 70px;
             width: 100%;
-            background-color: #953288;
+            background-color: #07294D;
             position: fixed;
             top: 0;
             z-index: 1;
+            border-bottom: solid 8px #72385c;
         }
-        #search{
-            background-color: #953288;
-            width:200px !important;
-            border:none;
-        }
-        #search:focus{
 
+        #search {
+            background-color: #07294D;
+            width: 200px !important;
+            border: none;
+            padding-right: -15px;
         }
+
+        #search:focus {
+            border: none;
+        }
+
         .mydivheader {
             background-color: #c2b5976b;
         }
@@ -75,7 +82,7 @@
         }
 
         .lessonItem:hover {
-            color: #4d09b3 !important;
+            color: #72385c !important;
         }
 
         #item-curriculum {
@@ -103,9 +110,9 @@
         }
 
         .btnPag {
-            background-color: #953288;
+            background-color: #72385c;
             box-shadow: none;
-            border-color: #953288;
+            border-color: #72385c;
             border-radius: 20px !important;
 
         }
@@ -155,8 +162,8 @@
 <body>
     <header class="d-flex justify-content-end" id="header">
         <div class="input-group rounded my-3">
-            <input type="search" width="200px"  id='search' class="form-control rounded" placeholder="Search"
-                aria-label="Search" aria-describedby="search-addon" />
+            <input type="search" width="200px" style="border: none !important;" id='search'
+                class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         </div>
         <a class="px-3 pt-2 mydivheader" href="{{ route('detailsStudentss.show') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width='50' height='50' class=""
@@ -167,7 +174,7 @@
         </a>
     </header>
     <div class="wrapper" style="margin-top:70px;">
-        <aside style="height:100px;position: fixed;top:70px;background-color:#07294D;"
+        <aside style="height:100px;position: fixed;top:70px;background-color:#07294D;border-right:solid 8px #72385c;"
             class="main-sidebar sidebar-dark-primary elevation-4  ">
 
             <!-- Sidebar -->
@@ -197,10 +204,13 @@
                                                         @csrf
                                                         <input type="hidden" value="{{ $lesson['id'] }}"
                                                             name="lesson_id" />
+                                                        <input type="hidden" value="{{ $lesson['type'] }}"
+                                                            name="type" />
                                                         <div class="list">
                                                             <svg fill="#FFFFFF" width="20px" height="20px"
                                                                 viewBox="-3.5 0 19 19"
-                                                                xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg mr-1">
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                class="cf-icon-svg mr-1">
                                                                 <path
                                                                     d="M11.16 16.153a.477.477 0 0 1-.476.475H1.316a.477.477 0 0 1-.475-.475V3.046a.477.477 0 0 1 .475-.475h6.95l2.893 2.893zm-1.11-9.924H8.059a.575.575 0 0 1-.574-.574V3.679H1.95v11.84h8.102zM3.907 4.92a1.03 1.03 0 1 0 1.029 1.03 1.03 1.03 0 0 0-1.03-1.03zm4.958 3.253h-5.87v1.108h5.87zm0 2.354h-5.87v1.109h5.87zm0 2.354h-5.87v1.109h5.87z"
                                                                     fill-rule="evenodd" />
@@ -213,25 +223,39 @@
                                                                     style="font-size:12px;margin-left:7rem;">{{ $lesson['duration'] }}</span>
                                                             </li>
                                                         </div>
-                                                    </form>
+                                                    </form>vc:\ETUD-OFPPT\_2eme-dev-digital\PROJET-STAGE\Project\ENC\Quiz Application with Timer\index.html
                                                 @endif
                                                 @if (count($quizzes) !== 0)
                                                     @if ($lesson['curriculum_id'] == $curriculum->id && $lesson['type'] == 'quiz')
-                                                        <div class="list">
-                                                            <svg fill="#FFFFFF" width="15px" height="15px"  class="cf-icon-svg"
-                                                                viewBox="0 0 1920 1920"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M960 112.941c-467.125 0-847.059 379.934-847.059 847.059 0 467.125 379.934 847.059 847.059 847.059 467.125 0 847.059-379.934 847.059-847.059 0-467.125-379.934-847.059-847.059-847.059M960 1920C430.645 1920 0 1489.355 0 960S430.645 0 960 0s960 430.645 960 960-430.645 960-960 960m417.905-575.955L903.552 988.28V395.34h112.941v536.47l429.177 321.77-67.765 90.465Z"
-                                                                    fill-rule="evenodd" />
-                                                            </svg>
-                                                            <li id="item-curriculum"
-                                                                class="lesson-item text-light d-inline lessonItem">
-                                                                {{ $lesson['title'] }}<br><span class="text-white-50"
-                                                                    style="font-size:12px;margin-left:7rem;">{{ $lesson['duration'] }}
-                                                                    {{ $lesson['duration_unit'] }}</span>
-                                                            </li>
-                                                        </div>
+                                                        <form id="lessonForm"
+                                                            action="{{ route('curricula.show', $curriculum->course_id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <input type="hidden" value="{{ $lesson['id'] }}"
+                                                                name="lesson_id" />
+                                                            <input type="hidden" value="{{ $lesson['type'] }}"
+                                                                name="type" />
+                                                            <div class="list">
+                                                                <svg fill="#FFFFFF" width="15px" height="15px"
+                                                                    class="cf-icon-svg" viewBox="0 0 1920 1920"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M960 112.941c-467.125 0-847.059 379.934-847.059 847.059 0 467.125 379.934 847.059 847.059 847.059 467.125 0 847.059-379.934 847.059-847.059 0-467.125-379.934-847.059-847.059-847.059M960 1920C430.645 1920 0 1489.355 0 960S430.645 0 960 0s960 430.645 960 960-430.645 960-960 960m417.905-575.955L903.552 988.28V395.34h112.941v536.47l429.177 321.77-67.765 90.465Z"
+                                                                        fill-rule="evenodd" />
+                                                                </svg>
+                                                                <li id="lessonItem" style="cursor: pointer;"
+                                                                    style="background-color: #07294D;"
+                                                                    class="lesson-item text-light d-inline lessonItem">
+
+                                                                    {{ $lesson['title'] }} <br><span
+                                                                        class="text-white-50"
+                                                                        style="font-size:12px;margin-left:7rem;">{{ $lesson['duration'] }}
+                                                                        {{ substr($lesson['duration_unit'], 0, 1) }}</span>
+
+                                                                </li>
+
+                                                            </div>
+                                                        </form>
                                                     @endif
                                                 @endif
                                             @endforeach
@@ -274,47 +298,105 @@
                 <div class="container-fluid">
                     <div class="container-fluid m--8">
                         <div class="px-8 py-4 d-flex justify-content-center ">
-                            <div class="d-flex flex-column" id="video" style="width: 810px;">
-                                <iframe class="mt-3" width="100%" height="465"
-                                    src="https://www.youtube.com/embed/{{ $lessonActive->video_link }}"
-                                    title="YouTube video player"frameborder="0" allowfullscreen></iframe>
-                                <h3 class='my-3 title text-uppercase'><b>{{ $lessonActive->title }}</b></h3>
-                                <p class= 'mb-3 text-gray'>{{ $lessonActive->description }}</p>
-                                <div style="position: sticky; bottom: 0;margin-bottom:1;margin-bottom:0 !important;background-color:#F4F6F9;"
-                                    class="d-flex justify-content-center w-100 navbar p-2  ">
-                                    <div class="jsutify-self-start" style="margin-bottom:0 !important;">
-                                        <form class="d-inline"
-                                            action="{{ route('curriculum_list.prev', $course->id) }}" method="post">
-                                            @csrf
-                                            <input type="hidden" value="{{ $lessonActive->order }}"
-                                                name="lesson_id">
-                                            <button class="btn btn-primary rounded btnPag"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
-                                                    viewBox="0 0 256 512">
-                                                    <path
-                                                        d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"
-                                                        fill="white" />
-                                                </svg> Prev</button>
-                                        </form>
-                                    </div>
-                                    <div class="justify-self-end ms-auto"style="margin-bottom:0 !important;">
-                                        <form class="d-inline"
-                                            action="{{ route('curriculum_list.next', $course->id) }}" method="post">
-                                            @csrf
-                                            <input type="hidden" value="{{ $lessonActive->order }}"
-                                                name="lesson_id">
-                                            <button class="btn btn-primary rounded btnPag">
-                                                Next <svg xmlns="http://www.w3.org/2000/svg" width="20px"
-                                                    height="20px" viewBox="0 0 256 512">
-                                                    <path
-                                                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
-                                                        fill="white" />
-                                                </svg>
-                                            </button>
-                                        </form>
+                            @isset($lessonActive)
+                                <div class="d-flex flex-column" id="video" style="width: 810px;">
+                                    <iframe class="mt-3" width="100%" height="465"
+                                        src="https://www.youtube.com/embed/{{ $lessonActive->video_link }}"
+                                        title="YouTube video player"frameborder="0" allowfullscreen></iframe>
+                                    <h3 class='my-3 title text-uppercase'><b>{{ $lessonActive->title }}</b></h3>
+                                    <p class= 'mb-3 text-gray'>{{ $lessonActive->description }}</p>
+                                    <div style="background-color:#F4F6F9;"
+                                        class="d-flex justify-content-center w-100 navbar p-2  ">
+                                        <div class="jsutify-self-start" style="margin-bottom:0 !important;">
+                                            <form class="d-inline"
+                                                action="{{ route('curriculum_list.prev', $course->id) }}" method="post">
+                                                @csrf
+                                                <input type="hidden" value="{{ $lessonActive->order }}"
+                                                    name="lesson_id">
+                                                <button class="btn btn-primary rounded btnPag"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                                        viewBox="0 0 256 512">
+                                                        <path
+                                                            d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"
+                                                            fill="white" />
+                                                    </svg> Prev</button>
+                                            </form>
+                                        </div>
+                                        <div class="justify-self-end ms-auto"style="margin-bottom:0 !important;">
+                                            <form class="d-inline"
+                                                action="{{ route('curriculum_list.next', $course->id) }}" method="post">
+                                                @csrf
+                                                <input type="hidden" value="{{ $lessonActive->order }}"
+                                                    name="lesson_id">
+
+                                                <button class="btn btn-primary rounded btnPag">
+                                                    Next <svg xmlns="http://www.w3.org/2000/svg" width="20px"
+                                                        height="20px" viewBox="0 0 256 512">
+                                                        <path
+                                                            d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
+                                                            fill="white" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endisset
+                            @isset($quizActive)
+                                @foreach ($questions as $question)
+                                    @if ($question->question_type == 'true_or_false')
+                                        <ol>
+                                            <div>
+                                                <li>{{ $question->question_type }}</li>
+                                                <div class="text-black-50">
+                                                    {{ $question->description }}
+                                                </div>
+                                                <div>
+                                                    @foreach ($options as $option)
+                                                        @if ($option->question_id == $question->id)
+                                                            <input type='radio' name="same" value="{{$option->option_text}}">
+                                                            <label>{{$option->option_text}}</label>
+                                                        @endif
+                                                        @endforeach
+                                                </div>
+                                            </div>
+                                    @endif
+                                    @if ($question->question_type == 'multi_choice')
+
+                                        <div>
+                                            <li>{{ $question->question_type }}</li>
+                                            <div class="text-black-50">
+                                                {{ $question->description }}
+                                            </div>
+                                            <div>
+                                                @foreach ($options as $option)
+                                                    @if ($option->question_id == $question->id)
+                                                        <input type='checkbox' value="{{$option->option_text}}">
+                                                        <label>{{$option->option_text}}</label>
+                                                    @endif
+                                                    @endforeach
+                                            </div>
+                                        </div>
+                                @endif
+                                @if ($question->question_type == 'single_choice')
+                                        <div>
+                                            <li>{{ $question->question_type }}</li>
+                                            <div class="text-black-50">
+                                                {{ $question->description }}
+                                            </div>
+                                            <div>
+                                                @foreach ($options as $option)
+                                                    @if ($option->question_id == $question->id)
+                                                        <input type='radio' name="single_choice" value="{{$option->option_text}}">
+                                                        <label>{{$option->option_text}}</label>
+                                                    @endif
+                                                    @endforeach
+                                            </div>
+                                        </div>
+                                @endif
+                                @endforeach
+                            </ol>
+                            @endisset
                         </div>
                     </div>
                 </div>
@@ -373,6 +455,7 @@
                         }
                     });
             }
+
             function SubmitForm() {
                 const eleT = document.querySelectorAll(".lesson-item");
                 for (let i = 0; i < eleT.length; i++) {
