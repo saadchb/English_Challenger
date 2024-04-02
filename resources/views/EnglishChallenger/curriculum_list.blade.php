@@ -11,6 +11,7 @@
 
 
     <link rel="stylesheet" href=" {{ url('css/adminlte.css') }} ">
+    <link rel="stylesheet" href="{{ asset('storage/assets/css/style2.css') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
@@ -223,7 +224,7 @@
                                                                     style="font-size:12px;margin-left:7rem;">{{ $lesson['duration'] }}</span>
                                                             </li>
                                                         </div>
-                                                    </form>vc:\ETUD-OFPPT\_2eme-dev-digital\PROJET-STAGE\Project\ENC\Quiz Application with Timer\index.html
+                                                    </form>
                                                 @endif
                                                 @if (count($quizzes) !== 0)
                                                     @if ($lesson['curriculum_id'] == $curriculum->id && $lesson['type'] == 'quiz')
@@ -343,153 +344,160 @@
                                 </div>
                             @endisset
                             @isset($quizActive)
-                                @foreach ($questions as $question)
-                                    @if ($question->question_type == 'true_or_false')
-                                        <ol>
-                                            <div>
-                                                <li>{{ $question->question_type }}</li>
-                                                <div class="text-black-50">
-                                                    {{ $question->description }}
-                                                </div>
-                                                <div>
-                                                    @foreach ($options as $option)
-                                                        @if ($option->question_id == $question->id)
-                                                            <input type='radio' name="same" value="{{$option->option_text}}">
-                                                            <label>{{$option->option_text}}</label>
-                                                        @endif
-                                                        @endforeach
-                                                </div>
-                                            </div>
+                                <section style="width: 600px;">
+                                    @foreach ($questions as $key => $question)
+                                        @if ($question->question_type == 'true_or_false')
+                            </div>
+
+                            <div class="que_text data" data-bs-parent="{{ $question->question_type }}">
+                                {{ $key + 1 }} .<span> Ture or false?</span>
+                            </div>
+                            <div class="que_text"><span> {{ $question->description }}</span></div>
+                            <div class="option_list">
+                                @foreach ($options as $option)
+                                    @if ($option->question_id == $question->id)
+                                        <div class="option"><span>{{ $option->option_text }}</span>
+                                        </div>
                                     @endif
-                                    @if ($question->question_type == 'multi_choice')
-
-                                        <div>
-                                            <li>{{ $question->question_type }}</li>
-                                            <div class="text-black-50">
-                                                {{ $question->description }}
-                                            </div>
-                                            <div>
-                                                @foreach ($options as $option)
-                                                    @if ($option->question_id == $question->id)
-                                                        <input type='checkbox' value="{{$option->option_text}}">
-                                                        <label>{{$option->option_text}}</label>
-                                                    @endif
-                                                    @endforeach
-                                            </div>
-                                        </div>
-                                @endif
-                                @if ($question->question_type == 'single_choice')
-                                        <div>
-                                            <li>{{ $question->question_type }}</li>
-                                            <div class="text-black-50">
-                                                {{ $question->description }}
-                                            </div>
-                                            <div>
-                                                @foreach ($options as $option)
-                                                    @if ($option->question_id == $question->id)
-                                                        <input type='radio' name="single_choice" value="{{$option->option_text}}">
-                                                        <label>{{$option->option_text}}</label>
-                                                    @endif
-                                                    @endforeach
-                                            </div>
-                                        </div>
-                                @endif
                                 @endforeach
-                            </ol>
-                            @endisset
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </section>
+                        @endif
+                        @if ($question->question_type == 'multi_choice')
+                            <div>
+
+                                <div class="que_text data" data-bs-parent="{{ $question->question_type }}">
+                                    {{ $key + 1 }} .<span> Multi choice?</span>
+                                </div>
+                                <div class="que_text"><span> {{ $question->description }}</span></div>
+                                <div class="option_list">
+                                    @foreach ($options as $option)
+                                        @if ($option->question_id == $question->id)
+                                            <div class="option"><span>{{ $option->option_text }}</span>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($question->question_type == 'single_choice')
+                            <div>
+                                <div class="que_text data" data-bs-parent="{{ $question->question_type }}">
+                                    {{ $key + 1 }} .<span> Single choice?</span>
+                                </div>
+                                <div class="que_text"><span> {{ $question->description }}</span></div>
+                                <div class="option_list">
+                                    @foreach ($options as $option)
+                                        @if ($option->question_id == $question->id)
+                                            <div class="option">
+                                                <span>{{ $option->option_text }}</span>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                        @endforeach
+                </section>
+
+            @endisset
+            </>
         </div>
-        <script>
-            var el = document.getElementById("wrapper");
-            var toggleButton = document.getElementById("menu-toggle");
-            document.addEventListener("DOMContentLoaded", function() {
-                var listItems = document.querySelectorAll("#link");
+    </div>
+    </section>
+    </div>
 
-                listItems.forEach(function(item) {
-                    item.addEventListener("click", function() {
+    <script src="{{ asset('storage/assets/js/script2.js') }}"></script>
+    <script src="{{ asset('storage/assets/js/questions.js') }}"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        document.addEventListener("DOMContentLoaded", function() {
+            var listItems = document.querySelectorAll("#link");
 
-                        listItems.forEach(function(li) {
-                            li.classList.remove("active");
-                        });
+            listItems.forEach(function(item) {
+                item.addEventListener("click", function() {
 
-                        item.classList.add("active");
+                    listItems.forEach(function(li) {
+                        li.classList.remove("active");
                     });
+
+                    item.classList.add("active");
                 });
             });
+        });
 
-            // JavaScript to highlight active link
-            document.addEventListener("DOMContentLoaded", function() {
-                // Get the current URL path
-                var path = window.location.pathname;
+        // JavaScript to highlight active link
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the current URL path
+            var path = window.location.pathname;
 
-                // Get all the links in the sidebar
-                var links = document.querySelectorAll("#sidebar-wrapper .list-group-item");
+            // Get all the links in the sidebar
+            var links = document.querySelectorAll("#sidebar-wrapper .list-group-item");
 
-                // Loop through each link
-                links.forEach(function(link) {
-                    // Check if the link's href matches the current URL path
-                    if (link.getAttribute("href") === path) {
-                        // Add the "active" class to the link
-                        link.classList.add("active");
+            // Loop through each link
+            links.forEach(function(link) {
+                // Check if the link's href matches the current URL path
+                if (link.getAttribute("href") === path) {
+                    // Add the "active" class to the link
+                    link.classList.add("active");
+                }
+            });
+        });
+
+        function confirmation(ev, id) {
+            ev.preventDefault();
+            var urlToRedirect = document.getElementById('delete-form-' + id).getAttribute('action');
+            console.log(urlToRedirect);
+            swal({
+                    title: "Are you sure to delete this",
+                    text: "You won't be able to revert this delete",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                .then((willCancel) => {
+                    if (willCancel) {
+                        document.getElementById('delete-form-' + id).submit();
                     }
                 });
-            });
+        }
 
-            function confirmation(ev, id) {
-                ev.preventDefault();
-                var urlToRedirect = document.getElementById('delete-form-' + id).getAttribute('action');
-                console.log(urlToRedirect);
-                swal({
-                        title: "Are you sure to delete this",
-                        text: "You won't be able to revert this delete",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true
-                    })
-                    .then((willCancel) => {
-                        if (willCancel) {
-                            document.getElementById('delete-form-' + id).submit();
-                        }
-                    });
+        function SubmitForm() {
+            const eleT = document.querySelectorAll(".lesson-item");
+            for (let i = 0; i < eleT.length; i++) {
+                eleT[i].addEventListener("click", function() {
+                    this.parentElement.parentElement.submit();
+                });
             }
+        }
+        SubmitForm()
 
-            function SubmitForm() {
-                const eleT = document.querySelectorAll(".lesson-item");
-                for (let i = 0; i < eleT.length; i++) {
-                    eleT[i].addEventListener("click", function() {
-                        this.parentElement.parentElement.submit();
-                    });
-                }
+        const curricula = @json($curricula);
+        const lessons = @json($lessons);
+        const quizzes = @json($quizzes);
+        const lessonsMix = @json($lessonsMix);
+
+        document.getElementById('search').addEventListener("input", function(e) {
+            eleTH = document.querySelectorAll(".lesson-item");
+            console.log(eleTH)
+            console.log('eleTH')
+            for (let i = 0; i < eleTH.length; i++) {
+                eleTH[i].addEventListener("click", function() {
+                    // this.parentElement.parentElement.submit();
+                    console.log('hello from li ')
+                });
             }
-            SubmitForm()
+            const value = e.target.value.toLowerCase();
+            const cuuriSearch = curricula.filter((cr) => cr.title.toLowerCase().search(value) !== -1)
+            search(cuuriSearch, lessons, quizzes, lessonsMix);
+        })
 
-            const curricula = @json($curricula);
-            const lessons = @json($lessons);
-            const quizzes = @json($quizzes);
-            const lessonsMix = @json($lessonsMix);
-
-            document.getElementById('search').addEventListener("input", function(e) {
-                eleTH = document.querySelectorAll(".lesson-item");
-                console.log(eleTH)
-                console.log('eleTH')
-                for (let i = 0; i < eleTH.length; i++) {
-                    eleTH[i].addEventListener("click", function() {
-                        // this.parentElement.parentElement.submit();
-                        console.log('hello from li ')
-                    });
-                }
-                const value = e.target.value.toLowerCase();
-                const cuuriSearch = curricula.filter((cr) => cr.title.toLowerCase().search(value) !== -1)
-                search(cuuriSearch, lessons, quizzes, lessonsMix);
-            })
-
-            function search(curr, lessons, quizzes, lessonMix) {
-                let html = ``;
-                curr.forEach(cr => {
-                    html += `
+        function search(curr, lessons, quizzes, lessonMix) {
+            let html = ``;
+            curr.forEach(cr => {
+                html += `
         <div class="accordion-item">
             <h2 class="accordion-header" id="heading${cr.title}">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -502,12 +510,12 @@
                 id="collapse${cr.title}" aria-labelledby="heading${cr.title}">
                 <div class="accordion-body">`;
 
-                    if (lessons.length !== 0) {
-                        html += `<ol class="curriculum custom-ordered-list">`;
+                if (lessons.length !== 0) {
+                    html += `<ol class="curriculum custom-ordered-list">`;
 
-                        lessonMix.forEach(lesson => {
-                            if (lesson.curriculum_id == cr.id && lesson.type == 'lesson') {
-                                html += `
+                    lessonMix.forEach(lesson => {
+                        if (lesson.curriculum_id == cr.id && lesson.type == 'lesson') {
+                            html += `
                     <form id="lessonForm" action="/curriculum_list/${cr.course_id}" method="post">
                         @csrf
                         <div class="list">
@@ -520,11 +528,11 @@
                         </li>
                         </div>
                     </form>`;
-                            }
+                        }
 
-                            if (quizzes.length !== 0) {
-                                if (lesson.curriculum_id == cr.id && lesson.type == 'quiz') {
-                                    html += ` <div class="list"><svg fill="#FFFFFF" width="15px" height="15px" class=' mr-1'
+                        if (quizzes.length !== 0) {
+                            if (lesson.curriculum_id == cr.id && lesson.type == 'quiz') {
+                                html += ` <div class="list"><svg fill="#FFFFFF" width="15px" height="15px" class=' mr-1'
                                                                 viewBox="0 0 1920 1920"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path
@@ -536,23 +544,24 @@
                                                         </li>
                                                         </div>
                         `
-                                }
                             }
-                        });
-                        html += `</ol>`;
-                    }
-                    html += `
+                        }
+                    });
+                    html += `</ol>`;
+                }
+                html += `
                 </div>
             </div>
         </div>`;
-                });
+            });
 
 
-                // Append the generated HTML to a container element
-                document.getElementById('accordionExample').innerHTML = html;
-            }
-        </script>
-        @include('layouts.js')
+            // Append the generated HTML to a container element
+            document.getElementById('accordionExample').innerHTML = html;
+        }
+    </script>
+
+    @include('layouts.js')
 
 </body>
 

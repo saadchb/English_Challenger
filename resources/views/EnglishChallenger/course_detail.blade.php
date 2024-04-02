@@ -194,7 +194,7 @@
                                                                                     </li>
                                                                                 @endif
                                                                                 @if ($lesson['curriculum_id'] == $curriculum->id && $lesson['type'] == 'quiz')
-                                                                                <li>    
+                                                                                <li>
                                                                                         <form
                                                                                         action="{{ route('curricula.show', $course->id) }}"
                                                                                         method="post">
