@@ -346,7 +346,7 @@
                                 <section style="width: 600px;">
                                     @foreach ($questions as $key => $question)
                                         @if ($question->question_type == 'true_or_false')
-                            </div>
+
 
                             <div class="que_text data" data-bs-parent="{{ $question->question_type }}">
                                 {{ $key + 1 }} .<span> Ture or false?</span>
@@ -398,13 +398,10 @@
                             </div>
                         @endif
                         @endforeach
-                </section>
-
-            @endisset
-            </>
+                            
+                        @endisset
+                    </section>
         </div>
-    </div>
-    </section>
     </div>
 
     <script src="{{ asset('storage/assets/js/script2.js') }}"></script>
