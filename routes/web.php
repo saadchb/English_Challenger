@@ -17,6 +17,7 @@ use App\Http\Controllers\CartController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\StudentController;
 use App\Models\detiailsStudent;
 use App\Models\Cart;
 use App\Models\Curriculum;
