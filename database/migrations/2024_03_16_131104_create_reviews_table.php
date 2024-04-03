@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->longText('comments')->nullable();
-            $table->float('rating')->default(0);
+            $table->float('rating')->default(0.5);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name')->nullable();

@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categoriesbooks', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');     
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');                   
+            $table->softDeletes();
             $table->timestamps();
-        });    }
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('carts');
     }
 };

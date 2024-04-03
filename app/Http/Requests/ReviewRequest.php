@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class bookRequest extends FormRequest
+class ReviewRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,19 @@ class bookRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'comments' => 'required',          
+            'name' =>'required',
+            'email'=>'required | email',
+            'rating' =>'required ',
+            'school_photos' => 'image|mimes:jpeg,webp,png,jpg,gif|max:2048'
 
-            'title' => 'required|string',
-            'description' => 'required|string',
-        'img' => 'required|image|mimes:jpeg,webp,png,jpg,gif|max:2048',
-            'file_path' => 'file|mimes:pdf|max:10240',
+        ];
 
+    }
+    public function messages():array
+    {
+        return [
+                'rating'=>"Please select star rating, you can't leave a review without stars",
         ];
     }
 }

@@ -13,13 +13,13 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DetailsStudentController;
+use App\Http\Controllers\CartController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\StudentController;
-use App\Models\Curriculum;
-use App\Models\detailsStudent;
 use App\Models\detiailsStudent;
+use App\Models\Cart;
+use App\Models\Curriculum;
 
 Route::get('/',[CourseController::class, 'indexEn'])->name('EnglishChallenger.index');
 Route::get('/dachboard',function(){
@@ -37,6 +37,8 @@ Route::get('/E_Library',[BookController::class,'E_Library'])->name('EnglishCalle
 Route::get('/Schools_list',[SchoolController::class,'Schools_list'])->name('EnglishCallenger.Schools_list');
 Route::get('/school/{id}', [SchoolController::class, 'show_school']);
 Route::post('/school/store',[ReviewController::class,'store'])->name('school.store');
+Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
+// Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
 
 Route::get('/page-certifcate',function(){
     return view('EnglishChallenger.page-certifcate');
@@ -67,8 +69,14 @@ Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name(
 
 Route::post('/curriculum_list/next/{id}', [CurriculumController::class, 'next'])->name('curriculum_list.next');
 Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])->name('curriculum_list.prev');
+///
+
 
 Route::resource('/books',BookController::class);
-Route::resource('/detailsStudents', DetailsStudentController::class);
-Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('detailsStudentss.show');
-///
+Route::get('/E_library/book/{id}',[BookController::class,'show'])->name('EnglishChallenger.show');
+Route::get('/E_Library',[BookController::class,'E_Library'])->name('EnglishCallenger.E_Library');
+Route::get('/E_Library/Categories/{id}',[CategorieController::class, 'show'])->name('EnglishCallenger.show');
+
+Route::get('/cart',[CartController::class,'index'])->name('EnglishChallenger.cart');
+Route::post('/cart',[CartController::class,'store'])->name('cart.store');
+Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');

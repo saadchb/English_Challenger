@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\bookRequest;
 use App\Models\Book;
+use App\Models\Cart;
 use App\Models\Categorie;
+use App\Models\categories_books;
 use App\Models\CategoriesBooks;
 use App\Models\review;
 use App\Models\Tag;
@@ -29,34 +31,42 @@ class BookController extends Controller
     }
     public function E_Library(Request $request)
     {
-        if (request('search1')) {
-            $books = Book::where('title', "like", '%' . request('search1') . '%')->paginate(8);
+        // Fetch all books or apply search filter
+        if ($request->filled('search1')) {
+            $books = Book::where('title', 'like', '%' . $request->input('search1') . '%')->paginate(8);
         } else {
-            $books = Book::query()->latest()->paginate(8);
-        }
-        $orderBy = $request->input('orderby');
-
-        // Perform sorting based on the selected option
-        if ($orderBy === 'popularity') {
-            // Sort by popularity logic
-        } elseif ($orderBy === 'rating') {
-            // Sort by average rating logic
-        } elseif ($orderBy === 'latest') {
-            // Sort by latest logic
-        } elseif ($orderBy === 'price_low_high') {
-            // Sort by price: low to high logic
-        } elseif ($orderBy === 'price_high_low') {
-            // Sort by price: high to low logic
-        } else {
-            // Default sorting logic
+            $books = Book::latest()->paginate(8);
         }
 
-        $reviews = review::all();
-        
-        $categories = Categorie::join('categories_books', 'categories.id', '=', 'categories_books.categorie_id')->get();
+        // Check if price range filter is applied
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $minPrice = $request->input('min_price');
+            $maxPrice = $request->input('max_price');
+            $filteredBooks = Book::whereBetween('regular_price', [$minPrice, $maxPrice])->get();
+        } else {
+            $filteredBooks = $books; // Assign all books if no price filter applied
+        }
 
-        return view('EnglishChallenger.E_library', ['books' => $books, 'reviews' => $reviews, 'categories' => $categories]);
+        // Fetch reviews and categories
+        $reviews = Review::all();
+
+        $categorys = categories_books::distinct('categorie_id')->pluck('categorie_id')->toArray();
+        $categories = Categorie::whereIn('id', $categorys)->get();
+        foreach ($categories as $category) {
+            $category->books_count = categories_books::where('categorie_id', $category->id)->count();
+        }
+        $cartBooks = Cart::pluck('book_id')->toArray();
+        // Pass data to the view
+        return view('EnglishChallenger.E_library', [
+            'books' => $books,
+            'filteredBooks' => $filteredBooks,
+            'reviews' => $reviews,
+            'cartBooks'=>$cartBooks,
+            'categories' => $categories
+        ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -70,7 +80,7 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(bookRequest $request)
     {
 
 
@@ -104,7 +114,7 @@ class BookController extends Controller
         if (!empty($categories)) {
             // Create CategoriesBooks records for each category
             foreach ($categories as $category) {
-                CategoriesBooks::create([
+                categories_books::create([
                     'book_id' => $id, // Assuming the foreign key is book_id, adjust if necessary
                     'categorie_id' => $category
                 ]);
@@ -118,9 +128,37 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(string $id)
     {
-        //
+
+        $book = Book::findOrFail($id);
+        $cartBooks = Cart::pluck('book_id')->toArray();
+
+        // Get the category ID of the specific book
+        $category_ids = categories_books::where('book_id', $id)->pluck('categorie_id')->toArray();
+
+        // Get all books that belong to the same categories
+        $categories_books = Book::whereIn('id', function ($query) use ($category_ids) {
+            $query->select('book_id')
+                  ->from('categories_books')
+                  ->whereIn('categorie_id', $category_ids);
+        })->get();
+
+        $categorys = categories_books::distinct('categorie_id')->pluck('categorie_id')->toArray();
+        $categories = Categorie::whereIn('id', $categorys)->get();
+        foreach ($categories as $category) {
+            $category->books_count = categories_books::where('categorie_id', $category->id)->count();
+        }
+        $currentCategoryId = $id;
+        $review = review::all();
+        return view('EnglishChallenger.book', [
+            'book' => $book,
+            'categories_books' => $categories_books,
+            'categories' => $categories
+            ,'currentCategoryId'=>$currentCategoryId,
+            'review'=>$review,
+            'cartBooks'=>$cartBooks
+        ]);
     }
 
     /**
@@ -150,10 +188,10 @@ class BookController extends Controller
 
         // Update image file if provided
         if ($request->hasFile('img')) {
-            // Delete old image
-            Storage::disk('public')->delete($book->img);
-            // Store new image
+            // Store the new image file
             $imagePath = $request->file('img')->store('images', 'public');
+
+            // Update the image path attribute of the famille model
             $book->img = $imagePath;
         }
 
@@ -173,9 +211,9 @@ class BookController extends Controller
         $categories = $request->input('categories');
 
         if ($categories) {
-            CategoriesBooks::where('book_id', $id)->delete();
+            categories_books::where('book_id', $id)->delete();
             foreach ($categories as $categorie) {
-                CategoriesBooks::create(array(
+                categories_books::create(array(
                     'book_id' => $id,
                     'categorie_id' => $categorie
                 ));

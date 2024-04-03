@@ -1,19 +1,41 @@
 @extends('layouts.app')
 @section('title', 'library')
 @section('content')
+<?php
+
+use App\Models\Book;
+use App\Models\Categorie;
+use App\Models\categories_books;
+
+$categorys = categories_books::distinct('categorie_id')->pluck('categorie_id')->toArray();
+$categories = Categorie::whereIn('id', $categorys)->get();
+foreach ($categories as $category) {
+    $category->books_count = categories_books::where('categorie_id', $category->id)->count();
+}
+
+$totalBooks = App\Models\categories_books::count();
+if (request('search1')) {
+    $books = Book::where('title', "like", '%' . request('search1') . '%')->paginate(8);
+} else {
+    $books = Book::query()->latest()->paginate(8);
+}
+$categories_books = categories_books::join('categories', 'categories.id', '=', 'categories_books.categorie_id')->join('books', 'books.id', '=', 'categories_books.book_id')->get();
+$BookN = Book::join('categories_books', 'books.id', '=', 'categories_books.book_id')->count();
+$reviews = App\Models\review::all();
+?>
 <section id="books-bg" class="page-header" style="background-image: url('../images/bg/books-book.webp'); background-size: cover; background-position: center;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="page-header-content">
-                    <h1><b style=" color: #FF1949;">|</b> Books List</h1>
+                    <h1><b style=" color: #FF1949;">|</b> Books List </h1>
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <a href="/">HOME</a>
+                            <a href="/">e-library</a>
                         </li>
                         <li class="list-inline-item">/</li>
                         <li class="list-inline-item">
-                            e-library
+                            books
                         </li>
                     </ul>
                 </div>
@@ -31,13 +53,11 @@
                     <div class="section-title">
                         <h2 class="title d-block text-left-sm">Books Shoping</h2>
                         <p class="woocommerce-result-count">
-                            @php
-                            $totalBooks = App\Models\Book::count();
-                            @endphp
 
-                            Showing {{ $books->count() }} of {{ $totalBooks }} results
+
+                            Showing {{ $BookN }} of {{ $totalBooks }} results
                         </p>
-                        <form class="woocommerce-ordering float-lg-right" method="get" action="/E_library
+                        <form class="woocommerce-ordering float-lg-right" method="get" action="/E_library 
                         ">
                             <select name="orderby" class="orderby form-control" aria-label="Shop order">
                                 <option value="default" selected="selected">Default sorting</option>
@@ -60,11 +80,13 @@
                             </div>
                             <div class="error-content">
                                 Try click on button to back to books<br>
-                                <a href="/E_Library" class="btn" style="background-color: #862b84;">Back to books Page</a>
+                                <a href="/E_Library/Categories/{{$categorie->id}}" class="btn" style="background-color: #862b84;">Back to books Page</a>
                             </div>
                         </div>
                         @else
-                        @foreach ($books as $book)
+
+                        @foreach ($categories_books as $book)
+                        @if($book->categorie_id == $categorie->id)
                         <li class="product ml-4">
                             <div class="product-wrap">
                                 <a href="#" class="">
@@ -123,8 +145,6 @@
                             <!-- Display stars based on rating -->
                             <div class="rating">
                                 <?php
-
-
                                 $totalRating = 0;
                                 $count = 0;
                                 foreach ($reviews as $rev) {
@@ -135,21 +155,16 @@
                                 }
                                 if ($count > 0) {
                                     $averageRating = $totalRating / $count;
-                                    // Round average rating to the nearest 0.5
                                     $roundedRating = round($averageRating * 2) / 2;
-                                    // Output full stars
                                     $fullStars = floor($roundedRating);
-                                    // Output half star if needed
                                     $hasHalfStar = $roundedRating - $fullStars >= 0.5;
                                     for ($i = 0; $i < $fullStars; $i++) {
                                         echo '<i class="fa fa-star" ></i>';
                                     }
-                                    // Output half star if needed
                                     if ($hasHalfStar) {
                                         echo '<i class="fas fa-star-half-alt" ></i>';
                                         $fullStars++; // Increment full stars count for spacing
                                     }
-                                    // Output empty stars to fill the remaining space
                                     for ($i = $fullStars; $i < 5; $i++) {
                                         echo '<i class="fa fa-star text-secondary" ></i>';
                                     }
@@ -163,31 +178,12 @@
                                 ?>
                             </div>
                         </li>
+                        @endif
                         @endforeach
                         @endif
                     </ul>
 
-                    @if ($books->isEmpty())
-                    <nav class="woocommerce-pagination">
-                        <ul class="page-numbers">
-                            <li></li>
-                        </ul>
-                    </nav>
-                    @else
-                    <nav class="woocommerce-pagination">
-                        <ul class="page-numbers">
-                            @if ($books->previousPageUrl())
-                            <li><a class="next page-numbers" href="{{ $books->previousPageUrl() }}"><i class="fas fa-long-arrow-alt-left"></i></a></li>
-                            @endif
-                            @for ($i = 1; $i <= $books->lastPage(); $i++)
-                                <li><a class="page-numbers" href="{{ $books->url($i) }}">{{ $i }}</a></li>
-                                @endfor
-                                @if ($books->nextPageUrl())
-                                <li><a class="next page-numbers" href="{{ $books->nextPageUrl() }}"><i class="fas fa-long-arrow-alt-right"></i></a></li>
-                                @endif
-                        </ul>
-                    </nav>
-                    @endif
+
                 </div>
 
                 <!-- product Sidebar start-->
@@ -198,6 +194,7 @@
                         <form method="get" action="#">
                             <div class="price_slider_wrapper">
                                 <div class="price_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+
                                     <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 22.2222%; width: 44.4444%;"></div>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 22.2222%;"></span>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 66.6667%;"></span>
@@ -227,12 +224,11 @@
                         <h3 class="widget-title">Product categories</h3>
                         <ul class="product-categories nav flex-column">
                             @foreach ($categories->unique('title') as $category)
-                            <li class="cat-item cat-item-20 nav-item ">
-                                <a href="/E_Library/Categories/{{$category->id}}">
+                            <li class="cat-item cat-item-20 nav-item {{ $category->id == $currentCategoryId ? ' current-cat' : '' }}">
+                                <a href="/E_Library/Categories/{{ $category->id }}">
                                     {{ $category->title }}
                                 </a>
                                 <span class="count">({{ $category->books_count }})</span>
-
                             </li>
                             @endforeach
                         </ul>
@@ -246,36 +242,5 @@
 
 
 </main>
-<script>
-    $(function() {
-        var min_price = 0;
-        var max_price = 90;
 
-        $("#price_slider").slider({
-            range: true,
-            min: 0,
-            max: 100,
-            values: [min_price, max_price],
-            slide: function(event, ui) {
-                $("#min_price").val(ui.values[0]);
-                $("#max_price").val(ui.values[1]);
-                $("#price_label .from").text("$" + ui.values[0]);
-                $("#price_label .to").text("$" + ui.values[1]);
-            }
-        });
-    });
-</script>
-<script>
-    // Loop through each book and attach event listeners
-    function SubmitForm() {
-        const eleT = document.querySelectorAll(".submitButton");
-        for (let i = 0; i < eleT.length; i++) {
-            eleT[i].addEventListener("click", function() {
-                this.parentElement.submit();
-                // console.log('helo');
-            });
-        }
-    }
-    SubmitForm()
-</script>
 @endsection

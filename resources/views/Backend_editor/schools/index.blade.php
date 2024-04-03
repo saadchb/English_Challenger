@@ -37,7 +37,7 @@
                                 <tr style="background-color: #dedede;">
                                     <th>school logo</th>
                                     <th>school name</th>
-                                    <th>name headmaster</th>
+                                    <th>type</th>
                                     <th>school city</th>
                                     <th>course </th>
                                     <th colspan="4"></th>
@@ -47,16 +47,23 @@
                             <tbody>
                                 @foreach ($schools as $school)
                                 <tr>
-                                    <!-- <td><img src="{{ asset('storage/'.$school->school_logo) }}" alt="logo" style="height: 50px;width:100px;"></td> -->
-                                    <td><img src="{{ asset('storage/'.$school->school_logo) }}" alt="IMG" style="height: 50px;width:100px;"></td>
+                                @if(!empty($school->school_photo))
+
+                                <td><img src="{{ asset('storage/'. $school->school_photo)}}"  onerror="this.onerror=null;this.src='{{ $school->school_photo }}';" class="img-fluid"  alt="IMG" style="height: 50px;width:100px;"></td>
+
+                                    @else
+                                    <td><img src="{{ asset('build/assets/images/shop/school_thumb.png')}}" style="height:50px; width: auto;" class="img-fluid" alt=""></td>
+                                    @endif
+
                                     <td>{{$school->school_name}}</td>
-                                    <td>{{$school->name_headmaster}}</td>
+                                    <td>{{$school->type}}</td>
                                     <td>{{$school->school_city}}</td>
+                                    <td>{{$school->id}}</td>
                                     <td>1</td>
                                     <td>
                                         <form id="delete-form-{{$school->id}}" action="{{route('Schools.destroy', $school->id)}}" method="POST">
                                             <a href="{{route('Schools.edit', $school->id)}}" class="btn btn-success btn-sm">
-                                                <i class="fa-solid fa-pen"></i> 
+                                                <i class="fa-solid fa-pen"></i>
                                             </a>
                                             <a href="{{route('Schools.show', $school->id)}}" class="btn btn-info btn-sm">
                                                 <i class="fa-solid fa-eye"></i>
@@ -83,6 +90,6 @@
     </div>
 <br><br>
 
-<center style="margin-left: 40%;">{{ $schools->links() }}</center>
+<center >{{ $schools->links() }}</center>
 
 @endsection

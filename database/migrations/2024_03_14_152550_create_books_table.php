@@ -11,27 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
-            $table->time('duration');
-            $table->boolean('priview');
-            $table->text('video_link')->nullable();
-            // $table->text('video_link');
-            $table->string('type')->default('lesson');
-            $table->integer('order')->nullable();
+            $table->string('img')->nullable();
+            $table->string('file_path'); // Column to store the file path
+            $table->string('description');
+            $table->float('sale_price')->nullable();
+            $table->float('regular_price')->nullable();
             $table->softDeletes();
-            $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('books');
     }
 };
-

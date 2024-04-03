@@ -23,9 +23,16 @@ class SchoolRequest extends FormRequest
     {
         return [
             'comments' => 'required',
+            'school_city' => 'required',
+            'phone_number' => 'required',
+            'adresse' => 'required',
+
+            'description' => 'required',
+            'school_logo' => 'required',
+            'school_name'=> 'required',
             'name' =>'required',
             'email'=>'required | email',
-            'rating' =>'required ',
+            // 'rating' =>'required ',
             'school_photos' => 'image|mimes:jpeg,webp,png,jpg,gif|max:2048'
 
         ];

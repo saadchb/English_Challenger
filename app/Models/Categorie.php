@@ -12,6 +12,6 @@ class Categorie extends Model
 
     protected $fillable = ['title'];
     public function Books() {
-        return $this->belongsToMany('App\Models\Book', 'CategoriesBooks', 'book_id', 'categorie_id');
+        return $this->belongsToMany('App\Models\Book', 'categories_books', 'book_id', 'categorie_id');
     }
 }

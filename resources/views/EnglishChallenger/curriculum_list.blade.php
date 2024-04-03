@@ -180,7 +180,6 @@
 
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
-
                 <div class="accordion" id="accordionExample">
                     @foreach ($curricula as $curriculum)
                         <div id="itemAccordion" class="accordion-item">

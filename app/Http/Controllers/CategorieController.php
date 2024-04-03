@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Categorie;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -41,9 +42,17 @@ class CategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categorie $categorie)
+    public function show(string $id)
+
     {
-        //
+        $cartBooks = Cart::pluck('book_id')->toArray();
+        $currentCategoryId = $id;
+        $categorie=Categorie::findOrFail($id);
+        return view('EnglishChallenger.categorie', [
+             'categorie' => $categorie,
+             'currentCategoryId'=>$currentCategoryId,
+            'cartBooks'=>$cartBooks
+            ]);
     }
 
     /**

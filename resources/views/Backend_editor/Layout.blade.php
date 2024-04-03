@@ -271,7 +271,7 @@
     }
   </script>
 
-@include('layouts.js')
+@include('Backend_editor.js')
 
 
 </body>

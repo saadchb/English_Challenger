@@ -10,9 +10,8 @@ use App\Models\review;
 $review = review::all();
 $courses = Course::query()->latest()->paginate(4);
 ?>
-
 <section class="page-wrapper edutim-course-single course-single-style-3">
-    <div id="333" class="course-single-wrapper" style="background-image: url('{{ Storage::url($school->school_logo)}}') !important;">
+<div id="333" class="course-single-wrapper" style="background-image: url('{{ $school->school_photo }}') !important;" onerror="this.style.backgroundImage = 'url({{ Storage::url($school->school_photo)}})';">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -111,7 +110,8 @@ $courses = Course::query()->latest()->paginate(4);
                                 <h4 class="course-title"><i class="fas fa-image" aria-hidden="true"></i> Images </h4>
                                 <ul>
                                     <li>
-                                        <img src="{{ asset('storage/'.$school->school_logo)}}" class="img-fluid" width="735" height="384" class="align size-medium_large geodir-image-0 embed-responsive-item embed-item-cover-xy w-100 p-0 m-0 mw-100 border-0">
+
+                                        <img src="{{ asset('storage/'. $school->school_photo)}}" onerror="this.onerror=null;this.src='{{ $school->school_photo }}';" class="img-fluid" width="735" height="384" class="align size-medium_large geodir-image-0 embed-responsive-item embed-item-cover-xy w-100 p-0 m-0 mw-100 border-0">
                                     </li>
                                     @foreach ($review as $rev)
                                     @if ($rev->school_id == $school->id && $rev->school_photos)
@@ -215,11 +215,12 @@ $courses = Course::query()->latest()->paginate(4);
                 <div class="comments-form p-5 mt-4">
                     <h3>Leave a comment </h3>
                     <p>Your email address will not be published. Required fields are marked *</p>
-                    <form action="{{route('school.store')}}" class="comment_form" method="Post" enctype="multipart/form-data">
+                    <form action="{{route('course.store')}}" class="comment_form" method="Post" enctype="multipart/form-data">
                         @csrf
                         <div class="row form-row">
                             <div class="form-group form-control h-auto rounded px-3 pt-3 pb-3 gd-rating-input-group">
                                 <div class="gd-rating-outer-wrap gd-rating-input-wrap d-flex justify-content-between flex-nowrap w-100">
+                                    <span style="font-weight: lighter;">* click on star for rating</span>
                                     <div class="gd-rating gd-rating-input gd-rating-type-font-awesome">
                                         <span class="gd-rating-wrap d-inline-flex position-relative c-pointer">
                                             <!-- Five star icons -->
@@ -236,12 +237,16 @@ $courses = Course::query()->latest()->paginate(4);
                                     </div>
                                     <span class="gd-rating-label font-weight-bold fw-bold p-0 m-0">Overall</span>
                                 </div>
-                            </div><br>
+                            </div>
+                            <br>
                             @error('rating')
                             <div style="color: red;">{{$message}}</div><br>
                             @enderror
+                            <!-- @error('rating')
+                            <div style="color: red;">{{$message}}</div><br>
+                            @enderror -->
                             <div class="col-lg-12">
-                                <input class="form-control form-control-lg" id="formFileLg" name="school_photos" type="file" style= "direction: rtl;"><br>
+                                <input class="form-control form-control-lg" id="formFileLg" name="school_photos" type="file" style="direction: rtl;"><br>
                             </div>
                             @error('school_photos')
                             <div style="color: red;">{{$message}}</div><br>
@@ -263,7 +268,7 @@ $courses = Course::query()->latest()->paginate(4);
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                    <input type="text" name="name" class="form-control" placeholder="Name"><br>
                                 </div>
                             </div><br>
                             @error('name')
@@ -271,7 +276,7 @@ $courses = Course::query()->latest()->paginate(4);
                             @enderror
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" name="email" class="form-control" placeholder="Email">
+                                    <input type="text" name="email" class="form-control" placeholder="Email"><br>
                                 </div>
                             </div><br>
                             @error('email')
@@ -436,30 +441,4 @@ $courses = Course::query()->latest()->paginate(4);
         </div>
 </section>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const stars = document.querySelectorAll(".star");
-        const ratingText = document.querySelector(".gd-rating-text");
-
-        // Add event listeners to each star icon
-        stars.forEach(function(star) {
-            star.addEventListener("mouseenter", function() {
-                const value = parseInt(star.dataset.value);
-                // Update color of stars based on the hovered star's value
-                stars.forEach(function(s, index) {
-                    s.style.color = index < value ? "gold" : "#afafaf";
-                });
-                // Update rating text based on the hovered star's value
-                const ratings = ["Terrible", "Poor", "Average", "Very Good", "Excellent"];
-                ratingText.textContent = ratings[value - 1];
-            });
-
-            star.addEventListener("click", function() {
-                const value = parseInt(star.dataset.value);
-                // Store selected rating in hidden input field
-                document.getElementById("rating").value = value;
-            });
-        });
-    });
-</script>
 @endsection

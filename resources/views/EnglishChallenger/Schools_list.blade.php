@@ -40,7 +40,12 @@ $courses = Course::query()->latest()->paginate(4);
                 <div class="col-lg-8 mb-4 mb-lg-0">
                     <div class="section-title">
                         <h2 class="title d-block text-left-sm">Schools</h2>
-                        <p class="woocommerce-result-count"> Showing 1–16 of 17 results</p>
+                        <p class="woocommerce-result-count">
+                            @php
+                            $totalSchool = App\Models\School::count();
+                            @endphp
+
+                            Showing {{ $schools->count() }} of {{ $totalSchool }} results</p>
                         <form class="woocommerce-ordering float-lg-right" method="get">
                             <select name="orderby" class="orderby form-control" aria-label="Shop order">
                                 <option value="" selected="selected">Default sorting</option>
@@ -51,7 +56,7 @@ $courses = Course::query()->latest()->paginate(4);
                             <input type="hidden" name="paged" value="1">
                         </form>
                     </div>
-                    <ul class="products columns-3 ">
+                    <ul class="products columns-4 ">
                         @if ($schools->isEmpty())
                         <!-- Display error message -->
                         <div class="error-page text-center error-404 not-found">
@@ -65,10 +70,16 @@ $courses = Course::query()->latest()->paginate(4);
                         </div>
                         @else
                         @foreach ($schools as $school)
-                        <li class="product mb-4" style="width: 19rem; display: inline-block;">
+                        <li class="product mb-4" style="width: 19rem;">
                             <div class="product-wrap">
                                 <a href="#" class="">
-                                    <img src="{{ asset('build/assets/images/blog/blog3.png')}}" class="img-fluid" alt="">
+                                    @if(!empty($school->school_logo))
+
+                                    <img src="{{ asset('storage/'. $school->school_photo)}}" onerror="this.onerror=null;this.src='{{ $school->school_photo }}';" style="height:222px;" class="img-fluid" alt="school photo">
+
+                                    @else
+                                    <img src="{{ asset('build/assets/images/shop/school_thumb.png')}}" style="height:222px;" class="img-fluid" alt="">
+                                    @endif
                                 </a>
                                 <div class="product-btn-wrap">
                                     <a href="/school/{{$school->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
@@ -82,17 +93,15 @@ $courses = Course::query()->latest()->paginate(4);
                             <span class="onsale">{{$school->school_city}}</span>
                             <span class="price">
                                 <ins>
-                                    <span class="woocommerce-Price-amount amount">
-                                        <span class="woocommerce-Price-currencySymbol"><i class='fas fa-map-marker-alt' style="color: #862b84;"></i></span>
+                                    <span class="woocommerce-Price-amount amount m-2">
+                                        <span class="woocommerce-Price-currencySymbol "><i class='fas fa-map-marker-alt' style="color: #862b84;"></i></span>
                                         {{$school->adresse}}</span><br>
                                     <span class="woocommerce-Price-amount amount">
-                                        <span class="woocommerce-Price-currencySymbol"><i class='fas fa-phone-alt' style="color: #862b84;"></i></span>
+                                        <span class="woocommerce-Price-currencySymbol"><i class='fas fa-phone' style="color: #862b84;"></i></span>
                                         {{$school->phone_number}}</span>
                                 </ins>
                             </span>
                             <br>
-
-
                             <!-- Display stars based on rating -->
                             <div class="rating">
                                 <?php
@@ -133,8 +142,6 @@ $courses = Course::query()->latest()->paginate(4);
                                 }
                                 ?>
                             </div>
-
-
                         </li>
                         @endforeach
                         @endif
@@ -152,15 +159,32 @@ $courses = Course::query()->latest()->paginate(4);
                             @if ($schools->previousPageUrl())
                             <li><a class="next page-numbers" href="{{ $schools->previousPageUrl() }}"><i class="fas fa-long-arrow-alt-left"></i></a></li>
                             @endif
-                            @for ($i = 1; $i <= $schools->lastPage(); $i++)
-                                <li><a class="page-numbers" href="{{ $schools->url($i) }}">{{ $i }}</a></li>
+
+                            @if ($schools->currentPage() > 3)
+                            <li><a class="page-numbers" href="{{ $schools->url(1) }}">1</a></li>
+                            @if ($schools->currentPage() > 4)
+                            <li><span>...</span></li>
+                            @endif
+                            @endif
+
+                            @for ($i = max(1, $schools->currentPage() - 2); $i <= min($schools->lastPage(), $schools->currentPage() + 2); $i++)
+                                <li><a class="page-numbers @if ($i == $schools->currentPage()) current @endif" href="{{ $schools->url($i) }}">{{ $i }}</a></li>
                                 @endfor
-                                @if ($schools->nextPageUrl())
-                                <li><a class="next page-numbers" href="{{ $schools->nextPageUrl() }}"><i class="fas fa-long-arrow-alt-right"></i></a></li>
-                                @endif
+
+                                @if ($schools->currentPage() < $schools->lastPage() - 2)
+                                    @if ($schools->currentPage() < $schools->lastPage() - 3)
+                                        <li><span>...</span></li>
+                                        @endif
+                                        <li><a class="page-numbers" href="{{ $schools->url($schools->lastPage()) }}">{{ $schools->lastPage() }}</a></li>
+                                        @endif
+
+                                        @if ($schools->nextPageUrl())
+                                        <li><a class="next page-numbers" href="{{ $schools->nextPageUrl() }}"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+                                        @endif
                         </ul>
                     </nav>
                     @endif
+
                 </div>
 
                 <!-- product Sidebar start-->

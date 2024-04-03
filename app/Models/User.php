@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function review():HasMany{
         return $this->hasMany(review::class);
     }
+    public function cart():HasMany{
+        return $this->hasMany(cart::class);
+    }
+    
 }

@@ -12,8 +12,9 @@ class School extends Model
     use SoftDeletes;
 
     use HasFactory;
-    protected $fillable = 
+    protected $fillable =
     [
+        'type','school_photo',
         'school_name',
         'school_logo',
         'phone_number',

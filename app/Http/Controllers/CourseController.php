@@ -381,7 +381,7 @@ class CourseController extends Controller
             ->count();
             $course->fake_students_enrolled += $nbstudents;
             if(empty($course->fake_students_enrolled)) {
-                $course->fake_students_enrolled = 0; 
+                $course->fake_students_enrolled = 0;
             }
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }

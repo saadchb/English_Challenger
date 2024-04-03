@@ -41,4 +41,8 @@ class Course extends Model
     public function student(){
         return $this->belongsToMany('App\Models\Student');
     }
+    public function cart():HasMany{
+        return $this->hasMany(cart::class);
+    }
+
 }

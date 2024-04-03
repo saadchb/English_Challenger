@@ -27,14 +27,14 @@
                                 <label for="school_name"><strong>School :</strong></label>
                                 <input type="text " value="{{$school->school_name}}" class="form-control" id="school_name" placeholder="school name" name="school_name"><br>
                                 @error('school_name')
-                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                <div class="text-danger m-2">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <label for="phone_number"><strong>phone number :</strong></label>
                                 <input type="number" value="{{$school->phone_number}}" class="form-control" id="phone_number" placeholder=" phone number" name="phone_number"><br>
                                 @error('phone_number')
-                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                <div class="text-danger m-2">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                 <label for="email"><strong>email :</strong></label>
                                 <input type="email" value="{{$school->email}}"  placeholder="email of school" class="form-control" id="email" name="email"><br>
                                 @error('email')
-                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                <div class="text-danger m-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -55,14 +55,14 @@
                             <label for="name_headmaster"><strong>headmaster  :</strong></label>
                             <input type="text" value="{{$school->name_headmaster}}"  placeholder="headmaster name" class="form-control" id="name_headmaster"  name="name_headmaster"><br>
                             @error('name_headmaster')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            <div class="text-danger m-2">{{ $message }}</div>
                             @enderror
                             </div>
                             <div class="col-md-6">
                             <label for="phone_number_headmaster"><strong>headmaster number :</strong></label>
                             <input type="number"  value="{{$school->phone_number_headmaster}}"  placeholder="number" class="form-control" id="phone_number_headmaster" name="phone_number_headmaster"><br>
                             @error('phone_number_headmaster')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            <div class="text-danger m-2">{{ $message }}</div>
                             @enderror
                             </div>
                         </div>
@@ -73,14 +73,14 @@
                             <label for="school_city"><strong>city :</strong></label>
                             <input type="text"  value="{{$school->school_city}}" placeholder="the city of school" class="form-control" id="school_city" name="school_city"><br>
                             @error('school_city')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            <div class="text-danger m-2">{{ $message }}</div>
                             @enderror
                             </div>
                             <div class="col-md-6">
                             <label for="adresse"><strong>adress :</strong></label>
                             <input type="text" value="{{$school->adresse}}"  placeholder="adresse of school" class="form-control" id="adresse" name="adresse"><br>
                             @error('adresse')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            <div class="text-danger m-2">{{ $message }}</div>
                             @enderror
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                             <label for="description"><strong>description :</strong></label>
                             <input type="text"  value="{{$school->description}}" placeholder="description" class="form-control" id="description" name="description"><br>
                             @error('description')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            <div class="text-danger m-2">{{ $message }}</div>
                             @enderror
                             </div>
                             <div class="col-md-6">

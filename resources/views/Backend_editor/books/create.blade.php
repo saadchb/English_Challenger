@@ -27,8 +27,8 @@
                         <div class="grid grid-cols-6 gap-9">
                             <div class="col-span-6 sm:col-span-3"><label for="title" class="block text-sm font-medium text-gray-700 ">Title</label><input id="title" type="text" name="title" class="mt-1 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" value="{{ old('title') }}">
                                 @error('title')
-                                <div class="alert alert-danger">
-                                    {{ $message }}
+                                <div class="text-danger m-2">
+                                    {{ $message }} *
                                 </div>
                                 @enderror
 
@@ -39,7 +39,7 @@
                             <label for="regular" class="block text-sm font-medium text-gray-700 ">regular price</label>
                             <input id="regular" type="number" name="regular_price" value="{{ old('regular_price') }}" class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2" step="0.01" min="0" value="false">
                             @error('regular price')
-                            <div class="alert alert-danger">
+                            <div class="text-danger m-2">
                                 {{ $message }}
                             </div>
                             @enderror
@@ -47,7 +47,7 @@
                             <label for="sale" class="block text-sm font-medium text-gray-700 ">sale price</label>
                             <input id="sale" type="number" name="sale_price" value="{{ old('sale_price') }}" class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2" step="0.01" min="0" value="false">
                             @error('sale_price')
-                            <div class="alert alert-danger">
+                            <div class="text-danger m-2">
                                 {{ $message }}
                             </div>
                             @enderror
@@ -60,7 +60,7 @@
                             </div>
                             <textarea id="description" rows="5" name="description" class="mt-1 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 ">{{ old('description') }}</textarea>
                             @error('description')
-                            <div class="alert alert-danger">
+                            <div class="text-danger m-2">
                                 {{ $message }}
                             </div>
                             @enderror
@@ -106,7 +106,7 @@
                                             </div>
                                         </div>
                                         @error('file_path')
-                                        <div class="alert alert-danger">
+                                        <div class="text-danger m-2">
                                             {{ $message }}
                                         </div>
                                         @enderror
@@ -127,7 +127,7 @@
                                                 </div>
                                             </div>
                                             @error('img')
-                                            <div class="alert alert-danger">
+                                            <div class="text-danger m-2">
                                                 {{ $message }}
                                             </div>
                                             @enderror

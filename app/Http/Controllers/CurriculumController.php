@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Curriculum;
 use App\Models\Lesson;
+<<<<<<< HEAD
 use App\Models\Option;
+=======
+>>>>>>> 9a518c8fde3299e064290b87be0b8a92d5c2371e
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +36,10 @@ class CurriculumController extends Controller
      */
     public function store(Request $request)
     {
+         $request->validate([
+           'title' => 'required',
+
+        ]);
         Curriculum::create($request->all());
         return redirect()->back();
     }

@@ -14,12 +14,12 @@ class Book extends Model
 
     protected $fillable = ['title','description','img','file_path','sale_price','regular_price'];
     public function Categories() {
-        return $this->belongsToMany('App\Models\Categorie', 'CategoriesBooks', 'book_id', 'categorie_id');
+        return $this->belongsToMany('App\Models\Categorie', 'categories_books', 'book_id', 'categorie_id');
     }
     public function review():HasMany{
         return $this->hasMany(review::class);
     }
-    public function student(){
-        return $this->belongsToMany('App\Models\Student');
+    public function cart():HasMany{
+        return $this->hasMany(cart::class);
     }
 }

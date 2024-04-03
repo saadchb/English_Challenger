@@ -20,7 +20,6 @@ class StudentController extends Controller
         {
             $students = Student::query()->latest()->paginate(7);
         }
-
         return view('Backend_editor.Students.index',['students'=>$students]);
     }
 
@@ -55,10 +54,8 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $id)
+    public function show(Student $student)
     {
-        $student = Student::findOrFail($id);
-        
         return view('Backend_editor.Students.show',['student'=>$student]);
     }
 
@@ -97,7 +94,6 @@ class StudentController extends Controller
 
         // Save the updated model
         $student->save();
-
         return redirect()->route('Students.index')->with('success','Student updated successfully.');
     }
 

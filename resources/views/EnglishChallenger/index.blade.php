@@ -5,7 +5,9 @@
 
 use App\Models\Course;
 use App\Models\review;
+use App\Models\Book;
 
+$bookcount = Book::count();
 $reviews = review::all();
 
 ?>
@@ -79,7 +81,6 @@ $reviews = review::all();
 
                 <div class="about-content">
                     Welcome to EnglishChallenger, your ultimate English Language destination! Immerse in engaging video quizzes focused on English language and culture, covering vocabulary, grammar, and pronunciation. Our goal is to make learning a thrilling challenge. Our website is exclusively dedicated to entertaining and educating beginners and those refining their English skills.
-
                     Join our immersive platform exploring vocabulary, grammar, idioms, expressions, and English culture. Dive into captivating quizzes, riddles, and scientific insights, tailored for curious minds. Elevate your English proficiency through our quizzes, exercises, and beginner-friendly content. Learning should be enjoyable; come learn and enjoy every moment with EnglishChallenger!
                 </div>
             </div>
@@ -108,12 +109,82 @@ $reviews = review::all();
         <div class="col-lg-10">
             <div class="embed-responsive embed-responsive-16by9">
                 <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/90dMLavEFOM" allowfullscreen></iframe>
-                </div>
+            </div>
+
+
         </div>
+
     </div>
+
     </div>
+
     <!--course-->
 </section>
+<section class="section-padding popular-course-slider">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="course-slides owl-carousel owl-theme owl-loaded owl-drag">
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage" style="transition: all 0.25s ease 0s; width: 4338px; transform: translate3d(-2365px, 0px, 0px);">
+                                <div class="owl-item cloned" style="width: 384.291px; margin-right: 10px;">
+                                    <div class="course-block">
+                                        <div class="course-img">
+                                            <img  src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-item cloned" style="width: 384.291px; margin-right: 10px;">
+                                    <div class="course-block">
+                                        <div class="course-img">
+                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="owl-item cloned" style="width: 384.291px; margin-right: 10px;">
+                                    <div class="course-block">
+                                        <div class="course-img">
+                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="owl-item" style="width: 384.291px; margin-right: 10px;">
+                                    <div class="course-block">
+                                        <div class="course-img">
+                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="owl-item" style="width: 384.291px; margin-right: 10px;">
+                                    <div class="course-block">
+                                        <div class="course-img">
+                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="owl-item" style="width: 384.291px; margin-right: 10px;">
+                                    <div class="course-block">
+                                        <div class="course-img">
+                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 <section class="section-padding popular-course bg-grey">
     <div class="container">
         <div class="row align-items-center">
@@ -174,16 +245,16 @@ $reviews = review::all();
                             <p>Happy Students</p>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-md-6">
                         <div class="counter-item">
-                            <i class="ti-microphone-alt"></i>
+                            <i class="fas fa-book"></i>
                             <div class="count">
-                                <span class="counter h2">24</span>
+                                <span class="counter h2">{{$bookcount+100}}</span>
                             </div>
-                            <p>Creative Events</p>
+                            <p>More Than 100+ Books</p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -206,7 +277,7 @@ $reviews = review::all();
             @foreach($categorieByCourses as $categorieByCourse)
             <div class="col-lg-3 col-md-6">
                 <div class="course-category style-1">
-                <div class="category-icon">
+                    <div class="category-icon">
                         <i class="bi bi-layer"></i>
                     </div>
                     <h4><a href="#">{{$categorieByCourse->title}}</a></h4>
@@ -237,37 +308,37 @@ $reviews = review::all();
             </div>
         </div>
         <div class="row justify-content-center">
-    <div class="col-lg-12">
-        <div class="testimonials-slides owl-carousel owl-theme">
-            @foreach ($reviews as $review)
-            <div class="review-item">
-                <div class="client-info" style="height: 650px;">
-                    <i class="bi bi-quote"></i>
-                    <p>{{ $review->comments }}</p>
-                    <div class="rating">
-                        @for ($i = 0; $i < $review->rating; $i++)
-                            <a href="#"><i class="fa fa-star"></i></a>
-                        @endfor
+            <div class="col-lg-12">
+                <div class="testimonials-slides owl-carousel owl-theme">
+                    @foreach ($reviews as $review)
+                    <div class="review-item">
+                        <div class="client-info" style="height: 650px;">
+                            <i class="bi bi-quote"></i>
+                            <p>{{ $review->comments }}</p>
+                            <div class="rating">
+                                @for ($i = 0; $i < $review->rating; $i++)
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    @endfor
+                            </div>
+                        </div>
+                        <div class="client-desc">
+                            <div class="client-img">
+                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
+                            </div>
+                            <div class="client-text">
+                                @if (!empty($review))
+                                <h4></h4>
+                                @else
+                                <h4>{{ $review->user->name }}</h4>
+                                @endif
+                                <span class="designation">Students</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="client-desc">
-                    <div class="client-img">
-                        <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
-                    </div>
-                    <div class="client-text">
-                         @if (!empty($review))
-                         <h4></h4>
-                         @else
-                         <h4>{{ $review->user->name }}</h4>
-                          @endif
-                        <span class="designation">Students</span>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-            @endforeach
         </div>
-    </div>
-</div>
 
     </div>
 </section>
