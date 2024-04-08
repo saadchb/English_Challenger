@@ -8,7 +8,7 @@ use App\Models\review;
 use App\Models\Book;
 
 $bookcount = Book::count();
-$reviews = review::all();
+$reviews = review::limit(7)->get();
 
 ?>
 <section class="banner">
@@ -314,7 +314,7 @@ $reviews = review::all();
                     <div class="review-item">
                         <div class="client-info" style="height: 650px;">
                             <i class="bi bi-quote"></i>
-                            <p>{{ $review->comments }}</p>
+                            <p >{{ $review->comments }}</p>
                             <div class="rating">
                                 @for ($i = 0; $i < $review->rating; $i++)
                                     <a href="#"><i class="fa fa-star"></i></a>

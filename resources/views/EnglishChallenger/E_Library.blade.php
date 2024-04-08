@@ -37,11 +37,10 @@
 
                             Showing {{ $books->count() }} of {{ $totalBooks }} results
                         </p>
-                        <form class="woocommerce-ordering float-lg-right" method="get" action="/E_library
-                        ">
-                            <select name="orderby" class="orderby form-control" aria-label="Shop order">
-                                <option value="default" selected="selected">Default sorting</option>
-                                <option value="popularity">Sort by popularity</option>
+                        <form class="woocommerce-ordering float-lg-right" method="get" action="/E_library">
+
+                            <select name="orderby" class="submitButton orderby form-control" aria-label="Shop order">
+                                <option value="default">Default sorting</option>
                                 <option value="rating">Sort by average rating</option>
                                 <option value="latest">Sort by latest</option>
                                 <option value="price_low_high">Sort by price: low to high</option>
@@ -74,18 +73,19 @@
                                     <img src="{{ asset('build/assets/images/shop/book.webp')}}" alt="">
                                     @endif
                                 </a>
+                                <!-- <div class="product-btn-wrap"> -->
                                 @if(!(in_array($book->id, $cartBooks)))
                                 <!-- Show this if the book is already in the cart -->
-                                <div class="product-btn-wrap">
-                                    <form action="{{ route('cart.store') }}" method="POST">
+                                <form id="btn-wr" action="{{ route('cart.store') }}" method="POST">
+                                    <div class="product-btn-wrap">
                                         @csrf
                                         <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                        <button type="submit" class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart">
-                                            <i class="fa fa-shopping-basket "></i>
-                                        </button>
-                                    </form>
-                                    <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
-                                </div>
+                                        <a> <button class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart">
+                                                <i class="fa fa-shopping-basket "></i>
+                                            </button></a>
+                                        <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
+                                    </div>
+                                </form>
                                 @else
                                 <div class="product-btn-wrap">
                                     <!-- Show this if the book is not in the cart -->
@@ -97,7 +97,6 @@
                                     <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
                                 </div>
                                 @endif
-
                             </div>
                             <div class="woocommerce-product-title-wrap">
                                 <h2 class="woocommerce-loop-product__title">
@@ -193,27 +192,25 @@
                 <!-- product Sidebar start-->
                 <div class="col-lg-4 widget-area ">
 
+                    <!-- Add the price filter section -->
                     <section id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
                         <h3 class="widget-title">Filter by price</h3>
-                        <form method="get" action="#">
+                        <form id="price_filter_form" method="get" action="{{ route('filter.products') }}">
                             <div class="price_slider_wrapper">
-                                <div class="price_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                    <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 22.2222%; width: 44.4444%;"></div>
-                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 22.2222%;"></span>
-                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 66.6667%;"></span>
-                                </div>
+                                <div id="price_slider" class="price_slider"></div>
                                 <div class="price_slider_amount" data-step="10">
-                                    <input type="text" id="min_price" name="min_price" value="0" data-min="0" placeholder="Min price" style="display: none;">
-                                    <input type="text" id="max_price" name="max_price" value="90" data-max="90" placeholder="Max price" style="display: none;">
+                                    <input type="hidden" id="min_price" name="min_price" value="{{ $minPrice }}">
+                                    <input type="hidden" id="max_price" name="max_price" value="{{ $maxPrice }}">
                                     <button type="submit" class="button">Filter</button>
                                     <div class="price_label">
-                                        Price: <span class="from">$20</span> — <span class="to">$60</span>
+                                        Price: <span id="min_price_label" class="from"></span> — <span id="max_price_label" class="to"></span>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                             </div>
                         </form>
                     </section>
+
                     <section id="woocommerce_product_search-2" class="widget woocommerce widget_product_search">
                         <form role="search" method="get" class="woocommerce-product-search" action="#">
                             <label class="screen-reader-text" for="woocommerce-product-search-field-0">
@@ -246,36 +243,10 @@
 
 
 </main>
-<script>
-    $(function() {
-        var min_price = 0;
-        var max_price = 90;
 
-        $("#price_slider").slider({
-            range: true,
-            min: 0,
-            max: 100,
-            values: [min_price, max_price],
-            slide: function(event, ui) {
-                $("#min_price").val(ui.values[0]);
-                $("#max_price").val(ui.values[1]);
-                $("#price_label .from").text("$" + ui.values[0]);
-                $("#price_label .to").text("$" + ui.values[1]);
-            }
-        });
-    });
-</script>
-<script>
-    // Loop through each book and attach event listeners
-    function SubmitForm() {
-        const eleT = document.querySelectorAll(".submitButton");
-        for (let i = 0; i < eleT.length; i++) {
-            eleT[i].addEventListener("click", function() {
-                this.parentElement.submit();
-                // console.log('helo');
-            });
-        }
-    }
-    SubmitForm()
-</script>
+
+
+
+
+
 @endsection

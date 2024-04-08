@@ -44,7 +44,7 @@
                         <div class="widget ">
                             <div style=" font-size: large; display: inline-flex; width: auto;padding:3%;justify-content: center;">
                                 <p><i class="fas fa-exclamation mr-4"></i>A {{$book->title}} {{ session('error') }}</p>
-                                <a style="float: right !important; margin-left: 150px !important; background-color: #862b84;" href="{{ route('EnglishChallenger.cart') }}" class="btn btn-mai btn-small">Go to Cart</a>
+                                <a style="float: right !important; margin-left: 150px !important; background-color: #babe48;" href="{{ route('EnglishChallenger.cart') }}" class="btn btn-mai btn-small">Go to Cart</a>
                             </div>
                         </div>
 
@@ -93,19 +93,18 @@
 
                             </form>
                         </div><br><br>
-                        <div class="course-widget course-share d-flex justify-content-between align-items-center">
-                            <span>Share</span><br>
-                            <ul class="social-share list-inline" style="margin-right: 220px !important;">
-                                <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a>
-                                </li>
-                                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a>
-                                </li>
-                                <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a>
-                                </li>
-                            </ul>
+                        <div class="course-sidebar">
+                            <div class="course-widget course-share d-flex justify-content-between align-items-center">
+                                <span>Share :</span>
+                                <ul class="social-share list-inline">
+                                    <li class="list-inline-item"><a href="#" class="share-btn" data-platform="facebook"><i class="fab fa-facebook"></i></a></li>
+                                    <li class="list-inline-item"><a href="#" class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li class="list-inline-item"><a href="#" class="share-btn" data-platform="linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                    <li class="list-inline-item"><a href="#" class="share-btn" data-platform="pinterest"><i class="fab fa-pinterest"></i></a></li>
+                                </ul>
+                            </div>
                         </div>
+
 
                     </div>
                 </div>
@@ -134,7 +133,7 @@
                             <a href="/E_Library/Categories/{{ $category->id }}">
                                 {{ $category->title }}
                             </a>
-                            <span class="count">({{ $category->books_count }})</span>
+                            <span class="count">({{ $category->course_count }})</span>
                         </li>
                         @endforeach
                     </ul>
@@ -345,24 +344,20 @@
                         }
                         ?>
                     </div><br>
-                    @if((in_array($book->id, $cartBooks)))
-                    <!-- Show this if the book is already in the cart -->
-                    <button type="submit" style="background-color: #862b84; " class="text-outline"> <a href="/cart">
-                        </a><i class="fa fat-arrow-down"></i>
-                    </button>
+                    @if(!(in_array($books->id, $cartBooks)))
 
-                    @else
                     <!-- Show this if the book is already in the cart -->
                     <form action="{{ route('cart.store') }}" method="POST">
                         @csrf
-                        <button type="submit" class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart">
-                            <a href="#">
-                                <i class="fa fa-cart-plus"></i>
-                            </a>
-                        </button>
+                        <input type="hidden" name="book_id" value="{{ $books->id }}">
+                        <a href="#" class="btn btn-mai2 btn-small submitButton "> <i class="fa fa-cart-plus " style="size: 15px;"></i> Add to Cart</a>
                     </form>
 
-
+                    @else
+                    <!-- Show this if the book is already in the cart -->
+                    <a href="/cart" class="btn btn-mai2 btn-small">
+                        <!-- <i class="fa-regular fa-cart-arrow-down"></i> -->
+                        <i class="fa fa-cart-arrow-down" style="size: 15px;"></i> View Cart </a>
                     @endif
                 </li>
                 @endforeach
@@ -416,5 +411,31 @@
     }
     SubmitForm()
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Add click event listener to all share buttons
+        var shareButtons = document.querySelectorAll(".share-btn");
+        shareButtons.forEach(function(button) {
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+                var platform = this.getAttribute("data-platform");
+                // Call function to share based on selected platform
+                shareTo(platform);
+            });
+        });
 
+        // Function to handle sharing based on selected platform
+        function shareTo(platform) {
+            // Define sharing URLs for different platforms
+            var shareURLs = {
+                "facebook": "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href,
+                "twitter": "https://twitter.com/share?url=" + window.location.href,
+                "linkedin": "https://www.linkedin.com/shareArticle?url=" + window.location.href,
+                "pinterest": "https://pinterest.com/pin/create/button/?url=" + window.location.href
+            };
+            // Open sharing window for selected platform
+            window.open(shareURLs[platform], "_blank", "width=600,height=400");
+        }
+    });
+</script>
 @endsection

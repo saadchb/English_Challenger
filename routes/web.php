@@ -14,9 +14,11 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DetailsStudentController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StudentController;
 use App\Models\detiailsStudent;
 use App\Models\Cart;
@@ -41,9 +43,7 @@ Route::post('/school/store',[ReviewController::class,'store'])->name('school.sto
 Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
 // Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
 
-Route::get('/page-certifcate',function(){
-    return view('EnglishChallenger.page-certifcate');
-});
+Route::get('/page-certifcate',[BookController::class,'certifcat'])->name('EnglishCallenger.page-certifcate');
 Route::get('/course_detail/{id}', [CourseController::class, 'show2'])->name('course_detail');
 Route::get('/course_list',[CourseController::class,'indexCr']);
 
@@ -82,4 +82,13 @@ Route::get('/cart',[CartController::class,'index'])->name('EnglishChallenger.car
 Route::post('/cart',[CartController::class,'store'])->name('cart.store');
 Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('detailsStudentss.show');
+Route::get('/checkout',[CheckoutController::class,'index'])->name('chekout.index');
+
+Route::get('/checkout/order-received',[CheckoutController::class,'order'])->name('order.order-received');
+Route::post('/Checkou/order-received/store',[CheckoutController::class,'store'])->name('order.store');
+Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('detailsStudents.show');
+
+Route::get('/filter-products', [BookController::class,'E_Library'])->name('filter.products');
+Route::get('/E_library', [BookController::class, 'E_Library'])->name('e_library');
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');

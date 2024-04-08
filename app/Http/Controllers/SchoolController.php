@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SchoolRequest;
 use App\Models\School;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SchoolController extends Controller
 {
@@ -13,31 +14,54 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        if (request('search1'))
-        {
-            $schools = School::where('school_name',"like", '%' .request('search1').'%')->paginate(8);
-        }
-        else
-        {
+        if (request('search1')) {
+            $schools = School::where('school_name', "like", '%' . request('search1') . '%')->paginate(8);
+        } else {
             $schools = School::query()->latest()->paginate(8);
         }
 
-        return view('Backend_editor.Schools.index',['schools'=>$schools]);
+        return view('Backend_editor.Schools.index', ['schools' => $schools]);
     }
 
-    public function schools_list(){
-        if (request('search1'))
-        {
-            $schools = School::where('school_name',"like", '%' .request('search1').'%')->paginate(9);
-        }
-        else
-        {
-            $schools = School::query()->latest()->paginate(8);
-        }
+ 
+    public function schools_list(Request $request)
+    {
+        $schoolsQuery = School::query();
 
+        if ($request->filled('search1')) {
+            $schoolsQuery->where('school_name', 'like', '%' . $request->input('search1') . '%');
+        }
+        // Applying sorting based on the selected option
+        if ($request->filled('orderby')) {
+            switch ($request->input('orderby')) {
+                case 'rating':
+                    // Join with reviews table and calculate average rating
+                    $schoolsQuery->leftJoin('reviews', 'schools.id', '=', 'reviews.book_id')
+                        ->select('schools.*', DB::raw('AVG(reviews.rating) as average_rating'))
+                        ->groupBy('schools.id')
+                        ->orderByDesc('average_rating');
+                    break;
 
-                return view('EnglishChallenger.Schools_list',['schools'=>$schools]);
+                case 'latest':
+                    $schoolsQuery->latest();
+                    break;
+
+                case 'default':
+                    // For the default sorting option, either apply default sorting logic
+                    // or return unsorted results. Adjust this based on your application's needs.
+                    // For example:
+                    $schoolsQuery->orderBy('id', 'asc'); // Sort by book ID in ascending order
+                    break;
+            }
+             } 
+
+        $schools = $schoolsQuery->paginate(8);
+        return view('EnglishChallenger.Schools_list', [
+            'schools' => $schools
+        ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -45,7 +69,6 @@ class SchoolController extends Controller
     public function create()
     {
         return view('Backend_editor.Schools.create');
-
     }
 
     /**
@@ -54,8 +77,8 @@ class SchoolController extends Controller
     public function store(SchoolRequest $request)
     {
 
-        $imagePath = $request->file('school_logo')->store('images','public');
-        $photoPath = $request->file('school_photo')->store('images','public');
+        $imagePath = $request->file('school_logo')->store('images', 'public');
+        $photoPath = $request->file('school_photo')->store('images', 'public');
 
         $school = new School([
             'school_name' => $request->get('school_name'),
@@ -70,8 +93,8 @@ class SchoolController extends Controller
             'type' => $request->get('type'),
             'school_logo' => $imagePath,
         ]);
-        $school -> save();
-        return redirect()->route('Schools.index')->with('success','school Ajouteé avec succés');
+        $school->save();
+        return redirect()->route('Schools.index')->with('success', 'school Ajouteé avec succés');
     }
 
     /**
@@ -79,13 +102,13 @@ class SchoolController extends Controller
      */
     public function show(string $id)
     {
-        $school=School::findOrFail($id);
-        return view('Backend_editor.Schools.show',['school'=>$school]);
+        $school = School::findOrFail($id);
+        return view('Backend_editor.Schools.show', ['school' => $school]);
     }
     public function show_School(string $id)
     {
-        $school=School::findOrFail($id);
-        return view('EnglishChallenger.school',['school'=>$school]);
+        $school = School::findOrFail($id);
+        return view('EnglishChallenger.school', ['school' => $school]);
     }
     /**
      * Show the form for editing the specified resource.
@@ -93,7 +116,7 @@ class SchoolController extends Controller
     public function edit(string $id)
     {
         $school = School::findOrFail($id);
-        return view('Backend_editor.Schools.edit',['school'=>$school]);
+        return view('Backend_editor.Schools.edit', ['school' => $school]);
     }
 
     /**
@@ -140,9 +163,8 @@ class SchoolController extends Controller
      */
     public function destroy(string $id)
     {
-        $school =School::findOrFail($id);
+        $school = School::findOrFail($id);
         $school->delete();
         return redirect()->route(('Schools.index'));
-
     }
 }

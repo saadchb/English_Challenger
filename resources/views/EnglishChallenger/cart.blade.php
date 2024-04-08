@@ -115,7 +115,7 @@
                                 </tbody>
                             </table>
                             <div class="wc-proceed-to-checkout">
-                                <a href="checkout.html" class="checkout-button button alt wc-forward">
+                                <a href="/checkout" class="checkout-button button alt wc-forward">
                                     Proceed to checkout
                                 </a>
                             </div>

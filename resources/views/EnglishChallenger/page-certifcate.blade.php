@@ -34,7 +34,7 @@
                     <div class="single-post-content">
                         <div class="post-meta mt-4">
                             <span class="post-date"><i class="fa fa-calendar-alt mr-2"></i>May 9, 2020</span>
-                            <span class="post-comment"><i class="fa fa-comments mr-2"></i>1 Comment</span>
+                            <!-- <span class="post-comment"><i class="fa fa-comments mr-2"></i>1 Comment</span> -->
                             <span><a href="#" class="post-author"><i class="fa fa-user mr-2"></i>Admin</a></span>
                         </div>
 
@@ -201,75 +201,6 @@
                         </ul>
                     </div>
                 </div>
-
-
-                <div class="comments">
-                    <h3 class="commment-title">3 Comments(3)</h3>
-
-                    <div class="media">
-                        <img src="build/assets/images/blog/user.jpg" class="mr-3" alt="...">
-                        <div class="media-body">
-                            <h5 class="mt-0">Harish John <span>17 Feb 2020</span></h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-
-                        </div>
-                    </div>
-                    <div class="media">
-                        <a class="mr-3" href="#">
-                            <img src="build/assets/images/blog/user.jpg" class="mr-3" alt="...">
-                        </a>
-                        <div class="media-body">
-                            <h5 class="mt-0">Harish John <span>17 Feb 2020</span></h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                        </div>
-                    </div>
-
-                    <div class="media">
-                        <img src="build/assets/images/blog/user.jpg" class="mr-3" alt="...">
-                        <div class="media-body">
-                            <h5 class="mt-0">Harish John <span>17 Feb 2020</span></h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="comments-form p-5 mt-4">
-                    <h3>Leave a comment </h3>
-                    <p>Your email address will not be published. Required fields are marked *</p>
-                    <form action="#" class="comment_form">
-                        <div class="row form-row">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <textarea name="msg" id="msgt" cols="30" rows="6" placeholder="Comment" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Website">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <a href="#" class="btn btn-main">Comment</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
             </div>
         </div>
         <div class="col-md-4">
@@ -278,28 +209,20 @@
 
                 <div class="widget widget_categories">
                     <h4 class="widget-title">Categories</h4>
+                    
                     <ul>
-                        <li class="cat-item"><a href="#"><i class="fa fa-angle-right"></i>Web Design</a>(4)</li>
-                        <li class="cat-item"><a href="#"><i class="fa fa-angle-right"></i>Wordpress</a>(14)</li>
-                        <li class="cat-item"><a href="#"><i class="fa fa-angle-right"></i>Marketing</a>(24)</li>
-                        <li class="cat-item"><a href="#"><i class="fa fa-angle-right"></i>Design & dev</a>(6)</li>
+                        @foreach ($categories->unique('title') as $category)
+                        <li class="cat-item"><a href="#"><i class="fa fa-angle-right"></i>{{ $category->title }}</a>({{ $category->course_count }})</li>              
+                        @endforeach
                     </ul>
+
                 </div>
 
                 <div class="widget widget_tag_cloud">
-                    <h4 class="widget-title">Tags</h4>
-                    <a href="#">Design</a>
-                    <a href="#">Development</a>
-                    <a href="#">UX</a>
-                    <a href="#">Marketing</a>
-                    <a href="#">Tips</a>
-                    <a href="#">Tricks</a>
-                    <a href="#">Ui</a>
-                    <a href="#">Free</a>
-                    <a href="#">Wordpress</a>
-                    <a href="#">bootstrap</a>
-                    <a href="#">Tutorial</a>
-                    <a href="#">Html</a>
+                    <h4 class="widget-title">Courses Tags</h4>
+                    @foreach ($tags as $tag)
+                    <a href="#">{{$tag->title}}</a> 
+                    @endforeach                   
                 </div>
 
             </div>

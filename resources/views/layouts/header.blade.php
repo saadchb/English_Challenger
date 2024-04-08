@@ -115,48 +115,6 @@ $count = 0;
                     </div>
                 </li>
 
-
-                <!-- <li class="nav-item dropdown dropdown-centered">
-            <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Quizzes<i class="fa fa-angle-down"></i>
-            </a>
-            <div class="dropdown-menu p-2" style="color:#646a76;" aria-labelledby="navbar3">
-                <ul class="list-unstyled d-flex">
-                    <li id="li3" style="width: 18rem; color:#646a76; margin-bottom: 10px;">
-                        <div class="card-body">
-                            <h5 class="card-title">Browse quizzes</h5>
-                            <p class="card-text">
-                                At English Challenger we provide a range of accredited teacher quizzes.
-                                If you want to know your level , we’d recommend starting this quizzes ,
-                                and then pursuing your certifications after.
-                            </p>
-                            <a href="#" class="card-link card-subtitle mb-2 text-muted disabled">More info:</a>
-                            <a href="#" class="card-link">About Us</a>
-                        </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="build/assets/images/course/quiz44.jpg" alt="course 1">
-                <div class="card-body">
-                    <h5 class="card-title">TESOL quizze</h5>
-                    <p class="card-text">Explore your level as an English language teacher.</p>
-                    <a href="#" class="btn btn-danger btn-sm">qiuzze detail</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="build/assets/images/course/quiz55.jpg" alt="course 1">
-                <div class="card-body">
-                    <h5 class="card-title">TEYL quizze</h5>
-                    <p class="card-text">Explore your level in teaching English to young learners.</p>
-                    <a href="#" class="btn btn-danger btn-sm">quizze detail</a>
-                </div>
-            </div>
-        </li>
-        </ul>
-</div>
-</div>
-
-</li> -->
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/page-certifcate" id="navbar3" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -227,7 +185,7 @@ $count = 0;
             </div> -->
                 </li>
                 <li class="nav-item ">
-                    <a href="#" class="nav-link">
+                    <a href="/detailsStudents" class="nav-link">
                         Students
                     </a>
                 </li>
