@@ -103,7 +103,7 @@
                                 <h4 class="course-title">Description</h4>
                                 <p>{{ $course->description }}</p>
 
-
+ss
                                 <div class="course-widget course-info">
                                     <h4 class="course-title">What You will Learn?</h4>
                                     <ul>
