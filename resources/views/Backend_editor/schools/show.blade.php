@@ -15,7 +15,7 @@
           @csrf
     @method('DELETE')
     <button class="btn btn-outline-danger btn-sm" data-title="Delete" onclick="confirmation(event,`{{$school->id}}`)"  data-toggle="modal"><i class="fa-solid fa-trash"></i>Delete</button>
-  
+
         </li>
         <li class="nav-item">
         </li>
@@ -24,7 +24,7 @@
   <div>
     <h4>school : {{ $school->school_name }}</h4><br>
 
-    <img src="{{ asset('storage/'.$school->school_logo) }}"  class="card-img-top" alt="..." style="width: 260px; height:170px ;margin-left:25%;"><br><br>
+    <img src="{{ asset('storage/'.$school->school_photo) }}"  onerror="this.onerror=null;this.src='{{ $school->school_photo }}';"  class="card-img-top" alt="..." style="width: 260px; height:170px ;margin-left:25%;"><br><br>
     <div class="form-row">
       <div class="col-md-5">
         <p><strong>school number :</strong> {{$school->phone_number}} </p>
@@ -56,7 +56,7 @@
       </div>
     </div><br>
     <hr style="margin-left: 90px;  width:70% ;"  >
-    <p ><strong style="float: left; margin:12px;">description :</strong><br><br> {{$school->description}} 
+    <p ><strong style="float: left; margin:12px;">description :</strong><br><br> {{$school->description}}
   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil, labore a consectetur quis autem dolore adipisci tenetur ut quia sapiente accusamus sit harum veritatis sint eos minus, cum voluptatem alias.</p>
   </div>
 </div><br><br>

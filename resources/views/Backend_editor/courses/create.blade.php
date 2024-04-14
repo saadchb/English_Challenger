@@ -91,7 +91,7 @@
                                             </svg>
                                             <div class="flex text-sm text-gray-600">
                                                 <div class="cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                    <label class="bg-[#007bff] text-white text-sm font-bold py-2 px-4 rounded" for="file_input">Upload file</label>
+                                                    <label class="bg-[#007bff] text-white text-sm font-bold py-2 px-4 rounded" style="cursor: pointer;" for="file_input">Upload file</label>
                                                     <input value="{{ old('img') }}" name="img" class="hidden block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
                                                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                                                 </div>
@@ -263,6 +263,103 @@
                                 <div class="flex items-center gap-x-2"><label for="regular-price" class="w-36 text-sm text-gray-800 font-medium">Regular Price</label>
                                     <div><input id="regular-price" type="number" name="regular_price" value="{{ old('regular_price') }}" class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2" step="0.01" min="0" value="false"></div>
                                 </div>
+                            </div>
+                            <div id="pricing-content">
+                                <div class="space-y-7" id="headlessui-tabs-panel-:ri:" role="tabpanel"
+                                    aria-labelledby="headlessui-tabs-tab-:rc:" tabindex="0"
+                                    data-headlessui-state="selected">
+                                    <div class="flex items-center gap-x-2"><label for="regular-price"
+                                            class="w-36 text-sm text-gray-800 font-medium">Regular Price</label>
+                                        <div><input id="regular-price" type="number" name="regular_price"
+                                                value="{{ old('regular_price') }}"
+                                                class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
+                                                step="0.01" min="0" value="false"></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-x-2"><label for="sale-price"
+                                                class="w-36 text-sm text-gray-800 font-medium">Sale Price</label>
+                                            <div><input id="sale-price" type="number" name="sale_price"
+                                                    value="{{ old('sale_price') }}"
+                                                    class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2"
+                                                    step="0.01" min="0"></div>
+                                                    @error('sale_price')
+                                                        <div class="alert alert-danger">
+                                                            {{$message}}
+                                                        </div>
+                                                    @enderror
+
+                                        </div>
+                                    </div>
+                                    <div><button type='button' id="btn-date"
+                                            class="ml-36 text-sm text-gray-700 font-medium underline">Schedule</button>
+                                    </div>
+                                    <div id="date" style="display: none">
+                                        <div>
+                                            <div class="flex items-center"><label for="_lp_sale_start"
+                                                    class="w-36 text-sm text-gray-800 font-medium">Sale start dates</label>
+                                                <div class="flex gap-2 items-center">
+                                                    <div class="relative" data-headlessui-state=""><button type='button'
+                                                            id="headlessui-popover-button-:r3h:" type="button"
+                                                            aria-expanded="false" data-headlessui-state=""><input
+                                                                class="py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md pl-2"
+                                                                type="date"
+                                                                value="{{ old('sale_start_dates') ? date('Y-m-d', strtotime(old('sale_start_dates'))) : '' }}"
+                                                                name="sale_start_dates"></button></div>
+                                                    <div class="flex gap-1 items-center">
+                                                        <input type='number' max="23" min="0"
+                                                            name="sale_start_hours"
+                                                            value="{{ old('sale_start_dates') ? date('H', strtotime(old('sale_start_dates'))) : 00 }}"
+                                                            class=" pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"><span>:</span>
+                                                        <input type='number' max="59" min="0"
+                                                            name="sale_start_minutes"
+                                                            value="{{ old('sale_start_dates') ? date('i', strtotime(old('sale_start_dates'))) : 00 }}"
+                                                            class="pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center mt-4"><label for="_lp_sale_end"
+                                                    class="w-36 text-sm text-gray-800 font-medium ">Sale end dates</label>
+                                                <div class="flex gap-2 items-center  ">
+                                                    <div class="relative" data-headlessui-state=""><button type='button'
+                                                            id="headlessui-popover-button-:r3m:" type="button"
+                                                            aria-expanded="false" data-headlessui-state=""><input
+                                                                value="{{ old('sale_end_dates') ? date('Y-m-d', strtotime(old('sale_end_dates'))) : '' }}"
+                                                                class="py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md  pl-2"
+                                                                type="date" id="datepicker" value=""
+                                                                name="sale_end_dates"></button>
+                                                    </div>
+                                                    <div class="flex gap-1 items-center">
+                                                        <input type='number' max="23" min="0"
+                                                            name="sale_end_hours"
+                                                            value="{{ old('sale_end_dates') ? date('H', strtotime(old('sale_end_dates'))) : 00 }}"
+                                                            class=" p-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                        <span>:</span>
+                                                        <input type='number' max="59"sale_end_minutes
+                                                            min="0" name=""
+                                                            value="{{ old('sale_end_dates') ? date('i', strtotime(old('sale_end_dates'))) : 00 }}"
+                                                            class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center">
+                                        <div class="text-sm text-gray-800 font-medium">There is no enrollment requirement
+                                        </div>
+                                        <div class="flex space-x-2"><input id="_lp_no_required_enroll" type="checkbox"
+                                                @if (old('there_is_no_enrollment_requirement') == 1) checked="" @endif
+                                                name="there_is_no_enrollment_requirement"
+                                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"><label
+                                                for="_lp_no_required_enroll"
+                                                class="text-sm text-gray-800 select-none leading-4">Students can see the
+                                                content
+                                                of all course items and take the quiz without logging in.</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="extra-information-content">
                                 <div>
                                     <div class="flex items-center gap-x-2"><label for="sale-price" class="w-36 text-sm text-gray-800 font-medium">Sale Price</label>
                                         <div><input id="sale-price" type="number" name="sale_price" value="{{ old('sale_price') }}" class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2" step="0.01" min="0"></div>

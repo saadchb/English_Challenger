@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Curriculum;
 use App\Models\Lesson;
+use App\Models\Option;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CurriculumController extends Controller
 {
@@ -30,6 +33,10 @@ class CurriculumController extends Controller
      */
     public function store(Request $request)
     {
+         $request->validate([
+           'title' => 'required',
+
+        ]);
         Curriculum::create($request->all());
         return redirect()->back();
     }
@@ -37,11 +44,55 @@ class CurriculumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Curriculum $curriculum)
+    public function show(Request $request, int $course)
     {
-        //
-    }
+        $lessons = Lesson::all();
+        $quizzes = Quiz::all();
 
+        $quizzesC = Quiz::orderBy('order', 'asc')->get()->toArray();
+        $lessonsMix = Lesson::orderBy('order', 'asc')->get()->toArray();
+        foreach ($quizzesC as $quiz) {
+            $lessonsMix[] = $quiz;
+        }
+        usort($lessonsMix, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
+        if ($request->input('type') == 'quiz') {
+            $id = $request->input('lesson_id');
+            $quizActive = Quiz::where('id', $id)->first();
+            $questions = DB::table('questions')
+                ->join('quiz_questions', 'quiz_questions.question_id', 'questions.id')
+                ->where('quiz_id', $id)
+                ->select('questions.*')
+                ->get();
+            $options = Option::all();
+        }else{
+            $quizActive = null;
+            $questions = null;
+            $options = null;
+        }
+        if ($request->input('type') == 'lesson') {
+            $lessonActive = Lesson::where('id', $request->input('lesson_id'))->first();
+            $parts = explode('/', $lessonActive->video_link);
+            $lessonActive->video_link = end($parts);
+        }else{
+            $lessonActive = null;
+        }
+            $curricula = Curriculum::where('course_id', $course)->get();
+            $course = Course::findOrFail($course);
+        // dd($lessonsMix);
+        return view('EnglishChallenger.curriculum_list', [
+            'lessons' => $lessons,
+            'quizzes' => $quizzes,
+            'curricula' => $curricula,
+            'course' => $course,
+            'lessonActive' => $lessonActive,
+            'lessonsMix' => $lessonsMix,
+            'quizActive' => $quizActive,
+            'questions'=> $questions,
+            'options'=> $options
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -72,20 +123,103 @@ class CurriculumController extends Controller
     }
     public function CL(Request $request, int $id)
     {
+        $lessonsOrderLast = Lesson::where('curriculum_id', $id)->orderBy('order', 'desc')->pluck('order')->first();
+        $quizzesOrderLast = Quiz::where('curriculum_id', $id)->orderBy('order', 'desc')->pluck('order')->first();
+        $nbStart = $lessonsOrderLast;
+        if ($quizzesOrderLast > $lessonsOrderLast) {
+            $nbStart = $quizzesOrderLast;
+        }
+        $nbStart++;
         $lessons_quizzes = $request->input('lessons_quizzes');
-        foreach ($lessons_quizzes as $item) {
+        foreach ($lessons_quizzes as $key => $item) {
             $it = Lesson::findOrFail($item);
-            $it->update(['curriculum_id'=>$id]);
+            $it->update(['curriculum_id' => $id, 'order' => $key + $nbStart]);
         }
         return redirect()->back();
     }
     public function CQ(Request $request, int $id)
     {
+        $lessonsOrderLast = Lesson::where('curriculum_id', $id)->orderBy('order', 'desc')->pluck('order')->first();
+        $quizzesOrderLast = Quiz::where('curriculum_id', $id)->orderBy('order', 'desc')->pluck('order')->first();
+        $nbStart = $lessonsOrderLast;
+        if ($quizzesOrderLast > $lessonsOrderLast) {
+            $nbStart = $quizzesOrderLast;
+        }
+        $nbStart++;
         $lessons_quizzes = $request->input('lessons_quizzes');
-        foreach ($lessons_quizzes as $item) {
+        // dd($lessons_quizzes);
+        foreach ($lessons_quizzes as $key => $item) {
             $it = Quiz::findOrFail($item);
-            $it->update(['curriculum_id'=>$id]);
+            $it->update(['curriculum_id' => $id, 'order' => $key + $nbStart]);
         }
         return redirect()->back();
+    }
+    public function next(Request $request, int $id)
+    {
+        $lessons = Lesson::all();
+        $quizzes = Quiz::all();
+
+        $quizzesC = Quiz::orderBy('order', 'asc')->get()->toArray();
+        $lessonsMix = Lesson::orderBy('order', 'asc')->get()->toArray();
+        foreach ($quizzesC as $quiz) {
+            $lessonsMix[] = $quiz;
+        }
+        usort($lessonsMix, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
+
+        $lessonNext = DB::table('lessons')->where('order', '>', $request->input('lesson_id'))->orderBy('order', 'desc')->first();
+        // dd($lessonNext);
+        if (empty($lessonNext)) {
+            $lessonNext = DB::table('lessons')->orderBy('order', 'asc')->first();
+        }
+        $parts = explode('/', $lessonNext->video_link);
+        $lessonNext->video_link = end($parts);
+        $curricula = Curriculum::where('course_id', $id)->get();
+        $course = Course::findOrFail($id);
+        return view('EnglishChallenger.curriculum_list', [
+            'lessons' => $lessons,
+            'quizzes' => $quizzes,
+            'curricula' => $curricula,
+            'course' => $course,
+            'lessonActive' => $lessonNext,
+            'lessonsMix' => $lessonsMix
+        ]);
+    }
+    public function prev(Request $request, int $id)
+    {
+        $lessons = Lesson::all();
+        $quizzes = Quiz::all();
+        $quizzesC = Quiz::orderBy('order', 'asc')->get()->toArray();
+        $lessonsMix = Lesson::orderBy('order', 'asc')->get()->toArray();
+        foreach ($quizzesC as $quiz) {
+            $lessonsMix[] = $quiz;
+        }
+        usort($lessonsMix, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
+
+        $lessonPrev = DB::table('lessons')
+            ->where('order', '<', $request->input('lesson_id'))
+            ->orderBy('order', 'desc')
+            ->first();
+        if (empty($lessonPrev)) {
+            $lessonPrev = DB::table('lessons')
+                ->orderBy('order', 'desc')
+                ->first();
+        }
+        $parts = explode('/', $lessonPrev->video_link);
+        $lessonPrev->video_link = end($parts);
+
+        $curricula = Curriculum::where('course_id', $id)->get();
+        $course = Course::findOrFail($id);
+        return view('EnglishChallenger.curriculum_list', [
+            'lessons' => $lessons,
+            'quizzes' => $quizzes,
+            'curricula' => $curricula,
+            'course' => $course,
+            'lessonActive' => $lessonPrev,
+            'lessonsMix' => $lessonsMix
+        ]);
     }
 }

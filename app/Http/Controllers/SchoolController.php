@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SchoolRequest;
 use App\Models\School;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SchoolController extends Controller
 {
@@ -12,17 +14,54 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        if (request('search1'))
-        {
-            $schools = School::where('school_name',"like", '%' .request('search1').'%')->paginate(8);
-        }
-        else
-        {
+        if (request('search1')) {
+            $schools = School::where('school_name', "like", '%' . request('search1') . '%')->paginate(8);
+        } else {
             $schools = School::query()->latest()->paginate(8);
         }
-     
-        return view('Backend_editor.Schools.index',['schools'=>$schools]);
+
+        return view('Backend_editor.Schools.index', ['schools' => $schools]);
     }
+
+ 
+    public function schools_list(Request $request)
+    {
+        $schoolsQuery = School::query();
+
+        if ($request->filled('search1')) {
+            $schoolsQuery->where('school_name', 'like', '%' . $request->input('search1') . '%');
+        }
+        // Applying sorting based on the selected option
+        if ($request->filled('orderby')) {
+            switch ($request->input('orderby')) {
+                case 'rating':
+                    // Join with reviews table and calculate average rating
+                    $schoolsQuery->leftJoin('reviews', 'schools.id', '=', 'reviews.book_id')
+                        ->select('schools.*', DB::raw('AVG(reviews.rating) as average_rating'))
+                        ->groupBy('schools.id')
+                        ->orderByDesc('average_rating');
+                    break;
+
+                case 'latest':
+                    $schoolsQuery->latest();
+                    break;
+
+                case 'default':
+                    // For the default sorting option, either apply default sorting logic
+                    // or return unsorted results. Adjust this based on your application's needs.
+                    // For example:
+                    $schoolsQuery->orderBy('id', 'asc'); // Sort by book ID in ascending order
+                    break;
+            }
+             } 
+
+        $schools = $schoolsQuery->paginate(8);
+        return view('EnglishChallenger.Schools_list', [
+            'schools' => $schools
+        ]);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -30,16 +69,17 @@ class SchoolController extends Controller
     public function create()
     {
         return view('Backend_editor.Schools.create');
-
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SchoolRequest $request)
     {
-      
-        $imagePath = $request->file('school_logo')->store('images','public');
+
+        $imagePath = $request->file('school_logo')->store('images', 'public');
+        $photoPath = $request->file('school_photo')->store('images', 'public');
+
         $school = new School([
             'school_name' => $request->get('school_name'),
             'phone_number' => $request->get('phone_number'),
@@ -49,10 +89,12 @@ class SchoolController extends Controller
             'school_city' => $request->get('school_city'),
             'adresse' => $request->get('adresse'),
             'description' => $request->get('description'),
+            'school_photo' => $photoPath,
+            'type' => $request->get('type'),
             'school_logo' => $imagePath,
         ]);
-        $school -> save();
-        return redirect()->route('Schools.index')->with('success','school Ajouteé avec succés');
+        $school->save();
+        return redirect()->route('Schools.index')->with('success', 'school Ajouteé avec succés');
     }
 
     /**
@@ -60,17 +102,21 @@ class SchoolController extends Controller
      */
     public function show(string $id)
     {
-        $school=School::findOrFail($id);
-        return view('Backend_editor.Schools.show',['school'=>$school]);
+        $school = School::findOrFail($id);
+        return view('Backend_editor.Schools.show', ['school' => $school]);
     }
-
+    public function show_School(string $id)
+    {
+        $school = School::findOrFail($id);
+        return view('EnglishChallenger.school', ['school' => $school]);
+    }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {   
+    {
         $school = School::findOrFail($id);
-        return view('Backend_editor.Schools.edit',['school'=>$school]);
+        return view('Backend_editor.Schools.edit', ['school' => $school]);
     }
 
     /**
@@ -83,13 +129,21 @@ class SchoolController extends Controller
         if ($request->hasFile('school_logo')) {
             // Store the new image file
             $imagePath = $request->file('school_logo')->store('images', 'public');
-            
+
             // Update the image path attribute of the famille model
             $school->school_logo = $imagePath;
         }
-    
+        if ($request->hasFile('school_photo')) {
+            // Store the new image file
+            $photoPath = $request->file('school_photo')->store('images', 'public');
+
+            // Update the image path attribute of the famille model
+            $school->school_photo = $photoPath;
+        }
+
         // Update other attributes
         $school->school_name = $request->input('school_name');
+        $school->school_name = $request->input('type');
         $school->phone_number = $request->input('phone_number');
         $school->email = $request->input('email');
         $school->name_headmaster = $request->input('name_headmaster');
@@ -97,10 +151,10 @@ class SchoolController extends Controller
         $school->school_city = $request->input('school_city');
         $school->adresse = $request->input('adresse');
         $school->description = $request->input('description');
-        
+
         // Save the updated model
         $school->save();
-    
+
         return redirect()->route('Schools.index');
     }
 
@@ -109,9 +163,8 @@ class SchoolController extends Controller
      */
     public function destroy(string $id)
     {
-        $school =School::findOrFail($id);
+        $school = School::findOrFail($id);
         $school->delete();
         return redirect()->route(('Schools.index'));
-  
     }
 }

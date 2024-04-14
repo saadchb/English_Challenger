@@ -46,7 +46,7 @@
                             <tbody>
                                 @foreach ($students as $student)
                                 <tr>
-                                    <td><img src="{{ asset('storage/'.$student->picture) }}" alt="{{$student->last_name}}" style="height: 50px;width:100px;"></td>
+                                    <td><img src="{{ asset('storage/'.$student->picture) }}" alt="{{$student->last_name}}" style="height: 60px;width:65px;"></td>
                                     <td>{{$student->first_name}}</td>
                                     <td>{{$student->phone}}</td>
                                     <td>{{$student->email}}</td>
@@ -84,7 +84,7 @@
     </div>
 <br><br>
 
-<center style="margin-left: 48%;">{{ $students->links() }}</center>
+<center >{{ $students->links() }}</center>
     
 
 @endsection

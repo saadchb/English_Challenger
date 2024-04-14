@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('question_type', ['true_or_false', 'multi_choice', 'single_choice']);
             $table ->integer('points');
             $table->string('hint')->nullable();
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

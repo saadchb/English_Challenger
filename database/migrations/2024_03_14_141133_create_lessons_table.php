@@ -17,12 +17,15 @@ return new class extends Migration
             $table->text('description');
             $table->time('duration');
             $table->boolean('priview');
-            $table->text('video_link');
+            $table->text('video_link')->nullable();
+            // $table->text('video_link');
+            $table->string('type')->default('lesson');
+            $table->integer('order')->nullable();
+            $table->softDeletes();
             $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

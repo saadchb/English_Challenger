@@ -89,14 +89,12 @@
             addOption(modalOptionsContainer, "checkbox", false); // Pass false to includeButton parameter
             addOption(modalOptionsContainer, "checkbox", false); // Pass false to includeButton parameter
         }
-
         // For multi-choice options
         if (selectedType === "multi_choice") {
             addOption(modalOptionsContainer, "checkbox", true); // Pass true to includeButton parameter
             addOption(modalOptionsContainer, "checkbox", true); // Pass true to includeButton parameter
             addOptionButton(modalOptionsContainer);
         }
-
         // For single-choice options
         if (selectedType === "single_choice") {
             addOption(modalOptionsContainer, "checkbox", true); // Pass true to includeButton parameter

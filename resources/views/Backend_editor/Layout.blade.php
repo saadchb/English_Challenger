@@ -11,7 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
-  <link rel="icon" href="{{ asset('build/assets/images/icon_challenger.png') }}" type="image/x-icon">
+  <link rel="icon" href="{{ asset('build/assets/images/English_Icon.png') }}" type="image/x-icon">
 
 <!-- Include additional stylesheets for this view -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -42,10 +42,10 @@
 <div class="wrapper">
 
 
-  <aside style="  position: fixed;" class="main-sidebar sidebar-dark-primary elevation-4 ">
+  <aside style="  position: fixed; background-color: #100f1f;" class="main-sidebar sidebar-dark-primary elevation-4 ">
     <!-- Brand Logo -->
     <a href="#" class="brand-link ml-4">
-      <img src="{{ asset('build/assets/images/Logo_english.png') }}" alt="logo3" width="130px" style="margin-left: 25px;">
+    <img src="{{ asset('build/assets/images/English_Logo_white.png') }}"  alt="English_Logo" width="160px" >
 
     </a>
     <!-- Sidebar -->
@@ -72,6 +72,14 @@
                 <i class="nav-icon fa-regular fa-book-open"></i>
                 <p>
                   Courses
+                </p>
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/books" class="nav-link">
+              <i class="nav-icon fa-regular fa-book"></i>
+                <p>
+                  Books
                 </p>
               </a>
             </li>
@@ -271,7 +279,7 @@
     }
   </script>
 
-@include('layouts.js')
+@include('Backend_editor.js')
 
 
 </body>

@@ -38,4 +38,11 @@ class Course extends Model
     public function review():HasMany{
         return $this->hasMany(review::class);
     }
+    public function student(){
+        return $this->belongsToMany('App\Models\Student');
+    }
+    public function cart():HasMany{
+        return $this->hasMany(cart::class);
+    }
+
 }

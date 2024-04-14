@@ -48,6 +48,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                @if ($courses->isEmpty())
+                <nav class="blog-pagination text-center">
+                        <ul class="pagination">
+                        </ul>
+                    </nav>
+                    @else
                     <nav class="blog-pagination text-center">
                         <ul class="pagination">
                             @if ($courses->previousPageUrl())
@@ -69,6 +75,7 @@
                                 @endif
                         </ul>
                     </nav>
+                    @endif
                 </div>
             </div>
         </div>
@@ -99,7 +106,7 @@
             <div class="course-content">
 
 
-                <h4><a href="/course_detail/${table[i].id}">${table[i].title}</a></h4>
+                <h4><a href="/course_detail/${table[i].id}" title='click to show details for this course'>${table[i].title}</a></h4>
                 <div class="rating">
     ${table[i].rating == 1 ? `
             <!-- Render HTML for a review with a rating of 1 -->
@@ -108,6 +115,7 @@
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 2 ? `
@@ -117,6 +125,7 @@
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 3 ? `
@@ -126,6 +135,7 @@
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 4 ? `
@@ -135,6 +145,7 @@
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+            <span>${table[i].rating}.00</span>
 
             ` : ''}
     ${table[i].rating == 5 ? `
@@ -144,7 +155,9 @@
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
             <a href="#"><i class="fa fa-star"></i></a>
-            <a href="#"><i class="fa fa-star"></i></a>` : ''}
+            <a href="#"><i class="fa fa-star"></i></a>
+        <span>${table[i].rating}.00</span>
+            ` : ''}
 
             ${table[i].rating == undefined || table[i].rating == null || table[i].rating == '' ?
             `
@@ -153,9 +166,10 @@
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
             <a href="#"><i class="fa fa-star text-secondary"></i></a>
+        <span>${table[i].rating}.00</span>
+
             `:''
         }
-        <span>${table[i].rating}.00</span>
 </div>
                 <p>${table[i].description}</p>
 

@@ -15,14 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('school_name');
             $table->text('school_logo')->nullable();
+            $table->text('type')->nullable();
+            $table->text('school_photo')->nullable();
             $table->string('phone_number');
             $table->string('email');
+
             // $table->string('linkdin');
             $table->string('name_headmaster');
             $table->string('phone_number_headmaster');
             $table->string('school_city');
             $table->string('adresse');
             $table->text('description');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
