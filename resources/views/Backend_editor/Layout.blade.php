@@ -115,6 +115,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item mt-2">
+              <a href="/Bloges" class="nav-link">
+                <i class="nav-icon fa-solid fa fa-book mr-2 "></i>
+                <p>
+                  Blogs
+                </p>
+              </a>
+            </li>
           </ul>
 
         </div>

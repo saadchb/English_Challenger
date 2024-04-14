@@ -5,8 +5,11 @@
 
 use App\Models\Course;
 use App\Models\review;
+use App\Models\Blog;
 
 $reviews = review::all();
+$latestBlogs = Blog::latest()->take(3)->get();
+$blogCount = Blog::count();
 
 ?>
 <section class="banner">
@@ -152,9 +155,9 @@ $reviews = review::all();
                         <div class="counter-item">
                             <i class="ti-desktop"></i>
                             <div class="count">
-                                <span class="counter h2">90</span>
+                                <span class="counter h2">{{ $blogCount }}</span>
                             </div>
-                            <p>Expert Instructors</p>
+                            <p>Totale Blogs</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
@@ -276,119 +279,37 @@ $reviews = review::all();
                 <div class="section-heading center-heading">
                     <span class="subheading">Blog News</span>
                     <h3>Latest Blog News</h3>
-                    <p>take an eye on our new and recommended blogs written by a professional writers!</p>
+                    <p>take an eye on our new and recommended blogs written by a professional writers!</p> 
                 </div>
             </div>
+                <div class="course-btn text-lg-right">
+                    <a href="/Blogs" class="btn btn-main"><i class="fa fa-book mr-2"></i>All Blogs</a>
+                </div>
         </div>
 
 
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-item">
-                    <img src="build/assets/images/blog/blog1.png" alt="blog 1" class="img-fluid">
-                    <div class="blog-content">
-                        <div class="entry-meta">
-                            <span><i class="fa fa-calendar-alt"></i>May 19, 2022</span>
-                            <span><i class="fa fa-comments"></i>150 comment</span>
-                        </div>
-                        <h2><a href="#">The British English Challenge</a></h2>
-                        <p> "Ready for a taste of British English?
-                            Our inaugural challenge begins July 31st. From classic expressions to regional dialects,
-                            here's your chance to explore the rich tapestry of British linguistic heritage . Stay tuned for details!"</p>
+            @foreach($latestBlogs as $blog)
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog-item">
+                        <img src="build/assets/images/blog/{{$blog->img}}" alt="{{$blog->title}}" class="img-fluid">
+                        <div class="blog-content">
+                            <div class="entry-meta">
+                                <span><i class="fa fa-calendar-alt"></i>{{ $blog->created_at->format('Y-m-d') }}</span>
+                                <span><i class="fa fa-comments"></i>{{$blog->comments()->count()}} comments</span>
+                            </div>
+                            <h2><a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}">{{$blog->title}}</a></h2>
+                            <p>{{$blog->description}}</p>
 
-                        <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
+                            <a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-item">
-                    <img src="build/assets/images/blog/blog2.png" alt="blog 2" class="img-fluid">
-                    <div class="blog-content">
-                        <div class="entry-meta">
-                            <span><i class="fa fa-calendar-alt"></i>April 22, 2023</span>
-                            <span><i class="fa fa-comments"></i>85 comment</span>
-                        </div>
-
-                        <h2><a href="#">Happy 4th Birthday to English Learning for Curious Minds</a></h2>
-                        <p>English Learning for Curious Minds was first published 4 years ago today. Here is a summary of how things have gone since then, and the main things we've done in 2023.</p>
-
-                        <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-item">
-                    <img src="build/assets/images/blog/blog3.png" alt="blog 3" class="img-fluid">
-                    <div class="blog-content">
-                        <div class="entry-meta">
-                            <span><i class="fa fa-calendar-alt"></i>Mars 5, 2024</span>
-                            <span><i class="fa fa-comments"></i>16 comment</span>
-                        </div>
-
-                        <h2><a href="#">24 Unorthodox Ways To Stick To Your English Learning Goals in 2024</a></h2>
-                        <p>Learning English is hard, and one of the hardest things about it is staying motivated. Here are 24 ways that you can stay motivated and hit your goals.</p>
-
-                        <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
-<section class="feature-2">
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-badge2"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Expert Teacher</h4>
-                        <p>Offre the unparalleled caliber of educators who ignite curiosity,
-                            and champion student success like no other.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-article"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Quality Education</h4>
-                        <p>We provide essential quality education for personal development and societal advancement.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-headset"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Life Time Support</h4>
-                        <p>Ensuring ongoing assistance and care for our valued customers.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-item feature-style-2">
-                    <div class="feature-icon">
-                        <i class="bi bi-rocket2"></i>
-                    </div>
-                    <div class="feature-text">
-                        <h4>HD Video</h4>
-                        <p>HD Video provides unparalleled clarity and detail.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> <br>
+ <br>
 <script>
     const showCoursesBycategories = document.getElementById('showCoursesBycategories');
     const categories = @json($categories);

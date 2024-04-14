@@ -15,6 +15,8 @@ use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 
 
 
@@ -55,6 +57,20 @@ Route::resource('/lessons',LessonController::class);
 Route::resource('/Curricula',CurriculumController::class);
 Route::put('/CurriculaLessons/{id}', [CurriculumController::class, 'CL'])->name('CL.Update');
 Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name('CQ.Update');
+
+Route::resource('/Blogs',BlogController::class);
+Route::get('/Blogs/{id}', 'BlogController@show')->name('EnglishChallenger.blog_detail');
+
+Route::post('/Blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
+
+Route::get('/Bloges', [BlogController::class, 'indexBl'])->name('Bloges.index'); // Index route
+Route::get('/Bloges/create', [BlogController::class, 'create'])->name('Bloges.create'); // Create route
+Route::post('/Bloges', [BlogController::class, 'store'])->name('Bloges.store'); // Store route
+Route::get('/Bloges/{blog}/edit', [BlogController::class, 'edit'])->name('Bloges.edit'); // edit route
+Route::put('/Bloges/{blog}', [BlogController::class, 'update'])->name('Bloges.update'); // Update route
+Route::delete('/Bloges/{blog}', [BlogController::class, 'destroy'])->name('Bloges.destroy'); // Delete route
+
+
 
 
 ///

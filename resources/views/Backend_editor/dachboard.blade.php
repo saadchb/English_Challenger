@@ -7,10 +7,12 @@
 use App\Models\Course;
 use App\Models\School;
 use App\Models\Student;
+use App\Models\Blog;
 
 $school = School::count();
 $course = Course::count();
 $Student = Student::count();
+$blog = Blog::count();
 // $Teacher = Teacher::count();
 ?>
 
@@ -45,6 +47,15 @@ $Student = Student::count();
                     <p class="fs-5">Total Course</p>
                 </div>
                 <i class="fa-regular fa-book-open fs-1 dark-text border rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="p-3 bg-light shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2">{{$blog}}</h3>
+                    <p class="fs-5">Total Blogs</p>
+                </div>
+                <i class="fa-regular fa-book fs-1 dark-text border rounded-full secondary-bg p-3"></i>
             </div>
         </div>
 
