@@ -23,9 +23,9 @@ class BookController extends Controller
     public function index()
     {
         if (request('search1')) {
-            $books = book::where('title', "like", '%' . request('search1') . '%')->paginate(8);
+            $books = book::where('title', "like", '%' . request('search1') . '%')->paginate(6);
         } else {
-            $books = book::query()->latest()->paginate(8);
+            $books = book::query()->latest()->paginate(6);
         }
         $categories = Categorie::join('categories_books', 'categories.id', '=', 'categories_books.categorie_id')->get();
 

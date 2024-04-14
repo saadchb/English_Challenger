@@ -86,7 +86,7 @@ $students = Student::orderBy('created_at', 'desc')->paginate(4);
       </div>
       <!-- /.box-body -->
 
-      <div class="box-footer text-center" style="">
+      <div class="box-footer text-center" >
         <a href="/Students" class="uppercase">View All Students</a>
       </div>
 

@@ -51,10 +51,12 @@ $count = 0;
                 <img src="{{ asset('build/assets/images/English_Logo.png') }}" alt="logo3" width="160px">
 
             </a>
-
-            <!-- Toggler -->
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
+            <button class="navbar-toggler navbar-toggle header-search search_toggle"  style="font-size: larger; margin-left:150px !important;"  type="button" data-toggle="collapse"
+                 aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-search text-dark"></i>
+            </button>
+            <!-- <a href="#" class="navbar-toggle header-search search_toggle"  style="font-size: larger; margin-left:150px !important;"> <i class="fa fa fa-search text-dark "></i></a> -->
+            <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarMenu"
                 aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fa fa-bars"></span>
             </button>
@@ -170,19 +172,17 @@ $count = 0;
                     <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Teachers
-                        <!-- <i class="fa fa-angle-down"></i> -->
+                        <i class="fa fa-angle-down"></i>
                     </a>
-                    <!-- <div class="dropdown-menu" aria-labelledby="navbar3">
-                <a class="dropdown-item " href="#">
-                    Cvs
+                    <div class="dropdown-menu" aria-labelledby="navbar3">
+                <a class="dropdown-item " href="{{route('Become_teacher')}}">
+                    Become a teacher
                 </a>
                 <a class="dropdown-item " href="#">
-                    Private Tutors
+                    login
                 </a>
-                <a class="dropdown-item " href="#">
-                    Resources
-                </a>
-            </div> -->
+       
+            </div>
                 </li>
                 <li class="nav-item ">
                     <a href="/detailsStudents" class="nav-link">
@@ -193,7 +193,7 @@ $count = 0;
 
             <ul class="header-contact-right d-none d-lg-block">
                 <li> <a href="/E_Library" class="header-cart"><i class="fa fa-shopping-cart"></i></a></li>
-                <li><a href="#" class="header-search search_toggle"> <i class="fa fa fa-search"></i></a>
+                <li><a href="#" class="header-search search_toggle"> <i class="fa  fa-search"></i></a>
                 </li>
             </ul>
 

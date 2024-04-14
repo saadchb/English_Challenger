@@ -74,15 +74,14 @@
             background-color: #00000056 !important;
             border: solid 1px #ffffffaa !important;
         }
+
         .loading {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: #fff url("{{ asset('build/assets/images/loading.gif') }}") no-repeat center center;
-    z-index: 99999;
-}
-
-
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #fff url("{{ asset('build/assets/images/loading.gif') }}") no-repeat center center;
+            z-index: 99999;
+        }
     </style>
     <title>EnglishChallenger | @yield('title')</title>
 </head>
@@ -91,20 +90,37 @@
 
 <body id="top-header" onload="myFunction()">
     <div class="loading"></div>
+    <?php
+
+    use App\Models\Course;
+
+    // Fetch data from the database (example)
+    $courses = Course::all();
+    ?>
+
     <header>
         @include('layouts.header')
     </header>
+
+
     <!--search overlay start-->
     <div class="search-wrap">
         <div class="overlay">
-            <form action="{{ route('search') }}" method="GET" class="search-form">
+        <!-- id="searchForm" -->
+            <form action="{{route('search')}}"  method="GET" class="search-form" >
                 <div class="container">
                     <div class="row">
                         <div class="col-md-10 col-9">
                             <h3>Search Your keyword</h3>
-                            <!-- <input type="text" name="search" id="search" placeholder="Search..." class="form-control" onfocus="this.value=''" /> -->
-                            <input name="search" id="search" type="text" class="form-control search-input" />
-                            <!-- <button type="submit">Search</button> -->
+                            <div class="input-group">
+                            <!-- <input name="search2" hidden id="searchInput" type="text" placeholder="Search ..." class="form-control search-input" /> -->
+
+                                <input name="search" id="searchInput" type="text" placeholder="Search..." class="form-control search-input" />
+                                <div class="input-group-append">
+                                    <button type="submit" style="height: 50px;background-color: purple;" aria-label="search"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                            <ul id="searchResults" style="background: #f6f6f6;top: 50%;margin: auto; margin-top: 27px ;margin: 0 0% 2% 0%; padding: 0% 3% 0% 3%"></ul>
                         </div>
                         <div class="col-md-2 col-3 text-right">
                             <div class="search_toggle toggle-wrap d-inline-block">
@@ -114,10 +130,9 @@
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
-
-    <div id="search_list"></div> <!-- Container for displaying search results -->
 
     <section class="content">
         @yield('content')
@@ -174,6 +189,96 @@
             // Hide the loading spinner when the page finishes loading
             document.querySelector('.loading').style.display = 'none';
         };
+    </script>
+
+    <script>
+        let typingTimer; // Timer identifier
+        const doneTypingInterval = 500; // Time in milliseconds (0.5 seconds)
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            clearTimeout(typingTimer); // Clear the previous timer
+
+            // Start a new timer when the user starts typing
+            typingTimer = setTimeout(function() {
+                liveSearch(this.value); // Call liveSearch function after the typing interval
+            }.bind(this), doneTypingInterval);
+        });
+
+        function liveSearch(searchTerm) {
+            const searchResults = document.getElementById('searchResults');
+            // Clear previous search results
+            searchResults.innerHTML = '';
+
+            // Check if the search term is not empty
+            if (searchTerm.trim() !== '') {
+                // Perform the AJAX request to fetch search results
+                fetch(`/search?search=${searchTerm}`)
+                    .then(response => response.json())
+                    .then(data => {
+
+                        const uniqueBooks = {}; // Object to store unique book titles
+                        data.books.forEach(book => {
+                            uniqueBooks[book.title] = book; // Store book by title in the object
+                        });
+
+                        data.courses.forEach(book => {
+                            uniqueBooks[book.title] = book; // Store book by title in the object
+                        });
+
+                        data.schools.forEach(book => {
+                            uniqueBooks[book.school_name] = book; // Store book by title in the object
+                        });
+
+                        if (Object.keys(uniqueBooks).length === 0) {
+                            const errorMessage = document.createElement('p');
+                            errorMessage.textContent = 'No results found';
+                            searchResults.appendChild(errorMessage);
+                        } else {
+                            // Iterate over unique courses and append them to the search results
+                            Object.values(uniqueBooks).forEach(book => {
+                                const listItem = document.createElement('li');
+                                const link = document.createElement('a');
+                                link.textContent = book.title;
+                                if (book.hasOwnProperty('file_path')) { // Check if it's a book or a course
+                                    link.href = `/E_library/book/${book.id}`;
+                                } else {
+                                    link.href = `/course_detail/${book.id}`;
+                                }
+                                link.style = 'color: black; font-size: medium;';
+                                link.style.transition = 'color 0.3s, text-decoration 0.3s'; // Add smooth transition effect for color and text-decoration
+
+                                // Add hover effect to change color and underline when hovered over
+                                link.style.setProperty('color', 'black');
+                                link.style.setProperty('text-decoration', 'none');
+                                link.addEventListener('mouseover', function() {
+                                    this.style.color = 'purple'; // Change to your desired hover color
+                                    this.style.textDecoration = 'underline'; // Add underline when hovered over
+                                });
+
+                                link.addEventListener('mouseout', function() {
+                                    this.style.color = 'black'; // Change back to original color when mouse leaves
+                                    this.style.textDecoration = 'none'; // Remove underline when mouse leaves
+                                });
+                                listItem.appendChild(link);
+                                searchResults.appendChild(listItem);
+                            });
+                            // Create a "See More" link
+                            const seeMoreLink = document.createElement('a');
+                            seeMoreLink.textContent = 'See More';
+                            seeMoreLink.style = ' font-weight: bold;';
+                            seeMoreLink.href = '/course_list';
+                            const seeMoreListItem = document.createElement('li');
+                            seeMoreListItem.appendChild(seeMoreLink);
+                            searchResults.appendChild(seeMoreListItem);
+
+                        }
+                        
+                    })
+                    .catch(error => {
+                        console.error('Error fetching search results:', error);
+                    });
+            }
+        }
     </script>
 </body>
 

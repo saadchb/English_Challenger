@@ -10,6 +10,7 @@ $books = Book::join('reviews', 'books.id', '=', 'reviews.book_id')->paginate(5);
 $review = review::all();
 $A_books = Book::limit(7)->get();
 
+
 ?>
 <section id="books-bg" class="page-header" style="background-image: url('../images/bg/books-book.webp'); background-size: cover; background-position: center;">
     <div class="container">

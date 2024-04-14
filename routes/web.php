@@ -20,6 +20,7 @@ use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Models\detiailsStudent;
 use App\Models\Cart;
 use App\Models\Curriculum;
@@ -91,4 +92,12 @@ Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('
 Route::get('/filter-products', [BookController::class,'E_Library'])->name('filter.products');
 Route::get('/E_library', [BookController::class, 'E_Library'])->name('e_library');
 
+// Route::get('/search',[SearchController::class, 'search'],function(){
+//     return view('EnglishChallenger.search-results');
+// })->name('search');
+
+
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+// Route::get('/search', [SearchController::class, 'showResults'])->name('search');
+
+Route::get('/Become-Teacher',[TeacherController::class,'index'])->name('Become_teacher');
