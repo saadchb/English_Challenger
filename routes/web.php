@@ -97,7 +97,8 @@ Route::get('/E_library', [BookController::class, 'E_Library'])->name('e_library'
 // })->name('search');
 
 
-Route::get('/search', [SearchController::class, 'search'])->name('search');
-// Route::get('/search', [SearchController::class, 'showResults'])->name('search');
+        Route::get('/search', [SearchController::class, 'search'])->name('search');
+        Route::get('/search-result', [SearchController::class, 'showResults'])->name('search.result');
+
 
 Route::get('/Become-Teacher',[TeacherController::class,'index'])->name('Become_teacher');

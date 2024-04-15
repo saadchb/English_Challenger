@@ -96,6 +96,8 @@
 
     // Fetch data from the database (example)
     $courses = Course::all();
+
+
     ?>
 
     <header>
@@ -106,15 +108,13 @@
     <!--search overlay start-->
     <div class="search-wrap">
         <div class="overlay">
-        <!-- id="searchForm" -->
-            <form action="{{route('search')}}"  method="GET" class="search-form" >
+            <!-- id="searchForm" -->
+            <form action="{{ route('search') }}" method="GET" class="search-form" id="mainSearchForm">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-10 col-9">
                             <h3>Search Your keyword</h3>
                             <div class="input-group">
-                            <!-- <input name="search2" hidden id="searchInput" type="text" placeholder="Search ..." class="form-control search-input" /> -->
-
                                 <input name="search" id="searchInput" type="text" placeholder="Search..." class="form-control search-input" />
                                 <div class="input-group-append">
                                     <button type="submit" style="height: 50px;background-color: purple;" aria-label="search"><i class="fa fa-search"></i></button>
@@ -124,13 +124,17 @@
                         </div>
                         <div class="col-md-2 col-3 text-right">
                             <div class="search_toggle toggle-wrap d-inline-block">
-                                <img class="search-close" src="{{asset('build/assets/images/close.png')}}" srcset="build/assets/images/close@2x.png 2x" alt="" />
+                                <img class="search-close" src="{{ asset('build/assets/images/close.png') }}" srcset="build/assets/images/close@2x.png 2x" alt="" />
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
 
+            <form hidden id="secondSearchForm" action="{{ route('search.result') }}" method="GET" class="search-form">
+                <input name="search2" id="secondSearchInput" type="text" placeholder="Search..." class="form-control search-input" />
+                <button type="submit" style="height: 50px;background-color: purple;" aria-label="search"><i class="fa fa-search"></i></button>
+            </form>
         </div>
     </div>
 
@@ -213,6 +217,7 @@
             if (searchTerm.trim() !== '') {
                 // Perform the AJAX request to fetch search results
                 fetch(`/search?search=${searchTerm}`)
+
                     .then(response => response.json())
                     .then(data => {
 
@@ -272,7 +277,7 @@
                             searchResults.appendChild(seeMoreListItem);
 
                         }
-                        
+
                     })
                     .catch(error => {
                         console.error('Error fetching search results:', error);
@@ -280,6 +285,22 @@
             }
         }
     </script>
+<script>
+    // Add event listener to the main search form
+    document.getElementById('mainSearchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Get the value of the search term from the main search input
+        const searchTerm = document.getElementById('searchInput').value;
+
+        // Set the value of the hidden input field in the second form
+        document.getElementById('secondSearchInput').value = searchTerm;
+
+        // Submit the second form
+        document.getElementById('secondSearchForm').submit();
+    });
+</script>
+
 </body>
 
 </html>

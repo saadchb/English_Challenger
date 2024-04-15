@@ -51,7 +51,7 @@ $count = 0;
                 <img src="{{ asset('build/assets/images/English_Logo.png') }}" alt="logo3" width="160px">
 
             </a>
-            <button class="navbar-toggler navbar-toggle header-search search_toggle"  style="font-size: larger; margin-left:150px !important;"  type="button" data-toggle="collapse"
+            <button class="navbar-toggler navbar-toggle header-search search_toggle"  style="font-size: larger; margin-left:190px !important;"  type="button" data-toggle="collapse"
                  aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-search text-dark"></i>
             </button>
