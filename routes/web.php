@@ -92,9 +92,9 @@ Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('
 Route::get('/filter-products', [BookController::class,'E_Library'])->name('filter.products');
 Route::get('/E_library', [BookController::class, 'E_Library'])->name('e_library');
 
-// Route::get('/search',[SearchController::class, 'search'],function(){
-//     return view('EnglishChallenger.search-results');
-// })->name('search');
+Route::get('/First-test',function(){
+    return view('EnglishChallenger.Quize');
+})->name('Quiz');
 
 
         Route::get('/search', [SearchController::class, 'search'])->name('search');

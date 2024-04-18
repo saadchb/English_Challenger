@@ -11,12 +11,13 @@ $count = 0;
             <div class="col-lg-6 col-md-6">
                 <ul class="header-contact">
                     <li>
-                        <span>Call :</span>
-                        +212000000000
+                    <span>Call :</span>
+<a href="whatsapp://send?phone=+212687119547" target="_blank"  >(+212)687119547</a>
+
                     </li>
                     <li>
                         <span>Email :</span>
-                        Testing@example.com
+                        contact@englishchallenger.com
                     </li>
                 </ul>
             </div>
@@ -102,7 +103,7 @@ $count = 0;
                                                     style=" width: 300px; ;height: 200px;" alt=""
                                                     class="img-fluid">
                                                 <h5 class="card-title">{{ $course->title }}</h5>
-                                                <p class="card-text">{{ $course->description }}</p>
+                                                <p style="max-height: 3em; overflow: hidden;" class="card-text">{{ $course->description }}</p>
                                                 <a href="{{route('course_detail', $course->id)}}" style="text-decoration: underline;"><strong>course detail</strong> <i class="fa fa-angle-right"></i></a>
 
                                             </div>
@@ -155,17 +156,38 @@ $count = 0;
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown  dropdown-centered">
                     <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Quizzes<i class="fa fa-angle-down"></i>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbar3">
-                        <a class="dropdown-item " href="#">
-                            Quiz </a>
-                        <a class="dropdown-item " href="#">
-                            Quiz
-                        </a>
+                  
+                    <div class="dropdown-menu  p-2" style="color:#646a76;" aria-labelledby="navbar3">
+                        <ul class="list-unstyled d-flex">
+                            <li id="li3" style="width: 18rem; color: #646a76; margin-bottom: 10px;">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Interactive Quizzes for Continuous Learning</h5>
+                                    <p class="card-text">
+                                    Explore a diverse range of quizzes tailored for learners of all ages.
+                                     Experience dynamic assessments with real-time leaderboards and self-assessment practice for comprehensive learning.
+                                    </p>
+                                
+                                </div>
+                            </li>
+                            <li>
+                                <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top"
+                                        src="{{ asset('build/assets/images/course/QUIZ_IMG.jpeg') }}" alt="course 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Quizze </h5>
+                                        <p class="card-text">Explore your level as an English language student.</p>
+                                        <a href="/First-test" style="text-decoration: underline;">
+                                            <strong>Take The Quizze</strong> <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

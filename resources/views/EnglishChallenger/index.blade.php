@@ -313,8 +313,8 @@ $reviews = review::limit(7)->get();
                     @foreach ($reviews as $review)
                     <div class="review-item">
                         <div class="client-info" style="height: 650px;">
-                            <i class="bi bi-quote"></i>
-                            <p >{{ $review->comments }}</p>
+                            <i class="bi bi-quote"></i>                     
+                            <p style="max-height: 18.5em; overflow: hidden;">{{ $review->comments }}</p>
                             <div class="rating">
                                 @for ($i = 0; $i < $review->rating; $i++)
                                     <a href="#"><i class="fa fa-star"></i></a>
@@ -548,7 +548,8 @@ $reviews = review::limit(7)->get();
             `:''
         }
 </div>
-                <p>${table[i].description}</p>
+
+                <p style="max-height: 3.5em; overflow: hidden;">${table[i].description}</p>
 
                 <div class="course-footer d-lg-flex align-items-center justify-content-between">
                     <div class="course-meta">
