@@ -45,6 +45,7 @@
                                 </div>
                             </div>
                         </section>
+
                         <section class="elementor-section elementor-top-section elementor-element elementor-element-c7807e6 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="c7807e6" data-element_type="section">
                             <div class="elementor-container elementor-column-gap-no">
                                 <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-0451d5b" data-id="0451d5b" data-element_type="column">
@@ -90,13 +91,35 @@
                                     </div>
                                 </div>
                             </div>
-                        </section><br><br>
-
-                        <main class="site-main woocommerce single single-product page-wrapper">
-
+                        </section>
+                        <main class="site-main woocommerce single single-product page-wrapper" style="margin-top: -100px !important;">
                             <!--shop category start-->
                             <section class="space-3">
                                 <div class="container">
+                                    <div class="elementor-element elementor-element-800fe82 elementor-widget elementor-widget-image" data-id="800fe82" data-element_type="widget" data-widget_type="image.default">
+                                        <div class="elementor-widget-container">
+                                            <style>
+                                                /*! elementor - v3.18.0 - 20-12-2023 */
+                                                .elementor-widget-image {
+                                                    text-align: center
+                                                }
+
+                                                .elementor-widget-image a {
+                                                    display: inline-block
+                                                }
+
+                                                .elementor-widget-image a img[src$=".svg"] {
+                                                    width: 48px
+                                                }
+
+                                                .elementor-widget-image img {
+                                                    vertical-align: middle;
+                                                    display: inline-block
+                                                }
+                                            </style>
+                                            <img fetchpriority="high" decoding="async" width="1170" height="478" src="{{asset('build/assets/images/bg/becom-teacher2.jpg')}}" class="attachment-full size-full wp-image-2892" alt=""  sizes="(max-width: 1170px) 100vw, 1170px">
+                                        </div>
+                                    </div><br>
 
                                     <section class="elementor-section elementor-top-section elementor-element elementor-element-13605c6 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="13605c6" data-element_type="section">
                                         <div class="elementor-container elementor-column-gap-no">
@@ -116,6 +139,7 @@
                                             </div>
                                         </div>
                                     </section><br>
+
                                     <div class="row">
                                         <section id="primary" class="content-area col-lg-12">
                                             <main id="main" class="site-main" role="main">
@@ -136,19 +160,19 @@
                                                                 <div class="tab-content" id="nav-tabContent">
                                                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                                                         <div class="single-course-details ">
-                                                                        <p>Becoming a teacher is a transformative journey that offers immense opportunities for personal and professional growth. As a teacher, you have the privilege of shaping the minds of future generations and instilling in them a lifelong love of learning. It's a career path that goes beyond imparting knowledge; it's about fostering critical thinking, creativity, and empathy in young minds. Through your dedication and passion, you can make a meaningful impact on society by nurturing the next generation of leaders, innovators, and changemakers. Teaching is not just a job; it's a calling—a noble profession that empowers you to make a difference in the world, one student at a time.</p>
-                                                                      </div>
+                                                                            <p>Becoming a teacher is a transformative journey that offers immense opportunities for personal and professional growth. As a teacher, you have the privilege of shaping the minds of future generations and instilling in them a lifelong love of learning. It's a career path that goes beyond imparting knowledge; it's about fostering critical thinking, creativity, and empathy in young minds. Through your dedication and passion, you can make a meaningful impact on society by nurturing the next generation of leaders, innovators, and changemakers. Teaching is not just a job; it's a calling—a noble profession that empowers you to make a difference in the world, one student at a time.</p>
+                                                                        </div>
                                                                     </div>
 
                                                                     <div class="tab-pane fade" id="nav-topics" role="tabpanel" aria-labelledby="nav-topics-tab">
-                                                                    <div class="single-course-details ">
+                                                                        <div class="single-course-details ">
                                                                             <!-- <h4 class="course-title">Description</h4> -->
                                                                             <p>Becoming a teacher is a transformative journey that offers immense opportunities for personal and professional growth. As a teacher, you have the privilege of shaping the minds of future generations and instilling in them a lifelong love of learning. It's a career path that goes beyond imparting knowledge; it's about fostering critical thinking, creativity, and empathy in young minds. Through your dedication and passion, you can make a meaningful impact on society by nurturing the next generation of leaders, innovators, and changemakers. Teaching is not just a job; it's a calling—a noble profession that empowers you to make a difference in the world, one student at a time.</p>
+                                                                        </div>
                                                                     </div>
-                                                                    </div>
-                                                                 
+
                                                                     <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
-                                                                    <div class="single-course-details ">
+                                                                        <div class="single-course-details ">
                                                                             <h4 class="course-title">Description</h4>
                                                                             <p>Knowing PHP has allowed me to make enough money to stay home and make courses like this one for students all over the world. Being a PHP developer can allow anyone to make really good money online and offline, developing dynamic applications.
                                                                                 Knowing PHP will allow you to build web applications, websites or Content Management systems, like WordPress, Facebook, Twitter or even Google.
@@ -205,20 +229,15 @@
 
                                                     </div>
                                     </div><!-- .entry-content -->
-
+                                </div>
+                            </section>
+                        </main>
+                    </div>
+                </div>
             </article><!-- #post-## -->
 
         </main><!-- #main -->
-        </section>
     </div>
 </div>
-</section>
-<!--shop category end-->
-</main>
-</div>
-</div>
-</article>
-</main>
-</div>
-</div>
+
 @endsection

@@ -200,9 +200,9 @@ $count = 0;
                 <a class="dropdown-item " href="{{route('Become_teacher')}}">
                     Become a teacher
                 </a>
-                <a class="dropdown-item " href="#">
+                <!-- <a class="dropdown-item " href="#">
                     login
-                </a>
+                </a> -->
        
             </div>
                 </li>

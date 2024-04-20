@@ -17,12 +17,15 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('picture');
             $table->string('phone');
-            $table->string('emial');
             $table->string('linkdin');
             $table->string('city');
             $table->string('description_education_background');
             $table->integer('year_experience');
             $table->string('cv');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->softDeletes();
 
             $table->timestamps();
