@@ -15,6 +15,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\DetailsStudentController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\HommeController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
@@ -25,11 +26,18 @@ use App\Http\Controllers\CommentController;
 use App\Models\detiailsStudent;
 use App\Models\Cart;
 use App\Models\Curriculum;
+use App\Models\Homme;
+
 
 Route::get('/',[CourseController::class, 'indexEn'])->name('EnglishChallenger.index');
 Route::get('/dachboard',function(){
     return view('Backend_editor.dachboard');
 });
+
+Route::get('/dachboard', [HommeController::class, 'index'])->name('dachboard');
+Route::post('/video/store', [HommeController::class, 'store'])->name('video.store');
+Route::get('/', [HommeController::class, 'indexHm'])->name('home');
+
 Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
@@ -122,3 +130,6 @@ Route::get('/filter-products', [BookController::class,'E_Library'])->name('filte
 Route::get('/E_library', [BookController::class, 'E_Library'])->name('e_library');
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+
+
