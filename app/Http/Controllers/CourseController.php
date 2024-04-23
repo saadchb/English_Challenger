@@ -8,6 +8,7 @@ use App\Models\CategoriesCourse;
 use App\Models\Course;
 use App\Models\Curriculum;
 use App\Models\Faq;
+use App\Models\Homme;
 use App\Models\KeyFeature;
 use App\Models\Lesson;
 use App\Models\Quiz;
@@ -388,7 +389,14 @@ class CourseController extends Controller
 
         $tags = Tag::all();
         $categories = Categorie::all();
+        
+        $featuredVideo = Homme::where('is_active', true)->latest()->first();
+        $latestFeaturedId = Homme::where('is_active', true)->latest()->value('id');
+        $normalVideos = Homme::where('id', '<>', $latestFeaturedId)->latest()->paginate(3);
+
         return view('EnglishChallenger.index', [
+            'featuredVideo'=> $featuredVideo,
+            'normalVideos'=> $normalVideos,
             'courses' => $courses, 'tags' => $tags,
             'categories' => $categories, 'nbCourses' => $nbCourses,
             'categories_course' => $categories_course,

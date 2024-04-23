@@ -2,13 +2,17 @@
 @section('title','Home')
 @section('content')
 <?php
-
 use App\Models\Course;
 use App\Models\review;
 use App\Models\Book;
+use App\Models\Blog;
+use App\Models\Homme;
 
 $bookcount = Book::count();
+$nbCourses = Course::count();
 $reviews = review::limit(7)->get();
+$latestBlogs = Blog::latest()->take(3)->get();
+$blogCount = Blog::count();
 
 ?>
 <section class="banner">
@@ -106,85 +110,43 @@ $reviews = review::limit(7)->get();
     </div>
 
     <div class="row align-items-center justify-content-center">
-        <div class="col-lg-10">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/90dMLavEFOM" allowfullscreen></iframe>
-            </div>
-
-
+    <div class="col-lg-10">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{ $featuredVideo->video }}" allowfullscreen></iframe>
         </div>
-
     </div>
+</div>
 
     </div>
 
     <!--course-->
 </section>
 <section class="section-padding popular-course-slider">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="course-slides owl-carousel owl-theme owl-loaded owl-drag">
-                        <div class="owl-stage-outer">
-                            <div class="owl-stage" style="transition: all 0.25s ease 0s; width: 4338px; transform: translate3d(-2365px, 0px, 0px);">
-                                <div class="owl-item cloned" style="width: 384.291px; margin-right: 10px;">
-                                    <div class="course-block">
-                                        <div class="course-img">
-                                            <img  src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="owl-item cloned" style="width: 384.291px; margin-right: 10px;">
-                                    <div class="course-block">
-                                        <div class="course-img">
-                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div class="owl-item cloned" style="width: 384.291px; margin-right: 10px;">
-                                    <div class="course-block">
-                                        <div class="course-img">
-                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div class="owl-item" style="width: 384.291px; margin-right: 10px;">
-                                    <div class="course-block">
-                                        <div class="course-img">
-                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div class="owl-item" style="width: 384.291px; margin-right: 10px;">
-                                    <div class="course-block">
-                                        <div class="course-img">
-                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div class="owl-item" style="width: 384.291px; margin-right: 10px;">
-                                    <div class="course-block">
-                                        <div class="course-img">
-                                            <img src="build/assets/images/course/course3.jpg" alt="" class="img-fluid">
-                                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="course-slides owl-carousel owl-theme owl-loaded owl-drag">
+                    <div class="owl-stage-outer">
+                        
+                        <div class="owl-stage">
+                        @foreach($normalVideos as $video)
+                            <div class="owl-item">
+                                <div class="course-block">
+                                    <div class="course-img">
+                                        <iframe src="{{ $video->video }}" class="img-fluid" allowfullscreen></iframe>
                                     </div>
                                 </div>
                             </div>
+                        @endforeach
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 <section class="section-padding popular-course bg-grey">
     <div class="container">
         <div class="row align-items-center">
@@ -221,9 +183,9 @@ $reviews = review::limit(7)->get();
                         <div class="counter-item">
                             <i class="ti-desktop"></i>
                             <div class="count">
-                                <span class="counter h2">90</span>
+                                <span class="counter h2">{{ $blogCount }}</span>
                             </div>
-                            <p>Expert Instructors</p>
+                            <p>Totale Blogs</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
@@ -273,7 +235,7 @@ $reviews = review::limit(7)->get();
         </div>
 
         <div class="row no-gutters">
-
+        
             @foreach($categorieByCourses as $categorieByCourse)
             <div class="col-lg-3 col-md-6">
                 <div class="course-category style-1">
@@ -286,7 +248,7 @@ $reviews = review::limit(7)->get();
             </div>
             @endforeach
         </div>
-
+        
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="text-center mt-5">
@@ -349,64 +311,33 @@ $reviews = review::limit(7)->get();
                 <div class="section-heading center-heading">
                     <span class="subheading">Blog News</span>
                     <h3>Latest Blog News</h3>
-                    <p>take an eye on our new and recommended blogs written by a professional writers!</p>
+                    <p>take an eye on our new and recommended blogs written by a professional writers!</p> 
                 </div>
             </div>
+                <div class="course-btn text-lg-right">
+                    <a href="/Blogs" class="btn btn-main"><i class="fa fa-book mr-2"></i>All Blogs</a>
+                </div>
         </div>
 
 
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-item">
-                    <img src="build/assets/images/blog/blog1.png" alt="blog 1" class="img-fluid">
-                    <div class="blog-content">
-                        <div class="entry-meta">
-                            <span><i class="fa fa-calendar-alt"></i>May 19, 2022</span>
-                            <span><i class="fa fa-comments"></i>150 comment</span>
-                        </div>
-                        <h2><a href="#">The British English Challenge</a></h2>
-                        <p> "Ready for a taste of British English?
-                            Our inaugural challenge begins July 31st. From classic expressions to regional dialects,
-                            here's your chance to explore the rich tapestry of British linguistic heritage . Stay tuned for details!"</p>
+            @foreach($latestBlogs as $blog)
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog-item">
+                        <img src="build/assets/images/blog/{{$blog->img}}" alt="{{$blog->title}}" class="img-fluid">
+                        <div class="blog-content">
+                            <div class="entry-meta">
+                                <span><i class="fa fa-calendar-alt"></i>{{ $blog->created_at->format('Y-m-d') }}</span>
+                                <span><i class="fa fa-comments"></i>{{$blog->comments()->count()}} comments</span>
+                            </div>
+                            <h2><a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}">{{$blog->title}}</a></h2>
+                            <p>{{$blog->description}}</p>
 
-                        <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
+                            <a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-item">
-                    <img src="build/assets/images/blog/blog2.png" alt="blog 2" class="img-fluid">
-                    <div class="blog-content">
-                        <div class="entry-meta">
-                            <span><i class="fa fa-calendar-alt"></i>April 22, 2023</span>
-                            <span><i class="fa fa-comments"></i>85 comment</span>
-                        </div>
-
-                        <h2><a href="#">Happy 4th Birthday to English Learning for Curious Minds</a></h2>
-                        <p>English Learning for Curious Minds was first published 4 years ago today. Here is a summary of how things have gone since then, and the main things we've done in 2023.</p>
-
-                        <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-item">
-                    <img src="build/assets/images/blog/blog3.png" alt="blog 3" class="img-fluid">
-                    <div class="blog-content">
-                        <div class="entry-meta">
-                            <span><i class="fa fa-calendar-alt"></i>Mars 5, 2024</span>
-                            <span><i class="fa fa-comments"></i>16 comment</span>
-                        </div>
-
-                        <h2><a href="#">24 Unorthodox Ways To Stick To Your English Learning Goals in 2024</a></h2>
-                        <p>Learning English is hard, and one of the hardest things about it is staying motivated. Here are 24 ways that you can stay motivated and hit your goals.</p>
-
-                        <a href="#" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -414,7 +345,7 @@ $reviews = review::limit(7)->get();
 
 <script>
     const showCoursesBycategories = document.getElementById('showCoursesBycategories');
-    const categories = @json($categories);
+     const categories = @json($categories); 
     const courses = @json($courses);
     const categories_course = @json($categories_course);
 
