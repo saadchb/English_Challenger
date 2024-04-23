@@ -173,33 +173,33 @@
                         </div>
                         @else
                         @foreach ($review as $rev)
-    @if ($rev->book_id == $book->id)
-        <div class="course-review-wrapper">
-            <div class="course-review">
-                <div class="profile-img">
-                    <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="" class="img-fluid">
-                </div>
-                <div class="review-text">
-                    <h5>{{ $rev->name }} <span style="float: right;"><i class="fas fa-clock mr-2"></i> 
-                    @if($rev->created_at)
-                        {{ $rev->created_at->diffForHumans() }}
-                    @else
-                        Unknown
-                    @endif
-                    </span></h5>
-                    <br>
-                    <div class="rating">
-                        @for ($i = 0; $i < $rev->rating; $i++)
-                            <a href="#"><i class="fa fa-star"></i></a>
-                        @endfor
-                    </div>
-                    <p>{{ $rev->comments }}</p>
-                </div>
-            </div>
-        </div>
-    @endif
-@endforeach
-z
+                        @if ($rev->book_id == $book->id)
+                        <div class="course-review-wrapper">
+                            <div class="course-review">
+                                <div class="profile-img">
+                                    <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="" class="img-fluid">
+                                </div>
+                                <div class="review-text">
+                                    <h5>{{ $rev->name }} <span style="float: right;"><i class="fas fa-clock mr-2"></i>
+                                            @if($rev->created_at)
+                                            {{ $rev->created_at->diffForHumans() }}
+                                            @else
+                                            Unknown
+                                            @endif
+                                        </span></h5>
+                                    <br>
+                                    <div class="rating">
+                                        @for ($i = 0; $i < $rev->rating; $i++)
+                                            <a href="#"><i class="fa fa-star"></i></a>
+                                            @endfor
+                                    </div>
+                                    <p>{{ $rev->comments }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                        z
                         @endif
                     </div>
                     <div class="comments-form p-5 mt-6" style="margin-top: 140px !important;">
