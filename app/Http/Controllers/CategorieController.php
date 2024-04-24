@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Cart;
 use App\Models\Categorie;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategorieController extends Controller
 {
@@ -42,19 +44,66 @@ class CategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
 
+    public function show(Request $request, string $id)
     {
+        $booksQuery = Book::query();        
+    
+        // Applying sorting based on the selected option
+        if ($request->filled('orderby')) {
+            switch ($request->input('orderby')) {
+                case 'rating':
+                    // Join with reviews table and calculate average rating
+                    $booksQuery->leftJoin('reviews', 'books.id', '=', 'reviews.book_id')
+                               ->select('books.id', 'books.title', 'books.regular_price', DB::raw('AVG(reviews.rating) as average_rating'))
+                               ->groupBy('books.id', 'books.title', 'books.regular_price')
+                               ->orderBy('average_rating', 'desc');
+                    break;
+                
+                case 'latest':
+                    $booksQuery->latest();
+                    break;
+                case 'price_low_high':
+                    $booksQuery->orderBy('regular_price', 'asc');
+                    break;
+                case 'price_high_low':
+                    $booksQuery->orderBy('regular_price', 'desc');
+                    break;
+                default:
+                    // For the default sorting option, either apply default sorting logic
+                    // or return unsorted results. Adjust this based on your application's needs.
+                    $booksQuery->orderBy('id', 'asc'); // Sort by book ID in ascending order
+                    break;
+            }
+        }
+    
+        // Applying price range filter
+        $minPrice = 0;
+        $maxPrice = 1000;
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $minPrice = (float) $request->input('min_price');
+            $maxPrice = (float) $request->input('max_price');
+            
+            $booksQuery->whereBetween('regular_price', [$minPrice, $maxPrice]);
+        }
+    
+        // Paginate the results after applying sorting and filtering
+        $books = $booksQuery->paginate(8);
+    
         $cartBooks = Cart::pluck('book_id')->toArray();
         $currentCategoryId = $id;
-        $categorie=Categorie::findOrFail($id);
+        $categorie = Categorie::findOrFail($id);
+    
         return view('EnglishChallenger.categorie', [
-             'categorie' => $categorie,
-             'currentCategoryId'=>$currentCategoryId,
-            'cartBooks'=>$cartBooks
-            ]);
+            'categorie' => $categorie,
+            'currentCategoryId' => $currentCategoryId,
+            'cartBooks' => $cartBooks,
+            'books' => $books, // Pass paginated books to the view
+            'minPrice' => $minPrice, // Pass minPrice and maxPrice for filtering UI
+            'maxPrice' => $maxPrice,
+        ]);
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */

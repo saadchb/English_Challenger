@@ -24,7 +24,7 @@ protected $fillable =
     'billing_phone',
     'billing_email',
     'order_comments',
-    'cart_id',
+    // 'cart_id',
     'user_id',
     'payment_method',
 ];

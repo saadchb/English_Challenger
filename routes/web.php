@@ -14,18 +14,31 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DetailsStudentController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\HommeController;
 use App\Models\Categorie;
 use PharIo\Manifest\RequirementCollection;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Models\detiailsStudent;
 use App\Models\Cart;
 use App\Models\Curriculum;
+use App\Models\Homme;
+
 
 Route::get('/',[CourseController::class, 'indexEn'])->name('EnglishChallenger.index');
 Route::get('/dachboard',function(){
     return view('Backend_editor.dachboard');
 });
+
+Route::get('/dachboard', [HommeController::class, 'index'])->name('dachboard');
+Route::post('/video/store', [HommeController::class, 'store'])->name('video.store');
+// Route::get('/', [HommeController::class, 'indexHm'])->name('home');
+
 Route::get('/Quize',function(){
     return view('EnglishChallenger.Quize');
 });
@@ -41,9 +54,7 @@ Route::post('/school/store',[ReviewController::class,'store'])->name('school.sto
 Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
 // Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
 
-Route::get('/page-certifcate',function(){
-    return view('EnglishChallenger.page-certifcate');
-});
+Route::get('/page-certifcate',[BookController::class,'certifcat'])->name('EnglishCallenger.page-certifcate');
 Route::get('/course_detail/{id}', [CourseController::class, 'show2'])->name('course_detail');
 Route::get('/course_list',[CourseController::class,'indexCr']);
 
@@ -68,6 +79,34 @@ Route::resource('/Curricula',CurriculumController::class);
 Route::put('/CurriculaLessons/{id}', [CurriculumController::class, 'CL'])->name('CL.Update');
 Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name('CQ.Update');
 
+Route::resource('/Blogs',BlogController::class);
+Route::get('/Blogs/{id}', 'BlogController@show')->name('EnglishChallenger.blog_detail');
+
+Route::post('/Blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
+
+Route::get('/Bloges', [BlogController::class, 'indexBl'])->name('Bloges.index'); // Index route
+Route::get('/Bloges/create', [BlogController::class, 'create'])->name('Bloges.create'); // Create route
+Route::post('/Bloges', [BlogController::class, 'store'])->name('Bloges.store'); // Store route
+Route::get('/Bloges/{blog}/edit', [BlogController::class, 'edit'])->name('Bloges.edit'); // edit route
+Route::put('/Bloges/{blog}', [BlogController::class, 'update'])->name('Bloges.update'); // Update route
+Route::delete('/Bloges/{blog}', [BlogController::class, 'destroy'])->name('Bloges.destroy'); // Delete route
+
+
+
+Route::resource('/Blogs',BlogController::class);
+Route::get('/Blogs/{id}', 'BlogController@show')->name('EnglishChallenger.blog_detail');
+
+Route::post('/Blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
+
+Route::get('/Bloges', [BlogController::class, 'indexBl'])->name('Bloges.index'); // Index route
+Route::get('/Bloges/create', [BlogController::class, 'create'])->name('Bloges.create'); // Create route
+Route::post('/Bloges', [BlogController::class, 'store'])->name('Bloges.store'); // Store route
+Route::get('/Bloges/{blog}/edit', [BlogController::class, 'edit'])->name('Bloges.edit'); // edit route
+Route::put('/Bloges/{blog}', [BlogController::class, 'update'])->name('Bloges.update'); // Update route
+Route::delete('/Bloges/{blog}', [BlogController::class, 'destroy'])->name('Bloges.destroy'); // Delete route
+
+
+
 Route::post('/curriculum_list/next/{id}', [CurriculumController::class, 'next'])->name('curriculum_list.next');
 Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])->name('curriculum_list.prev');
 ///
@@ -85,3 +124,22 @@ Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('c
 Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('detailsStudentss.show');
 Route::post('/curriculum.quiz/{id}',[CurriculumController::class, 'checkQuiz'])->name('checkQuiz');
 //
+Route::get('/checkout',[CheckoutController::class,'index'])->name('chekout.index');
+
+Route::get('/checkout/order-received',[CheckoutController::class,'order'])->name('order.order-received');
+Route::post('/Checkou/order-received/store',[CheckoutController::class,'store'])->name('order.store');
+Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('detailsStudents.show');
+
+Route::get('/filter-products', [BookController::class,'E_Library'])->name('filter.products');
+Route::get('/E_library', [BookController::class, 'E_Library'])->name('e_library');
+
+Route::get('/First-test',function(){
+    return view('EnglishChallenger.Quize');
+})->name('Quiz');
+
+
+        Route::get('/search', [SearchController::class, 'search'])->name('search');
+        Route::get('/search-result', [SearchController::class, 'showResults'])->name('search.result');
+
+
+Route::get('/Become-Teacher',[TeacherController::class,'index'])->name('Become_teacher');

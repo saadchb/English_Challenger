@@ -46,12 +46,13 @@ $courses = Course::query()->latest()->paginate(4);
                             @endphp
 
                             Showing {{ $schools->count() }} of {{ $totalSchool }} results</p>
-                        <form class="woocommerce-ordering float-lg-right" method="get">
-                            <select name="orderby" class="orderby form-control" aria-label="Shop order">
-                                <option value="" selected="selected">Default sorting</option>
-                                <option value="">Sort by average rating</option>
-                                <option value="">Sort by latest</option>
+                            <form class="woocommerce-ordering float-lg-right" method="get" action="{{ route('EnglishCallenger.Schools_list') }}">
 
+                            <select name="orderby" class="submitButton orderby form-control" aria-label="Shop order">
+                                <option value="default">Default sorting</option>
+                                <option value="rating">Sort by average rating</option>
+                                <option value="latest">Sort by latest</option>
+               
                             </select>
                             <input type="hidden" name="paged" value="1">
                         </form>
@@ -65,7 +66,7 @@ $courses = Course::query()->latest()->paginate(4);
                             </div>
                             <div class="error-content">
                                 Try click on button to back to schools<br>
-                                <a href="/Schools_list" class="btn btn-main" style="background-color: #862b84;">Back to Schools Page</a>
+                                <a href="/Schools_list" class="btn btn-main" style="background-color: #862b84;border-color:#862b84;">Back to Schools Page</a>
                             </div>
                         </div>
                         @else
@@ -73,7 +74,7 @@ $courses = Course::query()->latest()->paginate(4);
                         <li class="product mb-4" style="width: 19rem;">
                             <div class="product-wrap">
                                 <a href="#" class="">
-                                    @if(!empty($school->school_logo))
+                                    @if(empty($school->school_logo))
 
                                     <img src="{{ asset('storage/'. $school->school_photo)}}" onerror="this.onerror=null;this.src='{{ $school->school_photo }}';" style="height:222px;" class="img-fluid" alt="school photo">
 

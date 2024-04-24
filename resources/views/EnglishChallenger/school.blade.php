@@ -130,9 +130,7 @@ $courses = Course::query()->latest()->paginate(4);
                         <div class="course-widget course-info">
                             <h4 class="course-title">About the school</h4>
                             <div class="instructor-profile">
-                                <!-- <div class="profile-img">
-                                    <img src="{{ asset('storage/'.$school->school_logo) }}" alt="" class="img-fluid">
-                                </div> -->
+                           
                                 <div class="profile-info">
                                     <h5>{{$school->school_name}}</h5><bR>
                                     <div class="rating">

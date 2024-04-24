@@ -40,14 +40,14 @@
 						<li><i class="bi bi-headphone"></i>
 							<div>
 								<strong>Phone number</strong>
-								+212000000000
+								(+212)687119547
 							</div>
 							
 						</li>
 						<li> <i class="bi bi-envelop"></i>
 							<div>
 								<strong>Email Address</strong>
-								test@yourdomain.com
+								contact@englishchallenger.com
 							</div>
 						</li>
 						<li><i class="bi bi-location-pointer"></i>

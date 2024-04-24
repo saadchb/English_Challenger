@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+  <!-- <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css"> -->
   <link rel="icon" href="{{ asset('build/assets/images/English_Icon.png') }}" type="image/x-icon">
 
 <!-- Include additional stylesheets for this view -->
@@ -120,6 +120,14 @@
                 <i class="nav-icon fa-solid fa-clipboard-question "></i>
                 <p>
                   Questions
+                </p>
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/Bloges" class="nav-link">
+                <i class="nav-icon fa-solid fa fa-book mr-2 "></i>
+                <p>
+                  Blogs
                 </p>
               </a>
             </li>

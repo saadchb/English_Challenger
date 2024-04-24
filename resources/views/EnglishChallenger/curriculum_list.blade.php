@@ -227,7 +227,7 @@ let startQuiz = false;
             <input type="search" width="200px" style="border: none !important;" id='search'
                 class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         </div>
-        <a class="px-3 pt-2 mydivheader" href="{{ route('detailsStudentss.show') }}">
+        <a class="px-3 pt-2 mydivheader" href="{{ route('detailsStudents.show') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width='50' height='50' class=""
                 viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                 <path

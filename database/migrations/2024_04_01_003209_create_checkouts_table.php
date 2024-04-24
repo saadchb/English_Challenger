@@ -20,13 +20,15 @@ return new class extends Migration
             $table->string('billing_address_1');
             $table->string('billing_address_2')->nullable();
             $table->string('billing_city');
+            $table->string('billing_postcode');
             $table->string('billing_state')->nullable();
             $table->string('billing_email');
             $table->text('order_notes')->nullable();
             $table->string('billing_phone');
+            $table->string('order_comments')->nullable();
             $table->string('payment_method')->nullable();
-            $table->string('total_amount');
-            $table->foreignId('cart_id')->constrained();
+            // $table->string('total_amount');
+            // $table->foreignId('cart_id')->constrained();
             $table->foreignId('user_id')->constrained()->nullable(); 
             $table->softDeletes();    
             $table->timestamps();
