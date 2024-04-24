@@ -83,3 +83,5 @@ Route::post('/cart',[CartController::class,'store'])->name('cart.store');
 Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('detailsStudentss.show');
+Route::post('/curriculum.quiz/{id}',[CurriculumController::class, 'checkQuiz'])->name('checkQuiz');
+//

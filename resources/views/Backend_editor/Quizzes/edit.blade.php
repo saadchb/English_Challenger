@@ -137,7 +137,7 @@ $questions = Question::all();
                                     <input id="_lp_show_correct_review" value="{{$quiz->show_correct_answer}}" name="show_correct_answer" type="checkbox" class="form-check-input" checked>
                                     <label for="_lp_show_correct_review" class="form-check-label">Allow students to view the correct answer to the question in reviewing this quiz.</label>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>

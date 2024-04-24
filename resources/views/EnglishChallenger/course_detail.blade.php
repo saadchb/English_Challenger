@@ -175,6 +175,9 @@
                                                                                                 <input type="hidden"
                                                                                                 value="{{ $lesson['type'] }}"
                                                                                                 name="type" />
+                                                                                                <input type="hidden"
+                                                                                            value="1"
+                                                                                            name="student_id" />
                                                                                             <svg class="ml-1"
                                                                                                 width="17px"
                                                                                                 height="17px"
@@ -202,6 +205,9 @@
                                                                                         <input type="hidden"
                                                                                             value="{{ $lesson['id'] }}"
                                                                                             name="lesson_id" />
+                                                                                            <input type="hidden"
+                                                                                            value="1"
+                                                                                            name="student_id" />
                                                                                             <input type="hidden"
                                                                                             value="{{ $lesson['type'] }}"
                                                                                             name="type" />
