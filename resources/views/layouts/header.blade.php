@@ -31,7 +31,7 @@ $count = 0;
                         </ul>
                     </div>
                     <div class="header-btn ">
-                        <a href="#" class="btn btn-main btn-small div1"  style="border-radius:15px ;"><i class="fa fa-user mr-2 "></i>Login /
+                        <a href="/Account" class="btn btn-main btn-small div1"  style="border-radius:15px ;"><i class="fa fa-user mr-2 "></i>Login /
                             Register</a>
                     </div>
                     <div class="header-btn " >
@@ -207,7 +207,7 @@ $count = 0;
             </div>
                 </li>
                 <li class="nav-item ">
-                    <a href="/detailsStudents" class="nav-link">
+                    <a href="{{route('detailsStudents.show')}}" class="nav-link">
                         Students
                     </a>
                 </li>

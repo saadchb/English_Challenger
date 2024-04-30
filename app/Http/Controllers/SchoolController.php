@@ -15,7 +15,10 @@ class SchoolController extends Controller
     public function index()
     {
         if (request('search1')) {
-            $schools = School::where('school_name', "like", '%' . request('search1') . '%')->paginate(8);
+            $schools = School::where('school_name', "like", '%' . request('search1') . '%')
+            ->orWhere('school_city', "like", '%' . request('search1') . '%')
+            ->paginate(8);
+      
         } else {
             $schools = School::query()->latest()->paginate(8);
         }
@@ -29,14 +32,15 @@ class SchoolController extends Controller
         $schoolsQuery = School::query();
 
         if ($request->filled('search1')) {
-            $schoolsQuery->where('school_name', 'like', '%' . $request->input('search1') . '%');
+            $schoolsQuery->where('school_name', 'like', '%' . $request->input('search1') . '%')
+            ->orWhere('school_city', "like", '%' . request('search1') . '%');
         }
         // Applying sorting based on the selected option
         if ($request->filled('orderby')) {
             switch ($request->input('orderby')) {
                 case 'rating':
                     // Join with reviews table and calculate average rating
-                    $schoolsQuery->leftJoin('reviews', 'schools.id', '=', 'reviews.book_id')
+                    $schoolsQuery->leftJoin('reviews', 'schools.id', '=', 'reviews.school_id')
                         ->select('schools.*', DB::raw('AVG(reviews.rating) as average_rating'))
                         ->groupBy('schools.id')
                         ->orderByDesc('average_rating');

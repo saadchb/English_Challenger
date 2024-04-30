@@ -117,7 +117,7 @@
                                                     display: inline-block
                                                 }
                                             </style>
-                                            <img fetchpriority="high" decoding="async" width="1170" height="478" src="{{asset('build/assets/images/bg/becom-teacher2.jpg')}}" class="attachment-full size-full wp-image-2892" alt=""  sizes="(max-width: 1170px) 100vw, 1170px">
+                                            <img fetchpriority="high" decoding="async" width="1170" height="478" src="{{asset('build/assets/images/bg/becom-teacher2.jpg')}}" class="attachment-full size-full wp-image-2892" alt="" sizes="(max-width: 1170px) 100vw, 1170px">
                                         </div>
                                     </div><br>
 
@@ -181,8 +181,19 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-24">
+                                                                <div class="msg-alert mt-lg-0 mt-md-0">
+                                                                    <div class="widget ">
+                                                                        <div style="  display: inline-flex; width: auto;padding:3%;justify-content: center;">
+                                                                            <p><i class="fas fa-check mr-4" style="color: #63E6BE;"></i>please <b>Login</b> as teacher to send your request!</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
                                                             <div class="col-lg-5">
                                                                 <div id="order_review" class="woocommerce-checkout-review-order">
+
                                                                     <div class="elementor-shortcode">
                                                                         <div class="elementor-widget-container">
                                                                             <div class="learnpress">

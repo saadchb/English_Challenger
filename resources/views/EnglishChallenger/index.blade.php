@@ -323,15 +323,15 @@ $blogCount = Blog::count();
         <div class="row">
             @foreach($latestBlogs as $blog)
                 <div class="col-lg-4 col-md-6">
-                    <div class="blog-item">
-                        <img src="build/assets/images/blog/{{$blog->img}}" alt="{{$blog->title}}" class="img-fluid">
+                    <div class="blog-item" style="height: 760; width: 415;" >
+                        <img src="{{ asset('storage/'. $blog->img)}}"  style="height: 205px; width: 380px;" alt="{{$blog->title}}" class="img-fluid">
                         <div class="blog-content">
                             <div class="entry-meta">
                                 <span><i class="fa fa-calendar-alt"></i>{{ $blog->created_at->format('Y-m-d') }}</span>
                                 <span><i class="fa fa-comments"></i>{{$blog->comments()->count()}} comments</span>
                             </div>
                             <h2><a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}">{{$blog->title}}</a></h2>
-                            <p>{{$blog->description}}</p>
+                            <p  style="max-height: 4em; overflow: hidden;">{{$blog->description}}</p>
 
                             <a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
                         </div>

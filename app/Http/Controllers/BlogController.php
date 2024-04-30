@@ -37,6 +37,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $imagePath = $request->file('img')->store('images','public');
+
         $blog = new Blog([
             'title' => $request->get('title'),
             'subtitle' => $request->get('subtitle'),

@@ -54,6 +54,7 @@ Route::post('/school/store',[ReviewController::class,'store'])->name('school.sto
 Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
 // Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
 
+
 Route::get('/page-certifcate',[BookController::class,'certifcat'])->name('EnglishCallenger.page-certifcate');
 Route::get('/course_detail/{id}', [CourseController::class, 'show2'])->name('course_detail');
 Route::get('/course_list',[CourseController::class,'indexCr']);
@@ -127,8 +128,11 @@ Route::get('/checkout/order-received',[CheckoutController::class,'order'])->name
 Route::post('/Checkou/order-received/store',[CheckoutController::class,'store'])->name('order.store');
 Route::get('/detailsStudents', [DetailsStudentController::class,'show'])->name('detailsStudents.show');
 
+
+
 Route::get('/filter-products', [BookController::class,'E_Library'])->name('filter.products');
 Route::get('/E_library', [BookController::class, 'E_Library'])->name('e_library');
+
 
 Route::get('/First-test',function(){
     return view('EnglishChallenger.Quize');
@@ -138,5 +142,9 @@ Route::get('/First-test',function(){
         Route::get('/search', [SearchController::class, 'search'])->name('search');
         Route::get('/search-result', [SearchController::class, 'showResults'])->name('search.result');
 
-
+        
 Route::get('/Become-Teacher',[TeacherController::class,'index'])->name('Become_teacher');
+
+Route::get('/Account',function (){
+    return view('Account');
+});

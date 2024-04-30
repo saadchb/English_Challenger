@@ -29,7 +29,7 @@
             @foreach ($blogs as $blog)
                 <article class="blog-post-item">
                     <div class="post-thumb">
-                        <img src="build/assets/images/blog/{{$blog->img}}" alt="{{$blog->title}}" class="img-fluid">
+                        <img src="{{asset('storage/'.$bolg->img')}}" alt="{{$blog->title}}" class="img-fluid">
                     </div>
                     <div class="post-item mt-4">
                         <div class="post-meta">
