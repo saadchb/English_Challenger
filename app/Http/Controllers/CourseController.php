@@ -389,7 +389,7 @@ class CourseController extends Controller
 
         $tags = Tag::all();
         $categories = Categorie::all();
-        
+
         $featuredVideo = Homme::where('is_active', true)->latest()->first();
         $latestFeaturedId = Homme::where('is_active', true)->latest()->value('id');
         $normalVideos = Homme::where('id', '<>', $latestFeaturedId)->latest()->paginate(3);

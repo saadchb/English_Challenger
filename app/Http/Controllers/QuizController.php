@@ -22,7 +22,7 @@ class QuizController extends Controller
         }
         return view('Backend_editor.Quizzes.index',['Quizs'=>$Quizs]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -40,7 +40,7 @@ class QuizController extends Controller
         $priview = $request->has('review');
         $show = $request->has('show_correct_answer');
         $CHECK = $request->has('instant_check');
-
+        $general_test = $request->has('general_test');
 
         $Quiz = new Quiz([
             'title' => $request->get('title'),
@@ -54,6 +54,7 @@ class QuizController extends Controller
             'retake' => $request->get('retake'),
             'pagination' => $request->get('pagination'),
             'review' => $priview,
+            'general_test' => $general_test,
             'show_correct_answer' => $show,
 
         ]);
@@ -85,9 +86,9 @@ class QuizController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {        
+    {
             $quiz =Quiz::findOrFail($id);
-        return view('Backend_editor.Quizzes.edit',['quiz'=>$quiz]);    
+        return view('Backend_editor.Quizzes.edit',['quiz'=>$quiz]);
         }
 
     /**
@@ -101,8 +102,10 @@ class QuizController extends Controller
         $priview = $request->has('review');
         $show = $request->has('show_correct_answer');
         $CHECK = $request->has('instant_check');
+        $general_test = $request->has('general_test');
 
-    
+
+
         // Update the attributes of the existing quiz
         $quiz->update([
             'title' => $request->input('title'),
@@ -116,9 +119,10 @@ class QuizController extends Controller
             'retake' => $request->input('retake'),
             'pagination' => $request->input('pagination'),
             'review' => $priview,
+            'general_test' => $general_test,
             'show_correct_answer' => $show,
         ]);
-    
+
         // Update the associated questions (detach and reattach)
         $selectedQuestions = $request->input('questions');
         $quiz->questions()->detach();
@@ -130,10 +134,10 @@ class QuizController extends Controller
                 ]);
             }
         }
-        
+
         return redirect()->route('Quizzes.index')->with('success', 'Quize updated successfully');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */

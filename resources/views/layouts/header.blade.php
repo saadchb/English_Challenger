@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Course;
+use App\Models\Quiz;
 
 $courses = Course::all();
 $count = 0;
+$quizzesGneral = Quiz::where('general_test','1')->get();
 ?>
 <div class="header-top">
     <div class="container">
@@ -161,7 +163,7 @@ $count = 0;
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Quizzes<i class="fa fa-angle-down"></i>
                     </a>
-                  
+
                     <div class="dropdown-menu  p-2" style="color:#646a76;" aria-labelledby="navbar3">
                         <ul class="list-unstyled d-flex">
                             <li id="li3" style="width: 18rem; color: #646a76; margin-bottom: 10px;">
@@ -171,22 +173,29 @@ $count = 0;
                                     Explore a diverse range of quizzes tailored for learners of all ages.
                                      Experience dynamic assessments with real-time leaderboards and self-assessment practice for comprehensive learning.
                                     </p>
-                                
+
                                 </div>
                             </li>
-                            <li>
-                                <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top"
-                                        src="{{ asset('build/assets/images/course/QUIZ_IMG.jpeg') }}" alt="course 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Quizze </h5>
-                                        <p class="card-text">Explore your level as an English language student.</p>
-                                        <a href="/First-test" style="text-decoration: underline;">
-                                            <strong>Take The Quizze</strong> <i class="fa fa-angle-right"></i>
-                                        </a>
+                            @forEach($quizzesGneral as $quiz)
+                                <li>
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top"
+                                            src="{{ asset('build/assets/images/course/QUIZ_IMG.jpeg') }}" alt="course 1">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{$quiz->title}} </h5>
+                                            <p class="card-text">Explore your level as an English language student.</p>
+                                                <form action="{{route('general_test.take')}}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" value="1" name="student_id">
+                                                    <input type="hidden" value="{{ $quiz->id }}" name="quiz_id">
+                                            <button style="text-decoration: underline;">
+                                                <strong>Take The Quizze</strong> <i class="fa fa-angle-right"></i>
+                                            </button>
+                                        </form>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </li>
@@ -203,7 +212,7 @@ $count = 0;
                 <!-- <a class="dropdown-item " href="#">
                     login
                 </a> -->
-       
+
             </div>
                 </li>
                 <li class="nav-item ">

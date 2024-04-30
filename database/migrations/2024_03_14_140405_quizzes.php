@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('pagination')->nullable();
             $table->integer('order')->nullable();
             $table->boolean('review')->default(1);
+            $table->boolean('general_test')->default(0);
             $table->string('type')->default('quiz');
             $table->boolean('show_correct_answer')->default(1);
             $table->unsignedBigInteger('curriculum_id')->nullable();

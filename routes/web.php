@@ -109,6 +109,7 @@ Route::delete('/Bloges/{blog}', [BlogController::class, 'destroy'])->name('Bloge
 
 Route::post('/curriculum_list/next/{id}', [CurriculumController::class, 'next'])->name('curriculum_list.next');
 Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])->name('curriculum_list.prev');
+Route::post('/general_test', [CurriculumController::class, 'general_test'])->name('general_test.take');
 ///
 
 

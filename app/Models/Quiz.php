@@ -11,9 +11,7 @@ class Quiz extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title','description','duration','duration_unit','passing_grade','instant_check','negative_marking','minus_for_skip','retake','pagination','review','show_correct_answer','order','curriculum_id'];
-
-
+    protected $fillable = ['title','description','duration','duration_unit','passing_grade','instant_check','negative_marking','minus_for_skip','retake','pagination','review','show_correct_answer','general_test','order','curriculum_id'];
 
     public function curricula(){
         return $this->belongsTo(

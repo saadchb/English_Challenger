@@ -57,9 +57,9 @@ class CurriculumController extends Controller
             ->get();
         if (count($testViewStudent) == 0) {
             $detailsStudent = detailsStudent::where('course_id', $course)
-                ->where('student_id', $request->input('student_id'))
+                ->where('student_id', (int)$request->input('student_id'))
                 ->first();
-            // dd($request->input('student_id'));
+            // dd($detailsStudent);
             DetailStudentLesson::create(array(
                 'view' => 1,
                 'deatils_student_id' => $detailsStudent->id,
@@ -139,7 +139,6 @@ class CurriculumController extends Controller
             }
             $lessonsMix[$key] = $lesson;
         }
-
         $retaking === null ? $retaking = 0 : $retaking = $retaking;
         $curricula = Curriculum::where('course_id', $course)->get();
         $course = Course::findOrFail($course);
@@ -155,6 +154,55 @@ class CurriculumController extends Controller
             'options' => $options,
             'pass' => $pass,
             'retaking' => $retaking
+        ]);
+    }
+    public function general_test(Request $request){
+            $GTest = true;
+            $id = $request->input('quiz_id');
+            $curriculum_id = Quiz::find($id)->curriculum_id;
+            $course = Curriculum::find($curriculum_id)->course_id;
+            $quizActive = Quiz::where('id', $id)->first();
+            $questions = DB::table('questions')
+                ->join('quiz_questions', 'quiz_questions.question_id', 'questions.id')
+                ->where('quiz_id', $id)
+                ->select('questions.*')
+                ->get();
+            $options = Option::all();
+            $pass = DetailStudentQuiz::join('details_students', 'details_students.id', 'detail_student_quizzes.deatils_student_id')
+                ->where('course_id', $course)
+                ->where('student_id', $request->input('student_id'))
+                ->where('quiz_id', $request->input('quiz_id'))
+                ->pluck('pass')
+                ->first();
+            $retaking  = DetailStudentQuiz::join('details_students', 'details_students.id', 'detail_student_quizzes.deatils_student_id')
+                ->where('course_id', $course)
+                ->where('student_id', $request->input('student_id'))
+                ->where('quiz_id', $request->input('quiz_id'))
+                ->pluck('retaking')
+                ->first();
+            $lessons = null;
+            $quizzes = null;
+            $curricula = array();
+            $lessonActive = null;
+            $lessonsMix = null;
+            $course = Course::find($course);
+        $retaking === null ? $retaking = 0 : $retaking = $retaking;
+        if ($pass == null) {
+            $pass = 0;
+        }
+        return view('EnglishChallenger.curriculum_list', [
+            'lessons' => $lessons,
+            'quizzes' => $quizzes,
+            'curricula' => $curricula,
+            'course' => $course,
+            'lessonActive' => $lessonActive,
+            'lessonsMix' => $lessonsMix,
+            'quizActive' => $quizActive,
+            'questions' => $questions,
+            'options' => $options,
+            'pass' => $pass,
+            'retaking' => $retaking,
+            'GTest' => $GTest
         ]);
     }
     /**
@@ -507,6 +555,11 @@ class CurriculumController extends Controller
         if ($request->input('ratake ') == 1) {
             $answers = [];
         }
+        $GTest = $request->input('GTest');
+        if($GTest == 1){
+            // dd($GTest);
+            $GTest = true;
+        }
         $move = true;
         $retaking = 0;
         $testViewStudent = DetailStudentQuiz::join('details_students', 'details_students.id', 'detail_student_quizzes.deatils_student_id')
@@ -621,7 +674,8 @@ class CurriculumController extends Controller
             'pass' => $pass,
             'answers' => $answers,
             'move' => $move,
-            'retaking' => $retaking
+            'retaking' => $retaking,
+            'GTest'=>$GTest
         ]);
     }
 }

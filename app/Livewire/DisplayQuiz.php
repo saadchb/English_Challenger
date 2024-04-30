@@ -12,10 +12,7 @@ class DisplayQuiz extends Component
     public $retakingg;
     public $passs;
     #[On('startQuiz')]
-    public function Display($quizActivee, $retakingg, $passs){
-        $this->quizActivee = $quizActivee;
-        $this->retakingg = $retakingg;
-        $this->passs = $passs;
+    public function startQuiz(){
         $this->start = true;
     }
     public function render()

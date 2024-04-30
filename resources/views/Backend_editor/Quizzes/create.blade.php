@@ -131,7 +131,10 @@
                                         <input id="_lp_review" name="review" type="checkbox" class="form-check-input" checked>
                                         <label for="_lp_review" class="form-check-label">Allow students to review this quiz after they finish the quiz.</label>
                                     </div>
-
+                                    <div class="mt-4 form-check">
+                                        <input id="_lp_review" name="general_test" type="checkbox" class="form-check-input">
+                                        <label for="_lp_review" class="form-check-label">Add this quiz to list of general tests.</label>
+                                    </div>
                                     <div class="mt-4 form-check">
                                         <input id="_lp_show_correct_review" name="show_correct_answer" type="checkbox" class="form-check-input" checked>
                                         <label for="_lp_show_correct_review" class="form-check-label">Allow students to view the correct answer to the question in reviewing this quiz.</label>

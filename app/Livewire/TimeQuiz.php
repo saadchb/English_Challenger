@@ -7,7 +7,7 @@ use Livewire\Component;
 class TimeQuiz extends Component
 {
     public function startQuiz(){
-        $this->dispatch('startQuiz');
+        $this->dispatch('startQuiz',var:'hi');
     }
     public function render()
     {
