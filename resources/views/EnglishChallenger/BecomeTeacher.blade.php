@@ -170,7 +170,6 @@
                                                                             <p>Becoming a teacher is a transformative journey that offers immense opportunities for personal and professional growth. As a teacher, you have the privilege of shaping the minds of future generations and instilling in them a lifelong love of learning. It's a career path that goes beyond imparting knowledge; it's about fostering critical thinking, creativity, and empathy in young minds. Through your dedication and passion, you can make a meaningful impact on society by nurturing the next generation of leaders, innovators, and changemakers. Teaching is not just a job; it's a calling—a noble profession that empowers you to make a difference in the world, one student at a time.</p>
                                                                         </div>
                                                                     </div>
-
                                                                     <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
                                                                         <div class="single-course-details ">
                                                                             <h4 class="course-title">Description</h4>
@@ -181,6 +180,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            @auth('teacher')
                                                             <div class="col-lg-5">
                                                                 <div id="order_review" class="woocommerce-checkout-review-order">
                                                                     <div class="elementor-shortcode">
@@ -223,7 +223,7 @@
 
                                                                 </div>
                                                             </div>
-
+                                                            @endauth
 
                                                         </form>
 

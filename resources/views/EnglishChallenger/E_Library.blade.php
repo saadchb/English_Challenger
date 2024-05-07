@@ -74,18 +74,21 @@
                                     @endif
                                 </a>
                                 <!-- <div class="product-btn-wrap"> -->
-                                @if(!(in_array($book->id, $cartBooks)))
+
+                                    {{-- {{dd($cartBooks);}} --}}
+                        {{-- @foreach ($cartBooks as $cart) --}}
+                                @if(($book->id == $book->id))
                                 <!-- Show this if the book is already in the cart -->
-                                <form id="btn-wr" action="{{ route('cart.store') }}" method="POST">
+                                <div id="btn-wr"  method="POST">
                                     <div class="product-btn-wrap">
                                         @csrf
                                         <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                        <a> <button class="submitButton button product_type_simple add_to_cart_button ajax_add_to_cart">
-                                                <i class="fa fa-shopping-basket "></i>
-                                            </button></a>
+                                        <a>
+                                            @livewire('add-to-cart', ['book' => $book])
+                                        </a>
                                         <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
                                     </div>
-                                </form>
+                                </div>
                                 @else
                                 <div class="product-btn-wrap">
                                     <!-- Show this if the book is not in the cart -->
@@ -97,6 +100,7 @@
                                     <a href="/E_library/book/{{$book->id}}" class="button wish-list"><i class="fa fa-eye"></i></a>
                                 </div>
                                 @endif
+                                {{-- @endforeach --}}
                             </div>
                             <div class="woocommerce-product-title-wrap">
                                 <h2 class="woocommerce-loop-product__title">

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 use App\Traits\ShowOfCoures;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CourseController extends Controller
 {
@@ -42,7 +43,7 @@ class CourseController extends Controller
             })->get();
         }
         $categories = Categorie::join('categories_courses', 'categories.id', '=', 'categories_courses.categorie_id')->get();
-        // dd($categories);
+        // dd(Cart::content());
         return view('Backend_editor.courses.index', ['courses' => $courses, 'categories' => $categories]);
     }
     /**
@@ -393,7 +394,8 @@ class CourseController extends Controller
         $featuredVideo = Homme::where('is_active', true)->latest()->first();
         $latestFeaturedId = Homme::where('is_active', true)->latest()->value('id');
         $normalVideos = Homme::where('id', '<>', $latestFeaturedId)->latest()->paginate(3);
-
+        // dd(Cart::content());
+        session(['id'=>1]);
         return view('EnglishChallenger.index', [
             'featuredVideo'=> $featuredVideo,
             'normalVideos'=> $normalVideos,

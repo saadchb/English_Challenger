@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('auth.teacherAdmin')->except('store');
+    }
     public function index()
     {
         if (request('search1'))
@@ -36,19 +42,27 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $imagePath = $request->file('picture')->store('images','public');
-        $student = new Student([
-            'first_name' => $request->get('first_name'),
-            'last_name' => $request->get('last_name'),
-            'phone' => $request->get('phone'),
-            'email' => $request->get('email'),
-            'address' => $request->get('address'),
-            'date_of_birth' => $request->get('date_of_birth'),
-            'class' => $request->get('class'),
-            'picture' => $imagePath,
+        $data = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Example: max size of 2MB
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',
+            'email' => 'required|string|email|unique:students,email',
+            'password' => 'required|string|min:8|confirmed',
         ]);
-        $student -> save();
-        return redirect()->route('Students.index')->with('success','Student added successfully.');
+        $data['password'] = Hash::make($request->password);
+        if($request->hasFile('picture')){
+            $data['picture'] = $request->file('picture')->store('imagesStudents','public');
+        }
+        // dd($data);
+        Student::create($data);
+        if(isset($request->fromRegister)) {
+            return redirect()->route('selection')->with('success','Student added successfully.');
+        }else{
+            return redirect()->route('Students.index')->with('success','Student added successfully.');
+        }
     }
 
     /**

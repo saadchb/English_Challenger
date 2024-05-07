@@ -9,9 +9,9 @@
                 <div class="row align-items-center">
                     <div class="col-lg-8">
                         <div class="course-single-header white-text">
-                            <span class="subheading">{{ $student->class }}</span>
+                            {{-- <span cla  ss="subheading">{{ Auth::guard('student')->user()->class }}</span> --}}
                             <h3 class="single-course-title text-capitalize">
-                                {{ $student->first_name }} {{ $student->last_name }}
+                                {{ Auth::guard('student')->user()->first_name }} {{ Auth::guard('student')->user()->last_name }}
                             </h3>
 
                             <p>
@@ -21,7 +21,7 @@
 
                     <div class="col-lg-4" id="imgProf">
                         <div>
-                            <img style="border-radius: 200px;" src="{{ asset('storage/' . $student->picture) }}"
+                            <img style="border-radius: 200px;" src="{{ asset('storage/' . Auth::guard('student')->user()->picture) }}"
                                 alt="" class="img-fluid w-100" />
                         </div>
                     </div>
@@ -38,11 +38,11 @@
                         </div>
                         <div style="background-color:transparent !important; box-shadow:0 0 0 rgb(255, 254, 254) !important;margin-top:-104px !important;" class="team-info">
 
-                            <img  style="border-radius:50%; width:30%;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important; " src="{{ asset('storage/' . $student->picture) }}"alt="">
+                            <img  style="border-radius:50%; width:30%;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important; " src="{{ asset('storage/' . Auth::guard('student')->user()->picture) }}"alt="">
                         </br>
                             <h4 style="font-size: 20px; color:#07294D !important; "
-                            class="d-inline-block text-capitalize mt-4">{{ $student->first_name }}
-                            {{ $student->last_name }}</h4>
+                            class="d-inline-block text-capitalize mt-4">{{ Auth::guard('student')->user()->first_name }}
+                            {{ Auth::guard('student')->user()->last_name }}</h4>
                         </div>
 
                     </div>
@@ -416,17 +416,17 @@
                                         <span><i class="far fa-user"></i>Full name :</span>
 
                                         <a href="#"
-                                            class="d-inline-block text-capitalize">{{ $student->first_name }}
-                                            {{ $student->last_name }}</a>
+                                            class="d-inline-block text-capitalize">{{ Auth::guard('student')->user()->first_name }}
+                                            {{ Auth::guard('student')->user()->last_name }}</a>
                                     </div>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <div class="text-capitalize">
                                         <span><i class="fa fa-sliders-h"></i>Class :
                                         </span>
-                                        {{ $student->class }}
+                                        {{ Auth::guard('student')->user()->class }}
                                     </div>
-                                </li>
+                                </li> --}}
 
 
                                 <li>

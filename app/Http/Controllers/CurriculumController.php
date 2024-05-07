@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 
 class CurriculumController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      */

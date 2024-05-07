@@ -230,7 +230,7 @@
                     class="form-control rounded" placeholder="Search" aria-label="Search"
                     aria-describedby="search-addon" />
             </div>
-            <a class="px-3 pt-2 mydivheader" href="{{ route('detailsStudents.show') }}">
+            <a class="px-3 pt-2 mydivheader" href="{{ route('detailsStudents.show',Auth::guard('student')->user()->id) }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width='50' height='50' class=""
                     viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                     <path
@@ -272,7 +272,7 @@
                                                             @csrf
                                                             <input type="hidden" value="{{ $lesson['id'] }}"
                                                                 name="lesson_id" />
-                                                            <input type="hidden" value="1" name="student_id" />
+                                                            <input type="hidden" value="{{Auth::guard('student')->user()->id}}" name="student_id" />
                                                             <input type="hidden" name="course_id"
                                                                 value="{{ $course->id }}">
                                                             <input type="hidden" value="{{ $lesson['type'] }}"
@@ -312,7 +312,7 @@
                                                                 @csrf
                                                                 <input type="hidden" value="{{ $lesson['id'] }}"
                                                                     name="lesson_id" />
-                                                                <input type="hidden" value="1"
+                                                                <input type="hidden"  value="{{Auth::guard('student')->user()->id}}"
                                                                     name="student_id" />
                                                                 <input type="hidden" name="course_id"
                                                                     value="{{ $course->id }}">
@@ -444,7 +444,7 @@
                                                 action="{{ route('curriculum_list.prev', $course->id) }}" method="post">
                                                 @csrf
                                                 <input type="hidden" value="{{ $lessonActive->order }}" name="order">
-                                                <input type="hidden" value="1" name="student_id">
+                                                <input type="hidden" value="{{Auth::guard('student')->user()->id}}"  name="student_id">
                                                 <input type="hidden" value="{{ $lessonActive->id }}" name="lesson_id">
                                                 <button class="btn btn-primary rounded btnPag"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
@@ -460,7 +460,7 @@
                                                 action="{{ route('curriculum_list.next', $course->id) }}" method="post">
                                                 @csrf
                                                 <input type="hidden" value="{{ $lessonActive->order }}" name="order">
-                                                <input type="hidden" value="1" name="student_id">
+                                                <input type="hidden"  value="{{Auth::guard('student')->user()->id}}"  name="student_id">
                                                 <input type="hidden" value="{{ $lessonActive->id }}" name="lesson_id">
                                                 <button class="btn btn-primary rounded btnPag">
                                                     Next <svg xmlns="http://www.w3.org/2000/svg" width="20px"
@@ -492,7 +492,7 @@
                                                         <input type="hidden" name="grade" id="grade" value="0">
                                                         <input type="hidden" name="answers" id="answers">
                                                         <input type="hidden" name="quiz_id" value="{{ $quizActive->id }}">
-                                                        <input type="hidden" name="student_id" value="1">
+                                                        <input type="hidden" name="student_id" value="{{Auth::guard('student')->user()->id}}" >
                                                         <input type="hidden" name="type" value="quiz">
                                                         <section style="width: 1000px;">
                                                             @foreach ($questions as $key => $question)
@@ -821,7 +821,7 @@
                                                             @csrf
                                                             <input type="hidden" value="{{ $quizActive->order }}"
                                                                 name="order">
-                                                            <input type="hidden" value="1" name="student_id">
+                                                            <input type="hidden"  value="{{Auth::guard('student')->user()->id}}"  name="student_id">
                                                             <input type="hidden" value="{{ $quizActive->id }}"
                                                                 name="lesson_id">
                                                             <div class="alert alert-success mt-4" role="alert">
@@ -851,7 +851,7 @@
                                                         @csrf
                                                         <input type="hidden" value="{{ $quizActive->order }}"
                                                             name="order">
-                                                        <input type="hidden" value="1" name="student_id">
+                                                        <input type="hidden" value="{{Auth::guard('student')->user()->id}}" name="student_id">
                                                         <input type="hidden" value="{{ $quizActive->id }}"
                                                             name="lesson_id">
                                                             <center>
@@ -1123,7 +1123,7 @@
                     <form id="lessonForm" action="/curriculum_list/${cr.course_id}" method="post">
                         @csrf
                         <input type="hidden" value="${lesson.id}" name="lesson_id" />
-                        <input type="hidden" value="1" name="student_id" />
+                        <input type="hidden" value="{{Auth::guard('student')->user()->id}}"  name="student_id" />
                         <input type="hidden" name="course_id"
                         value="{{ $course->id }}">
                         <input type="hidden" name='type' value="${lesson.type}"/>
@@ -1153,7 +1153,7 @@
                                 <form id="lessonForm" action="/curriculum_list/${cr.course_id}" method="post">
                                 @csrf
                                 <input type="hidden" value="${lesson.id}" name="lesson_id" />
-                                <input type="hidden" value="1" name="student_id" />
+                                <input type="hidden"  value="{{Auth::guard('student')->user()->id}}"  name="student_id" />
                                 <input type="hidden" name="course_id"
                                 value="{{ $course->id }}">
                                 <input type="hidden" name='type' value="${lesson.type}"/>

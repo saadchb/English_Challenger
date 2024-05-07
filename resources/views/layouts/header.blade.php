@@ -5,16 +5,16 @@ use App\Models\Quiz;
 
 $courses = Course::all();
 $count = 0;
-$quizzesGneral = Quiz::where('general_test','1')->get();
+$quizzesGneral = Quiz::where('general_test', '1')->get();
 ?>
 <div class="header-top">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-6 col-md-6 mt-2 mb-2">
                 <ul class="header-contact">
                     <li>
-                    <span>Call :</span>
-<a href="whatsapp://send?phone=+212687119547" target="_blank"  >(+212)687119547</a>
+                        <span>Call :</span>
+                        <a href="whatsapp://send?phone=+212687119547" target="_blank">(+212)687119547</a>
 
                     </li>
                     <li>
@@ -27,25 +27,54 @@ $quizzesGneral = Quiz::where('general_test','1')->get();
                 <div class="header-right float-right">
                     <div class="header-socials">
                         <ul>
-                            <li class="icons" style="width: 40px;"><a href="#"><i class="fab fa-facebook-f icons1"></i></a></li>
-                            <li class="icons"  style="width: 40px;"><a href="#"><i  class="fab fa-twitter icons1"></i></a></li>
-                            <li class="icons"  style="width: 40px; "><a href="#"><i  class="fab fa-linkedin icons1"></i></a></li>
+                            <li class="icons" style="width: 40px;"><a href="#"><i
+                                        class="fab fa-facebook-f icons1"></i></a></li>
+                            <li class="icons" style="width: 40px;"><a href="#"><i
+                                        class="fab fa-twitter icons1"></i></a></li>
+                            <li class="icons" style="width: 40px; "><a href="#"><i
+                                        class="fab fa-linkedin icons1"></i></a></li>
+                            <span class="text-white ml-4 mr-2"><b>|</b></span>
                         </ul>
                     </div>
-                    <div class="header-btn ">
-                        <a href="#" class="btn btn-main btn-small div1"  style="border-radius:15px ;"><i class="fa fa-user mr-2 "></i>Login /
-                            Register</a>
-                    </div>
-                    <div class="header-btn " >
-                        <a href="/dachboard" class="btn btn-main btn-small div1 " style="border-radius:15px ;"><i class="fa fa-user mr-2 "></i>Admin </a>
-                    </div>
+                    @if (Auth::guard('teacher')->check())
+                        <div class="header-btn">
+                            <a href="{{ route('logout', 'teacher') }}" class="mt-2 mb-2  "
+                                style="border-radius:15px ;"><i class="fa fa-power-off mr-2 "></i>Logout</a>
+                        </div>
+                        <span class="text-white ml-4 mr-2"><b>|</b></span>
+
+                        <div class="header-btn ">
+                            <a href="/dachboard" class="mt-2 mb-2  " style="border-radius:15px ;"><i
+                                    class="fa fa-user mr-2 "></i>Admin</a>
+                        </div>
+                    @elseif (Auth::guard('student')->check())
+                        <div class="header-btn">
+                            <a href="/detailsStudents/{{ Auth::guard('student')->user()->id }}" class="mt-2 mb-2  "
+                                style="border-radius:15px ;"><i class="fa fa-user mr-2 "></i>Profile</a>
+                        </div>
+                        <span class="text-white ml-4 mr-2"><b>|</b></span>
+                        <div class="header-btn ">
+                            <a href="{{ route('logout', 'student') }}" class="mt-2 mb-2  " style="border-radius:15px ;"><i
+                                    class="fa fa-power-off mr-2 "></i>lougout</a>
+                        </div>
+                    @else
+                        <div class="header-btn ">
+                            <a href="{{ route('selection') }}" class="mt-2 mb-2  " style="border-radius:15px ;"><i
+                                    class="fa fa-user mr-2 "></i>Login /
+                                Register</a>
+                        </div>
+                    @endif
+                    @if (!Auth::guard('student')->check())
+                        {{-- <div class="header-btn ">
+                        <a href="/dachboard" class="btn btn-main btn-small div1 " style="border-radius:15px ;"><i
+                                class="fa fa-user mr-2 "></i>Admin </a>
+                    </div> --}}
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Main Menu Start -->
 
 <div class="site-navigation main_menu " id="mainmenu-area">
     <nav class="navbar navbar-expand-lg">
@@ -54,12 +83,13 @@ $quizzesGneral = Quiz::where('general_test','1')->get();
                 <img src="{{ asset('build/assets/images/English_Logo.png') }}" alt="logo3" width="160px">
 
             </a>
-            <button class="navbar-toggler navbar-toggle header-search search_toggle"  style="font-size: larger; margin-left:190px !important;"  type="button" data-toggle="collapse"
-                 aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-toggle header-search search_toggle"
+                style="font-size: larger; margin-left:190px !important;" type="button" data-toggle="collapse"
+                aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-search text-dark"></i>
             </button>
             <!-- <a href="#" class="navbar-toggle header-search search_toggle"  style="font-size: larger; margin-left:150px !important;"> <i class="fa fa fa-search text-dark "></i></a> -->
-            <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarMenu"
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
                 aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fa fa-bars"></span>
             </button>
@@ -79,7 +109,8 @@ $quizzesGneral = Quiz::where('general_test','1')->get();
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Courses<i class="fa fa-angle-down"></i>
                         </a>
-                        <div id="cart" class="dropdown-menu p-2" style="color:#646a76;" aria-labelledby="navbar3">
+                        <div id="cart" class="dropdown-menu p-2" style="color:#646a76;"
+                            aria-labelledby="navbar3">
                             <ul class="list-unstyled d-flex">
                                 <li id="li3" style="width: 18rem; color:#646a76; margin-bottom: 10px;">
                                     <div class="card-body">
@@ -105,8 +136,11 @@ $quizzesGneral = Quiz::where('general_test','1')->get();
                                                     style=" width: 300px; ;height: 200px;" alt=""
                                                     class="img-fluid">
                                                 <h5 class="card-title">{{ $course->title }}</h5>
-                                                <p style="max-height: 3em; overflow: hidden;" class="card-text">{{ $course->description }}</p>
-                                                <a href="{{route('course_detail', $course->id)}}" style="text-decoration: underline;"><strong>course detail</strong> <i class="fa fa-angle-right"></i></a>
+                                                <p style="max-height: 3em; overflow: hidden;" class="card-text">
+                                                    {{ $course->description }}</p>
+                                                <a href="{{ route('course_detail', $course->id) }}"
+                                                    style="text-decoration: underline;"><strong>course detail</strong>
+                                                    <i class="fa fa-angle-right"></i></a>
 
                                             </div>
                                         </li>
@@ -170,28 +204,33 @@ $quizzesGneral = Quiz::where('general_test','1')->get();
                                 <div class="card-body">
                                     <h5 class="card-title"> Interactive Quizzes for Continuous Learning</h5>
                                     <p class="card-text">
-                                    Explore a diverse range of quizzes tailored for learners of all ages.
-                                     Experience dynamic assessments with real-time leaderboards and self-assessment practice for comprehensive learning.
+                                        Explore a diverse range of quizzes tailored for learners of all ages.
+                                        Experience dynamic assessments with real-time leaderboards and
+                                        self-assessment practice for comprehensive learning.
                                     </p>
 
                                 </div>
                             </li>
-                            @forEach($quizzesGneral as $quiz)
+                            @foreach ($quizzesGneral as $quiz)
                                 <li>
                                     <div class="card" style="width: 18rem;">
                                         <img class="card-img-top"
-                                            src="{{ asset('build/assets/images/course/QUIZ_IMG.jpeg') }}" alt="course 1">
+                                            src="{{ asset('build/assets/images/course/QUIZ_IMG.jpeg') }}"
+                                            alt="course 1">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{$quiz->title}} </h5>
-                                            <p class="card-text">Explore your level as an English language student.</p>
-                                                <form action="{{route('general_test.take')}}" method="post">
-                                                    @csrf
-                                                    <input type="hidden" value="1" name="student_id">
-                                                    <input type="hidden" value="{{ $quiz->id }}" name="quiz_id">
-                                            <button style="text-decoration: underline;">
-                                                <strong>Take The Quizze</strong> <i class="fa fa-angle-right"></i>
-                                            </button>
-                                        </form>
+                                            <h5 class="card-title">{{ $quiz->title }} </h5>
+                                            <p class="card-text">Explore your level as an English language student.
+                                            </p>
+                                            <form action="{{ route('general_test.take') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" value="1" name="student_id">
+                                                <input type="hidden" value="{{ $quiz->id }}"
+                                                    name="quiz_id">
+                                                <button style="text-decoration: underline;">
+                                                    <strong>Take The Quizze</strong> <i
+                                                        class="fa fa-angle-right"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </li>
@@ -206,14 +245,14 @@ $quizzesGneral = Quiz::where('general_test','1')->get();
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbar3">
-                <a class="dropdown-item " href="{{route('Become_teacher')}}">
-                    Become a teacher
-                </a>
-                <!-- <a class="dropdown-item " href="#">
-                    login
-                </a> -->
+                        <a class="dropdown-item " href="{{ route('Become_teacher') }}">
+                            Become a teacher
+                        </a>
+                        <!-- <a class="dropdown-item " href="#">
+            login
+        </a> -->
 
-            </div>
+                    </div>
                 </li>
                 <li class="nav-item ">
                     <a href="/detailsStudents" class="nav-link">

@@ -11,6 +11,7 @@ use App\Models\CategoriesBooks;
 use App\Models\CategoriesCourse;
 use App\Models\review;
 use App\Models\Tag;
+use Gloudemans\Shoppingcart\Facades\Cart as FacadesCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -71,12 +72,12 @@ class BookController extends Controller
     //     }
     //     $minPrice = 0;
     //     $maxPrice = 1000;
-        
+
     //     // Applying price range filter
     //     if ($request->filled('min_price') && $request->filled('max_price')) {
     //         $minPrice = (float) $request->input('min_price');
     //         $maxPrice = (float) $request->input('max_price');
-            
+
     //         $booksQuery->whereBetween('regular_price', [$minPrice, $maxPrice]);
     //     }
     //     $books = $booksQuery->paginate(8);
@@ -119,7 +120,7 @@ class BookController extends Controller
         $booksQuery->whereBetween('regular_price', [$minPrice, $maxPrice]);
     }
 
-  
+
     // Applying sorting based on the selected option
     if ($request->filled('orderby')) {
         switch ($request->input('orderby')) {
@@ -130,7 +131,7 @@ class BookController extends Controller
                            ->groupBy('books.id', 'books.title', 'books.regular_price')
                            ->orderBy('average_rating', 'desc');
                 break;
-            
+
             case 'latest':
                 $booksQuery->latest();
                 break;
@@ -152,19 +153,19 @@ class BookController extends Controller
 
 
 
-    
+
     $minPrice = 0;
         $maxPrice = 1000;
-        
+
         // Applying price range filter
         if ($request->filled('min_price') && $request->filled('max_price')) {
             $minPrice = (float) $request->input('min_price');
             $maxPrice = (float) $request->input('max_price');
-            
+
             $booksQuery->whereBetween('regular_price', [$minPrice, $maxPrice]);
         }
         $books = $booksQuery->paginate(8);
-    
+
     // Fetch reviews and categories
     $reviews = Review::all();
 
@@ -173,8 +174,8 @@ class BookController extends Controller
     foreach ($categories as $category) {
         $category->books_count = categories_books::where('categorie_id', $category->id)->count();
     }
-    $cartBooks = Cart::pluck('book_id')->toArray();
-
+    $cartBooks = FacadesCart::content();
+    // dd($cartBooks);
     // Pass data to the view including $minPrice and $maxPrice
     return view('EnglishChallenger.E_library', [
         'books' => $books,
@@ -296,7 +297,7 @@ class BookController extends Controller
             'tags'=>$tags
         ]);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
