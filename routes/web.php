@@ -124,7 +124,7 @@ Route::get('/E_Library', [BookController::class, 'E_Library'])->name('EnglishCal
 
 //Categories
 Route::get('/E_Library/Categories/{id}', [CategorieController::class, 'show'])->name('EnglishCallenger.show');
-// Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');
+Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');
 
 
 // Carts

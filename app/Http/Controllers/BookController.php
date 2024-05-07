@@ -174,13 +174,9 @@ class BookController extends Controller
     foreach ($categories as $category) {
         $category->books_count = categories_books::where('categorie_id', $category->id)->count();
     }
-    $cartBooks = FacadesCart::content();
-    // dd($cartBooks);
-    // Pass data to the view including $minPrice and $maxPrice
     return view('EnglishChallenger.E_library', [
         'books' => $books,
         'reviews' => $reviews,
-        'cartBooks' => $cartBooks,
         'categories' => $categories,
         'minPrice' => $minPrice,
         'maxPrice' => $maxPrice,

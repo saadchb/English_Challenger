@@ -27,10 +27,19 @@ return new class extends Migration
             $table->string('billing_phone');
             $table->string('order_comments')->nullable();
             $table->string('payment_method')->nullable();
-            // $table->string('total_amount');
-            // $table->foreignId('cart_id')->constrained();
-            $table->foreignId('user_id')->constrained()->nullable(); 
-            $table->softDeletes();    
+
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('schools')->onDelete('cascade');
+
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('schools')->onDelete('cascade');
+
+            $table->unsignedBigInteger('student_id')->nullable();
+            $table->foreign('student_id')->references('id')->on('schools')->onDelete('cascade');
+
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
