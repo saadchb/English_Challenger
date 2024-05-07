@@ -32,51 +32,60 @@ class BookController extends Controller
         return view('Backend_editor.books.index', ['books' => $books, 'categories' => $categories]);
     }
 
+   
+
     public function E_Library(Request $request)
-    {
-        // Fetch all books or apply search filter
-        $booksQuery = Book::query();
+{
+    // Fetch all books or apply search filter
+    $booksQuery = Book::query();
 
-        if ($request->filled('search1')) {
-            $booksQuery->where('title', 'like', '%' . $request->input('search1') . '%');
+    if ($request->filled('search1')) {
+        $booksQuery->where('title', 'like', '%' . $request->input('search1') . '%');
+    }
+
+    // Applying price range filter
+    if ($request->filled('min_price') && $request->filled('max_price')) {
+        $minPrice = (float) $request->input('min_price');
+        $maxPrice = (float) $request->input('max_price');
+
+        $booksQuery->whereBetween('regular_price', [$minPrice, $maxPrice]);
+    }
+
+
+    // Applying sorting based on the selected option
+    if ($request->filled('orderby')) {
+        switch ($request->input('orderby')) {
+            case 'rating':
+                // Join with reviews table and calculate average rating
+                $booksQuery->leftJoin('reviews', 'books.id', '=', 'reviews.book_id')
+                           ->select('books.id', 'books.title', 'books.regular_price', DB::raw('AVG(reviews.rating) as average_rating'))
+                           ->groupBy('books.id', 'books.title', 'books.regular_price')
+                           ->orderBy('average_rating', 'desc');
+                break;
+
+            case 'latest':
+                $booksQuery->latest();
+                break;
+            case 'price_low_high':
+                $booksQuery->orderBy('regular_price', 'asc');
+                break;
+            case 'price_high_low':
+                $booksQuery->orderBy('regular_price', 'desc');
+                break;
+            case 'default':
+                // For the default sorting option, either apply default sorting logic
+                // or return unsorted results. Adjust this based on your application's needs.
+                // For example:
+                $booksQuery->orderBy('id', 'asc'); // Sort by book ID in ascending order
+                break;
         }
+    }
 
-        // Applying price range filter
-        if ($request->filled('min_price') && $request->filled('max_price')) {
-            $minPrice = (float) $request->input('min_price');
-            $maxPrice = (float) $request->input('max_price');
 
-            $booksQuery->whereBetween('regular_price', [$minPrice, $maxPrice]);
-        }
-        // Applying sorting based on the selected option
-        if ($request->filled('orderby')) {
-            switch ($request->input('orderby')) {
-                case 'rating':
-                    // Join with reviews table and calculate average rating
-                    $booksQuery->leftJoin('reviews', 'books.id', '=', 'reviews.book_id')
-                        ->select('books.id', 'books.title', 'books.regular_price', DB::raw('AVG(reviews.rating) as average_rating'))
-                        ->groupBy('books.id', 'books.title', 'books.regular_price')
-                        ->orderBy('average_rating', 'desc');
-                    break;
 
-                case 'latest':
-                    $booksQuery->latest();
-                    break;
-                case 'price_low_high':
-                    $booksQuery->orderBy('regular_price', 'asc');
-                    break;
-                case 'price_high_low':
-                    $booksQuery->orderBy('regular_price', 'desc');
-                    break;
-                case 'default':
-                    // For the default sorting option, either apply default sorting logic
-                    // or return unsorted results. Adjust this based on your application's needs.
-                    // For example:
-                    $booksQuery->orderBy('id', 'asc'); // Sort by book ID in ascending order
-                    break;
-            }
-        }
-        $minPrice = 0;
+
+
+    $minPrice = 0;
         $maxPrice = 1000;
 
         // Applying price range filter
@@ -88,26 +97,22 @@ class BookController extends Controller
         }
         $books = $booksQuery->paginate(8);
 
-        // Fetch reviews and categories
-        $reviews = Review::all();
+    // Fetch reviews and categories
+    $reviews = Review::all();
 
-        $categorys = categories_books::distinct('categorie_id')->pluck('categorie_id')->toArray();
-        $categories = Categorie::whereIn('id', $categorys)->get();
-        foreach ($categories as $category) {
-            $category->books_count = categories_books::where('categorie_id', $category->id)->count();
-        }
-        $cartBooks = Cart::pluck('book_id')->toArray();
-
-        // Pass data to the view including $minPrice and $maxPrice
-        return view('EnglishChallenger.E_library', [
-            'books' => $books,
-            'reviews' => $reviews,
-            'cartBooks' => $cartBooks,
-            'categories' => $categories,
-            'minPrice' => $minPrice,
-            'maxPrice' => $maxPrice,
-        ]);
+    $categorys = categories_books::distinct('categorie_id')->pluck('categorie_id')->toArray();
+    $categories = Categorie::whereIn('id', $categorys)->get();
+    foreach ($categories as $category) {
+        $category->books_count = categories_books::where('categorie_id', $category->id)->count();
     }
+    return view('EnglishChallenger.E_library', [
+        'books' => $books,
+        'reviews' => $reviews,
+        'categories' => $categories,
+        'minPrice' => $minPrice,
+        'maxPrice' => $maxPrice,
+    ]);
+}
 
 
 
@@ -183,8 +188,8 @@ class BookController extends Controller
         // Get all books that belong to the same categories
         $categories_books = Book::whereIn('id', function ($query) use ($category_ids) {
             $query->select('book_id')
-                ->from('categories_books')
-                ->whereIn('categorie_id', $category_ids);
+                  ->from('categories_books')
+                  ->whereIn('categorie_id', $category_ids);
         })->get();
 
         $categorys = categories_books::distinct('categorie_id')->pluck('categorie_id')->toArray();
@@ -197,15 +202,15 @@ class BookController extends Controller
         return view('EnglishChallenger.book', [
             'book' => $book,
             'categories_books' => $categories_books,
-            'categories' => $categories, 'currentCategoryId' => $currentCategoryId,
-            'review' => $review,
-            'cartBooks' => $cartBooks
+            'categories' => $categories
+            ,'currentCategoryId'=>$currentCategoryId,
+            'review'=>$review,
+            'cartBooks'=>$cartBooks
         ]);
     }
 
 
-    public function certifcat()
-    {
+    public function certifcat(){
 
         $categorys = categories_books::distinct('categorie_id')->pluck('categorie_id')->toArray();
         $categories = Categorie::whereIn('id', $categorys)->get();
@@ -213,10 +218,10 @@ class BookController extends Controller
             $category->course_count = CategoriesCourse::where('categorie_id', $category->id)->count();
         }
 
-        $tags  = Tag::all();
+        $tags  =Tag::all();
         return view('EnglishChallenger.page-certifcate', [
             'categories' => $categories,
-            'tags' => $tags
+            'tags'=>$tags
         ]);
     }
 

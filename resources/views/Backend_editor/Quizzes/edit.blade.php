@@ -132,7 +132,10 @@ $questions = Question::all();
                                     <input id="_lp_review" name="review" value="{{$quiz->review}}" type="checkbox" class="form-check-input" checked>
                                     <label for="_lp_review" class="form-check-label">Allow students to review this quiz after they finish the quiz.</label>
                                 </div>
-
+                                <div class="mt-4 form-check">
+                                    <input id="_lp_review" name="general_test" value="" type="checkbox" @if($quiz->general_test == 1) checked @endif class="form-check-input" >
+                                    <label for="_lp_review" class="form-check-label">Add this quiz to list of general tests.</label>
+                                </div>
                                 <div class="mt-4 form-check">
                                     <input id="_lp_show_correct_review" value="{{$quiz->show_correct_answer}}" name="show_correct_answer" type="checkbox" class="form-check-input" checked>
                                     <label for="_lp_show_correct_review" class="form-check-label">Allow students to view the correct answer to the question in reviewing this quiz.</label>

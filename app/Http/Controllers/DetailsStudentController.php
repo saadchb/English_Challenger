@@ -42,7 +42,7 @@ class DetailsStudentController extends Controller
      */
     public function show(detailsStudent $detailsStudent)
     {
-        $student  = Student::findOrFail(1);
+        $student  = Student::findOrFail($detailsStudent);
         $courses = DB::table('details_students')
             ->join('courses', 'details_students.course_id', 'courses.id')
             ->where('student_id', 1)

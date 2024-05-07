@@ -84,14 +84,16 @@
                                 </div>
                                 <h4 align="center">Sign in to your <a href="/"> EnglishChallenger</a> account</h4><br><br>
 
-                                <form method="POST" action="{{route('teacher.login')}}" novalidate="">
+                                <form method="POST" action="{{ route('login') }}" novalidate="">
+                                    <input type="hidden" name="type" value="{{ $type }}">
 
                                     @csrf <!-- cross-site-request-forgery -->
                                     <div class="form-group text-left">
                                         <label for="email">Email</label>
-                                        <input id="email" type="email" class="form-control mb-2" name="email" tabindex="1" value="{{old('email')}}">
+                                        <input id="email" type="email" class="form-control mb-2"
+                                            name="email" tabindex="1" value="{{ old('email') }}">
                                         @error('email')
-                                        <span class="text-danger "> {{$message}}</span>
+                                            <span class="text-danger "> {{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group text-left">
@@ -104,26 +106,30 @@
                                             </div>
                                         </div>
                                         <div class="input-group">
-                                            <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                                            <input id="password" type="password" class="form-control"
+                                                name="password" tabindex="2" required>
                                             <div class="input-group-append">
                                                 <span class="input-group-text bg-white">
-                                                    <i style="cursor: pointer;" class="fa fa-eye" id="togglePassword"></i>
+                                                    <i style="cursor: pointer;" class="fa fa-eye"
+                                                        id="togglePassword"></i>
                                                 </span>
                                             </div>
                                         </div>
 
-                                        <div class="invalid-feedback text-left">
+                                        <div class="invalid-feedback">
                                             please fill in your password
                                         </div>
                                     </div>
                                     <div class="form-group text-left">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                                            <input type="checkbox" name="remember" class="custom-control-input"
+                                                tabindex="3" id="remember-me">
                                             <label class="custom-control-label" for="remember-me">Remember Me</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="woocommerce-Button button btn-lg btn-block" tabindex="4">
+                                        <button type="submit" class="woocommerce-Button button btn-lg btn-block"
+                                            tabindex="4">
                                             Login
                                         </button>
 
@@ -140,16 +146,26 @@
                                         <a class="btn btn-block btn-social btn-google" style="background-color: #db7c1e;"><span class="fab fa-google"></span> Google</a>
                                     </div>
                                 </div>
-                                <div class="mt-2 text-muted text-center">
-                                    Don't have an account? <a href="{{route('teacher.show')}}"><b>Create One</b></a>
+
+                                <div class="mt-5 mb-4 text-muted text-center">
+                                    Don't have an account?
+                                    @if ($type == 'teacher')
+                                        <a href="{{ route('registerTeacherForm') }}">
+                                        @elseif($type == 'student')
+                                            <a href="{{ route('registerStudentForm') }}">
+                                    @endif
+                                    Create One</a>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                </center>
-            </div>
-        </section>
+                    </div>
+
+                </div>
+            </center>
+        </div>
+    </section>
     </div>
     <script>
         const passwordField = document.getElementById("password");

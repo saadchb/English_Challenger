@@ -18,10 +18,7 @@ class CheckoutController extends Controller
     {
         $carts = Book::join('carts', 'books.id', '=', 'carts.book_id')->join('users', 'users.id', '=', 'carts.user_id')->get();
         
-        // Assuming you want to retrieve user information for each cart
-        // $users = User::join('carts', 'users.id', '=', 'carts.user_id')->get();
-        
-        // Loop through the carts and check if user_id is equal to 1
+       
         $cartsWithUserIdOne = $carts->filter(function ($cart) {
             return $cart->user_id == 1;
         });

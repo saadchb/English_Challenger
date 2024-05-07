@@ -69,4 +69,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    public function registerTeacherForm(){
+        return view('Auth.registerTeacher');
+    }
+    public function registerStudentForm(){
+        return view('Auth.registerStudent');
+    }
 }
