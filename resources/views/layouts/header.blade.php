@@ -262,7 +262,35 @@ $quizzesGneral = Quiz::where('general_test', '1')->get();
             </ul>
 
             <ul class="header-contact-right d-none d-lg-block">
-                <li> <a href="/E_Library" class="header-cart"><i class="fa fa-shopping-cart"></i></a></li>
+                <style>
+                    .icon-qty-combine {
+                        color: black;
+                        display: inline-block;
+                        position: relative;
+
+                    }
+
+                    .icon-qty-combine .qty {
+                        font-size: 16px;
+                        font-weight: 600;
+                        line-height: 1;
+                        display: inline-block;
+                        min-width: 19px;
+                        background-color: purple;
+                        color: rgb(255, 255, 255);
+                        position: absolute;
+                        right: -8px;
+                        top: 7px;
+                        z-index: 2;
+                        margin: 0px;
+                        padding: 1px 5px 2px;
+                        border-radius: 50%;
+                    }
+                </style>
+                <li> <a href="/E_library" class="header-cart"> <span class="icon-qty-combine">
+                            <i class="fa fa-shopping-cart "></i>
+                            <span class="qty">8</span>
+                        </span></a></li>
                 <li><a href="#" class="header-search search_toggle"> <i class="fa  fa-search"></i></a>
                 </li>
             </ul>
