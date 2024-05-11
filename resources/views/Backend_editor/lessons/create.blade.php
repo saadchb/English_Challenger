@@ -49,30 +49,20 @@ $courses = Course::all();
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="course_id">Course</label>
-                            <select class="form-control" id="course_id" name="course_id" value='{{old("course_id")}}'>
-                                <option value="">Choose...</option>
-                                @foreach($courses as $course)
 
-                                <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
-                                    {{ $course->title }}
-                                </option>
-                                @endforeach
+                        <div class="input-group form-group col-4">
+                            <input id="_lp_duration" name="duration" type="number" class="form-control" value="0">
+                            <select class="form-select " name="duration">
+                                <option value="Minutes">Minute(s)</option>
+                                <option value="hour">Hour(s)</option>
+                                <option value="day">Day(s)</option>
+                                <option value="week">Week(s)</option>
                             </select>
-                            @error('course_id')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror
                         </div>
-
-                        <div class="form-group">
-                            <label for="duration" class="form-label"><b>Duration</b></label>
-                            <div class="input-group">
-                                <input value='{{old("duration")}}' id="duration" type="time" class="form-control" name="duration" value="0"><br>
-                            </div><br> @error('duration')
+                        @error('duration')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
-                        </div> <br>
+                        <br>
 
                         <div class="form-group form-check">
                             <input id="priview" type="checkbox" class="form-check-input" name="priview" {{ old('priview') ? 'checked' : '' }}>

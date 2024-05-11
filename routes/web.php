@@ -50,6 +50,13 @@ Route::get('/course_detail/{id}', [CourseController::class, 'show2'])->name('cou
 Route::get('/course_list', [CourseController::class, 'indexCr']);
 
 Route::middleware('auth.teacherAdmin')->group(function () {
+    //profile 
+    Route::get('/admin/Profile/{id}', [TeacherController::class, 'show'])->name('profile.show');
+    Route::put('/admin/Profile/update/{id}', [TeacherController::class, 'update'])->name('profile.update');
+    Route::delete('/admin/Profile/destroy/{id}', [TeacherController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/admin/profile/change-password/{id}', [TeacherController::class, 'changePassword'])->name('profile.changePassword');
+
+
     // home
     Route::get('/dachboard', [HommeController::class, 'index'])->name('dachboard')->middleware('auth.teacher');
     Route::post('/video/store', [HommeController::class, 'store'])->name('video.store');

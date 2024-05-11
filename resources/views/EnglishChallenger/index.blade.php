@@ -62,7 +62,7 @@ $blogCount = Blog::count();
                     </div>
                     <div class="feature-text">
                         <h4>BOOK LIBRARY & STORE</h4>
-                        <a href="/E-Library" style="color: #FF1949;"><b>View More <i class="fa fa-angle-right ml-2"></i></b></a>
+                        <a href="/E_Library" style="color: #FF1949;"><b>View More <i class="fa fa-angle-right ml-2"></i></b></a>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,12 @@ $blogCount = Blog::count();
     <div class="row align-items-center justify-content-center">
     <div class="col-lg-10">
         <div class="embed-responsive embed-responsive-16by9">
+            @if(!empty($featuredVideo))
             <iframe class="embed-responsive-item" src="{{ $featuredVideo->video }}" allowfullscreen></iframe>
+
+            @else
+            <p></p>
+        @endif
         </div>
     </div>
 </div>
@@ -127,7 +132,7 @@ $blogCount = Blog::count();
             <div class="col-lg-12">
                 <div class="course-slides owl-carousel owl-theme owl-loaded owl-drag">
                     <div class="owl-stage-outer">
-                        
+
                         <div class="owl-stage">
                         @foreach($normalVideos as $video)
                             <div class="owl-item">
@@ -235,7 +240,7 @@ $blogCount = Blog::count();
         </div>
 
         <div class="row no-gutters">
-        
+
             @foreach($categorieByCourses as $categorieByCourse)
             <div class="col-lg-3 col-md-6">
                 <div class="course-category style-1">
@@ -248,7 +253,7 @@ $blogCount = Blog::count();
             </div>
             @endforeach
         </div>
-        
+
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="text-center mt-5">
@@ -275,7 +280,7 @@ $blogCount = Blog::count();
                     @foreach ($reviews as $review)
                     <div class="review-item">
                         <div class="client-info" style="height: 650px;">
-                            <i class="bi bi-quote"></i>                     
+                            <i class="bi bi-quote"></i>
                             <p style="max-height: 18.5em; overflow: hidden;">{{ $review->comments }}</p>
                             <div class="rating">
                                 @for ($i = 0; $i < $review->rating; $i++)
@@ -311,7 +316,7 @@ $blogCount = Blog::count();
                 <div class="section-heading center-heading">
                     <span class="subheading">Blog News</span>
                     <h3>Latest Blog News</h3>
-                    <p>take an eye on our new and recommended blogs written by a professional writers!</p> 
+                    <p>take an eye on our new and recommended blogs written by a professional writers!</p>
                 </div>
             </div>
                 <div class="course-btn text-lg-right">
@@ -345,7 +350,7 @@ $blogCount = Blog::count();
 
 <script>
     const showCoursesBycategories = document.getElementById('showCoursesBycategories');
-     const categories = @json($categories); 
+     const categories = @json($categories);
     const courses = @json($courses);
     const categories_course = @json($categories_course);
 

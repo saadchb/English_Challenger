@@ -13,11 +13,8 @@ class CartController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {        
-        $Books = Book::join('carts','books.id','=','carts.book_id')->get();   
-        // $products= Cart::all() ;
-        // dd($Books);
-        return view('Englishchallenger.cart',['Books'=>$Books]);
+    {
+        return view('Englishchallenger.cart');
     }
 
     /**
@@ -37,22 +34,22 @@ class CartController extends Controller
         $existingCartItem = Cart::where('book_id', $request->input('book_id'))
                                 ->where('course_id', $request->input('course_id'))
                                 ->first();
-    
+
         // If the book already exists, do not add it again
         if ($existingCartItem) {
             return redirect()->back()->with('error', 'This book is already in your cart.');
         }
-    
+
         // If the book doesn't exist in the cart, add it
         $cart = new Cart([
             'book_id' => $request->input('book_id'),
             'course_id' => $request->input('course_id')
         ]);
         $cart->save();
-    
+
         return redirect()->back()->with('success', 'The book has been added to your cart.');
     }
-    
+
     /**
      * Display the specified resource.
      */

@@ -112,13 +112,15 @@ $students = Student::orderBy('created_at', 'desc')->paginate(4);
 
 <!-- Display Featured Video -->
 <div class="container mb-1 col-lg-9">
-    @if($featuredVideo)
-        <iframe 
+    @if(!empty($featuredVideo))
+        <iframe
           src="{{ $featuredVideo->video }}"
-          class="w-100 shadow-1-strong rounded mb-4" 
+          class="w-100 shadow-1-strong rounded mb-4"
           style="height: 400px;"
           title="Featured YouTube video" allowfullscreen>
         </iframe>
+        @else
+        <p></p>
     @endif
 </div>
 
@@ -126,10 +128,10 @@ $students = Student::orderBy('created_at', 'desc')->paginate(4);
 <div class="row">
     @foreach($normalVideos as $video)
         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-            <iframe 
+            <iframe
               src="{{ $video->video }}"
               class="w-100 shadow-1-strong rounded mb-4"
-              style="height: 200px;" 
+              style="height: 200px;"
               title="Normal YouTube video" allowfullscreen>
             </iframe>
         </div>

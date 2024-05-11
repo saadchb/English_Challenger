@@ -49,7 +49,7 @@ class CurriculumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, int $course)
+    public function show(Request $request, string $course)
     {
         $retaking = 0;
         $testViewStudent = DetailStudentLesson::join('details_students', 'details_students.id', 'detail_student_lessons.deatils_student_id')

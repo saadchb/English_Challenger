@@ -178,7 +178,13 @@
 
                 </li>
 
+
                 <!-- Notifications Dropdown Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="/" >
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
@@ -186,21 +192,26 @@
                 </li>
                 <li class="nav-item dropdown ml-4">
                     <div style="display: flex;">
-                        <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                    @if (!Empty(Auth::guard('teacher')->user()->picture))
+                        <img alt="picture" src="{{asset('storage/'.Auth::guard('teacher')->user()->picture)}}" class="img-circle elevation-2"
+                           style="height: 40px;width: 40px;" alt="Formateur Image">
+                        @else
+                        <img src="{{asset('build/assets/images/clients/user.png')}}"  class="img-circle elevation-2"
                             height="40px" width="40px" alt="Formateur Image">
+                        @endif
                         <a href="#" class="nav-link" data-toggle="dropdown" class="d-block"><strong
-                                style="color: black;">SAAD CHAIB <i class="fa-solid fa-caret-down"></i></strong></a>
+                                style="color: black;">{{Auth::guard('teacher')->user()->first_name}} {{Auth::guard('teacher')->user()->last_name}} <i class="fa-solid fa-caret-down"></i></strong></a>
                         </a>
                         <div>
                             <div class="dropdown-menu dropdown-menu dropdown-menu-right">
                                 <span class="dropdown-item dropdown-header"><strong>Profile</strong></span>
                                 <div class="dropdown-divider"></div>
 
-                                <a href="#" class="dropdown-item">
+                                <a href="{{route('profile.show',Auth::guard('teacher')->user()->id)}}" class="dropdown-item">
                                     <i class=" fa-regular fa-gear text-info"></i> SETTING
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
+                                <a href="{{ route('logout', 'teacher') }}" class="dropdown-item">
                                     <i class="fa-solid fa-power-off text-danger"></i> LOG OUT
                                 </a>
 
@@ -223,9 +234,9 @@
             </section>
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.7.0/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
         <script>
             var el = document.getElementById("wrapper");
             var toggleButton = document.getElementById("menu-toggle");

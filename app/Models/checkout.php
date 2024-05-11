@@ -10,7 +10,7 @@ class checkout extends Model
 {
     use HasFactory,SoftDeletes;
 
-protected $fillable = 
+protected $fillable =
 [
     'billing_first_name',
     'billing_last_name',
@@ -25,7 +25,10 @@ protected $fillable =
     'billing_email',
     'order_comments',
     // 'cart_id',
-    'user_id',
+    'teacher_id',
+    'student_id',
+    'parent_id',
+    'school_id',
     'payment_method',
 ];
     public function cart()

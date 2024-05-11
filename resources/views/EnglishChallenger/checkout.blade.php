@@ -88,7 +88,7 @@
                             <div class="entry-content">
 
                                 <div class="woocommerce-notices-wrapper"></div>
-                                @if($cartsWithUserIdOne->isNotEmpty())
+                                {{-- @if($cartsWithUserIdOne->isNotEmpty()) --}}
                                 <form name="checkout" method="post" class="checkout woocommerce-checkout row" action="{{route('order.store')}}" enctype="multipart/form-data" novalidate="novalidate">
                                 @csrf
                                 <div class="col-md-7">
@@ -96,7 +96,12 @@
                                             <div class="col-12">
                                                 <div class="woocommerce-billing-fields">
                                                     <h3>Billing details</h3>
-
+                                                    @if(Auth::guard('teacher')->check())
+                                                    <input type="hidden" name="teacher_id" value="{{Auth::guard('teacher')->user()->id}}">
+                                                    @endif
+                                                    @if(Auth::guard('student')->check())
+                                                    <input type="hidden" name="student_id" value="{{Auth::guard('student')->user()->id}}">
+                                                    @endif
                                                     <div class="woocommerce-billing-fields__field-wrapper">
                                                         <p class="form-row form-row-first form-group validate-required" id="billing_first_name_field" data-priority="10">
                                                             <label for="billing_first_name" class="control-label">First name<abbr class="required" title="required">*</abbr></label>
@@ -595,7 +600,7 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                                                    
+
                                                     </div>
                                                 </ul>
                                                 <div class="form-row place-order">
@@ -619,12 +624,12 @@
                                     </div>
 
                                 </form>
-                                @else
+                                {{-- @else
                                 <div>
                                     <p>check the cart first </p>
                                 </div>
                                 @endif
-                            </div>
+                            </div> --}}
             </div><!-- .entry-content -->
 
             </article><!-- #post-## -->
@@ -640,7 +645,7 @@
   document.addEventListener("DOMContentLoaded", function() {
     // Get all radio buttons for payment methods
     var paymentMethodRadios = document.querySelectorAll('input[name="payment_method"]');
-    
+
     // Add event listener to each radio button
     paymentMethodRadios.forEach(function(radio) {
       radio.addEventListener("click", function() {
@@ -649,7 +654,7 @@
         paymentBoxes.forEach(function(box) {
           box.style.display = 'none';
         });
-        
+
         // Show the payment box associated with the selected payment method
         var selectedPaymentMethod = this.value;
         var selectedPaymentBox = document.querySelector('.payment_box.payment_method_' + selectedPaymentMethod);

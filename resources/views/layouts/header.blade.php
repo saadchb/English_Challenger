@@ -287,6 +287,7 @@ $quizzesGneral = Quiz::where('general_test', '1')->get();
                         border-radius: 50%;
                     }
                 </style>
+                @livewire('itemCartCount')
                 <li><a href="#" class="header-search search_toggle"> <i class="fa  fa-search"></i></a>
                 </li>
             </ul>

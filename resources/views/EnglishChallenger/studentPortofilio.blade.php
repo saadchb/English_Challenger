@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Course list')
 @section('content')
-
-
     <section class="edutim-course-single">
         <div class="course-single-wrapper">
             <div class="container">
@@ -21,8 +19,8 @@
 
                     <div class="col-lg-4" id="imgProf">
                         <div>
-                            <img style="border-radius: 200px;" src="{{ asset('storage/' . Auth::guard('student')->user()->picture) }}"
-                                alt="" class="img-fluid w-100" />
+                            <img style="border-radius: 200px; height: 285px; width: 285px;" src="{{ asset('storage/' . Auth::guard('student')->user()->picture) }}"
+                                alt="" class="img-fluid float-right"/>
                         </div>
                     </div>
                 </div>
@@ -38,7 +36,7 @@
                         </div>
                         <div style="background-color:transparent !important; box-shadow:0 0 0 rgb(255, 254, 254) !important;margin-top:-104px !important;" class="team-info">
 
-                            <img  style="border-radius:50%; width:30%;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important; " src="{{ asset('storage/' . Auth::guard('student')->user()->picture) }}"alt="">
+                            <img  style="border-radius:50%; width:203px ;height: 203px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important; " src="{{ asset('storage/' . Auth::guard('student')->user()->picture) }}"alt="">
                         </br>
                             <h4 style="font-size: 20px; color:#07294D !important; "
                             class="d-inline-block text-capitalize mt-4">{{ Auth::guard('student')->user()->first_name }}
@@ -334,73 +332,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
-                            <div class="course-widget course-info">
-                                <h4 class="course-title">
-                                    Students Feedback
-                                </h4>
-
-                                <div class="course-review-wrapper">
-                                    <div class="course-review">
-                                        <div class="profile-img">
-                                            <img src="assets/images/blog/author.jpg" alt="" class="img-fluid" />
-                                        </div>
-                                        <div class="review-text">
-                                            <h5>
-                                                Mehedi Rasedh
-                                                <span>26th june 2020</span>
-                                            </h5>
-
-                                            <div class="rating">
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star-half"></i></a>
-                                            </div>
-                                            <p>
-                                                Great course. Well
-                                                structured, paced and I feel
-                                                far more confident using
-                                                this software now then I did
-                                                back in school when I was
-                                                learning. And the guy doing
-                                                the voice over really is
-                                                great at what he does
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="course-review">
-                                        <div class="profile-img">
-                                            <img src="assets/images/blog/author.jpg" alt="" class="img-fluid" />
-                                        </div>
-                                        <div class="review-text">
-                                            <h5>
-                                                Rasedh raj
-                                                <span>1 Year Ago</span>
-                                            </h5>
-                                            <div class="rating">
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star-half"></i></a>
-                                            </div>
-                                            <p>
-                                                Very deep course for a
-                                                beginner, enjoyed everything
-                                                from the very start and
-                                                every detail is vastly
-                                                investigated and discussed.
-                                                A nice choice for those, who
-                                                are enrolling Python.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                  
                     </div>
                 </div>
 
