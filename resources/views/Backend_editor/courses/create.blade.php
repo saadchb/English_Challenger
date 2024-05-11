@@ -116,8 +116,8 @@
             <div id="headlessui-tabs-panel-:r17:" role="tabpanel" aria-labelledby="headlessui-tabs-tab-:r14:" tabindex="0" data-headlessui-state="selected">
                 <div class="mt-8 mb-6 grid grid-cols-[20%_80%] border rounded">
                     <div class="flex flex-col items-start divide-y-[1px] divide-gray-200 bg-gray-100" role="tablist" aria-orientation="vertical"><button type='button' class="w-full flex justify-start text-sm font-medium text-gray-700 py-4 px-4 outline-none bg-gray-200" id="btn-general" role="tab" type="button" aria-selected="true" tabindex="0" data-headlessui-state="selected" aria-controls="headlessui-tabs-panel-:r2i:">General</button><button type='button' class="w-full flex justify-start text-sm font-medium text-gray-700 py-4 px-4 outline-none" id="btn-pricing" role="tab" type="button" aria-selected="false" tabindex="-1" data-headlessui-state="" aria-controls="headlessui-tabs-panel-:r2j:">Pricing</button><button type='button' class="w-full flex justify-start text-sm font-medium text-gray-700 py-4 px-4 outline-none" id="btn-extra-information" role="tab" type="button" aria-selected="false" tabindex="-1" data-headlessui-state="" aria-controls="headlessui-tabs-panel-:r2k:">Extra
-                            Information</button><button type='button' class="w-full flex justify-start text-sm font-medium text-gray-700 py-4 px-4 outline-none" id="btn-assessment" role="tab" type="button" aria-selected="false" tabindex="-1" data-headlessui-state="" aria-controls="headlessui-tabs-panel-:r2l:">Assessment</button><button type='button' class="w-full flex justify-start text-sm font-medium text-gray-700 py-4 px-4 outline-none" id="btn-downloadable-materials" role="tab" type="button" aria-selected="false" tabindex="-1" data-headlessui-state="" aria-controls="headlessui-tabs-panel-:r2m:">Downloadable
-                            Materials</button><button type='button' class="w-full flex justify-start text-sm font-medium text-gray-700 py-4 px-4 outline-none" id="btn-certificates" role="tab" type="button" aria-selected="false" tabindex="-1" data-headlessui-state="" aria-controls="headlessui-tabs-panel-:r2n:">Certificates</button>
+                            Information</button><button type='button' class="w-full flex justify-start text-sm font-medium text-gray-700 py-4 px-4 outline-none" id="btn-assessment" role="tab" type="button" aria-selected="false" tabindex="-1" data-headlessui-state="" aria-controls="headlessui-tabs-panel-:r2l:">Assessment</button>
+
                     </div>
                     <div class="border-l p-4">
                         <div id="general-content">
@@ -259,11 +259,7 @@
                             </div>
                         </div>
                         <div id="pricing-content">
-                            <div class="space-y-7" id="headlessui-tabs-panel-:ri:" role="tabpanel" aria-labelledby="headlessui-tabs-tab-:rc:" tabindex="0" data-headlessui-state="selected">
-                                <div class="flex items-center gap-x-2"><label for="regular-price" class="w-36 text-sm text-gray-800 font-medium">Regular Price</label>
-                                    <div><input id="regular-price" type="number" name="regular_price" value="{{ old('regular_price') }}" class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2" step="0.01" min="0" value="false"></div>
-                                </div>
-                            </div>
+
                             <div id="pricing-content">
                                 <div class="space-y-7" id="headlessui-tabs-panel-:ri:" role="tabpanel"
                                     aria-labelledby="headlessui-tabs-tab-:rc:" tabindex="0"
@@ -359,48 +355,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="extra-information-content">
-                                <div>
-                                    <div class="flex items-center gap-x-2"><label for="sale-price" class="w-36 text-sm text-gray-800 font-medium">Sale Price</label>
-                                        <div><input id="sale-price" type="number" name="sale_price" value="{{ old('sale_price') }}" class="py-1.5 focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-800 text-sm border-gray-300 rounded-md w-[80px]  p-2" step="0.01" min="0"></div>
-                                    </div>
-                                </div>
-                                <div><button type='button' id="btn-date" class="ml-36 text-sm text-gray-700 font-medium underline">Schedule</button>
-                                </div>
-                                <div id="date" style="display: none">
-                                    <div>
-                                        <div class="flex items-center"><label for="_lp_sale_start" class="w-36 text-sm text-gray-800 font-medium">Sale start dates</label>
-                                            <div class="flex gap-2 items-center">
-                                                <div class="relative" data-headlessui-state=""><button type='button' id="headlessui-popover-button-:r3h:" type="button" aria-expanded="false" data-headlessui-state=""><input class="py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md pl-2" type="date" value="{{ old('sale_start_dates') ? date('Y-m-d', strtotime(old('sale_start_dates'))) : '' }}" name="sale_start_dates"></button></div>
-                                                <div class="flex gap-1 items-center">
-                                                    <input type='number' max="23" min="0" name="sale_start_hours" value="{{ old('sale_start_dates') ? date('H', strtotime(old('sale_start_dates'))) : 00 }}" class=" pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"><span>:</span>
-                                                    <input type='number' max="59" min="0" name="sale_start_minutes" value="{{ old('sale_start_dates') ? date('i', strtotime(old('sale_start_dates'))) : 00 }}" class="pl-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="flex items-center mt-4"><label for="_lp_sale_end" class="w-36 text-sm text-gray-800 font-medium ">Sale end dates</label>
-                                            <div class="flex gap-2 items-center  ">
-                                                <div class="relative" data-headlessui-state=""><button type='button' id="headlessui-popover-button-:r3m:" type="button" aria-expanded="false" data-headlessui-state=""><input value="{{ old('sale_end_dates') ? date('Y-m-d', strtotime(old('sale_end_dates'))) : '' }}" class="py-1.5 w-[120px] focus:ring-indigo-500 focus:border-indigo-700 shadow-sm text-gray-600 text-sm border-gray-300 rounded-md  pl-2" type="date" id="datepicker" value="" name="sale_end_dates"></button>
-                                                </div>
-                                                <div class="flex gap-1 items-center">
-                                                    <input type='number' max="23" min="0" name="sale_end_hours" value="{{ old('sale_end_dates') ? date('H', strtotime(old('sale_end_dates'))) : 00 }}" class=" p-2 w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                    <span>:</span>
-                                                    <input type='number' max="59" sale_end_minutes min="0" name="" value="{{ old('sale_end_dates') ? date('i', strtotime(old('sale_end_dates'))) : 00 }}" class="w-[80px] py-1.5 text-sm text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-[9rem_1fr] gap-x-2 items-center">
-                                    <div class="text-sm text-gray-800 font-medium">There is no enrollment requirement
-                                    </div>
-                                    <div class="flex space-x-2"><input id="_lp_no_required_enroll" type="checkbox" @if (old('there_is_no_enrollment_requirement')==1) checked="" @endif name="there_is_no_enrollment_requirement" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"><label for="_lp_no_required_enroll" class="text-sm text-gray-800 select-none leading-4">Students can see the
-                                            content
-                                            of all course items and take the quiz without logging in.</label></div>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div id="extra-information-content">
                             <div>
@@ -531,60 +486,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="downloadable-materials-content">
-                            <div>
-                                <div class="space-y-7 metabox-material " id="headlessui-tabs-panel-:r2a:" role="tabpanel" aria-labelledby="headlessui-tabs-tab-:r24:" tabindex="0" data-headlessui-state="selected"></div>
-                            </div>
-                        </div>
-                        <div id="certificates-content">
-                            <div>
-                                <div>
-                                    <div class="space-y-7 metabox-certificates " id="headlessui-tabs-panel-:r2b:" role="tabpanel" aria-labelledby="headlessui-tabs-tab-:r25:" tabindex="0" data-headlessui-state="selected">
-                                        <div>
-                                            <div class="relative">
-                                                <div class="flex items-center flex-wrap gap-6">
-                                                    <div class="relative w-80 rounded-lg shadow overflow-hidden [&amp;>img]:object-cover [&amp;>img]:object-center [&amp;>img]:w-full [&amp;>img]:h-60 border">
-                                                        <div class="lp-certificate-list" id="lp-certificate-14562" data-id="14562">
-                                                            <div class="certificate-preview-inner"></div><input class="lp-data-config-cer" type="hidden" value="{&quot;id&quot;:14562,&quot;name&quot;:&quot;check&quot;,&quot;layers&quot;:{&quot;b0b5958e8e822089&quot;:{&quot;name&quot;:&quot;b0b5958e8e822089&quot;,&quot;type&quot;:&quot;text&quot;,&quot;originX&quot;:&quot;center&quot;,&quot;originY&quot;:&quot;center&quot;,&quot;left&quot;:&quot;878.98&quot;,&quot;top&quot;:&quot;255.04&quot;,&quot;width&quot;:&quot;369.17&quot;,&quot;height&quot;:61.5,&quot;fill&quot;:&quot;rgb(0,0,0)&quot;,&quot;stroke&quot;:&quot;&quot;,&quot;strokeWidth&quot;:1,&quot;strokeDashArray&quot;:&quot;&quot;,&quot;strokeLineCap&quot;:&quot;butt&quot;,&quot;strokeLineJoin&quot;:&quot;miter&quot;,&quot;strokeMiterLimit&quot;:10,&quot;scaleX&quot;:1,&quot;scaleY&quot;:1,&quot;angle&quot;:0,&quot;flipX&quot;:false,&quot;flipY&quot;:false,&quot;opacity&quot;:1,&quot;shadow&quot;:&quot;&quot;,&quot;visible&quot;:true,&quot;clipTo&quot;:&quot;&quot;,&quot;backgroundColor&quot;:&quot;&quot;,&quot;fillRule&quot;:&quot;nonzero&quot;,&quot;globalCompositeOperation&quot;:&quot;source-over&quot;,&quot;fieldType&quot;:&quot;course-name&quot;,&quot;variable&quot;:&quot;&quot;,&quot;text&quot;:&quot;Course name&quot;,&quot;fontSize&quot;:61.5,&quot;fontWeight&quot;:&quot;normal&quot;,&quot;fontFamily&quot;:&quot;Helvetica&quot;,&quot;fontStyle&quot;:&quot;&quot;,&quot;lineHeight&quot;:1,&quot;textDecoration&quot;:&quot;&quot;,&quot;textAlign&quot;:&quot;left&quot;,&quot;path&quot;:&quot;&quot;,&quot;textBackgroundColor&quot;:&quot;&quot;,&quot;useNative&quot;:true}},&quot;template&quot;:&quot;https://accountlp.thimpress.com/wp-content/uploads/2022/06/bg-popular-instructor.jpg&quot;,&quot;preview&quot;:&quot;https://accountlp.thimpress.com/wp-content/uploads/2022/06/bg-popular-instructor.jpg&quot;,&quot;systemFonts&quot;:{&quot;Arial&quot;:&quot;Arial&quot;,&quot;Georgia&quot;:&quot;Georgia&quot;,&quot;Helvetica&quot;:&quot;Helvetica&quot;,&quot;Verdana&quot;:&quot;Verdana&quot;},&quot;user_id&quot;:3,&quot;course_id&quot;:false,&quot;key_cer&quot;:&quot;3589037e62f630ffdcd75b768e4b578b&quot;}">
-                                                        </div>
-                                                        <div class="flex items-center justify-between text-sm px-3 py-2 gap-x-2 bg-gray-100">
-                                                            <div class="truncate text-gray-600">check</div>
-                                                            <div class="flex items-center gap-x-2"><button type='button' class="relative ring-1 ring-black ring-opacity-5 bg-[#007bff] text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a href="https://accountlp.thimpress.com/wp-admin/post.php?post=14562&amp;action=edit" class="relative border text-gray-600 bg-white text-sm px-3 py-1.5 flex items-center rounded font-medium hover:bg-gray-50">Edit</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="relative w-80 rounded-lg shadow overflow-hidden [&amp;>img]:object-cover [&amp;>img]:object-center [&amp;>img]:w-full [&amp;>img]:h-60 border">
-                                                        <div class="lp-certificate-list" id="lp-certificate-21606" data-id="21606">
-                                                            <div class="certificate-preview-inner"></div><input class="lp-data-config-cer" type="hidden" value="{&quot;id&quot;:21606,&quot;name&quot;:&quot;certificate&quot;,&quot;layers&quot;:null,&quot;template&quot;:&quot;https://accountlp.thimpress.com/wp-content/uploads/2023/03/BG_Certificate-Lors-Hovsann.png&quot;,&quot;preview&quot;:&quot;https://accountlp.thimpress.com/wp-content/uploads/2023/03/BG_Certificate-Lors-Hovsann.png&quot;,&quot;systemFonts&quot;:{&quot;Arial&quot;:&quot;Arial&quot;,&quot;Georgia&quot;:&quot;Georgia&quot;,&quot;Helvetica&quot;:&quot;Helvetica&quot;,&quot;Verdana&quot;:&quot;Verdana&quot;},&quot;user_id&quot;:3,&quot;course_id&quot;:false,&quot;key_cer&quot;:&quot;0772416b1f28cdfbd8266ebf4acce843&quot;}">
-                                                        </div>
-                                                        <div class="flex items-center justify-between text-sm px-3 py-2 gap-x-2 bg-gray-100">
-                                                            <div class="truncate text-gray-600">certificate</div>
-                                                            <div class="flex items-center gap-x-2"><button type='button' class="relative ring-1 ring-black ring-opacity-5 bg-[#007bff] text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a href="https://accountlp.thimpress.com/wp-admin/post.php?post=21606&amp;action=edit" class="relative border text-gray-600 bg-white text-sm px-3 py-1.5 flex items-center rounded font-medium hover:bg-gray-50">Edit</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="relative w-80 rounded-lg shadow overflow-hidden [&amp;>img]:object-cover [&amp;>img]:object-center [&amp;>img]:w-full [&amp;>img]:h-60 border">
-                                                        <div class="lp-certificate-list" id="lp-certificate-22065" data-id="22065">
-                                                            <div class="certificate-preview-inner"></div><input class="lp-data-config-cer" type="hidden" value="{&quot;id&quot;:22065,&quot;name&quot;:&quot;certificate-demo&quot;,&quot;layers&quot;:null,&quot;template&quot;:&quot;https://accountlp.thimpress.com/wp-content/uploads/2024/01/17542181_5815489-scaled.jpg&quot;,&quot;preview&quot;:&quot;https://accountlp.thimpress.com/wp-content/uploads/2024/01/17542181_5815489-scaled.jpg&quot;,&quot;systemFonts&quot;:{&quot;Arial&quot;:&quot;Arial&quot;,&quot;Georgia&quot;:&quot;Georgia&quot;,&quot;Helvetica&quot;:&quot;Helvetica&quot;,&quot;Verdana&quot;:&quot;Verdana&quot;},&quot;user_id&quot;:3,&quot;course_id&quot;:false,&quot;key_cer&quot;:&quot;61eae4f6c1459e349976af7a6465e6ab&quot;}">
-                                                        </div>
-                                                        <div class="flex items-center justify-between text-sm px-3 py-2 gap-x-2 bg-gray-100">
-                                                            <div class="truncate text-gray-600">certificate-demo</div>
-                                                            <div class="flex items-center gap-x-2"><button type='button' class="relative ring-1 ring-black ring-opacity-5 bg-[#007bff] text-white text-sm px-3 py-1.5 flex items-center rounded font-medium">Assign</button><a href="https://accountlp.thimpress.com/wp-admin/post.php?post=22065&amp;action=edit" class="relative border text-gray-600 bg-white text-sm px-3 py-1.5 flex items-center rounded font-medium hover:bg-gray-50">Edit</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" id="tableData" name="tableData">
-                                            <div class="w-full mt-4"><a href="https://accountlp.thimpress.com/wp-admin/post-new.php?post_type=lp_cert" target="_blank" rel="noopener noreferrer" class="border gap-x-2 text-white bg-[#007bff] text-sm px-3 py-2 inline-flex items-center rounded-md font-medium"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z">
-                                                        </path>
-                                                    </svg>Create new certificate</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -660,23 +561,17 @@
     const btnpricing = document.getElementById('btn-pricing');
     const btnextrainformation = document.getElementById('btn-extra-information');
     const btnassessment = document.getElementById('btn-assessment');
-    const btndownloadablematerials = document.getElementById('btn-downloadable-materials');
-    const btncertificates = document.getElementById('btn-certificates');
-    const btnT = [btncertificates, btndownloadablematerials, btnassessment, btnextrainformation, btnpricing,
+    const btnT = [ btnassessment, btnextrainformation, btnpricing,
         btnGeneral
     ];
     const General = document.getElementById('general-content');
     const pricing = document.getElementById('pricing-content');
     const extrainformation = document.getElementById('extra-information-content');
     const assessment = document.getElementById('assessment-content');
-    const downloadablematerials = document.getElementById('downloadable-materials-content');
-    const certificates = document.getElementById('certificates-content');
-    const contentT = [certificates, downloadablematerials, assessment, extrainformation, pricing, General];
+    const contentT = [  assessment, extrainformation, pricing, General];
     pricing.style.display = 'none';
     extrainformation.style.display = 'none';
     assessment.style.display = 'none';
-    downloadablematerials.style.display = 'none';
-    certificates.style.display = 'none';
     for (let i = 0; i < contentT.length; i++) {
         btnT[i].addEventListener('click', function() {
             if (!btnT[i].classList.contains('bg-gray-200')) {

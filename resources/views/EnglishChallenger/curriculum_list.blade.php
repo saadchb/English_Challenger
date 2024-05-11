@@ -230,12 +230,18 @@
                     class="form-control rounded" placeholder="Search" aria-label="Search"
                     aria-describedby="search-addon" />
             </div>
-            <a class="px-3 pt-2 mydivheader" href="{{ route('detailsStudents.show',Auth::guard('student')->user()->id) }}">
-                <svg xmlns="http://www.w3.org/2000/svg" width='50' height='50' class=""
-                    viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                    <path
-                        d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                </svg>
+
+            @auth('student')
+                <a class="px-3 pt-2 mydivheader"
+                    href="{{ route('detailsStudents.show', Auth::guard('student')->user()->id) }}">
+                    <!-- Your link content -->
+                </a>
+            @endauth
+            <svg xmlns="http://www.w3.org/2000/svg" width='50' height='50' class=""
+                viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+            </svg>
             </a>
         </header>
     @endif
@@ -272,7 +278,12 @@
                                                             @csrf
                                                             <input type="hidden" value="{{ $lesson['id'] }}"
                                                                 name="lesson_id" />
-                                                            <input type="hidden" value="{{Auth::guard('student')->user()->id}}" name="student_id" />
+                                                            @auth('student')
+
+                                                                <input type="hidden"
+                                                                    value="{{ Auth::guard('student')->user()->id }}"
+                                                                    name="student_id" />
+                                                            @endauth
                                                             <input type="hidden" name="course_id"
                                                                 value="{{ $course->id }}">
                                                             <input type="hidden" value="{{ $lesson['type'] }}"
@@ -312,8 +323,11 @@
                                                                 @csrf
                                                                 <input type="hidden" value="{{ $lesson['id'] }}"
                                                                     name="lesson_id" />
-                                                                <input type="hidden"  value="{{Auth::guard('student')->user()->id}}"
+                                                                <input type="hidden"
+                                                                @auth('student')
+                                                                    value="{{ Auth::guard('teacher')->user()->id }}"
                                                                     name="student_id" />
+                                                                @endauth
                                                                 <input type="hidden" name="course_id"
                                                                     value="{{ $course->id }}">
                                                                 <input type="hidden" value="{{ $lesson['type'] }}"
@@ -388,12 +402,13 @@
             </ul>
             <ul class="navbar-nav ml-auto" id="duration-content">
                 <livewire:display-quiz :quizActivee='$quizActive' :retakingg='$retaking' :passs='$pass' />
-                @if (isset($GTest) && isset($move) && $quizActive->retake - $retaking >= 0 )
+                @if (isset($GTest) && isset($move) && $quizActive->retake - $retaking >= 0)
                     <li class="nav-item" id="timer"><span class="nav-link" id="time">--:--</span></li>
                     <script>
                         const totalTime = {{ $quizActive->duration }};
                         const timerDisplay = document.getElementById('time');
                         let timeLeft = totalTime * 60;
+
                         function updateTimer() {
                             const minutes = Math.floor(timeLeft / 60);
                             const seconds = timeLeft % 60;
@@ -444,7 +459,10 @@
                                                 action="{{ route('curriculum_list.prev', $course->id) }}" method="post">
                                                 @csrf
                                                 <input type="hidden" value="{{ $lessonActive->order }}" name="order">
-                                                <input type="hidden" value="{{Auth::guard('student')->user()->id}}"  name="student_id">
+                                                @auth('student')
+                                                    <input type="hidden" value="{{ Auth::guard('student')->user()->id }}"
+                                                        name="student_id" />
+                                                @endauth
                                                 <input type="hidden" value="{{ $lessonActive->id }}" name="lesson_id">
                                                 <button class="btn btn-primary rounded btnPag"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
@@ -460,7 +478,10 @@
                                                 action="{{ route('curriculum_list.next', $course->id) }}" method="post">
                                                 @csrf
                                                 <input type="hidden" value="{{ $lessonActive->order }}" name="order">
-                                                <input type="hidden"  value="{{Auth::guard('student')->user()->id}}"  name="student_id">
+                                                @auth('student')
+                                                    <input type="hidden" value="{{ Auth::guard('student')->user()->id }}"
+                                                        name="student_id" />
+                                                @endauth
                                                 <input type="hidden" value="{{ $lessonActive->id }}" name="lesson_id">
                                                 <button class="btn btn-primary rounded btnPag">
                                                     Next <svg xmlns="http://www.w3.org/2000/svg" width="20px"
@@ -492,7 +513,11 @@
                                                         <input type="hidden" name="grade" id="grade" value="0">
                                                         <input type="hidden" name="answers" id="answers">
                                                         <input type="hidden" name="quiz_id" value="{{ $quizActive->id }}">
-                                                        <input type="hidden" name="student_id" value="{{Auth::guard('student')->user()->id}}" >
+                                                        @auth('student')
+                                                            <input type="hidden"
+                                                                value="{{ Auth::guard('student')->user()->id }}"
+                                                                name="student_id" />
+                                                        @endauth
                                                         <input type="hidden" name="type" value="quiz">
                                                         <section style="width: 1000px;">
                                                             @foreach ($questions as $key => $question)
@@ -821,7 +846,11 @@
                                                             @csrf
                                                             <input type="hidden" value="{{ $quizActive->order }}"
                                                                 name="order">
-                                                            <input type="hidden"  value="{{Auth::guard('student')->user()->id}}"  name="student_id">
+                                                            @auth('student')
+                                                                <input type="hidden"
+                                                                    value="{{ Auth::guard('student')->user()->id }}"
+                                                                    name="student_id" />
+                                                            @endauth
                                                             <input type="hidden" value="{{ $quizActive->id }}"
                                                                 name="lesson_id">
                                                             <div class="alert alert-success mt-4" role="alert">
@@ -845,17 +874,20 @@
                                                 @elseif($retaking >= $quizActive->retake)
                                                     <form id='formFinishQ' style="display: inline !important;"
                                                         class="d-inline formFinishQ"
-
                                                         action="{{ route('curriculum_list.next', $course->id) }}"
                                                         method="post">
                                                         @csrf
                                                         <input type="hidden" value="{{ $quizActive->order }}"
                                                             name="order">
-                                                        <input type="hidden" value="{{Auth::guard('student')->user()->id}}" name="student_id">
+                                                        @auth('student')
+                                                            <input type="hidden"
+                                                                value="{{ Auth::guard('student')->user()->id }}"
+                                                                name="student_id" />
+                                                        @endauth
                                                         <input type="hidden" value="{{ $quizActive->id }}"
                                                             name="lesson_id">
-                                                            <center>
-                                                                @if (isset($pass) && isset($grade))
+                                                        <center>
+                                                            @if (isset($pass) && isset($grade))
                                                                 @if ($pass == 1 && $retaking >= $quizActive->retake)
                                                                     <div class="gauge">
                                                                         <div class="gauge__body">
@@ -906,17 +938,20 @@
                                                                     }
                                                                     setGaugeValue(gaugeElement, percentageToNumber(grade));
                                                                 </script>
-                                                                @endif
-                                                                <div class="alert alert-success mt-4" role="alert">
-                                                                    You have completed the maximum number of retakes for this quiz. Your
-                                                                    score from your latest attempt will be considered final.
-                                                                @if(isset($GTest))
-                                                                    <a  href="{{route('EnglishChallenger.index')}}" class="btn btn-primary btn-sm">Go to home page</a>
+                                                            @endif
+                                                            <div class="alert alert-success mt-4" role="alert">
+                                                                You have completed the maximum number of retakes for this quiz.
+                                                                Your
+                                                                score from your latest attempt will be considered final.
+                                                                @if (isset($GTest))
+                                                                    <a href="{{ route('EnglishChallenger.index') }}"
+                                                                        class="btn btn-primary btn-sm">Go to home page</a>
                                                                 @else
-                                                                    <button id="buttonSubmit" type="button"class="btn btn-primary btn-sm">Contunue...</button>
+                                                                    <button id="buttonSubmit"
+                                                                        type="button"class="btn btn-primary btn-sm">Contunue...</button>
                                                                 @endif
-                                                                </div>
-                                                            </center>
+                                                            </div>
+                                                        </center>
                                                     </form>
                                                     <script>
                                                         function Submit() {
@@ -1123,7 +1158,9 @@
                     <form id="lessonForm" action="/curriculum_list/${cr.course_id}" method="post">
                         @csrf
                         <input type="hidden" value="${lesson.id}" name="lesson_id" />
-                        <input type="hidden" value="{{Auth::guard('student')->user()->id}}"  name="student_id" />
+                        @auth('student')
+                                                                <input type="hidden" value="{{ Auth::guard('student')->user()->id }}" name="student_id" />
+                                                                @endauth
                         <input type="hidden" name="course_id"
                         value="{{ $course->id }}">
                         <input type="hidden" name='type' value="${lesson.type}"/>
@@ -1153,7 +1190,9 @@
                                 <form id="lessonForm" action="/curriculum_list/${cr.course_id}" method="post">
                                 @csrf
                                 <input type="hidden" value="${lesson.id}" name="lesson_id" />
-                                <input type="hidden"  value="{{Auth::guard('student')->user()->id}}"  name="student_id" />
+                                <@auth('student')
+                                                                <input type="hidden" value="{{ Auth::guard('student')->user()->id }}" name="student_id" />
+                                                                @endauth
                                 <input type="hidden" name="course_id"
                                 value="{{ $course->id }}">
                                 <input type="hidden" name='type' value="${lesson.type}"/>

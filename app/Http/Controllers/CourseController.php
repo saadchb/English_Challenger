@@ -19,7 +19,6 @@ use App\Models\TagsCourse;
 use App\Models\TargetAudience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 use App\Traits\ShowOfCoures;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -341,7 +340,7 @@ class CourseController extends Controller
                 $lessonOrdered->update(['order' => $data['order']]);
             }
         }
-        session()->flush();
+        unset($_SESSION['dataLQ']);
         return redirect()->route('Courses.index');
     }
 
