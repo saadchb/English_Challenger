@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->float('sale_price')->nullable();
             $table->float('regular_price')->nullable();
+            $table->foreignId('teacher_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -50,34 +50,20 @@ $courses = Course::all();
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="course_id">Course</label>
-                            <select class="form-control" id="course_id" name="course_id">
-                                <option value="">Choose...</option>
-                                @foreach($courses as $course)
-                                <option value="{{ $course->id }}" {{ $lesson->course_id == $course->id ? 'selected' : '' }}>{{ $course->title }}</option>
-                                @endforeach
+                        <div class="input-group form-group col-4">
+                            <input id="_lp_duration"  name="duration" type="number" class="form-control" value="{{$lesson->duration}}">
+                            <select class="form-select " name="duration_unit">
+                                <option value="Minutes">Minute(s)</option>
+                                <option value="hour">Hour(s)</option>
+                                <option value="day">Day(s)</option>
+                                <option value="week">Week(s)</option>
                             </select>
-                            @error('course_id')
+                        </div>
+                        @error('duration')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
-                        </div>
+                        <br>
 
-                        <div class="form-group">
-                            <label for="duration" class="form-label"><b>Duration</b></label>
-                            <div class="input-group">
-                                <input id="duration" type="time" class="form-control" name="duration" value="{{ $lesson->duration }}">
-                                @error('duration')
-                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
-                                <!--    <select class="form-select" name="duration_unit">
-            <option value="minute">Minute(s)</option>
-            <option value="hour">Hour(s)</option>
-            <option value="day">Day(s)</option>
-            <option value="week">Week(s)</option>
-        </select> -->
-                            </div>
-                        </div> <br>
 
                         <div class="form-group form-check">
                             <input id="priview" type="checkbox" class="form-check-input" name="priview" {{ $lesson->priview ? 'checked' : '' }}>

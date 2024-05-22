@@ -24,7 +24,8 @@ class StudentFactory extends Factory
             'email' => $this->faker->email,
             'address' => $this->faker->address,
             'date_of_birth' => $this->faker->date,
-            'class' => $this->faker->word,
+            'password'=> $this->faker->password
+            // 'class' => $this->faker->word,
         ];
     }
 }

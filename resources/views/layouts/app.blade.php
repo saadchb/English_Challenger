@@ -84,6 +84,8 @@
         }
     </style>
     <title>EnglishChallenger | @yield('title')</title>
+    @livewireStyles
+
 </head>
 @include('layouts.css')
 </head>
@@ -300,6 +302,7 @@
         document.getElementById('secondSearchForm').submit();
     });
 </script>
+@livewireScripts
 
 </body>
 

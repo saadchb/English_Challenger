@@ -19,6 +19,8 @@ return new class extends Migration
             $table->boolean('priview');
             $table->text('video_link')->nullable();
             // $table->text('video_link');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->string('type')->default('lesson');
             $table->integer('order')->nullable();
             $table->softDeletes();

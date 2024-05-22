@@ -35,7 +35,7 @@
             <div class="col-md-8">
                 <div class="post-single">
                     <div class="post-thumb">
-                        <img src="{{ asset('build/assets/images/blog/' . $blog->img) }}" alt="{{ $blog->title }}" class="img-fluid">
+                        <img src="{{asset('storage/'.$blog->img)}}" alt="{{ $blog->title }}" class="img-fluid">
                     </div>
 
                     <div class="single-post-content">
@@ -82,18 +82,8 @@
                             <img src="{{ asset('storage/' . $blog->img) }}" alt="author" class="img-fluid">
                         </div>
                         <div class="author-info">
-                            <h4>
-                                @if ($blog->user_id)
-                                    <!-- Fetch the user corresponding to the user_id -->
-                                    <?php $user = App\Models\User::find($blog->user_id); ?>
-                                    <!-- Display the user's name if the user is found -->
-                                    @if ($user)
-                                        {{ $user->name }}
-                                    @else
-                                        <!-- If user_id is not set (e.g., anonymous comment), display appropriate message -->
-                                        Anonymous
-                                    @endif
-                                @endif
+                            <h4>   
+                                                       
                             </h4>
                             <p>Instructor</p>
                             <p>Curated with passion by Instructor , EnglishChallenger is your go-to hub for English learning. Join us as we explore, learn, and grow together. Stay inspired and keep thriving!</p>
@@ -173,7 +163,7 @@
                         @foreach($latestBlogs as $blog)
                         <li>
                             <div class="widget-post-thumb">
-                                <a href="#"><img src="{{ asset('build/assets/images/blog/' . $blog->img) }}" alt="{{$blog->title}}" class="img-fluid"></a>
+                                <a href="#"><img src="{{asset('storage/'.$blog->img)}}" alt="{{$blog->title}}" style="width: 70px;height: 70px;" class="img-fluid"></a>
                             </div>
                             <div class="widget-post-body">
                                 <span>{{ $blog->created_at->format('Y-m-d') }}</span>

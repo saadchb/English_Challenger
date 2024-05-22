@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SchoolRequest;
+use App\Mail\teacherMail;
+use App\Models\review;
 use App\Models\School;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class SchoolController extends Controller
 {
@@ -58,6 +63,7 @@ class SchoolController extends Controller
                     break;
             }
              } 
+            //  Mail::to('chbsaad111@gmail.com')->send(new teacherMail($schoolsQuery));      
 
         $schools = $schoolsQuery->paginate(8);
         return view('EnglishChallenger.Schools_list', [
@@ -78,9 +84,9 @@ class SchoolController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SchoolRequest $request)
+    public function store(Request $request)
     {
-
+        
         $imagePath = $request->file('school_logo')->store('images', 'public');
         $photoPath = $request->file('school_photo')->store('images', 'public');
 
@@ -111,8 +117,12 @@ class SchoolController extends Controller
     }
     public function show_School(string $id)
     {
+        $reviews = review::where('school_id', $id)->latest()->paginate(9); // Fetch reviews for the specific book
+        $teachers = Teacher::all();
+        $studentR = Student::all();
+        
         $school = School::findOrFail($id);
-        return view('EnglishChallenger.school', ['school' => $school]);
+        return view('EnglishChallenger.school', compact('teachers','studentR','school','reviews'));
     }
     /**
      * Show the form for editing the specified resource.

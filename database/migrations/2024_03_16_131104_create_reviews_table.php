@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->longText('comments')->nullable();
             $table->float('rating')->default(0.5);
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('student_id')->nullable();
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('siteweb')->nullable();

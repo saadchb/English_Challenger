@@ -11,6 +11,8 @@ $courses = Course::all();
 <div class="container-fluid mt--8">
     <form action="{{route('lessons.store')}}" method="Post" enctype="multipart/form-data">
         @csrf
+    <input type="hidden" name="teacher_id" value="{{Auth()->guard('teacher')->user()->id}}">
+
         <div class="sticky-top bg-white border-bottom  px-4 py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h3 class="text-xl font-bold text-gray-900">Add new lesson</h3>
@@ -52,7 +54,7 @@ $courses = Course::all();
 
                         <div class="input-group form-group col-4">
                             <input id="_lp_duration" name="duration" type="number" class="form-control" value="0">
-                            <select class="form-select " name="duration">
+                            <select class="form-select " name="duration_unit">
                                 <option value="Minutes">Minute(s)</option>
                                 <option value="hour">Hour(s)</option>
                                 <option value="day">Day(s)</option>

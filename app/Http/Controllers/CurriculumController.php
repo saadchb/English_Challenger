@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class CurriculumController extends Controller
 {
 
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -57,11 +57,12 @@ class CurriculumController extends Controller
             ->where('student_id', $request->input('student_id'))
             ->where('lesson_id', $request->input('lesson_id'))
             ->get();
+            // dd($request->input('lesson_id'));
         if (count($testViewStudent) == 0) {
             $detailsStudent = detailsStudent::where('course_id', $course)
                 ->where('student_id', (int)$request->input('student_id'))
                 ->first();
-            // dd($detailsStudent);
+                // dd($request->input('student_id'));
             DetailStudentLesson::create(array(
                 'view' => 1,
                 'deatils_student_id' => $detailsStudent->id,
@@ -413,7 +414,7 @@ class CurriculumController extends Controller
             'retaking' => $retaking
         ]);
     }
-    public function prev(Request $request, int $id)
+    public function prev(Request $request, string $id)
     {
         $retaking = 0;
         $testViewStudent = DetailStudentLesson::join('details_students', 'details_students.id', 'detail_student_lessons.deatils_student_id')

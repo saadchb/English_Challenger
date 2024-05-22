@@ -7,11 +7,11 @@
 use App\Models\Course;
 use App\Models\review;
 
-$review = review::all();
+// $review = review::all();
 $courses = Course::query()->latest()->paginate(4);
 ?>
 <section class="page-wrapper edutim-course-single course-single-style-3">
-<div id="333" class="course-single-wrapper" style="background-image: url('{{ $school->school_photo }}') !important;" onerror="this.style.backgroundImage = 'url({{ Storage::url($school->school_photo)}})';">
+    <div id="333" class="course-single-wrapper" style="background-image: url('{{ $school->school_photo }}') !important;" onerror="this.style.backgroundImage = 'url({{ Storage::url($school->school_photo)}})';">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -31,7 +31,7 @@ $courses = Course::query()->latest()->paginate(4);
                                     <?php
                                     $totalRating = 0;
                                     $count = 0;
-                                    foreach ($review as $rev) {
+                                    foreach ($reviews as $rev) {
                                         if ($rev->school_id == $school->id) {
                                             $totalRating += $rev->rating;
                                             $count++;
@@ -113,7 +113,7 @@ $courses = Course::query()->latest()->paginate(4);
 
                                         <img src="{{ asset('storage/'. $school->school_photo)}}" onerror="this.onerror=null;this.src='{{ $school->school_photo }}';" class="img-fluid" width="735" height="384" class="align size-medium_large geodir-image-0 embed-responsive-item embed-item-cover-xy w-100 p-0 m-0 mw-100 border-0">
                                     </li>
-                                    @foreach ($review as $rev)
+                                    @foreach ($reviews as $rev)
                                     @if ($rev->school_id == $school->id && $rev->school_photos)
                                     <li>
                                         <img src="{{ asset('storage/'.$rev->school_photos)}}" class="img-fluid" width="735" height="384" class="align size-medium_large geodir-image-0 embed-responsive-item embed-item-cover-xy w-100 p-0 m-0 mw-100 border-0">
@@ -130,14 +130,14 @@ $courses = Course::query()->latest()->paginate(4);
                         <div class="course-widget course-info">
                             <h4 class="course-title">About the school</h4>
                             <div class="instructor-profile">
-                           
+
                                 <div class="profile-info">
                                     <h5>{{$school->school_name}}</h5><bR>
                                     <div class="rating">
                                         <?php
                                         $totalRating = 0;
                                         $count = 0;
-                                        foreach ($review as $rev) {
+                                        foreach ($reviews as $rev) {
                                             if ($rev->school_id == $school->id) {
                                                 $totalRating += $rev->rating;
                                                 $count++;
@@ -185,27 +185,20 @@ $courses = Course::query()->latest()->paginate(4);
                     <!-- reviews -->
                     <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
                         <div class="course-widget course-info">
-                            <h4 class="course-title"><i class="fas fa-comments" aria-hidden="true"></i> Reviews</h4>
-                            @foreach ($review as $rev)
-                            @if ($rev->school_id == $school->id)
+                            <h4 class="course-title"><i class="fas fa-comments" aria-hidden="true"></i> Book Feedback</h4>
+
+                            @if($reviews->isEmpty())
                             <div class="course-review-wrapper">
                                 <div class="course-review">
-                                    <div class="profile-img">
-                                        <img src="{{asset('build/assets/images/clients/user.png')}}" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="review-text">
-                                        <h5>{{$rev->name}} <span style="float: right;">{{$rev->created_at}}</span></h5><br>
-                                        <div class="rating">
-                                            @for ($i = 0; $i < $rev->rating; $i++)
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                @endfor
-                                        </div>
-                                        <p>{{$rev->comments}}</p>
-                                    </div>
+                                    <p>There are no reviews yet.</p><br>
+                                    <h2>Be the first to review “{{$book->title}}”</h2>
+                                    <p>You must be logged in to post a review.</p>
                                 </div>
                             </div>
+                            @else
+                            @livewire('reviewsschool',[$school->id])
+
                             @endif
-                            @endforeach
                         </div>
                     </div>
                 </div><br>
@@ -215,6 +208,11 @@ $courses = Course::query()->latest()->paginate(4);
                     <p>Your email address will not be published. Required fields are marked *</p>
                     <form action="{{route('course.store')}}" class="comment_form" method="Post" enctype="multipart/form-data">
                         @csrf
+                        @if (Auth::guard('teacher')->check())
+                        <input type="hidden" name="teacher_id" value="{{Auth::guard('teacher')->user()->id}}">
+                        @elseif (Auth::guard('student')->check())
+                        <input type="hidden" name="student_id" value="{{Auth::guard('student')->user()->id}}">
+                        @endif
                         <div class="row form-row">
                             <div class="form-group form-control h-auto rounded px-3 pt-3 pb-3 gd-rating-input-group">
                                 <div class="gd-rating-outer-wrap gd-rating-input-wrap d-flex justify-content-between flex-nowrap w-100">
@@ -264,9 +262,16 @@ $courses = Course::query()->latest()->paginate(4);
                                 </div>
                             </div>
 
+
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    @if (Auth::guard('teacher')->check())
+                                    <input type="text" name="name" class="form-control" value="{{Auth::guard('teacher')->user()->first_name}} {{Auth::guard('teacher')->user()->last_name}}"><br>
+                                    @elseif (Auth::guard('student')->check())
+                                    <input type="text" name="name" class="form-control" value="{{Auth::guard('student')->user()->first_name}} {{Auth::guard('student')->user()->last_name}}"><br>
+                                    @else
                                     <input type="text" name="name" class="form-control" placeholder="Name"><br>
+                                    @endif
                                 </div>
                             </div><br>
                             @error('name')
@@ -274,7 +279,13 @@ $courses = Course::query()->latest()->paginate(4);
                             @enderror
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    @if (Auth::guard('teacher')->check())
+                                    <input type="text" name="email" class="form-control" value="{{Auth::guard('teacher')->user()->email}}"><br>
+                                    @elseif (Auth::guard('student')->check())
+                                    <input type="text" name="email" class="form-control" value="{{Auth::guard('student')->user()->email}}"><br>
+                                    @else
                                     <input type="text" name="email" class="form-control" placeholder="Email"><br>
+                                    @endif
                                 </div>
                             </div><br>
                             @error('email')
@@ -387,7 +398,7 @@ $courses = Course::query()->latest()->paginate(4);
                                 <?php
                                 $totalRating = 0;
                                 $count = 0;
-                                foreach ($review as $rev) {
+                                foreach ($reviews as $rev) {
                                     if ($rev->course_id == $course->id) {
                                         $totalRating += $rev->rating;
                                         $count++;

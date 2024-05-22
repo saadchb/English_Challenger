@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('hommes', function (Blueprint $table) {
             $table->id();
             $table->string('video')->nullable();
+            $table->string('videoImport')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

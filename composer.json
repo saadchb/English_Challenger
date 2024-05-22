@@ -11,7 +11,9 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
-        "mindscms/laravelshoppingcart": "^2.1"
+        "mindscms/laravelshoppingcart": "^2.1",
+        "symfony/http-client": "^6.4",
+        "symfony/mailgun-mailer": "^6.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

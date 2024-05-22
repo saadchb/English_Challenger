@@ -6,10 +6,15 @@
 use App\Models\Book;
 use App\Models\Course;
 use App\Models\review;
+use App\Models\Student;
+use App\Models\Teacher;
 
 $books = Book::join('reviews', 'books.id', '=', 'reviews.book_id')->paginate(5);
 // $books = Book::limit(3)->get();
 $review = review::all();
+$teachers = Teacher::all();
+$studentR = Student::all();
+
 $courses = Course::query()->latest()->paginate(5);
 ?>
 <section class="page-wrapper edutim-course-single course-single-style-3">
@@ -157,7 +162,6 @@ $courses = Course::query()->latest()->paginate(5);
                                                                     <form action="{{ route('curricula.show', $course->id) }}" method="post">
                                                                         @csrf
                                                                         <input type="hidden" value="{{ $lesson['id'] }}" name="lesson_id" />
-                                                                        <input type="hidden" value="{{ Auth::guard('student')->user()->id}}" name="student_id" />
                                                                         <input type="hidden" value="{{ $lesson['type'] }}" name="type" />
                                                                         <svg class="ml-1" width="17px" height="17px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                             <path d="M12 10.4V20M12 10.4C12 8.15979 12 7.03969 11.564 6.18404C11.1805 5.43139 10.5686 4.81947 9.81596 4.43597C8.96031 4 7.84021 4 5.6 4H4.6C4.03995 4 3.75992 4 3.54601 4.10899C3.35785 4.20487 3.20487 4.35785 3.10899 4.54601C3 4.75992 3 5.03995 3 5.6V16.4C3 16.9601 3 17.2401 3.10899 17.454C3.20487 17.6422 3.35785 17.7951 3.54601 17.891C3.75992 18 4.03995 18 4.6 18H7.54668C8.08687 18 8.35696 18 8.61814 18.0466C8.84995 18.0879 9.0761 18.1563 9.29191 18.2506C9.53504 18.3567 9.75977 18.5065 10.2092 18.8062L12 20M12 10.4C12 8.15979 12 7.03969 12.436 6.18404C12.8195 5.43139 13.4314 4.81947 14.184 4.43597C15.0397 4 16.1598 4 18.4 4H19.4C19.9601 4 20.2401 4 20.454 4.10899C20.6422 4.20487 20.7951 4.35785 20.891 4.54601C21 4.75992 21 5.03995 21 5.6V16.4C21 16.9601 21 17.2401 20.891 17.454C20.7951 17.6422 20.6422 17.7951 20.454 17.891C20.2401 18 19.9601 18 19.4 18H16.4533C15.9131 18 15.643 18 15.3819 18.0466C15.15 18.0879 14.9239 18.1563 14.7081 18.2506C14.465 18.3567 14.2402 18.5065 13.7908 18.8062L12 20" stroke="#07294D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -231,35 +235,34 @@ $courses = Course::query()->latest()->paginate(5);
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
-                        <div class="course-widget course-info">
-                            <h4 class="course-title"><i class="fas fa-comments" aria-hidden="true"></i> Students Feedback</h4>
-                            @foreach ($review as $rev)
-                            @if ($rev->course_id == $course->id)
-                            <div class="course-review-wrapper">
-                                <div class="course-review">
-                                    <div class="profile-img">
-                                        <img src="{{asset('build/assets/images/clients/user.png')}}" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="review-text">
-                                        <h5>{{$rev->name}} <span style="float: right;">{{$rev->created_at}}</span></h5><br>
-                                        <div class="rating">
-                                            @for ($i = 0; $i < $rev->rating; $i++)
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                @endfor
-                                        </div>
-                                        <p>{{$rev->comments}}</p>
+                            <div class="course-widget course-info">
+                                <h4 class="course-title"><i class="fas fa-comments" aria-hidden="true"></i> Book Feedback</h4>
+
+                                @if($reviews->isEmpty())
+                                <div class="course-review-wrapper">
+                                    <div class="course-review">
+                                        <p>There are no reviews yet.</p><br>
+                                        <h2>Be the first to review “{{$course->title}}”</h2>
+                                        <p>You must be logged in to post a review.</p>
                                     </div>
                                 </div>
+                                @else
+                                @livewire('reviewscourse',[$course->id])                                                        
+
+                                @endif
+
                             </div>
-                            @endif
-                            @endforeach
                         </div>
-                    </div>
                     <div class="comments-form p-5 mt-6" style="margin-top: 140px !important;">
                         <h3>Leave a comment </h3>
                         <p>Your email address will not be published. Required fields are marked *</p>
-                        <form action="{{route('course.store')}}" class="comment_form" method="Post" enctype="multipart/form-data">
+                        <form action="{{ route('course.store') }}" class="comment_form" method="Post" enctype="multipart/form-data">
                             @csrf
+                            @if (Auth::guard('teacher')->check())
+                            <input type="hidden" name="teacher_id" value="{{Auth::guard('teacher')->user()->id}}">
+                            @elseif (Auth::guard('student')->check())
+                            <input type="hidden" name="student_id" value="{{Auth::guard('student')->user()->id}}">
+                            @endif
                             <div class="row form-row">
                                 <div class="form-group form-control h-auto rounded px-3 pt-3 pb-3 gd-rating-input-group">
                                     <div class="gd-rating-outer-wrap gd-rating-input-wrap d-flex justify-content-between flex-nowrap w-100">
@@ -274,7 +277,8 @@ $courses = Course::query()->latest()->paginate(5);
                                                 <span class="star" data-value="5"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
                                             </span>
                                             <!-- Text to display rating level -->
-                                            <span class="gd-rating-text badge badge-light border" style="font-size: larger;" data-title="Select a rating">Select a rating</span>
+                                            <span class="gd-rating-text badge badge-light border" style="font-size: larger;" data-title="Select a rating">Select a
+                                                rating</span>
                                             <!-- Hidden input field to store selected rating -->
                                             <input type="hidden" id="rating" name="rating">
                                         </div>
@@ -283,7 +287,7 @@ $courses = Course::query()->latest()->paginate(5);
                                 </div>
                                 <br>
                                 @error('rating')
-                                <div style="color: red;">{{$message}}</div><br>
+                                <div style="color: red;">{{ $message }}</div><br>
                                 @enderror
 
                                 <div class="col-lg-12">
@@ -292,9 +296,9 @@ $courses = Course::query()->latest()->paginate(5);
                                     </div>
                                 </div><br>
                                 @error('comments')
-                                <div style="color: red;">{{$message}}</div><br>
+                                <div style="color: red;">{{ $message }}</div><br>
                                 @enderror
-                                <input type="number" name="course_id" hidden value="{{$course->id}}">
+                                <input type="number" name="course_id" hidden value="{{ $course->id }}">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="website" placeholder="Website">
@@ -303,19 +307,31 @@ $courses = Course::query()->latest()->paginate(5);
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        @if (Auth::guard('teacher')->check())
+                                        <input type="text" name="name" class="form-control" value="{{Auth::guard('teacher')->user()->first_name}} {{Auth::guard('teacher')->user()->last_name}}"><br>
+                                        @elseif (Auth::guard('student')->check())
+                                        <input type="text" name="name" class="form-control" value="{{Auth::guard('student')->user()->first_name}} {{Auth::guard('student')->user()->last_name}}"><br>
+                                        @else
                                         <input type="text" name="name" class="form-control" placeholder="Name"><br>
+                                        @endif
                                     </div>
                                 </div><br>
                                 @error('name')
-                                <div style="color: red;">{{$message}}</div><br>
+                                <div style="color: red;">{{ $message }}</div><br>
                                 @enderror
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        @if (Auth::guard('teacher')->check())
+                                        <input type="text" name="email" class="form-control" value="{{Auth::guard('teacher')->user()->email}}"><br>
+                                        @elseif (Auth::guard('student')->check())
+                                        <input type="text" name="email" class="form-control" value="{{Auth::guard('student')->user()->email}}"><br>
+                                        @else
                                         <input type="text" name="email" class="form-control" placeholder="Email"><br>
+                                        @endif
                                     </div>
                                 </div><br>
                                 @error('email')
-                                <div style="color: red;">{{$message}}</div><br>
+                                <div style="color: red;">{{ $message }}</div><br>
                                 @enderror
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -412,13 +428,13 @@ $courses = Course::query()->latest()->paginate(5);
 
 
                     <div class="course-widget course-share d-flex justify-content-between align-items-center">
-                    <span>Share :</span>
-                                <ul class="social-share list-inline">
-                                    <li class="list-inline-item"><a href="#" class="share-btn" data-platform="facebook"><i class="fab fa-facebook"></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="share-btn" data-platform="linkedin"><i class="fab fa-linkedin"></i></a></li>
-                                    <li class="list-inline-item"><a href="#" class="share-btn" data-platform="pinterest"><i class="fab fa-pinterest"></i></a></li>
-                                </ul>
+                        <span>Share :</span>
+                        <ul class="social-share list-inline">
+                            <li class="list-inline-item"><a href="#" class="share-btn" data-platform="facebook"><i class="fab fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#" class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#" class="share-btn" data-platform="linkedin"><i class="fab fa-linkedin"></i></a></li>
+                            <li class="list-inline-item"><a href="#" class="share-btn" data-platform="pinterest"><i class="fab fa-pinterest"></i></a></li>
+                        </ul>
                     </div>
 
                     <div class="course-widget course-metarials">
@@ -473,7 +489,7 @@ $courses = Course::query()->latest()->paginate(5);
             <div class="col-lg-4 col-md-6">
                 <div class="course-block">
                     <div class="course-img">
-                        <img src="{{asset('storage/'.$course->img)}}" style="width:350px; height: 280px;" alt="" class="img-fluid">
+                        <img src="{{ asset('storage/' . $course->img) }}" style="width:350px; height: 280px;" alt="" class="img-fluid">
                         <span class="course-label">{{ $course->level }}</span>
                     </div><br />
 
@@ -494,44 +510,44 @@ $courses = Course::query()->latest()->paginate(5);
 
                         <h4><a href="#">{{ $course->title }}</a></h4>
                         <div class="rating">
-                                        <?php
-                                        $totalRating = 0;
-                                        $count = 0;
-                                        foreach ($review as $rev) {
-                                            if ($rev->course_id == $course->id) {
-                                                $totalRating += $rev->rating;
-                                                $count++;
-                                            }
-                                        }
-                                        if ($count > 0) {
-                                            $averageRating = $totalRating / $count;
-                                            // Round average rating to the nearest 0.5
-                                            $roundedRating = round($averageRating * 2) / 2;
-                                            // Output full stars
-                                            $fullStars = floor($roundedRating);
-                                            // Output half star if needed
-                                            $hasHalfStar = $roundedRating - $fullStars >= 0.5;
-                                            for ($i = 0; $i < $fullStars; $i++) {
-                                                echo '<i class="fa fa-star" style="font-size:24px"></i>';
-                                            }
-                                            // Output half star if needed
-                                            if ($hasHalfStar) {
-                                                echo '<i class="fas fa-star-half-alt" style="font-size:24px"></i>';
-                                                $fullStars++; // Increment full stars count for spacing
-                                            }
-                                            // Output empty stars to fill the remaining space
-                                            for ($i = $fullStars; $i < 5; $i++) {
-                                                echo '<i class="fa fa-star text-secondary" style="font-size:24px"></i>';
-                                            }
-                                            echo '<span>' . number_format($averageRating, 2) . ' ratings (' . $count . ')</span>';
-                                        } else {
-                                            for ($i = 0; $i < 5; $i++) {
-                                                echo '<i class="fa fa-star text-secondary" style="font-size:24px"></i>';
-                                            }
-                                            echo '<span>No reviews yet</span>';
-                                        }
-                                        ?>
-                                    </div>
+                            <?php
+                            $totalRating = 0;
+                            $count = 0;
+                            foreach ($review as $rev) {
+                                if ($rev->course_id == $course->id) {
+                                    $totalRating += $rev->rating;
+                                    $count++;
+                                }
+                            }
+                            if ($count > 0) {
+                                $averageRating = $totalRating / $count;
+                                // Round average rating to the nearest 0.5
+                                $roundedRating = round($averageRating * 2) / 2;
+                                // Output full stars
+                                $fullStars = floor($roundedRating);
+                                // Output half star if needed
+                                $hasHalfStar = $roundedRating - $fullStars >= 0.5;
+                                for ($i = 0; $i < $fullStars; $i++) {
+                                    echo '<i class="fa fa-star" style="font-size:24px"></i>';
+                                }
+                                // Output half star if needed
+                                if ($hasHalfStar) {
+                                    echo '<i class="fas fa-star-half-alt" style="font-size:24px"></i>';
+                                    $fullStars++; // Increment full stars count for spacing
+                                }
+                                // Output empty stars to fill the remaining space
+                                for ($i = $fullStars; $i < 5; $i++) {
+                                    echo '<i class="fa fa-star text-secondary" style="font-size:24px"></i>';
+                                }
+                                echo '<span>' . number_format($averageRating, 2) . ' ratings (' . $count . ')</span>';
+                            } else {
+                                for ($i = 0; $i < 5; $i++) {
+                                    echo '<i class="fa fa-star text-secondary" style="font-size:24px"></i>';
+                                }
+                                echo '<span>No reviews yet</span>';
+                            }
+                            ?>
+                        </div>
                         <p>{{ $course->description }}</p>
 
                         <div class="course-footer d-lg-flex align-items-center justify-content-between">

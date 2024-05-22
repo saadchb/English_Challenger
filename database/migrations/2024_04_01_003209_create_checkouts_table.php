@@ -29,13 +29,13 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
 
             $table->unsignedBigInteger('teacher_id')->nullable();
-            $table->foreign('teacher_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
 
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('parents')->onDelete('cascade');
 
             $table->unsignedBigInteger('student_id')->nullable();
-            $table->foreign('student_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
 
             $table->unsignedBigInteger('school_id')->nullable();
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');

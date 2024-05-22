@@ -6,6 +6,7 @@ use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\quiz_question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
@@ -17,7 +18,21 @@ class QuizController extends Controller
         if(request('search1')){
             $Quizs = Quiz::where('title',"like","%" .request('search1').'%')->paginate(10);
         }else{
-                    $Quizs = Quiz::query()->latest()->paginate(10);
+            $teacherId = Auth::guard('teacher')->user()->id;
+            $isAdmin = Auth::guard('teacher')->user()->isAdmin;
+            
+            $Quizs = Quiz::query()
+            ->where(function ($query) use ($teacherId, $isAdmin) {
+                if ($isAdmin == 1) {
+                    // If the user is an admin, get all lessons
+                    $query->orWhere('teacher_id', '!=', null);
+                } else {
+                    // If the user is not an admin, get only their lessons
+                    $query->orWhere('teacher_id', $teacherId);
+                }
+            })
+            ->latest()
+            ->paginate(8);
 
         }
         return view('Backend_editor.Quizzes.index',['Quizs'=>$Quizs]);
@@ -51,6 +66,7 @@ class QuizController extends Controller
             'instant_check' => $CHECK,
             'negative_marking' => $request->get('negative_marking'),
             'minus_for_skip' => $request->get('minus_for_skip'),
+            'teacher_id' => $request->get('teacher_id'),
             'retake' => $request->get('retake'),
             'pagination' => $request->get('pagination'),
             'review' => $priview,
@@ -87,18 +103,24 @@ class QuizController extends Controller
      */
     public function edit(string $id)
     {
-            $quiz =Quiz::findOrFail($id);
-        return view('Backend_editor.Quizzes.edit',['quiz'=>$quiz]);
+        $quiz =Quiz::findOrFail($id);
+        if (Auth::guard('teacher')->user()->id !== $quiz->teacher_id and Auth::guard('teacher')->user()->isAdmin !== 1) {
+            abort(403);
         }
+    return view('Backend_editor.Quizzes.edit',['quiz'=>$quiz]);
+}
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-
+        
         $quiz = Quiz::findOrFail($id);
-
+        if (Auth::guard('teacher')->user()->id !== $quiz->teacher_id and Auth::guard('teacher')->user()->isAdmin !== 1) {
+            abort(403);
+        }
+    
         $priview = $request->has('review');
         $show = $request->has('show_correct_answer');
         $CHECK = $request->has('instant_check');

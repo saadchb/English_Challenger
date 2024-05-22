@@ -30,16 +30,35 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
             @foreach($courses as $course)
+            @if($course->teacher_id == Auth::guard('teacher')->user()->id || Auth::guard('teacher')->user()->isAdmin == 1)
+
             <div class="relative m-2">
                 <div style="height:220px;" class="relative w-full bg-slate-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 shadow">
                     <a href="#" target="_blank">
                         <img class="w-full h-full object-center object-cover" src="{{ asset('storage/'.$course->img)}}" alt="HR Analytics">
-                        <span class="absolute z-10 right-2 bottom-2 max-w-[160px] truncate flex items-center gap-x-1 text-xs px-2 py-1 rounded bg-gray-100 text-gray-700" title="instructor">Instructor
+                        @if(Auth::guard('teacher')->user()->isAdmin == 1)
+                    @foreach($teachers as $teacher)
+                    @if($teacher->id == $course->teacher_id)
+                    @if($teacher->isAdmin == 1)
+                    <span class="absolute z-10 right-2 bottom-2 max-w-[160px] truncate flex items-center gap-x-1 text-xs px-2 py-1 rounded bg-gray-100 text-gray-700" title="instructor">Admin
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z">
                                 </path>
                             </svg>
                         </span>
+                    @else
+                    <a href="{{route('teacher.show',$teacher->id)}}"> <span class="absolute z-10 right-2 bottom-2 max-w-[160px] truncate flex items-center gap-x-1 text-xs px-2 py-1 rounded bg-gray-100 text-gray-700" title="instructor"> {{$teacher->first_name}} {{$teacher->last_name}}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z">
+                                </path>
+                            </svg>
+                        </span>
+                </a>
+                    @endif
+                    @endif
+                    @endforeach
+                    @endif
+                      
                     </a>
                 </div>
                 <div class="mt-4 mb-4">
@@ -86,6 +105,7 @@
                 </div>
                
             </div>
+            @endif
             @endforeach
         </div>
     </div>

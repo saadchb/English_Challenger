@@ -2,15 +2,28 @@
 @section('title','Home')
 @section('content')
 <?php
+
 use App\Models\Course;
 use App\Models\review;
 use App\Models\Book;
 use App\Models\Blog;
 use App\Models\Homme;
+use App\Models\Student;
+use App\Models\Teacher;
 
 $bookcount = Book::count();
 $nbCourses = Course::count();
-$reviews = review::limit(7)->get();
+$courseIds = Review::select('course_id')
+->whereNotNull('course_id')
+->groupBy('course_id')
+->havingRaw('AVG(rating) > 3.5')
+->pluck('course_id');
+
+// Fetch the latest 7 reviews for these courses
+$reviews = Review::whereIn('course_id', $courseIds)->limit(7)->get();
+
+$teachers = Teacher::all();
+$studentR = Student::all();
 $latestBlogs = Blog::latest()->take(3)->get();
 $blogCount = Blog::count();
 
@@ -110,17 +123,17 @@ $blogCount = Blog::count();
     </div>
 
     <div class="row align-items-center justify-content-center">
-    <div class="col-lg-10">
-        <div class="embed-responsive embed-responsive-16by9">
-            @if(!empty($featuredVideo))
-            <iframe class="embed-responsive-item" src="{{ $featuredVideo->video }}" allowfullscreen></iframe>
+        <div class="col-lg-10">
+            <div class="embed-responsive embed-responsive-16by9">
+                @if(!empty($featuredVideo))
+                <iframe class="embed-responsive-item" src="{{ $featuredVideo->video }}" allowfullscreen></iframe>
 
-            @else
-            <p></p>
-        @endif
+                @else
+                <p></p>
+                @endif
+            </div>
         </div>
     </div>
-</div>
 
     </div>
 
@@ -134,7 +147,7 @@ $blogCount = Blog::count();
                     <div class="owl-stage-outer">
 
                         <div class="owl-stage">
-                        @foreach($normalVideos as $video)
+                            @foreach($normalVideos as $video)
                             <div class="owl-item">
                                 <div class="course-block">
                                     <div class="course-img">
@@ -142,7 +155,7 @@ $blogCount = Blog::count();
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                            @endforeach
 
                         </div>
                     </div>
@@ -289,17 +302,42 @@ $blogCount = Blog::count();
                             </div>
                         </div>
                         <div class="client-desc">
+                            @php
+                            $teacher = $teachers->firstWhere('id', $review->teacher_id);
+                            $student = $studentR->firstWhere('id', $review->student_id);
+                            @endphp
+                            @if($teacher)
                             <div class="client-img">
-                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
+                                @if (empty($teacher->picture))
+                                <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="" style="height: 90px;width: 90px;" class="img-fluid">
+                                @else
+                                <img src="{{ asset('storage/'.$teacher->picture) }}" style="height: 90px;width: 90px;" alt="" class="img-fluid">
+                                @endif
                             </div>
                             <div class="client-text">
-                                @if (!empty($review))
-                                <h4></h4>
+                               
+                                <h4>{{ $teacher->first_name}} {{ $teacher->last_name}}</h4>
+                                <span class="designation">teacher</span>
+                            </div>
+                            @endif
+                            @if($student)
+                            <div class="client-img">
+                                @if (empty($student->picture))
+                                <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="" style="height: 90px;width: 90px;" class="img-fluid">
                                 @else
-                                <h4>{{ $review->user->name }}</h4>
+                                <img src="{{ asset('storage/'.$student->picture) }}" style="height: 90px;width: 90px;" alt="" class="img-fluid">
                                 @endif
+                            </div>
+                            <div class="client-text">
+                              
+                                <h4>{{ $student->first_name}} {{ $student->last_name}}</h4>
                                 <span class="designation">Students</span>
                             </div>
+                            @endif
+                            <!-- <div class="client-img">
+                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
+                            </div> -->
+                         
                         </div>
                     </div>
                     @endforeach
@@ -319,29 +357,29 @@ $blogCount = Blog::count();
                     <p>take an eye on our new and recommended blogs written by a professional writers!</p>
                 </div>
             </div>
-                <div class="course-btn text-lg-right">
-                    <a href="/Blogs" class="btn btn-main"><i class="fa fa-book mr-2"></i>All Blogs</a>
-                </div>
+            <div class="course-btn text-lg-right">
+                <a href="/Blogs" class="btn btn-main"><i class="fa fa-book mr-2"></i>All Blogs</a>
+            </div>
         </div>
 
 
         <div class="row">
             @foreach($latestBlogs as $blog)
-                <div class="col-lg-4 col-md-6">
-                    <div class="blog-item" style="height: 760; width: 415;" >
-                        <img src="{{ asset('storage/'. $blog->img)}}"  style="height: 205px; width: 380px;" alt="{{$blog->title}}" class="img-fluid">
-                        <div class="blog-content">
-                            <div class="entry-meta">
-                                <span><i class="fa fa-calendar-alt"></i>{{ $blog->created_at->format('Y-m-d') }}</span>
-                                <span><i class="fa fa-comments"></i>{{$blog->comments()->count()}} comments</span>
-                            </div>
-                            <h2><a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}">{{$blog->title}}</a></h2>
-                            <p  style="max-height: 4em; overflow: hidden;">{{$blog->description}}</p>
-
-                            <a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-item" style="height: 760; width: 415;">
+                    <img src="{{ asset('storage/'. $blog->img)}}" style="height: 205px; width: 380px;" alt="{{$blog->title}}" class="img-fluid">
+                    <div class="blog-content">
+                        <div class="entry-meta">
+                            <span><i class="fa fa-calendar-alt"></i>{{ $blog->created_at->format('Y-m-d') }}</span>
+                            <span><i class="fa fa-comments"></i>{{$blog->comments()->count()}} comments</span>
                         </div>
+                        <h2><a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}">{{$blog->title}}</a></h2>
+                        <p style="max-height: 4em; overflow: hidden;">{{$blog->description}}</p>
+
+                        <a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}" class="btn btn-main btn-small"><i class="fa fa-plus-circle mr-2"></i>Read More</a>
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
     </div>
@@ -350,7 +388,7 @@ $blogCount = Blog::count();
 
 <script>
     const showCoursesBycategories = document.getElementById('showCoursesBycategories');
-     const categories = @json($categories);
+    const categories = @json($categories);
     const courses = @json($courses);
     const categories_course = @json($categories_course);
 
@@ -500,8 +538,8 @@ $blogCount = Blog::count();
         </div>
     </div>
     `;
-    }
-            document.getElementById('showCourses').innerHTML = htmlCu
+        }
+        document.getElementById('showCourses').innerHTML = htmlCu
     }
     showCourses(courses)
 </script>

@@ -19,7 +19,7 @@ class AuthenticateTeacherAdmin
         if(Auth::guard('teacher')->check()) {
             if(Auth::guard('teacher')->user()->isAdmin == 1){
                 return $next($request);
-            }elseif(Auth::guard('teacher')->user()->isAdmin == 0){
+            }elseif(Auth::guard('teacher')->user()->isAdmin == 2){
                 return $next($request);
             }else{
                 abort(403);

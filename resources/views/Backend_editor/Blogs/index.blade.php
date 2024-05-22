@@ -43,7 +43,7 @@
                         <tbody>
                             @foreach ($blogs as $blog)
                             <tr>
-                                <td><img src="{{ asset('build/assets/images/blog/' . $blog->img) }}" alt="" style="height: 50px;width:100px;"></td>
+                                <td><img src="{{ asset('storage/'. $blog->img) }}" alt="" style="height: 50px;width:100px;"></td>
                                 <td>{{ $blog->title }}</td>
                                 <td>
                                     @if ($blog->user_id)

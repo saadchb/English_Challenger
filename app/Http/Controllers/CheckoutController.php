@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Cart;
 use App\Models\checkout;
 use App\Models\User;
+use Gloudemans\Shoppingcart\Facades\Cart ;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -16,20 +16,11 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        $carts = Book::join('carts', 'books.id', '=', 'carts.book_id')->join('users', 'users.id', '=', 'carts.user_id')->get();
-        
-       
-        $cartsWithUserIdOne = $carts->filter(function ($cart) {
-            return $cart->user_id == 1;
-        });
-        
-        return view('Englishchallenger.checkout', [
-            'carts' => $carts,
-            // 'users' => $users,
-            'cartsWithUserIdOne' => $cartsWithUserIdOne, // Pass filtered carts to the view
-        ]);
+        $carts  = Cart::content()->toArray();
+        $total = Cart::total();
+        return view('Englishchallenger.checkout', ['carts'=>$carts,'total' =>$total]);
     }
-    
+
     public function order(){
         return view('EnglishChallenger.order-received');
     }
@@ -59,7 +50,7 @@ class CheckoutController extends Controller
         //     // 'user_id' => 'required|integer',
         //     // 'payment_method' => ['required', Rule::in(['bacs', 'cheque', 'cod', 'paypal'])], // Payment method must be one of these options
 
-            
+
         // ]);
         $checkout = new checkout([
             'billing_first_name'=>$request->get('billing_first_name'),
@@ -76,11 +67,14 @@ class CheckoutController extends Controller
             'order_comments'=> $request->get('order_comments'),
             // 'total_amount'=>$request->get('total_amount'),
             // 'cart_id'=>$request->get('cart_id'),
-            'user_id'=>$request->get('user_id'),
+            'teacher_id'=>$request->get('teacher_id'),
+            'student_id'=>$request->get('student_id'),
+            'parent_id'=>$request->get('parent_id'),
+            'school_id'=>$request->get('school_id'),
             'payment_method'=>$request->get('payment_method'),
         ]);
         // dd($checkout);
-        $checkout ->save();        
+        $checkout ->save();
         return redirect()->route('order.order-received');
     }
     /**

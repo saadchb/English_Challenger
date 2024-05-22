@@ -43,6 +43,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('school_id')->nullable();
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -46,7 +46,7 @@
                                 <td>{{$Quiz->title}}</td>
                                 <td>{{$Quiz->duration}}{{$Quiz->duration_unit}}</td>
                                 <td>{{$Quiz->created_at}}</td>
-                                <td>?</td>
+                                <td> {{Auth()->guard('teacher')->user()->first_name}} {{Auth()->guard('teacher')->user()->last_name}} </td>
                                 <td>
                                     <form id="delete-form-{{$Quiz->id}}" action="{{route('Quizzes.destroy', $Quiz->id)}}" method="POST">
                                         <a href="{{route('Quizzes.edit', $Quiz->id)}}" class="btn btn-success btn-sm">

@@ -11,6 +11,7 @@
     ?>
     <div class="container-fluid mt--8">
         <form action="{{route('Quizzes.store')}}" method="Post" enctype="multipart/form-data">
+            <input type="hidden" name="teacher_id" value="{{Auth()->guard('teacher')->user()->id}}">
             <div class="sticky-top bg-white border-bottom  px-4 py-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="text-xl font-bold text-gray-900">Add new Quiz</h3>

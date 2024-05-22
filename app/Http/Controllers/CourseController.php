@@ -14,15 +14,17 @@ use App\Models\Lesson;
 use App\Models\Quiz;
 use App\Models\Requirement;
 use App\Models\review;
+use App\Models\Student;
 use App\Models\Tag;
 use App\Models\TagsCourse;
 use App\Models\TargetAudience;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 use App\Traits\ShowOfCoures;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -42,9 +44,10 @@ class CourseController extends Controller
                 $query->where('title', 'like', '%' . $searchTerm . '%');
             })->get();
         }
+        $teachers=  Teacher::all();
         $categories = Categorie::join('categories_courses', 'categories.id', '=', 'categories_courses.categorie_id')->get();
         // dd(Cart::content());
-        return view('Backend_editor.courses.index', ['courses' => $courses, 'categories' => $categories]);
+        return view('Backend_editor.courses.index', ['courses' => $courses, 'categories' => $categories,'teachers' => $teachers]);
     }
     /**
      * Show the form for creating a new resource.
@@ -184,6 +187,7 @@ class CourseController extends Controller
      */
     public function edit(int $id)
     {
+       
         $curricula = Curriculum::where('course_id', $id)->get();
         $quizzes = Quiz::orderBy('order', 'asc')->get()->toArray();
         $lessons = Lesson::orderBy('order', 'asc')->get()->toArray();
@@ -202,6 +206,10 @@ class CourseController extends Controller
         $targetsAudiences = TargetAudience::all()->where('course_id', $id);
         $keysFeatures = KeyFeature::all()->where('course_id', $id);
         $faqs = Faq::all()->where('course_id', $id);
+
+        if (Auth::guard('teacher')->user()->id !== $course->teacher_id and Auth::guard('teacher')->user()->isAdmin !== 1) {
+            abort(403);
+        }
         return view('Backend_editor.courses.edit', [
             'tags' => $tags, 'categories' => $categories,
             'course' => $course, 'requirements' => $requirements, 'targetsAudiences' => $targetsAudiences,
@@ -341,7 +349,7 @@ class CourseController extends Controller
                 $lessonOrdered->update(['order' => $data['order']]);
             }
         }
-        session()->flush();
+        unset($_SESSION['dataLQ']);
         return redirect()->route('Courses.index');
     }
 
@@ -377,12 +385,12 @@ class CourseController extends Controller
                 $course->rating = $totalRating / $reviews->count();
             }
             $nbstudents = DB::table('details_students')
-            ->where('course_id', $course->id)
-            ->select('student_id')
-            ->distinct()
-            ->count();
+                ->where('course_id', $course->id)
+                ->select('student_id')
+                ->distinct()
+                ->count();
             $course->fake_students_enrolled += $nbstudents;
-            if(empty($course->fake_students_enrolled)) {
+            if (empty($course->fake_students_enrolled)) {
                 $course->fake_students_enrolled = 0;
             }
             $course->nblessonsbycourses = $course->nblessonsbycourse();
@@ -395,10 +403,10 @@ class CourseController extends Controller
         $latestFeaturedId = Homme::where('is_active', true)->latest()->value('id');
         $normalVideos = Homme::where('id', '<>', $latestFeaturedId)->latest()->paginate(3);
         // dd(Cart::content());
-        session(['id'=>1]);
+        session(['id' => 1]);
         return view('EnglishChallenger.index', [
-            'featuredVideo'=> $featuredVideo,
-            'normalVideos'=> $normalVideos,
+            'featuredVideo' => $featuredVideo,
+            'normalVideos' => $normalVideos,
             'courses' => $courses, 'tags' => $tags,
             'categories' => $categories, 'nbCourses' => $nbCourses,
             'categories_course' => $categories_course,
@@ -408,7 +416,10 @@ class CourseController extends Controller
     public function show2(int $id)
     {
         $courseData = $this->ShowOfCoures($id);
-        return view('EnglishChallenger.course_detail', $courseData);
+        $reviews = Review::where('course_id', $id)->latest()->paginate(9); // Fetch reviews for the specific book
+        $teachers = Teacher::all();
+        $studentR = Student::all();
+        return view('EnglishChallenger.course_detail',$courseData,compact('studentR','teachers','reviews'));
     }
     public function indexCr()
     {
@@ -425,10 +436,10 @@ class CourseController extends Controller
                 $course->rating = $totalRating / $reviews->count();
             }
             $nbstudents = DB::table('details_students')
-            ->where('course_id', $course->id)
-            ->select('student_id')
-            ->distinct()
-            ->count();
+                ->where('course_id', $course->id)
+                ->select('student_id')
+                ->distinct()
+                ->count();
             $course->fake_students_enrolled += $nbstudents;
             $course->nblessonsbycourses = $course->nblessonsbycourse();
         }

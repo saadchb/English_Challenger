@@ -33,7 +33,7 @@
                     </div>
                     <div class="post-item mt-4">
                         <div class="post-meta">
-                            <span class="post-date"><i class="fa fa-calendar-alt mr-2"></i>{{ $blog->created_at->format('Y-m-d') }}</span>
+                            <span class="post-date"><i class="fa fa-calendar-alt mr-2"></i>{{ $blog->created_at }}</span>
                             <span class="post-author"><i class="fa fa-user mr-2"></i>
                                 @if ($blog->user_id)
                                     <!-- Fetch the user corresponding to the user_id -->
@@ -99,7 +99,7 @@
                                 <a href="#"><img src="build/assets/images/blog/{{$blog->img}}" alt="{{$blog->title}}" class="img-fluid"></a>
                             </div>
                             <div class="widget-post-body">
-                                <span>{{ $blog->created_at->format('Y-m-d') }}</span>
+                                <span>{{ $blog->created_at}}</span>
                                 <h6> <a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}">{{$blog->title}}</a></h6>
                             </div>
                         </li>

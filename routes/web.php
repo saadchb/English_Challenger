@@ -27,6 +27,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MessageController;
 use App\Models\detiailsStudent;
 use App\Models\Cart;
 use App\Models\Curriculum;
@@ -42,6 +43,9 @@ Route::get('/school/{id}', [SchoolController::class, 'show_school']);
 //review
 Route::post('/school/store', [ReviewController::class, 'store'])->name('school.store');
 Route::post('/course/store', [ReviewController::class, 'store'])->name('course.store');
+Route::delete('/Review/destroy/{id}',[ReviewController::class,'destroy'])->name('review.destroy');
+// Route::resource('review', 'ReviewController');
+
 // Route::post('/course/store',[ReviewController::class,'store'])->name('course.store');
 
 //courses
@@ -49,12 +53,19 @@ Route::get('/', [CourseController::class, 'indexEn'])->name('EnglishChallenger.i
 Route::get('/course_detail/{id}', [CourseController::class, 'show2'])->name('course_detail');
 Route::get('/course_list', [CourseController::class, 'indexCr']);
 
+// teacher
+Route::get('/Become-Teacher', [TeacherController::class, 'become_teacher'])->name('Become_teacher')->withoutMiddleware('auth.teacherAdmin');
+Route::post('/become-teacher/store', [MessageController::class, 'store'])->name('contact.store');
+
 Route::middleware('auth.teacherAdmin')->group(function () {
     //profile 
     Route::get('/admin/Profile/{id}', [TeacherController::class, 'show'])->name('profile.show');
     Route::put('/admin/Profile/update/{id}', [TeacherController::class, 'update'])->name('profile.update');
     Route::delete('/admin/Profile/destroy/{id}', [TeacherController::class, 'destroy'])->name('profile.destroy');
     Route::put('/admin/profile/change-password/{id}', [TeacherController::class, 'changePassword'])->name('profile.changePassword');
+
+    //teachers
+    Route::resource('/Teachers', TeacherController::class);
 
 
     // home
@@ -80,7 +91,8 @@ Route::middleware('auth.teacherAdmin')->group(function () {
     // Questions
     Route::resource('/Questions', QuestionController::class);
     // Route::post('/save-question', [QuestionController::class, 'saveQuestion']);
-
+    // books
+    Route::resource('/books', BookController::class);
     // lessons
     Route::resource('/lessons', LessonController::class);
 
@@ -88,15 +100,23 @@ Route::middleware('auth.teacherAdmin')->group(function () {
     Route::resource('/Curricula', CurriculumController::class);
     Route::put('/CurriculaLessons/{id}', [CurriculumController::class, 'CL'])->name('CL.Update');
     Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name('CQ.Update');
+    //teachers
+    Route::resource('/Teachers', TeacherController::class);
+    Route::get('/Teachers/show/{id}', [TeacherController::class, 'show_teacher'])->name('teacher.show');
+
+    //Messages route
+    Route::resource('/admin/Messages', MessageController::class);
+    //updating the isAdmin field:
+    Route::put('/update-admin/{id}', [MessageController::class, 'accept_teacher'])->name('update.teacher');
+    Route::put('/refuse-admin/{id}', [TeacherController::class, 'refuse_tacher'])->name('refuse.teacher');
+    Route::delete('/delete-teacher/{id}', [TeacherController::class, 'remove_teacher'])->name('remove.teacher');
 
 });
 
 // strat
 //  !!!! go to controller of this is already authenticated
-    // students
-    Route::resource('/Students', StudentController::class);
-    //teachers
-    Route::resource('/Teachers', TeacherController::class);
+// students
+Route::resource('/Students', StudentController::class);
 // end
 
 
@@ -120,8 +140,7 @@ Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])
 Route::post('/general_test', [CurriculumController::class, 'general_test'])->name('general_test.take');
 Route::post('/curriculum.quiz/{id}', [CurriculumController::class, 'checkQuiz'])->name('checkQuiz');
 
-// books
-Route::resource('/books', BookController::class);
+
 Route::get('/E_library/book/{id}', [BookController::class, 'show'])->name('EnglishChallenger.show');
 Route::get('/E_Library', [BookController::class, 'E_Library'])->name('EnglishCallenger.E_Library');
 Route::get('/filter-products', [BookController::class, 'E_Library'])->name('filter.products');
@@ -131,7 +150,7 @@ Route::get('/E_Library', [BookController::class, 'E_Library'])->name('EnglishCal
 
 //Categories
 Route::get('/E_Library/Categories/{id}', [CategorieController::class, 'show'])->name('EnglishCallenger.show');
-Route::get('/Categories.index',[CategorieController::class,'index'])->name('Categories.index');
+Route::get('/Categories.index', [CategorieController::class, 'index'])->name('Categories.index');
 
 
 // Carts
@@ -151,9 +170,6 @@ Route::post('/Checkou/order-received/store', [CheckoutController::class, 'store'
 //seachr
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search-result', [SearchController::class, 'showResults'])->name('search.result');
-
-// teacher
-Route::get('/Become-Teacher', [TeacherController::class, 'index'])->name('Become_teacher');
 
 // Account
 Route::get('/selection', [AccountController::class, 'index'])->name('selection');

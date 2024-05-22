@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Lesson;
 use App\Models\Course; // Import the Course model
 use App\Http\Requests\LessonRequest;
-
+use App\Models\Teacher;
+use Illuminate\Support\Facades\Auth;
 
 class LessonController extends Controller{
     /**
@@ -20,7 +21,21 @@ class LessonController extends Controller{
         }
         else
         {
-            $lessons = Lesson::query()->latest()->paginate(8);
+            $teacherId = Auth::guard('teacher')->user()->id;
+            $isAdmin = Auth::guard('teacher')->user()->isAdmin;
+            
+            $lessons = Lesson::query()
+                ->where(function ($query) use ($teacherId, $isAdmin) {
+                    if ($isAdmin == 1) {
+                        // If the user is an admin, get all lessons
+                        $query->orWhere('teacher_id', '!=', null);
+                    } else {
+                        // If the user is not an admin, get only their lessons
+                        $query->orWhere('teacher_id', $teacherId);
+                    }
+                })
+                ->latest()
+                ->paginate(8);
         }
         return view('Backend_editor/lessons.index',['lessons' => $lessons]);
        }
@@ -50,8 +65,10 @@ public function store(LessonRequest $request)
         'title' => $request->input('title'),
         'description' => $request->input('description'),
         'duration' => $request->input('duration'),
+        'duration_unit' => $request->input('duration_unit'),
         'priview' => $priview, // Assign converted boolean value
-        'video_link' => $request->input('video_link')
+        'video_link' => $request->input('video_link'),
+        'teacher_id' => $request->input('teacher_id')
 
         // 'course_id' => $request->input('course_id'),
     ]);
@@ -59,7 +76,7 @@ public function store(LessonRequest $request)
     // Save the lesson
     $lesson->save();
 
-    return redirect()->back();
+    return to_route('lessons.index');
 }
 
 
@@ -76,6 +93,9 @@ public function store(LessonRequest $request)
      */
     public function edit(Lesson $lesson)
     {
+        if (Auth::guard('teacher')->user()->id !== $lesson->teacher_id and Auth::guard('teacher')->user()->isAdmin !== 1) {
+            abort(403);
+        }
         return view('Backend_editor.lessons.edit',['lesson'=>$lesson]);
 
     }
@@ -85,6 +105,9 @@ public function store(LessonRequest $request)
      */
     public function update(LessonRequest $request, Lesson $lesson)
     {
+        if (Auth::guard('teacher')->user()->id !== $lesson->teacher_id and Auth::guard('teacher')->user()->isAdmin !== 1) {
+            abort(403);
+        }
     $request->merge(['priview' => $request->has('priview')]); // Convert checkbox value to boolean
 
     $lesson->update($request->all());

@@ -42,6 +42,8 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($request->fromRegister)) {
+          
         $data = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -52,10 +54,21 @@ class StudentController extends Controller
             'email' => 'required|string|email|unique:students,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
+    }else {
+        $data = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',        
+            'email' => 'required|string|email|unique:students,email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+    }
+
         $data['password'] = Hash::make($request->password);
         if($request->hasFile('picture')){
             $data['picture'] = $request->file('picture')->store('imagesStudents','public');
-        }
+        }   
+            $data['teacher_id'] = $request->get('teacher_id');        
+        
         // dd($data);
         Student::create($data);
         if(isset($request->fromRegister)) {
@@ -68,8 +81,9 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show(string $id)
     {
+        $student= Student::findOrFail($id);
         return view('Backend_editor.Students.show',['student'=>$student]);
     }
 
@@ -80,6 +94,9 @@ class StudentController extends Controller
 
     {
         $student=Student::findOrFail($id);
+        if(Auth::guard('teacher')->user()->id !== $student->teacher_id and Auth::guard('teacher')->user()->isAdmin !== 1){
+            abort(403);
+        }
         return view('Backend_editor.Students.edit',['student'=>$student]);
     }
 
@@ -104,7 +121,7 @@ class StudentController extends Controller
         $student->email = $request->input('email');
         $student->address = $request->input('address');
         $student->date_of_birth = $request->input('date_of_birth');
-        $student->class = $request->input('class');
+        // $student->class = $request->input('class');
 
         // Save the updated model
         $student->save();
