@@ -830,4 +830,5 @@
                                                                 <input type="hidden" name="retake" value="1">
                                                                 <button style="padding: 2% 20% 2% 20% ;" id="commit"
                                                                     type="button" class="btn btn-primary retake">Submit<span
-                                                                        style
+                                                                        style>
+                                                                    </span>

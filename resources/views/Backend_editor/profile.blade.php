@@ -19,8 +19,7 @@
         <div class="row mt-sm-4">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card profile-widget">
-                    <div class="profile-widget-header">
-                      
+                    <div class="profile-widget-header">                      
                         <form action="{{route('profile.update',Auth::guard('teacher')->user()->id)}}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf

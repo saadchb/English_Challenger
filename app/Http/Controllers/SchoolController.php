@@ -9,6 +9,7 @@ use App\Models\School;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -64,8 +65,10 @@ class SchoolController extends Controller
             }
              } 
             //  Mail::to('chbsaad111@gmail.com')->send(new teacherMail($schoolsQuery));      
-
-        $schools = $schoolsQuery->paginate(8);
+             
+        $schools = Cache::remember('schools',10,function(){
+            return School::paginate(8);
+        });
         return view('EnglishChallenger.Schools_list', [
             'schools' => $schools
         ]);

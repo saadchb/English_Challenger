@@ -309,13 +309,12 @@ $blogCount = Blog::count();
                             @if($teacher)
                             <div class="client-img">
                                 @if (empty($teacher->picture))
-                                <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="" style="height: 90px;width: 90px;" class="img-fluid">
+                                <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="no image " style="height: 90px;width: 90px;" class="img-fluid">
                                 @else
                                 <img src="{{ asset('storage/'.$teacher->picture) }}" style="height: 90px;width: 90px;" alt="" class="img-fluid">
                                 @endif
                             </div>
-                            <div class="client-text">
-                               
+                            <div class="client-text">                             
                                 <h4>{{ $teacher->first_name}} {{ $teacher->last_name}}</h4>
                                 <span class="designation">teacher</span>
                             </div>
@@ -328,16 +327,11 @@ $blogCount = Blog::count();
                                 <img src="{{ asset('storage/'.$student->picture) }}" style="height: 90px;width: 90px;" alt="" class="img-fluid">
                                 @endif
                             </div>
-                            <div class="client-text">
-                              
+                            <div class="client-text">                              
                                 <h4>{{ $student->first_name}} {{ $student->last_name}}</h4>
                                 <span class="designation">Students</span>
                             </div>
-                            @endif
-                            <!-- <div class="client-img">
-                                <img src="build/assets/images/clients/picture2.jpg" style="width: 95px;height: 95px;" alt="" class="img-fluid">
-                            </div> -->
-                         
+                            @endif                                            
                         </div>
                     </div>
                     @endforeach

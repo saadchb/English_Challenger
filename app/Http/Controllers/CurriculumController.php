@@ -269,7 +269,7 @@ class CurriculumController extends Controller
         }
         return redirect()->back();
     }
-    public function next(Request $request, int $id)
+    public function next(Request $request, string $id)
     {
         $retaking = 0;
         $testViewStudent = DetailStudentLesson::join('details_students', 'details_students.id', 'detail_student_lessons.deatils_student_id')

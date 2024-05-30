@@ -335,7 +335,13 @@ $courses = Course::query()->latest()->paginate(5);
                                 @enderror
                                 <div class="col-lg-12">
                                     <div class="form-group">
+                                    @if (Auth::guard('teacher')->check() || Auth::guard('student')->check())
                                         <button type="submit" class="btn btn-main">Comment</button>
+                                        @else
+                                        <button type="submit" disabled class="btn btn-main">Comment</button><br>
+                                        
+                                        must be logged in for leave a comment
+                                        @endif                                    
                                     </div>
                                 </div>
                             </div>

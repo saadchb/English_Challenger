@@ -66,28 +66,28 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="course-content">
-                                <h2><a href="#" style="color: black;">{{$book->title}}</a></h2><br>
+                            <h2><a href="#" style="color: black;">{{$book->title}}</a></h2><br>
 
-                                <div class="course-price " style="font-size: medium;color: gray;">
-                                    @if($book->regular_price && !$book->sale_price)
-                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->regular_price}}</span>
-                                    @endif
+                            <div class="course-price " style="font-size: medium;color: gray;">
+                                @if($book->regular_price && !$book->sale_price)
+                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->regular_price}}</span>
+                                @endif
 
-                                    @if($book->regular_price && $book->sale_price)
-                                    <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->sale_price}}</span></del>
-                                    <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->regular_price}}</span></ins>
-                                    @endif
+                                @if($book->regular_price && $book->sale_price)
+                                <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->sale_price}}</span></del>
+                                <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->regular_price}}</span></ins>
+                                @endif
 
-                                    @if(!$book->regular_price && !$book->sale_price)
-                                    <span class="uppercase">Free</span>
-                                    @endif
+                                @if(!$book->regular_price && !$book->sale_price)
+                                <span class="uppercase">Free</span>
+                                @endif
 
-                                </div>
-                                <div>
-                                    <p>{{$book->description}}</p>
-                                </div><br>
-                                <input type="text" value="{{$book->id}}" hidden name="book_id">
-                                @livewire('add-to-cart', ['book' => $book])
+                            </div>
+                            <div>
+                                <p>{{$book->description}}</p>
+                            </div><br>
+                            <input type="text" value="{{$book->id}}" hidden name="book_id">
+                            @livewire('add-to-cart', ['book' => $book])
                         </div><br><br>
                         <div class="course-sidebar">
                             <div class="course-widget course-share d-flex justify-content-between align-items-center">
@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
                                 @else
-                                @livewire('reviewsbook',[$book->id])                                                        
+                                @livewire('reviewsbook',[$book->id])
                                 @endif
                             </div>
                         </div>
@@ -256,7 +256,12 @@
                                     @enderror
                                     <div class="col-lg-12">
                                         <div class="form-group">
+                                            @if (Auth::guard('teacher')->check() || Auth::guard('student')->check())
                                             <button type="submit" class="btn btn-main">Comment</button>
+                                            @else
+                                            <button type="submit" disabled class="btn btn-main">Comment</button><br>
+                                            must be logged in for leave a comment
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

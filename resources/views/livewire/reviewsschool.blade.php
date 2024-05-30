@@ -18,7 +18,7 @@
             </div>
             <!-- Review Text -->
             <div class="review-text">
-                <h5>{{ $review->name }} <span style="float: right;"><i class="fas fa-clock mr-2"></i> {{ $review->created_at->diffForHumans() }}</span></h5>
+                <h5>{{ $review->name }} <span style="float: right;"><i class="fas fa-clock mr-2"></i> @if(empty($review->created_at)) ? @else {{ $review->created_at->diffForHumans() }} @endif</span></h5>
                 <div class="rating">
                     @for ($i = 0; $i < $review->rating; $i++)
                         <a href="#"><i class="fa fa-star"></i></a>

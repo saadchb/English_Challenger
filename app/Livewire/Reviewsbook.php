@@ -40,7 +40,6 @@ class Reviewsbook extends Component
             ->paginate($this->perPage);
         return view('livewire.reviewsbook',[
             'reviews' => $reviews,'teachers'=>$teachers,'studentR'=>$studentR
-
         ]);
     }
 }
