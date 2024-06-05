@@ -54,8 +54,7 @@ Route::middleware('auth.teacherAdmin')->group(function () {
     Route::get('/dachboard', [HommeController::class, 'index'])->name('dachboard')->middleware('auth.teacher');
     Route::post('/video/store', [HommeController::class, 'store'])->name('video.store');
 
-    //schools
-    Route::resource('/Schools', SchoolController::class);
+
 
     // courses
     Route::resource('/Courses', CourseController::class);
@@ -83,6 +82,9 @@ Route::middleware('auth.teacherAdmin')->group(function () {
     Route::put('/CurriculaQuizzes/{id}', [CurriculumController::class, 'CQ'])->name('CQ.Update');
 
 });
+
+//schools
+Route::resource('/Schools', SchoolController::class);
 
 // strat
 //  !!!! go to controller of this is already authenticated

@@ -13,6 +13,10 @@ class SchoolController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function __construct()
+    // {
+    //     // $this->middleware('auth')->except('store');
+    // }
     public function index()
     {
         if (request('search1')) {
@@ -77,9 +81,9 @@ class SchoolController extends Controller
      */
     public function store(SchoolRequest $request)
     {
-
-        $imagePath = $request->file('school_logo')->store('images', 'public');
-        $photoPath = $request->file('school_photo')->store('images', 'public');
+        $imagePath = $request->file('school_logo')->store('imagesLogo', 'public');
+        $photoPath = $request->file('school_photos')->store('imagesSchool', 'public');
+        dd($request->file('school_photos'));
 
         $school = new School([
             'school_name' => $request->get('school_name'),
@@ -96,11 +100,10 @@ class SchoolController extends Controller
             'school_logo' => $imagePath,
         ]);
 
-        dd( $school->save());
         if (isset($request->fromRegister)) {
             return redirect('/');
         } else {
-            return redirect()->route('Schools.index')->with('success', 'School ajoutée avec succès');
+            return redirect()->back()->with('success', 'School ajoutée avec succès');
         }
     }
 

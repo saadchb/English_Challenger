@@ -22,18 +22,17 @@ class SchoolRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'comments' => 'required',
-            'school_city' => 'required',
-            'phone_number' => 'required',
-            'adresse' => 'required',
-
-            'description' => 'required',
-            'school_logo' => 'required',
-            'school_name'=> 'required',
-            'name' =>'required',
-            'email'=>'required | email',
-            // 'rating' =>'required ',
-            'school_photos' => 'image|mimes:jpeg,webp,png,jpg,gif|max:2048'
+            // 'school_city' => 'required',
+            // 'phone_number' => 'required',
+            // 'adresse' => 'required',
+            // 'password' => 'required|min:8',
+            // 'description' => 'required',
+            // 'school_logo' => 'required|image',
+            // 'school_name'=> 'required',
+            // 'name_headmaster' =>'required',
+            // 'email'=>'required | email',
+            // // 'rating' =>'required ',
+            // 'school_photo' => 'image'
 
         ];
 

@@ -23,7 +23,8 @@ class School extends Model
         'phone_number_headmaster',
         'school_city',
         'adresse',
-        'description'
+        'description',
+        'password'
     ];
     public function course():HasMany
     {

@@ -74,9 +74,26 @@
                             <form action="{{ route('Schools.store') }}" enctype="multipart/form-data"
                                 class="woocommerce-form woocommerce-form-register register" method="POST">
                                 @csrf
+
                                 <input type="hidden" name="fromRegister" value="fromRegister">
                                 <input type="hidden" name="fromRegister" value="register">
                                 <div class="row">
+                                    @if (!$errors->has('school_photos'))
+                                    <div class="form-group col-6 mb-3">
+                                        <label for="" class="form-label">School photo</label>
+                                        <label for="formFile" class="form-control btn btn-dark p-2" style="cursor: pointer;">Upload </label>
+                                        <input class="form-control"  name="school_photos" style="display: none;"
+                                        value="{{ old('school_photos') }}" type="file" id="formFile">
+                                    </div>
+                                @else
+                                <div class="form-group col-6 mb-3">
+                                    <label for="" class="form-label text-danger">School photo (Error)</label>
+                                        <label for="formFile" class="form-control btn btn-dark p-2" style="cursor: pointer;">Upload </label>
+                                        <input class="form-control"  name="school_photos" style="display: none;"
+                                    value="{{ old('school_photos') }}" type="file" id="formFile">
+                                    <div class="mt-2 text-danger">{{ $errors->first('school_photos') }}</div>
+                                </div>
+                                @endif
                                     @if (!$errors->has('school_name'))
                                         <div class="form-group col-6">
                                             <label for="school_name">School Name</label>
@@ -92,7 +109,7 @@
                                                 autocomplete="family-name">
                                             <div class="mt-2 text-danger">{{ $errors->first('school_name') }}</div>
                                         </div>
-                                    @endif
+                                @endif
 
 
                                     @if (!$errors->has('school_logo'))
@@ -127,22 +144,7 @@
                                         </div>
                                     @endif
 
-                                    @if (!$errors->has('school_photo'))
-                                        <div class="form-group col-6 mb-3">
-                                            <label for="" class="form-label">School photo</label>
-                                            <label for="formFile" class="form-control btn btn-dark p-2" style="cursor: pointer;">Upload </label>
-                                            <input class="form-control"  name="school_photo" style="display: none;"
-                                            value="{{ old('school_photo') }}" type="file" id="formFile">
-                                        </div>
-                                    @else
-                                    <div class="form-group col-6 mb-3">
-                                        <label for="" class="form-label text-danger">School photo (Error)</label>
-                                            <label for="formFile" class="form-control btn btn-dark p-2" style="cursor: pointer;">Upload </label>
-                                            <input class="form-control"  name="school_photo" style="display: none;"
-                                        value="{{ old('school_photo') }}" type="file" id="formFile">
-                                        <div class="mt-2 text-danger">{{ $errors->first('school_photo') }}</div>
-                                    </div>
-                                    @endif
+
 
 
                                     @if (!$errors->has('phone_number'))
