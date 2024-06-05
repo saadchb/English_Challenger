@@ -325,7 +325,7 @@
                                                                     name="lesson_id" />
                                                                 <input type="hidden"
                                                                 @auth('student')
-                                                                    value="{{ Auth::guard('teacher')->user()->id }}"
+                                                                    value="{{ Auth::guard('student')->user()->id }}"
                                                                     name="student_id" />
                                                                 @endauth
                                                                 <input type="hidden" name="course_id"

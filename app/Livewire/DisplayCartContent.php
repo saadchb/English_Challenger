@@ -15,6 +15,7 @@ class DisplayCartContent extends Component
 
     public function removeBookCart($rowId){
         Cart::remove($rowId);
+        $this->dispatch('AddedElementToCart');
     }
     public function render()
     {
@@ -26,8 +27,6 @@ class DisplayCartContent extends Component
             $Book['img'] = $book->img;
             array_push($this->Books,$Book);
         }
-        // dd($this->BooksCart);
-        // dd($this->Books);
         return view('livewire.display-cart-content');
     }
 }

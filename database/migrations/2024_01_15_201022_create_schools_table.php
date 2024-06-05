@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('school_photo')->nullable();
             $table->string('phone_number');
             $table->string('email');
+            $table->string('password');
 
             // $table->string('linkdin');
             $table->string('name_headmaster');

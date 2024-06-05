@@ -62,7 +62,6 @@ class CurriculumController extends Controller
             $detailsStudent = detailsStudent::where('course_id', $course)
                 ->where('student_id', (int)$request->input('student_id'))
                 ->first();
-                // dd($request->input('student_id'));
             DetailStudentLesson::create(array(
                 'view' => 1,
                 'deatils_student_id' => $detailsStudent->id,

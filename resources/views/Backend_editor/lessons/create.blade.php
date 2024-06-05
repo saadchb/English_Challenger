@@ -49,21 +49,6 @@ $courses = Course::all();
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="course_id">Course</label>
-                            <select class="form-control" id="course_id" name="course_id" value='{{old("course_id")}}'>
-                                <option value="">Choose...</option>
-                                @foreach($courses as $course)
-
-                                <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
-                                    {{ $course->title }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('course_id')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror
-                        </div>
 
                         <div class="form-group">
                             <label for="duration" class="form-label"><b>Duration</b></label>

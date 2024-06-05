@@ -6,6 +6,7 @@ use App\Http\Requests\SchoolRequest;
 use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SchoolController extends Controller
 {
@@ -23,7 +24,7 @@ class SchoolController extends Controller
         return view('Backend_editor.Schools.index', ['schools' => $schools]);
     }
 
- 
+
     public function schools_list(Request $request)
     {
         $schoolsQuery = School::query();
@@ -53,7 +54,7 @@ class SchoolController extends Controller
                     $schoolsQuery->orderBy('id', 'asc'); // Sort by book ID in ascending order
                     break;
             }
-             } 
+             }
 
         $schools = $schoolsQuery->paginate(8);
         return view('EnglishChallenger.Schools_list', [
@@ -84,6 +85,7 @@ class SchoolController extends Controller
             'school_name' => $request->get('school_name'),
             'phone_number' => $request->get('phone_number'),
             'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
             'name_headmaster' => $request->get('name_headmaster'),
             'phone_number_headmaster' => $request->get('phone_number_headmaster'),
             'school_city' => $request->get('school_city'),
@@ -93,8 +95,13 @@ class SchoolController extends Controller
             'type' => $request->get('type'),
             'school_logo' => $imagePath,
         ]);
-        $school->save();
-        return redirect()->route('Schools.index')->with('success', 'school Ajouteé avec succés');
+
+        dd( $school->save());
+        if (isset($request->fromRegister)) {
+            return redirect('/');
+        } else {
+            return redirect()->route('Schools.index')->with('success', 'School ajoutée avec succès');
+        }
     }
 
     /**

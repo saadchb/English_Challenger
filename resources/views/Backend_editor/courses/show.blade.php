@@ -263,7 +263,7 @@
                                                     @endif
                                                 </span></span></h4>
                                     </div>
-                                    <div class="buy-btn"><a href="#" class="btn btn-primary btn-block">Buy This
+                                    <div class="buy-btn"><a href="{{route('buyCourse',$course->id)}}" class="btn btn-primary btn-block">Buy This
                                             Course</a></div>
                                 </div>
                             </div>

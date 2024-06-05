@@ -50,6 +50,11 @@ return [
             'driver' => 'session',
             'provider' => 'students',
         ],
+
+        'school' => [
+            'driver' => 'session',
+            'provider' => 'schools',
+        ],
     ],
 
     /*
@@ -81,6 +86,10 @@ return [
         'students' => [
             'driver' => 'database',
             'table' => 'students',
+        ],
+        'schools' => [
+            'driver' => 'database',
+            'table' => 'schools',
         ],
 
         // 'users' => [

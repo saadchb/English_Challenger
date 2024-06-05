@@ -37,7 +37,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('registerSchoolFrom');
     }
 
     /**
@@ -74,5 +74,8 @@ class RegisterController extends Controller
     }
     public function registerStudentForm(){
         return view('Auth.registerStudent');
+    }
+    public function registerSchoolFrom(){
+        return view('Auth.registerSchoolFrom');
     }
 }

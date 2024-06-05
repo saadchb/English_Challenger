@@ -254,11 +254,13 @@ $quizzesGneral = Quiz::where('general_test', '1')->get();
 
                     </div>
                 </li>
+                @if(Auth::guard('student')->check())
                 <li class="nav-item ">
-                    <a href="/detailsStudents" class="nav-link">
+                    <a href="{{route('detailsStudents.show',Auth::guard('student')->user()->id)}}" class="nav-link">
                         Students
                     </a>
                 </li>
+                @endif
             </ul>
 
             <ul class="header-contact-right d-none d-lg-block">

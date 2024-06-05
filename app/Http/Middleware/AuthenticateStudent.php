@@ -22,7 +22,7 @@ class AuthenticateStudent
         }
 
         // User is not authenticated as a student, redirect to login page
-        return redirect()->route('403');
+        return redirect('login/student');
 
     }
 

@@ -130,7 +130,7 @@ $courses = Course::query()->latest()->paginate(4);
                         <div class="course-widget course-info">
                             <h4 class="course-title">About the school</h4>
                             <div class="instructor-profile">
-                           
+
                                 <div class="profile-info">
                                     <h5>{{$school->school_name}}</h5><bR>
                                     <div class="rating">
@@ -294,7 +294,12 @@ $courses = Course::query()->latest()->paginate(4);
                 <div class="blog-sidebar mt-5 mt-lg-0 mt-md-0">
                     <!-- CLAIM THIS BUSINESS button  -->
                     <div class="widget widget_news">
-                        <button style=" margin-left: 35px !important;background-color: #862b84;justify-content: center !important; align-items: center;">CLAIM THIS BUSINESSE </button><br>
+                        {{-- <form action="{{route('loginShoolForm')}}" method="post">
+                        @csrf --}}
+                        <a style="color:white;" href="{{route('loginShoolForm')}}">
+                        <button type="submit"  style=" margin-left: 35px !important;background-color: #862b84;justify-content: center !important; align-items: center;"><a style="color:white;" href="{{route('loginShoolForm')}}">CLAIM THIS BUSINESSE
+                         </button><br></a>
+                    {{-- </form> --}}
                     </div>
                     <!-- profile  -->
                     <div class="widget widget_news">

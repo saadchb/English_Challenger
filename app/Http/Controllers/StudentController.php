@@ -55,6 +55,8 @@ class StudentController extends Controller
         $data['password'] = Hash::make($request->password);
         if($request->hasFile('picture')){
             $data['picture'] = $request->file('picture')->store('imagesStudents','public');
+        }else{
+            $data['picture'] = 'kneknknkndkendkednekdnekdne';
         }
         // dd($data);
         Student::create($data);
@@ -95,6 +97,8 @@ class StudentController extends Controller
 
             // Update the image path attribute of the Student model
             $student->picture = $imagePath;
+        }else{
+            $data['picture'] = 'kneknknkndkendkednekdnekdne';
         }
 
         // Update other attributes

@@ -34,7 +34,6 @@
                         <thead>
                             <tr style="background-color: #dedede;">
                                 <th scope="col">Name</th>
-                                <th scope="col">Course</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Preview</th>
                                 <th scope="col">Date modified</th>
@@ -45,7 +44,7 @@
                             @foreach($lessons as $lesson)
                             <tr>
                                 <td>{{$lesson->title}}</td>
-                                <td>3</td>                                <td>Author</td>
+                                <td>Author</td>
                                 <td>yes</td>
                                 <td>{{$lesson->duration}}</td>
                                 <td>
@@ -53,8 +52,6 @@
                                         <a href="{{route('lessons.edit', $lesson->id)}}" class="btn btn-outline-success btn-sm">
                                             <i class="fa-solid fa-pen"></i> Edit
                                         </a>
-                                   
-
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick='confirmation(event,`{{ $lesson->id }}`)' data-toggle="modal">

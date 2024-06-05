@@ -21,8 +21,16 @@ class CheckoutController extends Controller
         return view('Englishchallenger.checkout', ['carts'=>$carts,'total' =>$total]);
     }
 
-    public function order(){
-        return view('EnglishChallenger.order-received');
+    public function order($id){
+
+        $carts  = Cart::content()->toArray();
+        $total = 0;
+        foreach($carts as $cart){
+            $total += $cart['price'];
+        }
+
+        $checkout = checkout::findOrFail($id);
+        return view('EnglishChallenger.order-received',['checkout'=>$checkout,'carts'=>$carts,'total'=>$total]);
     }
     /**
      * Show the form for creating a new resource.
@@ -73,9 +81,8 @@ class CheckoutController extends Controller
             'school_id'=>$request->get('school_id'),
             'payment_method'=>$request->get('payment_method'),
         ]);
-        // dd($checkout);
         $checkout ->save();
-        return redirect()->route('order.order-received');
+        return redirect()->route('order.order-received',$checkout->id);
     }
     /**
      * Display the specified resource.

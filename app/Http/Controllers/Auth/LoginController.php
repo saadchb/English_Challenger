@@ -24,8 +24,9 @@ class LoginController extends Controller
     use AuthenticatesUsers;
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout','loginShool','loginShoolForm');
     }
+
     /**
      * Where to redirect users after login.
      *
@@ -83,6 +84,20 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+    public function loginShoolForm(){
+        return view('auth.loginShool');
+    }
+    public function loginShool(Request $request){
+        if (Auth::guard('school')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            // dd(true);
+                return redirect()->intended(RouteServiceProvider::SHOOL);
+        }else{
+            // dd(false);
+            return redirect()->back()->withErrors([
+                'email' => 'Inccorect emial or password'
+            ])->onlyInput('email');
+        }
     }
 
 }

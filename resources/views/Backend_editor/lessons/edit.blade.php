@@ -20,7 +20,7 @@ $courses = Course::all();
             <h3 class="text-xl font-bold text-gray-900">edit  lesson</h3>
             <div class="d-flex gap-3 align-items-center">
                 <a href="/lessons" class="nav-link btn btn-outline-secondary"><i class="fa-solid fa-angle-left"></i> Back</a>
-                <div class="position-relative">                  
+                <div class="position-relative">
                     <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
                 </div>
 
@@ -47,18 +47,6 @@ $courses = Course::all();
                             <label for="description"><b>Description</b></label>
                             <textarea class="form-control" id="description" name="description" rows="2" placeholder="Enter description">{{ $lesson->description }}</textarea>
                             @error('description')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="course_id">Course</label>
-                            <select class="form-control" id="course_id" name="course_id">
-                                <option value="">Choose...</option>
-                                @foreach($courses as $course)
-                                <option value="{{ $course->id }}" {{ $lesson->course_id == $course->id ? 'selected' : '' }}>{{ $course->title }}</option>
-                                @endforeach
-                            </select>
-                            @error('course_id')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
                         </div>

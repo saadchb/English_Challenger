@@ -107,11 +107,11 @@ Route::put('/Bloges/{blog}', [BlogController::class, 'update'])->name('Bloges.up
 Route::delete('/Bloges/{blog}', [BlogController::class, 'destroy'])->name('Bloges.destroy'); // Delete route
 // student login midleware curruclum
 
-Route::post('/curriculum_list/{id}', [CurriculumController::class, 'show'])->name('curricula.show');
-Route::post('/curriculum_list/next/{id}', [CurriculumController::class, 'next'])->name('curriculum_list.next');
-Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])->name('curriculum_list.prev');
-Route::post('/general_test', [CurriculumController::class, 'general_test'])->name('general_test.take');
-Route::post('/curriculum.quiz/{id}', [CurriculumController::class, 'checkQuiz'])->name('checkQuiz');
+Route::post('/curriculum_list/{id}', [CurriculumController::class, 'show'])->name('curricula.show')->middleware('auth.student');
+Route::post('/curriculum_list/next/{id}', [CurriculumController::class, 'next'])->name('curriculum_list.next')->middleware('auth.student');
+Route::post('/curriculum_list/prev/{id}', [CurriculumController::class, 'prev'])->name('curriculum_list.prev')->middleware('auth.student');
+Route::post('/general_test', [CurriculumController::class, 'general_test'])->name('general_test.take')->middleware('auth.student');
+Route::post('/curriculum.quiz/{id}', [CurriculumController::class, 'checkQuiz'])->name('checkQuiz')->middleware('auth.student');
 
 // books
 Route::resource('/books', BookController::class);
@@ -134,11 +134,12 @@ Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('c
 
 // DetailsStudent
 // Route::get('/detailsStudents/{id}', [DetailsStudentController::class, 'show'])->name('detailsStudentss.show');
-Route::get('/detailsStudents/{id}', [DetailsStudentController::class, 'show'])->name('detailsStudents.show');
+Route::get('/detailsStudents/{id}', [DetailsStudentController::class, 'show'])->name('detailsStudents.show')->middleware('auth.student');
+Route::get('/buyCourse/{id}', [DetailsStudentController::class, 'buyCourse'])->name('buyCourse')->middleware('auth.student');
 
 //checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('chekout.index');
-Route::get('/checkout/order-received', [CheckoutController::class, 'order'])->name('order.order-received');
+Route::get('/checkout/order-received/{id}', [CheckoutController::class, 'order'])->name('order.order-received');
 Route::post('/Checkou/order-received/store', [CheckoutController::class, 'store'])->name('order.store');
 
 //seachr
@@ -160,12 +161,22 @@ Route::group(['namespace', 'Auth'], function () {
     Route::get('/logout/{type}', [LoginController::class, 'logout'])->name('logout');
 });
 
+Route::post('/loginShool',[LoginController::class, 'loginShool'])->name('loginShool');
+Route::get('/loginShoolForm',[LoginController::class, 'loginShoolForm'])->name('loginShoolForm');
+
 // register
 Route::get('/registerTeacherForm', [RegisterController::class, 'registerTeacherForm'])->name('registerTeacherForm');
 Route::get('/registerStudentForm', [RegisterController::class, 'registerStudentForm'])->name('registerStudentForm');
 
+// student
+Route::put('/detailsStudent/update/{id}',[DetailsStudentController::class, 'update'])->name('detailsStudent.update');
+Route::put('/detailsStudent/update/change-password/{id}', [DetailsStudentController::class, 'changePassword'])->name('detailsStudent.changePassword');
+
+// schools
+Route::get('/registerSchoolFrom', [RegisterController::class,'registerSchoolFrom'])->name('registerSchoolFrom');
 
 
+Route::delete('/detailsStudent/delete/{id}', [DetailsStudentController::class, 'destroy'])->name('detailsStudent.destroy');
 // Anonume
 Route::get('/First-test', function () {
     return view('EnglishChallenger.Quize');
@@ -174,3 +185,11 @@ Route::get('/First-test', function () {
 Route::get('/studentPortofilio', function () {
     return view('EnglishChallenger.studentPortofilio');
 });
+
+
+//login school
+
+// Route::get('/loginShoolFormForce',[LoginController::class, 'loginShoolForm']);
+
+
+//
