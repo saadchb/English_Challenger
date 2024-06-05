@@ -111,6 +111,14 @@ Route::middleware('auth.teacherAdmin')->group(function () {
     Route::put('/refuse-admin/{id}', [TeacherController::class, 'refuse_tacher'])->name('refuse.teacher');
     Route::delete('/delete-teacher/{id}', [TeacherController::class, 'remove_teacher'])->name('remove.teacher');
 
+    //bloges
+Route::get('/Bloges', [BlogController::class, 'indexBl'])->name('Bloges.index'); // Index route
+Route::get('/Bloges/create', [BlogController::class, 'create'])->name('Bloges.create'); // Create route
+Route::post('/Bloges', [BlogController::class, 'store'])->name('Bloges.store'); // Store route
+Route::get('/Bloges/{blog}/edit', [BlogController::class, 'edit'])->name('Bloges.edit'); // edit route
+Route::put('/Bloges/{blog}', [BlogController::class, 'update'])->name('Bloges.update'); // Update route
+Route::delete('/Bloges/{blog}', [BlogController::class, 'destroy'])->name('Bloges.destroy'); // Delete route
+
 });
 
 // strat
@@ -125,13 +133,6 @@ Route::post('/Blogs/{blog}/comments', [CommentController::class, 'store'])->name
 
 Route::resource('/Blogs', BlogController::class);
 Route::get('/Blogs/{id}', 'BlogController@show')->name('EnglishChallenger.blog_detail');
-
-Route::get('/Bloges', [BlogController::class, 'indexBl'])->name('Bloges.index'); // Index route
-Route::get('/Bloges/create', [BlogController::class, 'create'])->name('Bloges.create'); // Create route
-Route::post('/Bloges', [BlogController::class, 'store'])->name('Bloges.store'); // Store route
-Route::get('/Bloges/{blog}/edit', [BlogController::class, 'edit'])->name('Bloges.edit'); // edit route
-Route::put('/Bloges/{blog}', [BlogController::class, 'update'])->name('Bloges.update'); // Update route
-Route::delete('/Bloges/{blog}', [BlogController::class, 'destroy'])->name('Bloges.destroy'); // Delete route
 // student login midleware curruclum
 
 Route::post('/curriculum_list/{id}', [CurriculumController::class, 'show'])->name('curricula.show');

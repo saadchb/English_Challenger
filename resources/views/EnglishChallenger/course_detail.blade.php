@@ -12,7 +12,8 @@ use App\Models\Teacher;
 $books = Book::join('reviews', 'books.id', '=', 'reviews.book_id')->paginate(5);
 // $books = Book::limit(3)->get();
 $review = review::all();
-$teachers = Teacher::all();
+
+$teachers = Teacher::Where('id', $course->teacher_id)->get();
 $studentR = Student::all();
 
 $courses = Course::query()->latest()->paginate(5);
@@ -205,29 +206,33 @@ $courses = Course::query()->latest()->paginate(5);
 
                     </div>
 
+
                     <div class="tab-pane fade" id="nav-instructor" role="tabpanel" aria-labelledby="nav-instructor-tab">
                         <div class="course-widget course-info">
                             <h4 class="course-title">About the instructors</h4>
                             <div class="instructor-profile">
                                 <div class="profile-img">
-                                    <img src="assets/images/blog/author.jpg" alt="" class="img-fluid">
+                                    @foreach ($teachers as $teacher)
+                                    @if(!empty($teacher->picture))
+                                    <img src="{{ asset('storage/' .$teacher->picture) }}" style="height: 90px;width: 90px;" alt="author" class="img-fluid">
+                                    @else
+                                    <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="" style="height: 90px;width: 90px;" class="img-fluid">
+                                    @endif
+                                    @endforeach
                                 </div>
                                 <div class="profile-info">
-                                    <h5>Meraz Ahmed</h5>
-                                    <div class="rating">
-                                        <a href="#"><i class="fa fa-star"></i></a>
-                                        <a href="#"><i class="fa fa-star"></i></a>
-                                        <a href="#"><i class="fa fa-star"></i></a>
-                                        <a href="#"><i class="fa fa-star"></i></a>
-                                        <a href="#"><i class="fa fa-star-half"></i></a>
-                                        <span>3.79 ratings (29 )</span>
-                                    </div>
+                                @foreach ($teachers as $teacher)
+                            <h5>{{$teacher->first_name}} {{$teacher->last_name}}</h5>
+                            @endforeach
+                                 
                                     <p>I'm a developer with a passion for teaching. I'm the lead instructor at the
                                         London App Brewery, London's leading Programming Bootcamp. I've helped hundreds
                                         of thousands of students learn to code and change their lives by becoming a
                                         developer </p>
                                     <div class="instructor-courses">
-                                        <span><i class="bi bi-folder"></i>4 Courses</span>
+                                        <span><i class="bi bi-folder"></i>
+                             
+                                    </span>
                                         <span><i class="bi bi-group"></i>400 Students</span>
                                     </div>
                                 </div>
@@ -235,24 +240,24 @@ $courses = Course::query()->latest()->paginate(5);
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
-                            <div class="course-widget course-info">
-                                <h4 class="course-title"><i class="fas fa-comments" aria-hidden="true"></i> Book Feedback</h4>
+                        <div class="course-widget course-info">
+                            <h4 class="course-title"><i class="fas fa-comments" aria-hidden="true"></i> Book Feedback</h4>
 
-                                @if($reviews->isEmpty())
-                                <div class="course-review-wrapper">
-                                    <div class="course-review">
-                                        <p>There are no reviews yet.</p><br>
-                                        <h2>Be the first to review “{{$course->title}}”</h2>
-                                        <p>You must be logged in to post a review.</p>
-                                    </div>
+                            @if($reviews->isEmpty())
+                            <div class="course-review-wrapper">
+                                <div class="course-review">
+                                    <p>There are no reviews yet.</p><br>
+                                    <h2>Be the first to review “{{$course->title}}”</h2>
+                                    <p>You must be logged in to post a review.</p>
                                 </div>
-                                @else
-                                @livewire('reviewscourse',[$course->id])                                                        
-
-                                @endif
-
                             </div>
+                            @else
+                            @livewire('reviewscourse',[$course->id])
+
+                            @endif
+
                         </div>
+                    </div>
                     <div class="comments-form p-5 mt-6" style="margin-top: 140px !important;">
                         <h3>Leave a comment </h3>
                         <p>Your email address will not be published. Required fields are marked *</p>
@@ -335,13 +340,12 @@ $courses = Course::query()->latest()->paginate(5);
                                 @enderror
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                    @if (Auth::guard('teacher')->check() || Auth::guard('student')->check())
+                                        @if (Auth::guard('teacher')->check() || Auth::guard('student')->check())
                                         <button type="submit" class="btn btn-main">Comment</button>
                                         @else
                                         <button type="submit" disabled class="btn btn-main">Comment</button><br>
-                                        
                                         must be logged in for leave a comment
-                                        @endif                                    
+                                        @endif
                                     </div>
                                 </div>
                             </div>

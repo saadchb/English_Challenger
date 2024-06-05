@@ -59,10 +59,11 @@ class CurriculumController extends Controller
             ->get();
             // dd($request->input('lesson_id'));
         if (count($testViewStudent) == 0) {
+
             $detailsStudent = detailsStudent::where('course_id', $course)
-                ->where('student_id', (int)$request->input('student_id'))
-                ->first();
-                // dd($request->input('student_id'));
+                ->where('student_id', Auth::guard('student')->user())
+                ->get();
+                dd((string)$request->input('student_id'));
             DetailStudentLesson::create(array(
                 'view' => 1,
                 'deatils_student_id' => $detailsStudent->id,
@@ -219,7 +220,7 @@ class CurriculumController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, string $id)
     {
         $curriculum = Curriculum::findOrFail($id);
         $curriculum->update($request->all());
@@ -230,13 +231,13 @@ class CurriculumController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(string $id)
     {
         $curriculum = Curriculum::findOrFail($id);
         $curriculum->delete();
         return redirect()->back();
     }
-    public function CL(Request $request, int $id)
+    public function CL(Request $request, string $id)
     {
         $lessonsOrderLast = Lesson::where('curriculum_id', $id)->orderBy('order', 'desc')->pluck('order')->first();
         $quizzesOrderLast = Quiz::where('curriculum_id', $id)->orderBy('order', 'desc')->pluck('order')->first();
@@ -252,7 +253,7 @@ class CurriculumController extends Controller
         }
         return redirect()->back();
     }
-    public function CQ(Request $request, int $id)
+    public function CQ(Request $request, string $id)
     {
         $lessonsOrderLast = Lesson::where('curriculum_id', $id)->orderBy('order', 'desc')->pluck('order')->first();
         $quizzesOrderLast = Quiz::where('curriculum_id', $id)->orderBy('order', 'desc')->pluck('order')->first();
@@ -553,7 +554,7 @@ class CurriculumController extends Controller
             'retaking' => $retaking
         ]);
     }
-    public function checkQuiz(Request $request, int $course)
+    public function checkQuiz(Request $request, string $course)
     {
         if ($request->input('ratake ') == 1) {
             $answers = [];

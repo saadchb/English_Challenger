@@ -50,7 +50,7 @@
                         @foreach($latestBlogs as $blog)
                         <li>
                             <div class="widget-post-thumb">
-                                <a href="#"><img src="{{asset('storage/'.$blog->img)}}" alt="{{$blog->title}}" class="img-fluid"></a>
+                                <a href="#"><img src="{{asset('storage/'.$blog->img)}}"  style="height: 65px;width: 65px;" alt="{{$blog->title}}" class="img-fluid"></a>
                             </div>
                             <div class="widget-post-body">
                                 <span>{{ $blog->created_at}}</span>
