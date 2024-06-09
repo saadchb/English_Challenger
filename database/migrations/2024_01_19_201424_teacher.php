@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('description_education_background')->nullable();
             $table->integer('year_experience')->nullable();
             $table->string('cv')->nullable();
-            $table->boolean('isAdmin')->default(1);
+            $table->boolean('isAdmin')->default(0);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

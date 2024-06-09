@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SchoolRequest;
+use App\Mail\teacherMail;
+use App\Models\review;
 use App\Models\School;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class SchoolController extends Controller
 {
@@ -20,7 +26,10 @@ class SchoolController extends Controller
     public function index()
     {
         if (request('search1')) {
-            $schools = School::where('school_name', "like", '%' . request('search1') . '%')->paginate(8);
+            $schools = School::where('school_name', "like", '%' . request('search1') . '%')
+            ->orWhere('school_city', "like", '%' . request('search1') . '%')
+            ->paginate(8);
+
         } else {
             $schools = School::query()->latest()->paginate(8);
         }
@@ -34,14 +43,15 @@ class SchoolController extends Controller
         $schoolsQuery = School::query();
 
         if ($request->filled('search1')) {
-            $schoolsQuery->where('school_name', 'like', '%' . $request->input('search1') . '%');
+            $schoolsQuery->where('school_name', 'like', '%' . $request->input('search1') . '%')
+            ->orWhere('school_city', "like", '%' . request('search1') . '%');
         }
         // Applying sorting based on the selected option
         if ($request->filled('orderby')) {
             switch ($request->input('orderby')) {
                 case 'rating':
                     // Join with reviews table and calculate average rating
-                    $schoolsQuery->leftJoin('reviews', 'schools.id', '=', 'reviews.book_id')
+                    $schoolsQuery->leftJoin('reviews', 'schools.id', '=', 'reviews.school_id')
                         ->select('schools.*', DB::raw('AVG(reviews.rating) as average_rating'))
                         ->groupBy('schools.id')
                         ->orderByDesc('average_rating');
@@ -59,8 +69,11 @@ class SchoolController extends Controller
                     break;
             }
              }
+            //  Mail::to('chbsaad111@gmail.com')->send(new teacherMail($schoolsQuery));
 
-        $schools = $schoolsQuery->paginate(8);
+        $schools = Cache::remember('schools',10,function(){
+            return School::paginate(8);
+        });
         return view('EnglishChallenger.Schools_list', [
             'schools' => $schools
         ]);
@@ -79,11 +92,11 @@ class SchoolController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SchoolRequest $request)
+    public function store(Request $request)
     {
-        $imagePath = $request->file('school_logo')->store('imagesLogo', 'public');
-        $photoPath = $request->file('school_photos')->store('imagesSchool', 'public');
-        dd($request->file('school_photos'));
+
+        $imagePath = $request->file('school_logo')->store('images', 'public');
+        $photoPath = $request->file('school_photo')->store('images', 'public');
 
         $school = new School([
             'school_name' => $request->get('school_name'),
@@ -117,8 +130,12 @@ class SchoolController extends Controller
     }
     public function show_School(string $id)
     {
+        $reviews = review::where('school_id', $id)->latest()->paginate(9); // Fetch reviews for the specific book
+        $teachers = Teacher::all();
+        $studentR = Student::all();
+
         $school = School::findOrFail($id);
-        return view('EnglishChallenger.school', ['school' => $school]);
+        return view('EnglishChallenger.school', compact('teachers','studentR','school','reviews'));
     }
     /**
      * Show the form for editing the specified resource.

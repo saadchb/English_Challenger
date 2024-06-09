@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VideoRequest;
 use App\Models\Homme;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class HommeController extends Controller
 {
@@ -29,24 +31,53 @@ class HommeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(VideoRequest $request)
     {
 
-        $validatedData = $request->validate([
-            'video' => 'required|string|max:255',
-            'is_active' => 'nullable',
-        ]);
-    
-        $video = new Homme([
-            'video' => $validatedData['video'],
-        ]);
 
-        $video->is_active = $request->has('is_active') ? true : false;
-        $video->save();
+                    $imagePath = $request->file('videoImport')->store('videos', 'public');
         
+                    $video = new Homme([
+                        'videoImport' => $imagePath,
+                    ]);
+        $video->is_active = $request->has('is_active') ? true : false;
+        // dd($video);
+
+        $video->save();
+    // }
+
 
         return redirect()->back()->with('success', 'Video added successfully.');
     }
+    // public function store(Request $request)
+    // {
+
+    //     // $this->validate($request,[
+    //     //     'subject'=> 'required',
+    //     //     'class'=> 'required',
+    //     //     'topic'=> 'required',
+    //     //     'slide'=> 'required|mimes:mp4,ppx,pdf,ogv,jpg,webm|max:1999',
+
+
+    //     // ]);
+    //     dd($request);
+
+    //     if ($request->hasFile('video_import')) {
+    //         $filenameWithExt = $request->file('video_import')->getClientOriginalName();
+    //         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    //         $extension = $request->file('video_import')->getClientOriginalExtension();
+    //         $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+    //         $path = $request->file('video_import')->storeAs('public/videos/', $fileNameToStore);
+    //     } else {
+    //         $fileNameToStore = 'noimage.jpg';
+    //     }
+    //     $video = new Homme();
+    //     $video->video_import = $request->input('video_import');
+    //     $slidefile = $fileNameToStore;
+    //     $video->is_active = $request->has('is_active') ? true : false;
+    //     $video->save();
+    //     return back()->with('success', ' Upload Successfull');
+    // }
 
     /**
      * Display the specified resource.

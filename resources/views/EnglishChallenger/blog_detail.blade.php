@@ -2,10 +2,12 @@
 @section('title', 'Blog detail')
 @section('content')
 <?php
-    use App\Models\Tag;
 
+use App\Models\Tag;
+use App\Models\Teacher;
 
-    $tag= Tag::find($blog->id_tag);
+$teachers = Teacher::Where('id', $blog->teacher_id)->get();
+$tag = Tag::find($blog->id_tag);
 ?>
 <section class="page-header">
     <div class="container">
@@ -35,7 +37,7 @@
             <div class="col-md-8">
                 <div class="post-single">
                     <div class="post-thumb">
-                        <img src="{{ asset('build/assets/images/blog/' . $blog->img) }}" alt="{{ $blog->title }}" class="img-fluid">
+                        <img src="{{asset('storage/'.$blog->img)}}" alt="{{ $blog->title }}" class="img-fluid">
                     </div>
 
                     <div class="single-post-content">
@@ -43,18 +45,18 @@
                             <span class="post-date"><i class="fa fa-calendar-alt mr-2"></i>{{ $blog->created_at->format('Y-m-d') }}</span>
                             <span class="post-comment"><i class="fa fa-comments mr-2"></i>{{$blog->comments()->count()}} Comments</span>
                             <span><a href="#" class="post-author"><i class="fa fa-user mr-2"></i>
-                                @if ($blog->user_id)
+                                    @if ($blog->user_id)
                                     <!-- Fetch the user corresponding to the user_id -->
                                     <?php $user = App\Models\User::find($blog->user_id); ?>
                                     <!-- Display the user's name if the user is found -->
                                     @if ($user)
-                                        {{ $user->name }}
+                                    {{ $user->name }}
                                     @else
-                                        <!-- If user_id is not set (e.g., anonymous comment), display appropriate message -->
-                                        Anonymous
+                                    <!-- If user_id is not set (e.g., anonymous comment), display appropriate message -->
+                                    Anonymous
                                     @endif
-                                @endif
-                            </a></span>
+                                    @endif
+                                </a></span>
                         </div>
                         <h3>{{ $blog->title }}</h3>
                         <p>{{ $blog->content }}</p>
@@ -67,35 +69,33 @@
                     <!-- hna tags -->
                     <div class="single-tags">
                         @if ($blog->tag_id)
-                            <?php $tag = App\Models\Tag::find($blog->tag_id); ?>
-                            @if($tag)
-                                <a href="#">{{$tag->title}}</a>
-                            @else
-                                <h6><cite>No tags found for this blog.</cite></h6>
-                            @endif
+                        <?php $tag = App\Models\Tag::find($blog->tag_id); ?>
+                        @if($tag)
+                        <a href="#">{{$tag->title}}</a>
+                        @else
+                        <h6><cite>No tags found for this blog.</cite></h6>
                         @endif
-                    </div>                   
-                        
+                        @endif
+                    </div>
+
                     <!-- we need add img to user -->
                     <div class="author">
                         <div class="author-img">
-                            <img src="{{ asset('storage/' . $blog->img) }}" alt="author" class="img-fluid">
+                            @foreach ($teachers as $teacher)
+                            @if(!empty($teacher->picture))
+                            <img src="{{ asset('storage/' .$teacher->picture) }}"  style="height: 90px;width: 90px;" alt="author" class="img-fluid">
+                            @else
+                            <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="" style="height: 90px;width: 90px;" class="img-fluid">
+                            @endif
+                            @endforeach
                         </div>
                         <div class="author-info">
                             <h4>
-                                @if ($blog->user_id)
-                                    <!-- Fetch the user corresponding to the user_id -->
-                                    <?php $user = App\Models\User::find($blog->user_id); ?>
-                                    <!-- Display the user's name if the user is found -->
-                                    @if ($user)
-                                        {{ $user->name }}
-                                    @else
-                                        <!-- If user_id is not set (e.g., anonymous comment), display appropriate message -->
-                                        Anonymous
-                                    @endif
-                                @endif
+
                             </h4>
-                            <p>Instructor</p>
+                            @foreach ($teachers as $teacher)
+                            <p>{{$teacher->first_name}} {{$teacher->last_name}}</p>
+                            @endforeach
                             <p>Curated with passion by Instructor , EnglishChallenger is your go-to hub for English learning. Join us as we explore, learn, and grow together. Stay inspired and keep thriving!</p>
                         </div>
                     </div>
@@ -104,18 +104,18 @@
                     <div class="comments">
                         <h3 class="comment-title">{{ count($comments) }} Comments</h3>
                         @if (count($comments) > 0)
-                            @foreach($comments as $comment)
-                                <div class="media">
-                                    <img src="{{ asset('build/assets/images/blog/user/' . $comment->img) }}" width="90" height="90" class="mr-3" alt="{{ $comment->name }}">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">{{ $comment->name }}<span>{{ $comment->created_at->format('Y-m-d') }}</span></h5>
-                                        {{ $comment->content }}
-                                    </div>
-                                </div>
-                            @endforeach
-                            @else
-                                <p>No comments yet.</p>
-                            @endif
+                        @foreach($comments as $comment)
+                        <div class="media">
+                            <img src="{{ asset('build/assets/images/clients/user.png') }}" width="90" height="90" class="mr-3" alt="{{ $comment->name }}">
+                            <div class="media-body">
+                                <h5 class="mt-0">{{ $comment->name }}<span>{{ $comment->created_at->format('Y-m-d') }}</span></h5>
+                                {{ $comment->content }}
+                            </div>
+                        </div>
+                        @endforeach
+                        @else
+                        <p>No comments yet.</p>
+                        @endif
                     </div>
 
 
@@ -124,7 +124,7 @@
                         <h3>Leave a comment </h3>
                         <p>Your email address will not be published. Required fields are marked *</p>
                         <form action="{{ route('blogs.comments.store', ['blog' => $blog->id]) }}" method="post" class="comment_form">
-                        @csrf
+                            @csrf
                             <div class="row form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -158,31 +158,31 @@
                 </div>
             </div>
             <div class="col-md-4">
-				<div class="blog-sidebar mt-5 mt-lg-0 mt-md-0">
-                <div class="widget widget_search">
-                    <h4 class="widget-title">Search</h4>
-                    <form role="search" class="search-form" action="{{ route('Blogs.index') }}" method="GET">
-                        <input type="text" class="form-control" placeholder="Search" name="query">
-                        <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
+                <div class="blog-sidebar mt-5 mt-lg-0 mt-md-0">
+                    <div class="widget widget_search">
+                        <h4 class="widget-title">Search</h4>
+                        <form role="search" class="search-form" action="{{ route('Blogs.index') }}" method="GET">
+                            <input type="text" class="form-control" placeholder="Search" name="query">
+                            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
 
-                <div class="widget widget_news">
-                    <h4 class="widget-title">Latest Blogs</h4>
-                    <ul class="recent-posts">
-                        @foreach($latestBlogs as $blog)
-                        <li>
-                            <div class="widget-post-thumb">
-                                <a href="#"><img src="{{ asset('build/assets/images/blog/' . $blog->img) }}" alt="{{$blog->title}}" class="img-fluid"></a>
-                            </div>
-                            <div class="widget-post-body">
-                                <span>{{ $blog->created_at->format('Y-m-d') }}</span>
-                                <h6> <a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}">{{$blog->title}}</a></h6>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
+                    <div class="widget widget_news">
+                        <h4 class="widget-title">Latest Blogs</h4>
+                        <ul class="recent-posts">
+                            @foreach($latestBlogs as $blog)
+                            <li>
+                                <div class="widget-post-thumb">
+                                    <a href="#"><img src="{{asset('storage/'.$blog->img)}}" alt="{{$blog->title}}" style="width: 70px;height: 70px;" class="img-fluid"></a>
+                                </div>
+                                <div class="widget-post-body">
+                                    <span>{{ $blog->created_at->format('Y-m-d') }}</span>
+                                    <h6> <a href="{{ route('EnglishChallenger.blog_detail', ['id' => $blog->id]) }}">{{$blog->title}}</a></h6>
+                                </div>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
 
                     <div class="widget widget_categories">
                         <h4 class="widget-title">Categories</h4>
@@ -196,12 +196,12 @@
                     <div class="widget widget_tag_cloud">
                         <h4 class="widget-title">Tags</h4>
                         @foreach($tags as $tag)
-                            <a href="#">{{ $tag->title }}</a>
+                        <a href="#">{{ $tag->title }}</a>
                         @endforeach
                     </div>
 
                 </div>
-      		</div>
+            </div>
         </div>
     </div>
 </div>

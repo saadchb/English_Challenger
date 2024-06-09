@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('duration');
-            $table->enum('duration_unit', ['day','hour', 'Minutes', 'week']);
+            $table->enum('duration_unit', ['day', 'hour', 'Minutes', 'week']);
             $table->integer('passing_grade');
             $table->boolean('instant_check')->nullable();
             $table->boolean('negative_marking')->nullable();
@@ -30,6 +30,8 @@ return new class extends Migration
             $table->boolean('show_correct_answer')->default(1);
             $table->unsignedBigInteger('curriculum_id')->nullable();
             $table->foreign('curriculum_id')->references('id')->on('curricula')->onDelete('cascade');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

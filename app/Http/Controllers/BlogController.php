@@ -7,6 +7,7 @@ use App\Models\Categorie;
 use App\Models\Tag;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -37,6 +38,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $imagePath = $request->file('img')->store('images','public');
+
         $blog = new Blog([
             'title' => $request->get('title'),
             'subtitle' => $request->get('subtitle'),
@@ -44,6 +46,7 @@ class BlogController extends Controller
             'content' => $request->get('content'),
             'subcontent' => $request->get('subcontent'),
             'tag_id' => $request->get('tag_id'),
+            'teacher_id' => $request->get('teacher_id'),
             'img' => $imagePath,
         ]);
         $blog -> save();
@@ -70,6 +73,9 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
+        if (Auth::guard('teacher')->user()->id !== $blog->teacher_id and Auth::guard('teacher')->user()->isAdmin !== 1) {
+            abort(403);
+        }
         $tags = Tag::pluck('title', 'id');
         return view('Backend_editor.Blogs.edit',['tags' => $tags , 'blog'=>$blog]);
     }
@@ -113,11 +119,31 @@ class BlogController extends Controller
 
     public function indexBl(Request $request)
     {
-        $query = $request->input('query');
         $latestBlogs = Blog::latest()->take(5)->get();
         $categories = Categorie::all();
         $tags = Tag::all();
-        $blogs = Blog::where('title', 'like', "%$query%")->paginate(3);
+        if (request('search1'))
+        {
+            $blogs = Blog::where('title',"like", '%' .request('search1').'%')->paginate(8);
+        }
+        else
+        {
+            $teacherId = Auth::guard('teacher')->user()->id;
+            $isAdmin = Auth::guard('teacher')->user()->isAdmin;
+            
+            $blogs = Blog::query()
+                ->where(function ($query) use ($teacherId, $isAdmin) {
+                    if ($isAdmin == 1) {
+                        // If the user is an admin, get all lessons
+                        $query->orWhere('teacher_id', '!=', null);
+                    } else {
+                        // If the user is not an admin, get only their lessons
+                        $query->orWhere('teacher_id', $teacherId);
+                    }
+                })
+                ->latest()
+                ->paginate(8);
+        }
         return view('Backend_editor.Blogs.index', compact('blogs', 'latestBlogs', 'categories', 'tags'));
     }
 

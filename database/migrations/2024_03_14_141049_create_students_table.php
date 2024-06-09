@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('picture');
-            $table->string('phone');
-            $table->string('address');
-            $table->date('date_of_birth');
+            $table->string('picture')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->foreignId('teacher_id')->constrained();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

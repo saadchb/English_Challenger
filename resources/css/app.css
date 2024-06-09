@@ -10,6 +10,7 @@
   html.dark {
     @apply text-neutral-50;
     @apply bg-body-dark;
+    color: #d33b24
   }
 }
 

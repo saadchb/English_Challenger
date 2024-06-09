@@ -33,6 +33,7 @@ class ReviewController extends Controller
     {
 
 
+        // dd($request);
 
         $imagePath = null;
         $rating = $request->get('rating');
@@ -50,11 +51,11 @@ class ReviewController extends Controller
             'email' => $request->get('email'),
             'siteweb' => $request->get('siteweb'),
             'school_photos' => $imagePath,
+            'student_id' => $request->get('student_id'),
+            'teacher_id' => $request->get('teacher_id'),
             'school_id' => $request->get('school_id'),
             'book_id' => $request->get('book_id'),
             'course_id' => $request->get('course_id'),
-
-
             'rating' =>$rating,
         ]);
         // dd($reviews);
@@ -82,16 +83,26 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, review $review)
+    public function update(Request $request, $id)
     {
-        //
+        $review = Review::findOrFail($id);
+        $request->validate([
+            'comments' => 'required|string|max:1000',
+        ]);
+
+        $review->comments = $request->input('comments');
+        $review->save();
+
+        return redirect()->back()->with('success', 'Review updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(review $review)
+    public function destroy(string $id)
     {
-        //
+        $review = Review::findOrFail($id);
+        $review->delete();
+        return redirect()->back();
     }
 }

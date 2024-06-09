@@ -6,6 +6,7 @@ use App\Models\Question;
 use App\Models\Option; // Assuming you have a model named 'Option' for the options table
 
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class QuestionController extends Controller
 {
@@ -55,7 +56,6 @@ class QuestionController extends Controller
             }
 
          }
-
          return redirect()->route('Questions.index')->with('success', 'Question added successfully');
      }
 

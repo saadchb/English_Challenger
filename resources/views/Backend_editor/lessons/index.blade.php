@@ -36,22 +36,27 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Preview</th>
-                                <th scope="col">Date modified</th>
+                                <th scope="col">Duration</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($lessons as $lesson)
+                            @if($lesson->teacher_id == Auth::guard('teacher')->user()->id || Auth::guard('teacher')->user()->isAdmin == 1)
+
                             <tr>
                                 <td>{{$lesson->title}}</td>
-                                <td>Author</td>
+                                <td>3</td>
+                                <td>{{Auth()->guard('teacher')->user()->first_name}} {{Auth()->guard('teacher')->user()->last_name}}</td>
                                 <td>yes</td>
-                                <td>{{$lesson->duration}}</td>
+                                <td>{{$lesson->duration}} {{$lesson->duration_unit}}</td>
                                 <td>
                                     <form id="delete-form-{{$lesson->id}}" action="{{route('lessons.destroy', $lesson->id)}}" method="POST">
                                         <a href="{{route('lessons.edit', $lesson->id)}}" class="btn btn-outline-success btn-sm">
                                             <i class="fa-solid fa-pen"></i> Edit
                                         </a>
+
+
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick='confirmation(event,`{{ $lesson->id }}`)' data-toggle="modal">
@@ -61,6 +66,8 @@
                                 </td>
 
                             </tr>
+
+                            @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -69,7 +76,7 @@
         </div>
     </div>
 </div>
-
 <center style="margin-left: 50%;">{{ $lessons->links() }}</center>
+
 
 @endsection

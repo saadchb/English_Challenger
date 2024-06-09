@@ -66,32 +66,28 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="course-content">
-                            <form action="{{route('cart.store')}}" method="Post">
-                                @csrf
-                                <h2><a href="#" style="color: black;">{{$book->title}}</a></h2><br>
+                            <h2><a href="#" style="color: black;">{{$book->title}}</a></h2><br>
 
-                                <div class="course-price " style="font-size: medium;color: gray;">
-                                    @if($book->regular_price && !$book->sale_price)
-                                    <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->regular_price}}</span>
-                                    @endif
+                            <div class="course-price " style="font-size: medium;color: gray;">
+                                @if($book->regular_price && !$book->sale_price)
+                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->regular_price}}</span>
+                                @endif
 
-                                    @if($book->regular_price && $book->sale_price)
-                                    <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->sale_price}}</span></del>
-                                    <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->regular_price}}</span></ins>
-                                    @endif
+                                @if($book->regular_price && $book->sale_price)
+                                <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->sale_price}}</span></del>
+                                <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{$book->regular_price}}</span></ins>
+                                @endif
 
-                                    @if(!$book->regular_price && !$book->sale_price)
-                                    <span class="uppercase">Free</span>
-                                    @endif
+                                @if(!$book->regular_price && !$book->sale_price)
+                                <span class="uppercase">Free</span>
+                                @endif
 
-                                </div>
-                                <div>
-                                    <p>{{$book->description}}</p>
-                                </div><br>
-                                <input type="text" value="{{$book->id}}" hidden name="book_id">
-                                <div><button type="submit" style="background-color: #862b84; float: left !important;">ADD TO CART</button></div><br>
-
-                            </form>
+                            </div>
+                            <div>
+                                <p>{{$book->description}}</p>
+                            </div><br>
+                            <input type="text" value="{{$book->id}}" hidden name="book_id">
+                            @livewire('add-to-cart', ['book' => $book])
                         </div><br><br>
                         <div class="course-sidebar">
                             <div class="course-widget course-share d-flex justify-content-between align-items-center">
@@ -118,7 +114,7 @@
                     <form role="search" method="get" class="woocommerce-product-search" action="#">
                         <label class="screen-reader-text" for="woocommerce-product-search-field-0">
                             Search for:</label>
-                        <input type="search" id="woocommerce-product-search-field-0" class="search-field" onchange="fom1.submit()" placeholder="Search school…" id="search1" name="search1">
+                        <input type="search" id="woocommerce-product-search-field-0" class="search-field" onchange="fom1.submit()" placeholder="Search book…" id="search1" name="search1">
                         <button type="submit" style="background-color: #862b84;" value="Search"><i class="fas fa-search"></i></button>
                         <input type="hidden" name="post_type" value="product">
                     </form>
@@ -146,136 +142,137 @@
     </div>
 
     <main class="site-main woocommerce single single-product page-wrapper m-4">
-        <div class="col-lg-14 ">
-            <nav class="course-single-tabs">
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Description</a>
-                    <a class="nav-item nav-link " id="nav-feedback-tab" data-toggle="tab" href="#nav-feedback" role="tab" aria-controls="nav-contact" aria-selected="false">Feedback</a>
-                </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <div class="single-course-details ">
-                        <h4 class="course-title">Description</h4>
-                        <p>{{$book->description}}</p>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
-                    <div class="course-widget course-info">
-                        <h4 class="course-title"><i class="fas fa-comments" aria-hidden="true"></i> book Feedback</h4>
-                        @if($review->isEmpty())
-                        <div class="course-review-wrapper">
-                            <div class="course-review">
-                                <p>There are no reviews yet.</p><br>
-                                <h2>Be the first to review “{{$book->title}}”</h2>
-                                <p>You must be logged in to post a review.</p>
-                            </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 ">
+                    <nav class="course-single-tabs">
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Description</a>
+                            <a class="nav-item nav-link " id="nav-feedback-tab" data-toggle="tab" href="#nav-feedback" role="tab" aria-controls="nav-contact" aria-selected="false">Feedback</a>
                         </div>
-                        @else
-                        @foreach ($review as $rev)
-                        @if ($rev->book_id == $book->id)
-                        <div class="course-review-wrapper">
-                            <div class="course-review">
-                                <div class="profile-img">
-                                    <img src="{{ asset('build/assets/images/clients/user.png') }}" alt="" class="img-fluid">
-                                </div>
-                                <div class="review-text">
-                                    <h5>{{ $rev->name }} <span style="float: right;"><i class="fas fa-clock mr-2"></i>
-                                            @if($rev->created_at)
-                                            {{ $rev->created_at->diffForHumans() }}
-                                            @else
-                                            Unknown
-                                            @endif
-                                        </span></h5>
-                                    <br>
-                                    <div class="rating">
-                                        @for ($i = 0; $i < $rev->rating; $i++)
-                                            <a href="#"><i class="fa fa-star"></i></a>
-                                            @endfor
-                                    </div>
-                                    <p>{{ $rev->comments }}</p>
-                                </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="single-course-details ">
+                                <h4 class="course-title">Description</h4>
+                                <p>{{$book->description}}</p>
                             </div>
-                        </div>
-                        @endif
-                        @endforeach
-                        z
-                        @endif
-                    </div>
-                    <div class="comments-form p-5 mt-6" style="margin-top: 140px !important;">
-                        <h3>Leave a comment </h3>
-                        <p>Your email address will not be published. Required fields are marked *</p>
-                        <form action="{{route('course.store')}}" class="comment_form" method="Post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row form-row">
-                                <div class="form-group form-control h-auto rounded px-3 pt-3 pb-3 gd-rating-input-group">
-                                    <div class="gd-rating-outer-wrap gd-rating-input-wrap d-flex justify-content-between flex-nowrap w-100">
-                                        <span style="font-weight: lighter;">* click on star for rating</span>
-                                        <div class="gd-rating gd-rating-input gd-rating-type-font-awesome">
-                                            <span class="gd-rating-wrap d-inline-flex position-relative c-pointer">
-                                                <!-- Five star icons -->
-                                                <span class="star" data-value="1"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
-                                                <span class="star" data-value="2"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
-                                                <span class="star" data-value="3"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
-                                                <span class="star" data-value="4"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
-                                                <span class="star" data-value="5"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
-                                            </span>
-                                            <!-- Text to display rating level -->
-                                            <span class="gd-rating-text badge badge-light border" style="font-size: larger;" data-title="Select a rating">Select a rating</span>
-                                            <!-- Hidden input field to store selected rating -->
-                                            <input type="hidden" id="rating" name="rating">
-                                        </div>
-                                        <span class="gd-rating-label font-weight-bold fw-bold p-0 m-0">Overall</span>
-                                    </div>
-                                </div>
-                                <br>
-                                @error('rating')
-                                <div style="color: red;">{{$message}}</div><br>
-                                @enderror
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <textarea name="comments" id="msgt" cols="30" rows="6" placeholder="Comment" class="form-control"></textarea>
-                                    </div>
-                                </div><br>
-                                @error('comments')
-                                <div style="color: red;">{{$message}}</div><br>
-                                @enderror
-                                <input type="number" name="book_id" hidden value="{{$book->id}}">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="website" placeholder="Website">
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="Name"><br>
-                                    </div>
-                                </div><br>
-                                @error('name')
-                                <div style="color: red;">{{$message}}</div><br>
-                                @enderror
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="text" name="email" class="form-control" placeholder="Email"><br>
-                                    </div>
-                                </div><br>
-                                @error('email')
-                                <div style="color: red;">{{$message}}</div><br>
-                                @enderror
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-main">Comment</button>
+                        </div>
+                        <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
+                            <div class="course-widget course-info">
+                                <h4 class="course-title"><i class="fas fa-comments" aria-hidden="true"></i> Book Feedback</h4>
+
+                                @if($reviews->isEmpty())
+                                <div class="course-review-wrapper">
+                                    <div class="course-review">
+                                        <p>There are no reviews yet.</p><br>
+                                        <h2>Be the first to review “{{$book->title}}”</h2>
+                                        <p>You must be logged in to post a review.</p>
                                     </div>
                                 </div>
+                                @else
+                                @livewire('reviewsbook',[$book->id])
+                                @endif
                             </div>
-                        </form>
+                        </div>
+                        <div class="comments-form p-5 mt-6" style="margin-top: 140px !important;">
+                            <h3>Leave a comment </h3>
+                            <p>Your email address will not be published. Required fields are marked *</p>
+                            <form action="{{route('course.store')}}" class="comment_form" method="Post" enctype="multipart/form-data">
+                                @csrf
+                                @if (Auth::guard('teacher')->check())
+                                <input type="hidden" name="teacher_id" value="{{Auth::guard('teacher')->user()->id}}">
+                                @elseif (Auth::guard('student')->check())
+                                <input type="hidden" name="student_id" value="{{Auth::guard('student')->user()->id}}">
+                                @endif
+                                <div class="row form-row">
+                                    <div class="form-group form-control h-auto rounded px-3 pt-3 pb-3 gd-rating-input-group">
+                                        <div class="gd-rating-outer-wrap gd-rating-input-wrap d-flex justify-content-between flex-nowrap w-100">
+                                            <span style="font-weight: lighter;">* click on star for rating</span>
+                                            <div class="gd-rating gd-rating-input gd-rating-type-font-awesome">
+                                                <span class="gd-rating-wrap d-inline-flex position-relative c-pointer">
+                                                    <!-- Five star icons -->
+                                                    <span class="star" data-value="1"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
+                                                    <span class="star" data-value="2"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
+                                                    <span class="star" data-value="3"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
+                                                    <span class="star" data-value="4"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
+                                                    <span class="star" data-value="5"><i class="fas fa-star" style="font-size:24px" aria-hidden="true"></i></span>
+                                                </span>
+                                                <!-- Text to display rating level -->
+                                                <span class="gd-rating-text badge badge-light border" style="font-size: larger;" data-title="Select a rating">Select a rating</span>
+                                                <!-- Hidden input field to store selected rating -->
+                                                <input type="hidden" id="rating" name="rating">
+                                            </div>
+                                            <span class="gd-rating-label font-weight-bold fw-bold p-0 m-0">Overall</span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    @error('rating')
+                                    <div style="color: red;">{{$message}}</div><br>
+                                    @enderror
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <textarea name="comments" id="msgt" cols="30" rows="6" placeholder="Comment" class="form-control"></textarea>
+                                        </div>
+                                    </div><br>
+                                    @error('comments')
+                                    <div style="color: red;">{{$message}}</div><br>
+                                    @enderror
+                                    <input type="number" name="book_id" hidden value="{{$book->id}}">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="website" placeholder="Website">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            @if (Auth::guard('teacher')->check())
+                                            <input type="text" name="name" class="form-control" value="{{Auth::guard('teacher')->user()->first_name}} {{Auth::guard('teacher')->user()->last_name}}"><br>
+                                            @elseif (Auth::guard('student')->check())
+                                            <input type="text" name="name" class="form-control" value="{{Auth::guard('student')->user()->first_name}} {{Auth::guard('student')->user()->last_name}}"><br>
+                                            @else
+                                            <input type="text" name="name" class="form-control" placeholder="Name"><br>
+                                            @endif
+                                        </div>
+                                    </div><br>
+                                    @error('name')
+                                    <div style="color: red;">{{$message}}</div><br>
+                                    @enderror
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            @if (Auth::guard('teacher')->check())
+                                            <input type="text" name="email" class="form-control" value="{{Auth::guard('teacher')->user()->email}}"><br>
+                                            @elseif (Auth::guard('student')->check())
+                                            <input type="text" name="email" class="form-control" value="{{Auth::guard('student')->user()->email}}"><br>
+                                            @else
+                                            <input type="text" name="email" class="form-control" placeholder="Email"><br>
+                                            @endif
+                                        </div>
+                                    </div><br>
+                                    @error('email')
+                                    <div style="color: red;">{{$message}}</div><br>
+                                    @enderror
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            @if (Auth::guard('teacher')->check() || Auth::guard('student')->check())
+                                            <button type="submit" class="btn btn-main">Comment</button>
+                                            @else
+                                            <button type="submit" disabled class="btn btn-main">Comment</button><br>
+                                            must be logged in for leave a comment
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div><br><br>
+        </div>
+        <br><br>
         <section class="related products">
-
             <h2>Related products</h2>
             <ul class="products columns-5">
                 @foreach ($categories_books as $books)
@@ -370,11 +367,10 @@
                 </li>
                 @endforeach
             </ul>
-
-
         </section>
     </main>
 </section>
+
 <script>
     $(document).ready(function() {
         // Function to toggle tab text

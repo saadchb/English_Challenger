@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'cart')
+@section('title', 'Become a teacher')
 @section('content')
 <section id="books-bg" class="page-header" style="background-image: url('../images/bg/books-book.webp'); background-size: cover; background-position: center;">
     <div class="container">
@@ -117,7 +117,7 @@
                                                     display: inline-block
                                                 }
                                             </style>
-                                            <img fetchpriority="high" decoding="async" width="1170" height="478" src="{{asset('build/assets/images/bg/becom-teacher2.jpg')}}" class="attachment-full size-full wp-image-2892" alt=""  sizes="(max-width: 1170px) 100vw, 1170px">
+                                            <img fetchpriority="high" decoding="async" width="1170" height="478" src="{{asset('build/assets/images/bg/becom-teacher2.jpg')}}" class="attachment-full size-full wp-image-2892" alt="" sizes="(max-width: 1170px) 100vw, 1170px">
                                         </div>
                                     </div><br>
 
@@ -146,9 +146,7 @@
                                                 <article id="post-8" class="post-8 page type-page status-publish hentry">
                                                     <div class="entry-content">
                                                         <div class="woocommerce-notices-wrapper"></div>
-                                                        <form name="checkout" method="post" class="checkout woocommerce-checkout row" action="#" enctype="multipart/form-data" novalidate="novalidate">
-
-
+                                                        <div class="checkout woocommerce-checkout row">
                                                             <div class="col-lg-7">
                                                                 <nav class="course-single-tabs">
                                                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -180,9 +178,11 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            @auth('teacher')
+
+                                                            @if (Auth::guard('teacher')->check())
                                                             <div class="col-lg-5">
                                                                 <div id="order_review" class="woocommerce-checkout-review-order">
+
                                                                     <div class="elementor-shortcode">
                                                                         <div class="elementor-widget-container">
                                                                             <div class="learnpress">
@@ -191,28 +191,42 @@
                                                                                     <hr style="font-weight: bolder;">
                                                                                     <div style="  text-align: center !important;">
                                                                                         <h6 class="font-weight-bold mb-4">Fill in your information and send it to us to become a teacher.</h6>
-                                                                                        <form method="post" class="woocommerce-form woocommerce-form-register register">
-
+                                                                                        <form method="post" action="{{route('contact.store')}}" class="woocommerce-form woocommerce-form-register register "  enctype="multipart/form-data">
+                                                                                            @csrf
                                                                                             <p style="   text-align: center;  " class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                                                                 <label> Name<span class="required">*</span></label>
-                                                                                                <input type="email" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="user-name" id="" autocomplete="user-name" value="default user name">
+                                                                                                <input type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="name" id="" autocomplete="user-name" value="{{Auth::guard('teacher')->user()->first_name}}">
                                                                                             </p>
+                                                                                            @error('first_name')
+                                                                                            <div class="text-danger">{{$message}}</div>
+                                                                                            @enderror
                                                                                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                                                                 <label>Email <span class="required">*</span></label>
-                                                                                                <input type="email" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="email" id="" autocomplete="email" value="default user email">
+                                                                                                <input type="email" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="email" id="" autocomplete="email" value="{{Auth::guard('teacher')->user()->email}}">
                                                                                             </p>
+                                                                                            @error('email')
+                                                                                            <div class="text-danger">{{$message}}</div>
+                                                                                            @enderror
                                                                                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                                                                 <label>Phone <span class="required">*</span></label>
-                                                                                                <input type="number" class="woocommerce-Input woocommerce-Input--text input-text form-control" placeholder="your phone Number" id="" value="">
+                                                                                                <input type="number" class="woocommerce-Input woocommerce-Input--text input-text form-control" placeholder="phone" name="phone" id="" value="{{Auth::guard('teacher')->user()->phone}}">
                                                                                             </p>
+                                                                                            @error('phone')
+                                                                                            <div class="text-danger">{{$message}}</div>
+                                                                                            @enderror
                                                                                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                                                                 <label>Messgae<span class="required">*</span></label>
-                                                                                                <textarea class="woocommerce-Input woocommerce-Input--text input-text form-control" id="" value="">your Message </textarea>
+                                                                                                <textarea class="woocommerce-Input woocommerce-Input--text input-text form-control" id="" name="messages" value="">your Message </textarea>
                                                                                             </p>
+                                                                                            @error('messages')
+                                                                                            <div class="text-danger">{{$message}}</div>
+                                                                                            @enderror
+                                                                                            <input type="hidden" name="photo" value="{{Auth::guard('teacher')->user()->picture}}" >
                                                                                             <p class="woocommerce-FormRow form-row"><br>
                                                                                                 <!-- <input type="hidden" id="woocommerce-register-nonce" name="woocommerce-register-nonce" value="b1c661ab82"><input type="hidden" name="_wp_http_referer" value="/my-account/"> -->
                                                                                                 <button type="submit" class="button_F" name="register" value="Register">Submit</button>
                                                                                             </p>
+
                                                                                         </form>
                                                                                     </div>
 
@@ -223,13 +237,22 @@
 
                                                                 </div>
                                                             </div>
-                                                            @endauth
+                                                            @else
+                                                            <div class="col-md-24">
+                                                                <div class="msg-alert mt-lg-0 mt-md-0">
+                                                                    <div class="widget ">
+                                                                        <div style="  display: inline-flex; width: auto;padding:3%;justify-content: center;">
+                                                                            <p><i class="fas fa-check mr-4" style="color: #63E6BE;"></i>please <a href="/login/teacher"><b>Login</b></a> as teacher to send your request!</p>
+                                                                        </div>
+                                                                    </div>
 
-                                                        </form>
-
-                                                    </div>
-                                    </div><!-- .entry-content -->
-                                </div>
+                                                                </div>
+                                                            </div>
+                                                            @endif
+                                                        </div>
+                                                        </div>
+                                                    </div><!-- .entry-content -->
+                                    </div>
                             </section>
                         </main>
                     </div>

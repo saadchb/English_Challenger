@@ -11,6 +11,8 @@ $courses = Course::all();
 <div class="container-fluid mt--8">
     <form action="{{route('lessons.store')}}" method="Post" enctype="multipart/form-data">
         @csrf
+    <input type="hidden" name="teacher_id" value="{{Auth()->guard('teacher')->user()->id}}">
+
         <div class="sticky-top bg-white border-bottom  px-4 py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h3 class="text-xl font-bold text-gray-900">Add new lesson</h3>
@@ -50,14 +52,19 @@ $courses = Course::all();
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="duration" class="form-label"><b>Duration</b></label>
-                            <div class="input-group">
-                                <input value='{{old("duration")}}' id="duration" type="time" class="form-control" name="duration" value="0"><br>
-                            </div><br> @error('duration')
+                        <div class="input-group form-group col-4">
+                            <input id="_lp_duration" name="duration" type="number" class="form-control" value="0">
+                            <select class="form-select " name="duration_unit">
+                                <option value="Minutes">Minute(s)</option>
+                                <option value="hour">Hour(s)</option>
+                                <option value="day">Day(s)</option>
+                                <option value="week">Week(s)</option>
+                            </select>
+                        </div>
+                        @error('duration')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
-                        </div> <br>
+                        <br>
 
                         <div class="form-group form-check">
                             <input id="priview" type="checkbox" class="form-check-input" name="priview" {{ old('priview') ? 'checked' : '' }}>

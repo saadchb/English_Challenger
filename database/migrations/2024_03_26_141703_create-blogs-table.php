@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('description');
             $table->text('content');
             $table->text('subcontent');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->foreignId('tag_id')->constrained()->nullable()->onDelete('cascade');
             $table->timestamps();
         });

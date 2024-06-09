@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Homme extends Model
 {
     use HasFactory;
-    protected $fillable = ['video'];
+    protected $fillable = ['videoImport'];
 }

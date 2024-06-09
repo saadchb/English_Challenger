@@ -23,7 +23,7 @@ class Student extends Model
         'password',
         'address',
         'date_of_birth',
-        'class',
+        'teacher_id',
     ];
 
     public function courses():HasMany
@@ -33,5 +33,11 @@ class Student extends Model
     public function parents():BelongsTo
     {
         return $this->belongsTo(Parent::class);
+    }
+    public function review():HasMany{
+        return $this->hasMany(review::class);
+    }
+    public function tecaher():BelongsTo{
+        return $this->belongsTo(Teacher::class);
     }
 }

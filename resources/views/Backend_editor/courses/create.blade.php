@@ -5,6 +5,7 @@
 
 <form action="{{ route('Courses.store') }}" enctype="multipart/form-data" id="form1" method="POST">
     @csrf
+    <input type="hidden" name="teacher_id" value="{{Auth()->guard('teacher')->user()->id}}">
     <main class="min-w-0 mx-auto relative">
         <div>
 

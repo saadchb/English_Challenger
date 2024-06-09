@@ -12,11 +12,14 @@ class Lesson extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['title','video_link','description','duration','priview','order','curriculum_id'];
+    protected $fillable = ['title','video_link','description','duration_unit','duration','priview','order','curriculum_id','teacher_id'];
 
     public function curricula(){
         return $this->belongsTo(
             Curriculum::class
         );
+    }
+    public function teacher():BelongsTo{
+        return $this->belongsTo(Teacher::class);
     }
 }

@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Course list')
 @section('content')
-
-
     <section class="edutim-course-single">
         <div class="course-single-wrapper">
             <div class="container">
