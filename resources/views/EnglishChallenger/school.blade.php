@@ -191,7 +191,10 @@ $courses = Course::query()->latest()->paginate(4);
                             <div class="course-review-wrapper">
                                 <div class="course-review">
                                     <p>There are no reviews yet.</p><br>
-                                    <h2>Be the first to review “{{$book->title}}”</h2>
+                                    <h2>Be the first to review “
+                                        {{-- {{$book->title}} --}}
+
+                                        ”</h2>
                                     <p>You must be logged in to post a review.</p>
                                 </div>
                             </div>
@@ -297,7 +300,7 @@ $courses = Course::query()->latest()->paginate(4);
                                     <button type="submit" class="btn btn-main">Comment</button>
                                     @else
                                     <button type="submit" disabled class="btn btn-main">Comment</button><br>
-                                    must be logged in for leave a comment 
+                                    must be logged in for leave a comment
                                     @endif
                                 </div>
                             </div>
@@ -311,11 +314,16 @@ $courses = Course::query()->latest()->paginate(4);
                     <!-- CLAIM THIS BUSINESS button  -->
                     <div class="widget widget_news">
                         {{-- <form action="{{route('loginShoolForm')}}" method="post">
+
                         @csrf --}}
+
                         <a style="color:white;" href="{{route('loginShoolForm')}}">
-                        <button type="submit"  style=" margin-left: 35px !important;background-color: #862b84;justify-content: center !important; align-items: center;"><a style="color:white;" href="{{route('loginShoolForm')}}">CLAIM THIS BUSINESSE
-                         </button><br></a>
-                    {{-- </form> --}}
+
+                            <button type="submit"  style=" margin-left: 35px !important;background-color: #862b84;justify-content: center !important; align-items: center;"><a style="color:white;" href="{{route('loginShoolForm')}}">CLAIM THIS BUSINESSE
+
+                             </button><br></a>
+
+                        {{-- </form> --}}
                     </div>
                     <!-- profile  -->
                     <div class="widget widget_news">

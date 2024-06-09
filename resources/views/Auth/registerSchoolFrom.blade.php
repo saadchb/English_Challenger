@@ -80,10 +80,10 @@
                                 <div class="row">
                                     @if (!$errors->has('school_photos'))
                                     <div class="form-group col-6 mb-3">
-                                        <label for="" class="form-label">School photo</label>
-                                        <label for="formFile" class="form-control btn btn-dark p-2" style="cursor: pointer;">Upload </label>
+                                        <label for="photo" class="form-label">School photo</label>
+                                        <label for="formFilePhoto" class="form-control btn btn-dark p-2" style="cursor: pointer;">Upload </label>
                                         <input class="form-control"  name="school_photos" style="display: none;"
-                                        value="{{ old('school_photos') }}" type="file" id="formFile">
+                                        value="{{ old('school_photos') }}" type="file" id="formFilePhoto">
                                     </div>
                                 @else
                                 <div class="form-group col-6 mb-3">
@@ -122,9 +122,9 @@
                                     @else
                                     <div class="form-group col-6 mb-3">
                                         <label for="" class="form-label text-danger">logo (Error)</label>
-                                            <label for="formFile" class="form-control btn btn-dark p-2" style="cursor: pointer;">Upload </label>
+                                            <label for="formFilePhoto" class="form-control btn btn-dark p-2" style="cursor: pointer;">Upload </label>
                                             <input class="form-control"  name="school_logo" style="display: none;"
-                                        value="{{ old('school_logo') }}" type="file" id="formFile">
+                                        value="{{ old('school_logo') }}" type="file" id="formFilePhoto">
                                         <div class="mt-2 text-danger">{{ $errors->first('school_logo') }}</div>
                                     </div>
                                     @endif
@@ -163,6 +163,9 @@
                                     @endif
 
 
+
+
+
                                     @if (!$errors->has('name_headmaster'))
                                         <div class="form-group col-6">
                                             <label for="name_headmaster">Name of head master</label>
@@ -193,18 +196,18 @@
                                         </div>
                                     @endif
 
-                                    @if (!$errors->has('shool_city'))
+                                    @if (!$errors->has('school_city'))
                                         <div class="form-group col-6">
-                                            <label for="shool_city">Shool city</label>
-                                            <input id="shool_city" type="text" class="form-control" name="shool_city"
-                                                value="{{ old('shool_city') }}" required autocomplete="family-name">
+                                            <label for="school_city">Shool city</label>
+                                            <input id="school_city" type="text" class="form-control" name="school_city"
+                                                value="{{ old('school_city') }}" required autocomplete="family-name">
                                         </div>
                                     @else
                                         <div class="form-group col-6">
-                                            <label for="shool_city" class="text-danger">Shool city (Erreur)</label>
-                                            <input id="shool_city" type="text" class="form-control is-invalid"
-                                                name="shool_city" value="{{ old('shool_city') }}">
-                                            <div class="mt-2 text-danger">{{ $errors->first('shool_city') }}</div>
+                                            <label for="school_city" class="text-danger">Shool city (Erreur)</label>
+                                            <input id="school_city" type="text" class="form-control is-invalid"
+                                                name="school_city" value="{{ old('school_city') }}">
+                                            <div class="mt-2 text-danger">{{ $errors->first('school_city') }}</div>
                                         </div>
                                     @endif
 
@@ -226,18 +229,18 @@
                                         </div>
                                     @endif
 
-                                    @if (!$errors->has('address'))
+                                    @if (!$errors->has('adresse'))
                                         <div class="form-group col-6">
-                                            <label for="address">Address</label>
-                                            <input id="address" type="text" class="form-control" name="address"
-                                                value="{{ old('address') }}" required autocomplete="family-name">
+                                            <label for="adresse">adresse</label>
+                                            <input id="adresse" type="text" class="form-control" name="adresse"
+                                                value="{{ old('adresse') }}" required autocomplete="family-name">
                                         </div>
                                     @else
                                         <div class="form-group col-6">
-                                            <label for="address" class="text-danger">Address (Erreur)</label>
-                                            <input id="address" type="text" class="form-control is-invalid"
-                                                name="address" value="{{ old('address') }}">
-                                            <div class="mt-2 text-danger">{{ $errors->first('address') }}</div>
+                                            <label for="adresse" class="text-danger">Adresse (Erreur)</label>
+                                            <input id="adresse" type="text" class="form-control is-invalid"
+                                                name="adresse" value="{{ old('adresse') }}">
+                                            <div class="mt-2 text-danger">{{ $errors->first('adresse') }}</div>
                                         </div>
                                     @endif
 

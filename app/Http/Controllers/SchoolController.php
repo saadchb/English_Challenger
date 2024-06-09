@@ -94,11 +94,10 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
+        $imagePath = $request->file('school_logo')->store('imagesLogo', 'public');
+        $photoPath = $request->file('school_photos')->store('imagesSchool', 'public');
 
-        $imagePath = $request->file('school_logo')->store('images', 'public');
-        $photoPath = $request->file('school_photo')->store('images', 'public');
-
-        $school = new School([
+        $school = [
             'school_name' => $request->get('school_name'),
             'phone_number' => $request->get('phone_number'),
             'email' => $request->get('email'),
@@ -111,7 +110,8 @@ class SchoolController extends Controller
             'school_photo' => $photoPath,
             'type' => $request->get('type'),
             'school_logo' => $imagePath,
-        ]);
+        ];
+        School::create($school);
 
         if (isset($request->fromRegister)) {
             return redirect('/');
